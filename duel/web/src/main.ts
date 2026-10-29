@@ -18,12 +18,19 @@ const TYPE_COLOR: Record<string, number> = {
   Rock: 0xb6a136, Ghost: 0x735797, Dragon: 0x6f35fc, Dark: 0x705746, Steel: 0xb7b7ce, Fairy: 0xd685ad,
 };
 
+/** Data embedded in the page (published build) wins; otherwise fetch it (local dev server). */
+async function readData<T>(id: string, url: string): Promise<T> {
+  const el = document.getElementById(id);
+  if (el?.textContent) return JSON.parse(el.textContent) as T;
+  return (await fetch(url)).json() as Promise<T>;
+}
+
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 
 async function main() {
   const [boardJson, records] = await Promise.all([
-    fetch('../data/board.json').then((r) => r.json() as Promise<Layout>),
-    fetch('../data/figures.json').then((r) => r.json() as Promise<FigureRecord[]>),
+    readData<Layout>('data-board', '../data/board.json'),
+    readData<FigureRecord[]>('data-figures', '../data/figures.json'),
   ]);
   const pool: FigureDef[] = records.map(toFigureDef);
   const world = new World(boardJson);
@@ -93,6 +100,11 @@ class World {
       const el = canvas.parentElement!;
       this.renderer.setSize(el.clientWidth, el.clientHeight, false);
       this.camera.aspect = el.clientWidth / el.clientHeight;
+      // Pull the camera back on narrow screens so the whole 7-node-wide board stays in view.
+      const k = Math.max(1, 1.3 / this.camera.aspect);
+      const target = new THREE.Vector3(0, 0, 0.4);
+      this.camera.position.copy(target).add(new THREE.Vector3(0, 12.5, 9.1).multiplyScalar(k));
+      this.camera.lookAt(target);
       this.camera.updateProjectionMatrix();
     };
     addEventListener('resize', resize);
@@ -148,6 +160,7 @@ class World {
   }
 
   private tryModel(id: string): Promise<boolean> {
+    if (document.getElementById('data-board')) return Promise.resolve(false); // published single-file build has no model folder
     if (!this.hasModel.has(id)) {
       this.hasModel.set(id, fetch(`../assets/models/${id}.glb`, { method: 'HEAD' }).then((r) => r.ok).catch(() => false));
     }
@@ -282,12 +295,14 @@ class Match {
       return `<b style="color:${p === 0 ? '#6fa0ff' : '#ff7a80'}">${p === HUMAN ? 'Tú (azul)' : 'IA (rojo)'}</b><br>P.C.: ${pc}${waits ? `<br>${waits}` : ''}`;
     };
     $('side').innerHTML = `${side(1)}<hr style="border:0;border-top:1px solid #fff2">${side(0)}`;
+    $('sidem').innerHTML = `<span>${side(1)}</span><span>${side(0)}</span>`;
     $('status').textContent = g.winner !== null ? 'Duelo terminado' : `Turno ${g.turn}/${300} · juega ${g.current === HUMAN ? 'el jugador' : 'la IA'}`;
 
     const bench = g.figures.filter((f) => f.owner === HUMAN);
     $('bench').innerHTML = '';
     for (const f of bench) {
-      const el = document.createElement('span');
+      const el = document.createElement('button');
+      el.type = 'button';
       const where = f.status === 'bench' ? 'banquillo' : f.status === 'pc' ? 'P.C.' : f.at!;
       el.className = 'chip' + (f.uid === this.selected ? ' sel' : '') + (f.status === 'pc' ? ' off' : '');
       el.style.borderColor = '#' + (TYPE_COLOR[f.def.type ?? ''] ?? 0x888888).toString(16).padStart(6, '0');

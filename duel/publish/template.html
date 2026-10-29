@@ -1,0 +1,62 @@
+<title>Duelo de Figuras</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* Layout: one-screen tabletop. Top bar, 3D board filling the middle, figure strip and controls at the bottom.
+     Single dark look on purpose: the board is a lit table. */
+  :root {
+    --bg: #12151c; --panel: #1b2030; --panel-2: #232b3d; --ink: #e8ecf4; --mute: #8d97ad;
+    --blue: #2a6df4; --red: #d8343c; --go: #4cd964; --edge: #ffffff22;
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color-scheme: dark;
+  }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.4 var(--font); overflow: hidden; }
+  * { box-sizing: border-box; }
+  #app { display: flex; flex-direction: column; height: 100%; }
+  .gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  #top { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline; padding-block: 8px; background: var(--panel); }
+  #top b { font-size: 15px; } #status { color: var(--mute); font-variant-numeric: tabular-nums; }
+  .legend { color: var(--mute); font-size: 12px; } .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin: 0 4px 0 10px; vertical-align: -1px; }
+  #stage { position: relative; min-height: 0; flex: 1; }
+  #sidem { display: none; padding-block: 4px; background: var(--panel-2); font-size: 11px; gap: 8px 20px; }
+  #view { width: 100%; height: 100%; display: block; touch-action: manipulation; }
+  #side, #log { position: absolute; top: 10px; background: #0009; padding: 8px 10px; border-radius: 8px; font-size: 12px; min-width: 0; }
+  #side { left: max(10px, env(safe-area-inset-left, 0px)); width: 230px; }
+  #log { right: max(10px, env(safe-area-inset-right, 0px)); width: 260px; max-height: 45%; overflow: auto; }
+  #log div { margin: 2px 0; }
+  #strip { padding-block: 8px; background: var(--panel); display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 2px solid var(--mute); border-radius: 8px; padding: 4px 8px; background: #0003; color: var(--ink); cursor: pointer; font: inherit; }
+  .chip.sel { outline: 2px solid #fff; } .chip.off { opacity: .45; cursor: default; }
+  #controls { padding-block: 8px; background: var(--panel); display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+  button { background: #2f3a58; color: var(--ink); border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; font: inherit; }
+  button:hover:not(:disabled) { background: #3b4870; } button:disabled { opacity: .5; cursor: default; }
+  button:focus-visible, .chip:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  #hint { color: var(--mute); min-width: 0; } #note { color: var(--mute); font-size: 11px; padding-block: 6px; background: var(--panel); }
+  #wheels { position: absolute; inset: 0; display: none; flex-wrap: wrap; align-items: center; justify-content: center; gap: 24px 40px; background: #000a; }
+  #wheels.show { display: flex; } #wheels figure { margin: 0; text-align: center; }
+  #wheels canvas { width: min(220px, 38vw); height: min(220px, 38vw); } #wheels figcaption { margin-top: 6px; }
+  #banner { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: #000b; font-size: 28px; text-align: center; }
+  #banner.show { display: flex; }
+  @media (max-width: 720px) {
+    #log, #side, .legend { display: none; }
+    #sidem { display: flex; flex-wrap: wrap; }
+    #strip { flex-wrap: nowrap; overflow-x: auto; } .chip { white-space: nowrap; font-size: 12px; padding: 3px 7px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+<div id="app">
+  <div id="top" class="gutter"><b>Duelo de Figuras</b><span id="status">Cargando…</span><span class="legend"><i style="background:#fff"></i>blanco<i style="background:#ffc107"></i>dorado<i style="background:#8e44ad"></i>morado<i style="background:#2f80ed"></i>azul<i style="background:#e74c3c"></i>fallo</span></div>
+  <div id="stage">
+    <canvas id="view"></canvas>
+    <div id="side"></div><div id="log"></div>
+    <div id="wheels"><figure><canvas width="440" height="440" id="w0"></canvas><figcaption id="c0"></figcaption></figure><figure><canvas width="440" height="440" id="w1"></canvas><figcaption id="c1"></figcaption></figure></div>
+    <div id="banner"><div id="bannerText"></div><button id="again" type="button">Nuevo duelo</button></div>
+  </div>
+  <div id="sidem" class="gutter"></div>
+  <div id="strip" class="gutter"><span id="bench" style="display:contents"></span></div>
+  <div id="controls" class="gutter"><button id="end" type="button">Terminar turno</button><span id="hint"></span></div>
+  <div id="note" class="gutter">Proyecto personal sin ánimo de lucro. No está afiliado ni respaldado por The Pokémon Company. Figuras provisionales.</div>
+</div>
+<script type="application/json" id="data-board">__BOARD__</script>
+<script type="application/json" id="data-figures">__FIGURES__</script>
+<script>__APP__</script>
