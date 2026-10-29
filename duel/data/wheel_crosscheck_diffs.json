@@ -1,0 +1,4236 @@
+[
+ {
+  "id": 5,
+  "slug": "5-mightyena",
+  "bulba": [
+   "Mightyena (Duel 5)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    12,
+    0
+   ],
+   [
+    "white",
+    28,
+    60
+   ],
+   [
+    "white",
+    32,
+    40
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     12,
+     0
+    ],
+    [
+     "white",
+     28,
+     70
+    ],
+    [
+     "white",
+     32,
+     40
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 53,
+  "slug": "53-palkia",
+  "bulba": [
+   "Palkia (Duel 53)"
+  ],
+  "serebii": [
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    28,
+    100
+   ],
+   [
+    "white",
+    28,
+    100
+   ],
+   [
+    "white",
+    32,
+    130
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     28,
+     70
+    ],
+    [
+     "white",
+     28,
+     100
+    ],
+    [
+     "white",
+     32,
+     130
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 60,
+  "slug": "60-feraligatr",
+  "bulba": [
+   "Feraligatr (Duel 60)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    28,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    24,
+    160
+   ],
+   [
+    "white",
+    36,
+    100
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     24,
+     160
+    ],
+    [
+     "white",
+     32,
+     100
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 80,
+  "slug": "80-groudon",
+  "bulba": [
+   "Groudon (Duel 80)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    16,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    20,
+    90
+   ],
+   [
+    "white",
+    48,
+    130
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     16,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     20,
+     100
+    ],
+    [
+     "white",
+     48,
+     130
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 85,
+  "slug": "85-ledyba",
+  "bulba": [
+   "Ledyba (Duel 85)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    20,
+    0
+   ],
+   [
+    "purple",
+    20,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    24,
+    30
+   ],
+   [
+    "white",
+    24,
+    30
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     16,
+     0
+    ],
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     24,
+     30
+    ],
+    [
+     "white",
+     24,
+     30
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 102,
+  "slug": "102-lapras",
+  "bulba": [
+   "Lapras (Duel 102)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    12,
+    0
+   ],
+   [
+    "purple",
+    32,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    12,
+    50
+   ],
+   [
+    "white",
+    36,
+    100
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     12,
+     0
+    ],
+    [
+     "purple",
+     32,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     24,
+     50
+    ],
+    [
+     "white",
+     28,
+     100
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 106,
+  "slug": "106-bronzong",
+  "bulba": [
+   "Bronzong (Duel 106)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    20,
+    0
+   ],
+   [
+    "purple",
+    20,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    20,
+    20
+   ],
+   [
+    "white",
+    36,
+    100
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     20,
+     0
+    ],
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     20,
+     20
+    ],
+    [
+     "white",
+     32,
+     100
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 110,
+  "slug": "110-mew",
+  "bulba": [
+   "Mew (Duel 110)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    20,
+    0
+   ],
+   [
+    "gold",
+    48,
+    30
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    24,
+    100
+   ],
+   [
+    "white",
+    96,
+    200
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     20,
+     0
+    ],
+    [
+     "gold",
+     48,
+     30
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     24,
+     100
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 120,
+  "slug": "120-tentacruel",
+  "bulba": [
+   "Tentacruel (Duel 120)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    56,
+    120
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "?",
+     24,
+     0
+    ],
+    [
+     "?",
+     56,
+     120
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 131,
+  "slug": "131-giratina",
+  "bulba": [
+   "Giratina (Duel 131)"
+  ],
+  "serebii": [
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    20,
+    0
+   ],
+   [
+    "white",
+    20,
+    100
+   ],
+   [
+    "white",
+    44,
+    160
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     20,
+     100
+    ],
+    [
+     "white",
+     44,
+     160
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 132,
+  "slug": "132-hariyama",
+  "bulba": [
+   "Hariyama (Duel 132)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    30,
+    0
+   ],
+   [
+    "red",
+    12,
+    0
+   ],
+   [
+    "white",
+    24,
+    40
+   ],
+   [
+    "white",
+    24,
+    60
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     36,
+     0
+    ],
+    [
+     "red",
+     12,
+     0
+    ],
+    [
+     "white",
+     24,
+     40
+    ],
+    [
+     "white",
+     24,
+     60
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 138,
+  "slug": "138-xerneas",
+  "bulba": [
+   "Xerneas (Duel 138)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "purple",
+    20,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    12,
+    0
+   ],
+   [
+    "white",
+    20,
+    99
+   ],
+   [
+    "white",
+    24,
+    70
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     12,
+     0
+    ],
+    [
+     "white",
+     20,
+     99
+    ],
+    [
+     "white",
+     24,
+     99
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 182,
+  "slug": "182-makuhita",
+  "bulba": [
+   "Makuhita (Duel 182)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    28,
+    0
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     12,
+     0
+    ],
+    [
+     "white",
+     56,
+     50
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 191,
+  "slug": "191-empoleon",
+  "bulba": [
+   "Empoleon (Duel 191)"
+  ],
+  "serebii": [
+   [
+    "gold",
+    32,
+    30
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    20,
+    70
+   ],
+   [
+    "white",
+    32,
+    150
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     8,
+     0
+    ],
+    [
+     "gold",
+     32,
+     30
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     20,
+     70
+    ],
+    [
+     "white",
+     32,
+     150
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 192,
+  "slug": "192-poliwrath",
+  "bulba": [
+   "Poliwrath (Duel 192)"
+  ],
+  "serebii": [
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    36,
+    130
+   ],
+   [
+    "white",
+    44,
+    40
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "?",
+     44,
+     40
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     36,
+     130
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 203,
+  "slug": "203-lucario",
+  "bulba": [
+   "Lucario (Duel 203)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    24,
+    0
+   ],
+   [
+    "purple",
+    28,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    36,
+    70
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     24,
+     0
+    ],
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     36,
+     100
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 208,
+  "slug": "208-infernape",
+  "bulba": [
+   "Infernape (Duel 208)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    20,
+    0
+   ],
+   [
+    "gold",
+    28,
+    70
+   ],
+   [
+    "red",
+    16,
+    0
+   ],
+   [
+    "white",
+    36,
+    150
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     20,
+     0
+    ],
+    [
+     "gold",
+     28,
+     70
+    ],
+    [
+     "red",
+     12,
+     0
+    ],
+    [
+     "white",
+     36,
+     150
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 209,
+  "slug": "209-totodile",
+  "bulba": [
+   "Totodile (Duel 209)"
+  ],
+  "serebii": [
+   [
+    "red",
+    12,
+    0
+   ],
+   [
+    "white",
+    28,
+    90
+   ],
+   [
+    "white",
+    48,
+    60
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "red",
+     20,
+     0
+    ],
+    [
+     "white",
+     28,
+     90
+    ],
+    [
+     "white",
+     48,
+     60
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 211,
+  "slug": "211-gardevoir",
+  "bulba": [
+   "Gardevoir (Duel 211)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    32,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    24,
+    100
+   ],
+   [
+    "white",
+    32,
+    140
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     32,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     24,
+     40
+    ],
+    [
+     "white",
+     32,
+     140
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 243,
+  "slug": "243-talonflame",
+  "bulba": [
+   "Talonflame (Duel 243)"
+  ],
+  "serebii": [
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    24,
+    60
+   ],
+   [
+    "white",
+    56,
+    100
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     24,
+     60
+    ],
+    [
+     "white",
+     36,
+     100
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 247,
+  "slug": "247-fletchinder",
+  "bulba": [
+   "Fletchinder (Duel 247)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "red",
+    12,
+    0
+   ],
+   [
+    "white",
+    52,
+    30
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "red",
+     12,
+     0
+    ],
+    [
+     "white",
+     24,
+     30
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 249,
+  "slug": "249-arbok",
+  "bulba": [
+   "Arbok (Duel 249)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    28,
+    0
+   ],
+   [
+    "purple",
+    32,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    28,
+    40
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     28,
+     0
+    ],
+    [
+     "purple",
+     32,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     28,
+     50
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 261,
+  "slug": "261-reshiram",
+  "bulba": [
+   "Reshiram (Duel 261)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "purple",
+    12,
+    0
+   ],
+   [
+    "purple",
+    12,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    24,
+    90
+   ],
+   [
+    "white",
+    36,
+    140
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     12,
+     0
+    ],
+    [
+     "purple",
+     12,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     24,
+     90
+    ],
+    [
+     "white",
+     36,
+     140
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 271,
+  "slug": "271-moltres",
+  "bulba": [
+   "Moltres (Duel 271)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    16,
+    0
+   ],
+   [
+    "purple",
+    20,
+    0
+   ],
+   [
+    "red",
+    12,
+    0
+   ],
+   [
+    "white",
+    16,
+    60
+   ],
+   [
+    "white",
+    32,
+    110
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     16,
+     0
+    ],
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "red",
+     12,
+     0
+    ],
+    [
+     "white",
+     16,
+     60
+    ],
+    [
+     "white",
+     32,
+     130
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 283,
+  "slug": "283-sceptile",
+  "bulba": [
+   "Sceptile (Duel 283)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    28,
+    0
+   ],
+   [
+    "gold",
+    20,
+    30
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    44,
+    90
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     28,
+     0
+    ],
+    [
+     "gold",
+     20,
+     50
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     44,
+     90
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 284,
+  "slug": "284-megasceptile",
+  "bulba": [
+   "Mega Sceptile (Duel 284)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    20,
+    0
+   ],
+   [
+    "gold",
+    28,
+    50
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    44,
+    90
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     20,
+     0
+    ],
+    [
+     "gold",
+     28,
+     70
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     44,
+     90
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 314,
+  "slug": "314-heatmor",
+  "bulba": [
+   "Heatmor (Duel 314)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    20,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    32,
+    50
+   ],
+   [
+    "white",
+    32,
+    60
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     32,
+     50
+    ],
+    [
+     "white",
+     32,
+     90
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 316,
+  "slug": "316-cobalion",
+  "bulba": [
+   "Cobalion (Duel 316)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    12,
+    0
+   ],
+   [
+    "blue",
+    12,
+    0
+   ],
+   [
+    "gold",
+    24,
+    60
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    40,
+    101
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     12,
+     0
+    ],
+    [
+     "blue",
+     12,
+     0
+    ],
+    [
+     "gold",
+     28,
+     70
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     40,
+     101
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 326,
+  "slug": "326-gourgeist",
+  "bulba": [
+   "Gourgeist (Duel 326)"
+  ],
+  "serebii": [
+   [
+    "gold",
+    16,
+    50
+   ],
+   [
+    "purple",
+    20,
+    0
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    28,
+    90
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "gold",
+     16,
+     50
+    ],
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     28,
+     90
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 327,
+  "slug": "327-bergmite",
+  "bulba": [
+   "Bergmite (Duel 327)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    28,
+    0
+   ],
+   [
+    "red",
+    12,
+    0
+   ],
+   [
+    "white",
+    24,
+    50
+   ],
+   [
+    "white",
+    32,
+    40
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     12,
+     0
+    ],
+    [
+     "white",
+     24,
+     0
+    ],
+    [
+     "white",
+     32,
+     40
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 339,
+  "slug": "339-vikavolt",
+  "bulba": [
+   "Vikavolt (Duel 339)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    24,
+    70
+   ],
+   [
+    "white",
+    32,
+    120
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     24,
+     70
+    ],
+    [
+     "white",
+     32,
+     100
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 349,
+  "slug": "349-tapubulu",
+  "bulba": [
+   "Tapu Bulu (Duel 349)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    8,
+    0
+   ],
+   [
+    "blue",
+    20,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    28,
+    99
+   ],
+   [
+    "white",
+    28,
+    120
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     20,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     28,
+     99
+    ],
+    [
+     "white",
+     28,
+     120
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 365,
+  "slug": "365-torracat",
+  "bulba": [
+   "Torracat (Duel 365)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    40,
+    0
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     56,
+     40
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 380,
+  "slug": "380-lampent",
+  "bulba": [
+   "Lampent (Duel 380)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    20,
+    0
+   ],
+   [
+    "purple",
+    28,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    36,
+    50
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     36,
+     70
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 389,
+  "slug": "389-popplio",
+  "bulba": [
+   "Popplio (Duel 389)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    16,
+    0
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    40,
+    40
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     16,
+     0
+    ],
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     40,
+     40
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 397,
+  "slug": "397-shinymetagross",
+  "bulba": [
+   "Metagross (Duel 11)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "gold",
+    20,
+    50
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    16,
+    90
+   ],
+   [
+    "white",
+    16,
+    130
+   ],
+   [
+    "white",
+    24,
+    160
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "gold",
+     20,
+     50
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     16,
+     130
+    ],
+    [
+     "white",
+     16,
+     130
+    ],
+    [
+     "white",
+     24,
+     160
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 399,
+  "slug": "399-shinyho-oh",
+  "bulba": [
+   "Ho-Oh (Duel 42)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    12,
+    0
+   ],
+   [
+    "white",
+    28,
+    50
+   ],
+   [
+    "white",
+    32,
+    100
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     12,
+     0
+    ],
+    [
+     "white",
+     28,
+     90
+    ],
+    [
+     "white",
+     32,
+     130
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 407,
+  "slug": "407-megagallade",
+  "bulba": [
+   "Mega Gallade (Duel 407)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    32,
+    140
+   ],
+   [
+    "white",
+    36,
+    90
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     32,
+     140
+    ],
+    [
+     "white",
+     36,
+     110
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 412,
+  "slug": "412-megabanette",
+  "bulba": [
+   "Mega Banette (Duel 412)"
+  ],
+  "serebii": [
+   [
+    "gold",
+    20,
+    80
+   ],
+   [
+    "purple",
+    28,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    44,
+    110
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "gold",
+     20,
+     20
+    ],
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     44,
+     110
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 414,
+  "slug": "414-xurkitree",
+  "bulba": [
+   "Xurkitree (Duel 414)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    28,
+    113
+   ],
+   [
+    "white",
+    36,
+    103
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     28,
+     113
+    ],
+    [
+     "white",
+     36,
+     103
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 428,
+  "slug": "428-keldeoresoluteform",
+  "bulba": [
+   "Keldeo (Duel 428)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    12,
+    0
+   ],
+   [
+    "blue",
+    12,
+    0
+   ],
+   [
+    "gold",
+    36,
+    70
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     12,
+     0
+    ],
+    [
+     "blue",
+     12,
+     0
+    ],
+    [
+     "gold",
+     36,
+     70
+    ],
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 434,
+  "slug": "434-gallade",
+  "bulba": [
+   "Gallade (Duel 434)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    32,
+    70
+   ],
+   [
+    "white",
+    32,
+    110
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     32,
+     90
+    ],
+    [
+     "white",
+     32,
+     140
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 436,
+  "slug": "436-marshadow",
+  "bulba": [
+   "Marshadow (Duel 436)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    24,
+    0
+   ],
+   [
+    "gold",
+    2,
+    30
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    36,
+    70
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     24,
+     0
+    ],
+    [
+     "gold",
+     32,
+     32
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     36,
+     70
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 438,
+  "slug": "438-drifblim",
+  "bulba": [
+   "Drifblim (Duel 438)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    32,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    20,
+    100
+   ],
+   [
+    "white",
+    36,
+    130
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     36,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     20,
+     100
+    ],
+    [
+     "white",
+     36,
+     130
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 440,
+  "slug": "440-ampharos",
+  "bulba": [
+   "Ampharos (Duel 440)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    32,
+    90
+   ],
+   [
+    "white",
+    32,
+    100
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     32,
+     90
+    ],
+    [
+     "white",
+     32,
+     100
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 441,
+  "slug": "441-eelektross",
+  "bulba": [
+   "Eelektross (Duel 441)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "blue",
+    20,
+    0
+   ],
+   [
+    "purple",
+    20,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    20,
+    130
+   ],
+   [
+    "white",
+    20,
+    150
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     20,
+     0
+    ],
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     20,
+     150
+    ],
+    [
+     "white",
+     20,
+     150
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 449,
+  "slug": "449-arcanine",
+  "bulba": [
+   "Arcanine (Duel 449)"
+  ],
+  "serebii": [
+   [
+    "gold",
+    120,
+    0
+   ],
+   [
+    "purple",
+    20,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    24,
+    80
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "gold",
+     43,
+     120
+    ],
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     5,
+     0
+    ],
+    [
+     "white",
+     24,
+     80
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 456,
+  "slug": "456-mareanie",
+  "bulba": [
+   "Mareanie (Duel 456)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    28,
+    0
+   ],
+   [
+    "red",
+    12,
+    0
+   ],
+   [
+    "white",
+    20,
+    28
+   ],
+   [
+    "white",
+    28,
+    30
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     12,
+     0
+    ],
+    [
+     "white",
+     28,
+     20
+    ],
+    [
+     "white",
+     28,
+     30
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 468,
+  "slug": "468-fanrotom",
+  "bulba": [
+   "Fan Rotom (Duel 468)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    8,
+    0
+   ],
+   [
+    "blue",
+    8,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    20,
+    110
+   ],
+   [
+    "white",
+    24,
+    50
+   ],
+   [
+    "white",
+    24,
+    110
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     8,
+     0
+    ],
+    [
+     "blue",
+     8,
+     0
+    ],
+    [
+     "blue",
+     8,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     20,
+     110
+    ],
+    [
+     "white",
+     24,
+     50
+    ],
+    [
+     "white",
+     24,
+     110
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 474,
+  "slug": "474-excadrill",
+  "bulba": [
+   "Excadrill (Duel 474)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    16,
+    0
+   ],
+   [
+    "purple",
+    28,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    44,
+    100
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     44,
+     100
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 493,
+  "slug": "493-drilbur",
+  "bulba": [
+   "Drilbur (Duel 493)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    36,
+    0
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     36,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     48,
+     60
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 500,
+  "slug": "500-poipole",
+  "bulba": [
+   "Poipole (Duel 500)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    32,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    32,
+    47
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     24,
+     0
+    ],
+    [
+     "purple",
+     32,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     32,
+     47
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 501,
+  "slug": "501-naganadel",
+  "bulba": [
+   "Naganadel (Duel 501)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    28,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    32,
+    83
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     28,
+     0
+    ],
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     32,
+     83
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 505,
+  "slug": "505-megametagross",
+  "bulba": [
+   "Mega Metagross (Duel 505)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "gold",
+    16,
+    100
+   ],
+   [
+    "gold",
+    16,
+    100
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    28,
+    160
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "gold",
+     16,
+     100
+    ],
+    [
+     "gold",
+     16,
+     100
+    ],
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     28,
+     160
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 524,
+  "slug": "524-blacephalon",
+  "bulba": [
+   "Blacephalon (Duel 524)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    28,
+    151
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "blue",
+     28,
+     0
+    ],
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     28,
+     151
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 525,
+  "slug": "525-ultranecrozma",
+  "bulba": [
+   "Ultra Necrozma (Duel 525)"
+  ],
+  "serebii": [
+   [
+    "gold",
+    44,
+    173
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     24,
+     0
+    ],
+    [
+     "gold",
+     44,
+     173
+    ],
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 527,
+  "slug": "527-vaporeon",
+  "bulba": [
+   "Vaporeon (Duel 527)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    12,
+    0
+   ],
+   [
+    "gold",
+    50,
+    24
+   ],
+   [
+    "purple",
+    32,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    24,
+    90
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     12,
+     0
+    ],
+    [
+     "gold",
+     24,
+     50
+    ],
+    [
+     "purple",
+     32,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     24,
+     90
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 536,
+  "slug": "536-megakangaskhan",
+  "bulba": [
+   "Mega Kangaskhan (Duel 536)"
+  ],
+  "serebii": [
+   [
+    "gold",
+    24,
+    120
+   ],
+   [
+    "purple",
+    20,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    48,
+    200
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "gold",
+     24,
+     120
+    ],
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     48,
+     200
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 546,
+  "slug": "546-megagarchomp",
+  "bulba": [
+   "Mega Garchomp (Duel 546)"
+  ],
+  "serebii": [
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    28,
+    180
+   ],
+   [
+    "white",
+    36,
+    160
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     28,
+     180
+    ],
+    [
+     "white",
+     36,
+     160
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 549,
+  "slug": "549-tornadustherianforme",
+  "bulba": [
+   "Tornadus (Duel 549)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    24,
+    0
+   ],
+   [
+    "purple",
+    32,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    32,
+    160
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     24,
+     0
+    ],
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     32,
+     160
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 554,
+  "slug": "554-dialga",
+  "bulba": [
+   "Dialga (Duel 554)"
+  ],
+  "serebii": [
+   [
+    "gold",
+    28,
+    100
+   ],
+   [
+    "purple",
+    28,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    32,
+    180
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "gold",
+     28,
+     110
+    ],
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     32,
+     180
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 557,
+  "slug": "557-pikachu",
+  "bulba": [
+   "Pikachu (Duel 557)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    4,
+    0
+   ],
+   [
+    "gold",
+    24,
+    70
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    40,
+    110
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     4,
+     0
+    ],
+    [
+     "gold",
+     24,
+     70
+    ],
+    [
+     "purple",
+     36,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     40,
+     110
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 558,
+  "slug": "558-alakazam",
+  "bulba": [
+   "Alakazam (Duel 558)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    20,
+    0
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    40,
+    110
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     20,
+     0
+    ],
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "white",
+     24,
+     110
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 567,
+  "slug": "567-celebi",
+  "bulba": [
+   "Celebi (Duel 567)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    32,
+    0
+   ],
+   [
+    "red",
+    4,
+    0
+   ],
+   [
+    "white",
+    44,
+    40
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     16,
+     0
+    ],
+    [
+     "purple",
+     32,
+     0
+    ],
+    [
+     "red",
+     1,
+     0
+    ],
+    [
+     "white",
+     47,
+     40
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 579,
+  "slug": "579-tornadusincarnateforme",
+  "bulba": [
+   "Tornadus (Duel 579)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "purple",
+    32,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    32,
+    100
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     24,
+     0
+    ],
+    [
+     "purple",
+     32,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     32,
+     100
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 583,
+  "slug": "583-aurorus",
+  "bulba": [
+   "Aurorus (Duel 583)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    32,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    28,
+    120
+   ],
+   [
+    "white",
+    28,
+    160
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     32,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     28,
+     120
+    ],
+    [
+     "white",
+     40,
+     160
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 621,
+  "slug": "621-bounsweet",
+  "bulba": [
+   "Bounsweet (Duel 621)"
+  ],
+  "serebii": [
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "white",
+    40,
+    40
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "purple",
+     24,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     40,
+     40
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 628,
+  "slug": "628-shinymimikyu",
+  "bulba": [
+   "Mimikyu (Duel 363)"
+  ],
+  "serebii": [],
+  "bulba_sig": [
+   [
+    [
+     "purple",
+     20,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     24,
+     30
+    ],
+    [
+     "white",
+     40,
+     90
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 629,
+  "slug": "629-shinymewtwo",
+  "bulba": [
+   "Mewtwo (Duel 96)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    16,
+    0
+   ],
+   [
+    "purple",
+    32,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    40,
+    70
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     16,
+     0
+    ],
+    [
+     "purple",
+     32,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     40,
+     100
+    ]
+   ]
+  ]
+ },
+ {
+  "id": 633,
+  "slug": "633-shinygenesect",
+  "bulba": [
+   "Genesect (Duel 235)"
+  ],
+  "serebii": [
+   [
+    "blue",
+    8,
+    0
+   ],
+   [
+    "blue",
+    8,
+    0
+   ],
+   [
+    "purple",
+    24,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "red",
+    8,
+    0
+   ],
+   [
+    "white",
+    40,
+    50
+   ]
+  ],
+  "bulba_sig": [
+   [
+    [
+     "blue",
+     8,
+     0
+    ],
+    [
+     "blue",
+     8,
+     0
+    ],
+    [
+     "purple",
+     28,
+     0
+    ],
+    [
+     "red",
+     4,
+     0
+    ],
+    [
+     "red",
+     8,
+     0
+    ],
+    [
+     "white",
+     40,
+     70
+    ]
+   ]
+  ]
+ }
+]

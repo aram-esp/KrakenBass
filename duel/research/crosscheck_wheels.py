@@ -6,13 +6,13 @@ def sig_b(f):
     labels = list(f['wheels'])
     if not labels: return None
     w = [s for s in f['wheels'][labels[0]] if s['kind'] == 'duelattack']
-    return sorted((s['color'], s['prob'] or 0, s['power'] or 0) for s in w)
+    return sorted((s['color'] or '?', s['prob'] or 0, s['power'] or 0) for s in w)
 def sig_s(d):
     if not d.get('wheels'): return None
     w = d['wheels'][0]['moves']
     out = []
     for m in w:
-        dmg = int(m['damage']) if m['damage'].isdigit() else 0
+        mm = re.match(r'\d+', m['damage']); dmg = int(mm.group()) if mm else 0
         out.append((m['color'], m['size'], dmg))
     return sorted(out)
 byid = {}

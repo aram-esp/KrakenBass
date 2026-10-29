@@ -60,6 +60,12 @@ Parsers: `research/parse_*.py`; raw dumps under `research/raw/`.
 ## Cross-checks
 - Serebii lists 594 figure ids; Bulbapedia has 567 pages (variants share pages). All sampled Serebii ids map to a Bulbapedia page;
   one possible gap: second Dawn Wings Necrozma (id 647). 2 MP/rarity mismatches seen (Audino, Weedle) = rarity naming/patch drift.
+- Wheel cross-check (Serebii first table vs Bulbapedia newest version, `crosscheck_wheels.py`): 492 identical, 70 different, 31 unmatched.
+  The differences are consistent with patch drift: e.g. Lapras's Surf was changed (damage 60→70, smaller wheel piece) per the
+  Bulbapedia version history, and Serebii still shows the older numbers. Bulbapedia (versioned sections) is treated as canonical;
+  `data/wheel_crosscheck_diffs.json` lists the 70 for manual review. Serebii writes damage as '30x'/'70+' for effect-scaling attacks.
+- Gym Cup: figures of the cup's type with MP 0-2 get +1 MP (max 3); figures of a type super-effective against it get +20 on white/gold. [BULBA]
+- Other modes (Queen's Cup/Carnival, Team Match, Dev Showdown, Tournament: 50 prelim duels, top 32 single-elimination) change rewards, not rules. [BULBA]
 - `data/abilities.json`: 364 abilities (Serebii, v7.0.14+) with effect text and figure names.
 
 ## Not found / blocked
