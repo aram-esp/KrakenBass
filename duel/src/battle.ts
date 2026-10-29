@@ -14,24 +14,32 @@ export function spin(figure: Figure, rng: Rng): Move {
 }
 
 export interface BattleResult {
-  attackerMove: Move;
-  defenderMove: Move;
-  /** Figures knocked out by this battle. */
+  moverMove: Move;
+  otherMove: Move;
+  /** Figures knocked out by this battle (empty on a tie or a dodge). */
   ko: Figure[];
 }
 
-export function battle(attacker: Figure, defender: Figure, rules: RulesConfig, rng: Rng): BattleResult {
-  const am = spin(attacker, rng);
-  const dm = spin(defender, rng);
-  let ko: Figure[];
+/** Returns >0 if `a` wins, <0 if `b` wins, 0 for nothing happens. */
+function compare(a: Move, b: Move, rules: RulesConfig): number {
+  if (a.color !== b.color) return rules.colorBeats(a.color, b.color) ? 1 : -1;
+  if (a.color === 'white' || a.color === 'gold') return Math.sign(a.damage - b.damage);
+  if (a.color === 'purple') return Math.sign((a.stars ?? 0) - (b.stars ?? 0));
+  return 0; // blue/blue and red/red: nothing happens
+}
 
-  if (am.color !== dm.color) {
-    ko = rules.colorBeats(am.color, dm.color) ? [defender] : [attacker];
-  } else if (am.damage !== dm.damage) {
-    ko = am.damage > dm.damage ? [defender] : [attacker];
-  } else {
-    ko = rules.tie === 'both-ko' ? [attacker, defender]
-      : rules.tie === 'attacker-wins' ? [defender] : [attacker];
-  }
-  return { attackerMove: am, defenderMove: dm, ko };
+/**
+ * Both figures spin; the colours decide the outcome. Per the TFG rules ties
+ * do nothing. A white win knocks the loser out; whether purple/gold wins also
+ * knock out is UNVERIFIED and treated the same here.
+ */
+export function battle(mover: Figure, other: Figure, rules: RulesConfig, rng: Rng): BattleResult {
+  const mm = spin(mover, rng);
+  const om = spin(other, rng);
+  const c = compare(mm, om, rules);
+  const knocks = (m: Move) => m.color === 'white' || m.color === 'gold' || m.color === 'purple';
+  let ko: Figure[] = [];
+  if (c > 0 && knocks(mm)) ko = [other];
+  if (c < 0 && knocks(om)) ko = [mover];
+  return { moverMove: mm, otherMove: om, ko };
 }

@@ -1,32 +1,27 @@
 import type { Color } from './types.ts';
 
 /**
- * Every value here is UNVERIFIED. They are placeholders until the original
- * numbers are confirmed from primary sources (Bulbapedia / r/pokemonduel wiki).
- * Do not treat them as facts about the original game.
+ * Sources: Bulbapedia "Pokémon Trading Figure Game" (Mechanics), which says Duel
+ * used rules almost identical to it. Items marked UNVERIFIED are not in a source.
  */
 export interface RulesConfig {
-  /** Max turns before the game is declared over. */
+  /** Max turns before the game is declared over. UNVERIFIED value. */
   turnLimit: number;
-  /** Outcome when the turn limit runs out. Sources say "both lose"; unconfirmed. */
-  turnLimitResult: 'both-lose' | 'draw';
-  /** Does `a` beat `b`? Only consulted when the two colours differ. */
+  /** Does colour `a` beat a different colour `b`? */
   colorBeats: (a: Color, b: Color) => boolean;
-  /** What happens when two numeric moves tie on damage. Unknown in the original. */
-  tie: 'both-ko' | 'defender-wins' | 'attacker-wins';
+  /** Which adjacent enemy is fought when several are adjacent. UNVERIFIED. */
+  target: 'first' | 'none';
 }
 
 /**
- * Two sources disagree on the colour hierarchy:
- *  A) blue beats everything; purple > white; gold > purple; red loses to all.
- *  B) blue > gold > purple > white > red.
- * Option B is a strict total order, so it is used as the default.
+ * Verified (TFG): blue beats all; purple beats white; red (miss) loses to all.
+ * UNVERIFIED: where gold sits. Duel added gold; one search summary put it
+ * between blue and purple, so that is used as a placeholder.
  */
-const ORDER_B: Color[] = ['blue', 'gold', 'purple', 'white', 'red'];
+const ORDER: Color[] = ['blue', 'gold', 'purple', 'white', 'red'];
 
 export const defaultRules: RulesConfig = {
   turnLimit: 100,
-  turnLimitResult: 'both-lose',
-  colorBeats: (a, b) => ORDER_B.indexOf(a) < ORDER_B.indexOf(b),
-  tie: 'both-ko',
+  colorBeats: (a, b) => ORDER.indexOf(a) < ORDER.indexOf(b),
+  target: 'first',
 };

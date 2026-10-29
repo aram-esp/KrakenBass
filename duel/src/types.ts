@@ -9,6 +9,8 @@ export interface Move {
   color: Color;
   /** Only meaningful for numeric colours (white/gold). */
   damage: number;
+  /** Purple moves compare stars when both sides spin purple. */
+  stars?: number;
 }
 
 /** One wheel slice; `weight` is its relative size on the roulette. */

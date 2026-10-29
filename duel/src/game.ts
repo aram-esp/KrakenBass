@@ -46,7 +46,7 @@ export class Game {
     this.endTurn();
   }
 
-  /** Nodes reachable within the figure's MP; stepping onto an enemy ends the path there. */
+  /** Nodes reachable within the figure's MP, one adjacent step per MP, through empty nodes only. */
   reachable(f: Figure): Map<NodeId, number> {
     const dist = new Map<NodeId, number>([[f.at!, 0]]);
     const queue: NodeId[] = [f.at!];
@@ -54,12 +54,8 @@ export class Game {
       const cur = queue.shift()!;
       const d = dist.get(cur)!;
       if (d >= f.def.mp) continue;
-      const occ = cur === f.at ? undefined : this.figureAt(cur);
-      if (occ) continue; // an occupied node blocks further travel
       for (const nb of this.board.neighbors(cur)) {
-        if (dist.has(nb)) continue;
-        const other = this.figureAt(nb);
-        if (other && other.owner === f.owner) continue;
+        if (dist.has(nb) || this.figureAt(nb)) continue;
         dist.set(nb, d + 1);
         queue.push(nb);
       }
@@ -68,24 +64,29 @@ export class Game {
     return dist;
   }
 
+  adjacentEnemies(f: Figure): Figure[] {
+    return this.board.neighbors(f.at!)
+      .map((n) => this.figureAt(n))
+      .filter((o): o is Figure => !!o && o.owner !== f.owner);
+  }
+
+  /** Move to an empty node; if that leaves the figure next to an enemy, they battle. */
   move(uid: string, to: NodeId): BattleResult | null {
     const f = this.mine(uid);
     if (f.status !== 'board') throw new Error('figure is not on the board');
     if (!this.reachable(f).has(to)) throw new Error('unreachable node');
+    f.at = to;
+    this.checkWin(f);
+    if (this.winner !== null) return null;
 
-    const target = this.figureAt(to);
     let result: BattleResult | null = null;
-    if (target) {
-      result = battle(f, target, this.rules, this.rng);
+    const [foe] = this.adjacentEnemies(f);
+    if (foe && this.rules.target === 'first') {
+      result = battle(f, foe, this.rules, this.rng);
       for (const k of result.ko) this.knockOut(k);
     }
-    if (f.status === 'board') f.at = to;
-
-    this.checkWin(f);
-    if (this.winner === null) {
-      this.checkEncirclement();
-      this.endTurn();
-    }
+    this.checkEncirclement();
+    this.endTurn();
     return result;
   }
 
