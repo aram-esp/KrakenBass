@@ -3,8 +3,9 @@
 Sets:
   default  -> sprites frontales 96x96 (estilo Gen V pixel art), cubren #1-#1025
   emerald  -> sprites de Pokémon Esmeralda 64x64, solo existen para #1-#386
+  bw       -> carpeta black-white de PokeAPI 96x96 (#650+ son los mismos que default)
 
-Uso: python download_sprites.py [default|emerald|all]
+Uso: python download_sprites.py [default|emerald|bw|all]
 """
 import json
 import os
@@ -17,6 +18,7 @@ RAW = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon"
 SETS = {
     "default": (RAW, None),
     "emerald": (RAW + "/versions/generation-iii/emerald", 386),
+    "bw": (RAW + "/versions/generation-v/black-white", None),
 }
 
 
