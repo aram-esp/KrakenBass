@@ -1,3 +1,4 @@
 node_modules/
 web/dist/
-assets/models/
+assets/models/*
+!assets/models/README.md

@@ -43,3 +43,15 @@ test('200 AI-vs-AI duels with random real decks always terminate legally', () =>
   assert.equal(results[0] + results[1] + results.none, 200);
   console.log('results', results);
 });
+
+test('an unblocked 3-MP runner that moves first reaches the goal on its third turn (AI rush)', () => {
+  const runner: FigureDef = { id: 'r', name: 'runner', mp: 3, wheel: [{ move: { name: 'Miss', color: 'red', damage: 0 }, weight: 1 }] };
+  const idle: FigureDef = { id: 'i', name: 'idle', mp: 1, wheel: [{ move: { name: 'Miss', color: 'red', damage: 0 }, weight: 1 }] };
+  const g = new Game(board, [[idle], [runner]], seeded(1), undefined, 1);
+  const rng = seeded(3);
+  while (g.winner === null) {
+    if (g.current === 1) aiTurn(g, rng); else g.endTurn();
+  }
+  assert.equal(g.winner, 1);
+  assert.equal(g.turn, 5); // AI turns are 1, 3 and 5: MP 2 + 3 + 3 covers the 7 MP needed (1 to enter + 6 steps)
+});

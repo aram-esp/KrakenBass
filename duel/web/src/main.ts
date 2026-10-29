@@ -107,6 +107,21 @@ class World {
     });
   }
 
+  /** Remove every figure so a new duel starts with fresh pieces (new deck, new types, new models). */
+  clearFigures() {
+    for (const g of this.figureGroup.values()) {
+      this.scene.remove(g);
+      g.traverse((o) => {
+        const m = o as THREE.Mesh;
+        m.geometry?.dispose();
+        const mat = m.material as THREE.Material | THREE.Material[] | undefined;
+        if (Array.isArray(mat)) mat.forEach((x) => x.dispose()); else mat?.dispose();
+      });
+    }
+    this.figureGroup.clear();
+    this.tween.clear();
+  }
+
   /** Placeholder base + body; a model at assets/models/<id>.glb replaces the body when it exists. */
   addFigure(f: Figure) {
     const g = new THREE.Group();
@@ -196,7 +211,8 @@ class Match {
     this.selected = null;
     $('log').innerHTML = '';
     $('banner').classList.remove('show');
-    for (const f of this.game.figures) if (!this.world.figureGroup.has(f.uid)) this.world.addFigure(f);
+    this.world.clearFigures();
+    for (const f of this.game.figures) this.world.addFigure(f);
     this.log(`Empieza ${first === HUMAN ? 'el jugador (azul)' : 'la IA (rojo)'}. Quien empieza tiene MP-1 en su primer turno.`);
     (window as unknown as { __duel: unknown }).__duel = { game: this.game, match: this, world: this.world };
     $('end').onclick = () => { if (this.canAct()) { this.game.endTurn(); this.afterHuman(); } };
