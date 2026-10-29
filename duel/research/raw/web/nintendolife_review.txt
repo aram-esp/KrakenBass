@@ -1,0 +1,495 @@
+
+ Pokémon Duel Review (Mobile) | Nintendo Life
+Menu
+Search
+ Share
+Guest
+Guest
+Login | Sign Up
+Nintendo Life
+Keywords 
+ Home
+Nintendo Mobile 
+ News
+ Reviews
+ Features
+ Games
+ Guides
+ Videos
+ Forums
+[Guest]
+Guest
+Login or Sign Up
+ Home 
+ Choose Topics... 
+ Manage Topics 
+[Pokémon Duel (Mobile) Cover]
+Pokémon Duel
+Mobile2017
+ System
+ Nintendo Mobile
+ Publisher
+ Nintendo
+ Developer
+ Heroz Japan
+Game Rating
+User Ratings: 14
+ 6.1
+10 
+9 
+8 
+7 
+6 
+5 
+4 
+3 
+2 
+1 
+No Score
+ Add to Games Collection
+ Have
+ Owned
+ Want
+ Maybe
+ Nope!
+ Remove
+Navigation: Home / Reviews / Mobile / Pokémon Duel Review
+Reviews
+Pokémon
+Pokemon Duel
+Nintendo Mobile
+Pokémon Duel Review (Mobile)
+Has the Pokemon Co. mastered it?
+Version Reviewed: European
+[Serebii]review by Joe Merrick
+Tue 31st Jan 2017
+Share:
+[Pokémon Duel Review - Screenshot 1 of 4]
+Following on from the amazing success of Pokémon GO comes the next mobile Pokémon game release, with Pokémon Duel - technically, though, this game came out before Pokémon GO due to its release in Japan in April of last year as Pokémon Co-master. We've actually been playing it ever since that original release and can therefore understand why this western launch has come as such a shock; Co-master hardly set the world alight at launch.
+Pokémon Duel is a mobile game developed by HEROZ which is based on the short-lived Pokémon Trading Figure game that came out globally in 2006. You have six Pokémon figures in your deck and face off against another player with six figures, and have to reach the opponent's goal before they can reach yours. It's a relatively simple concept, but the game hints at a lot of surprising depth before stumbling and missing its potential heights.
+Each figure has its own special moves and even - sometimes - a special ability. Some abilities prevent status conditions, while others allow it to pass through other Pokémon; these various skills require you to take some serious consideration before making your move. Pokémon moves work in a successive order of trumping another - first moves have a power determining if it will work over the other. If the power number is higher, then that Pokémon wins and the other Pokémon is knocked out. White moves are beaten, however, by the Purple Status moves which just give special effects and don't necessarily knock out a Pokémon. Purple status moves can be beaten by Gold moves, which work the same as White moves but act with added priority. Blue moves are essentially used to block other moves, and Red moves always result in a miss and a loss.
+[Pokémon Duel Review - Screenshot 2 of 4]
+So, how do you choose the moves? This is where the game falters. The moves are chosen by a randomly spinning roulette giving you little to no control over which move is actually deployed by your Pokémon. This creates a hole in the entire strategy of the game as too much is left to chance. While you can be very strategic in your Pokémon's movements and placement on the board, it can all be wiped away by one totally random choice in your game. It's quite unfortunate, because there is a solid underlying element of strategy here which is let down by the lack of full control over battles. Each game, as a result, prompts you to keep your fingers crossed in the hope that you don't get a bum spin off the roulette.
+There are some elements which allow you to manipulate each spin, however. Each Pokémon can be levelled up with experience gained from battles and fusing with other figures, bringing it up to a maximum of Level 5. With each level, you can increase the size of one of the Pokémon's moves on the roulette wheel, which also decreases the Miss attack sections. You can also increase a Pokémon's Chain Level by fusing with other figures of the same species, and this allows you to increase the strength of a Pokémon's move. You can also evolve some Pokémon figures in battle in order to make them more powerful.
+There are also Plates which can help you in the field by boosting the power of moves or by protecting your Pokémon. These essentially act like Trainer Cards in the Pokémon Trading Card Game. Each Plate has a specific energy usage; you only have a value of 6 for your deck, so if you have a Plate with an energy of 3, you cannot have 5 other Plates.
+[Pokémon Duel Review - Screenshot 3 of 4]
+Getting figures borders on "gachapon" levels. While you can get some figures through the single player as rewards, the more reliable way of getting them is through Boosters. To top that off, figures have got a specific rarity so the more powerful ones with a rarity of EX are a lot rarer than - for example - a UC Bulbasaur. Boosters can be obtained for 50 gems a piece, or higher values to get multiple boosters with more perks; the contents of boosters changes every month or so, when new figures are introduced into the game. Gems can be obtained through various in-game events or via a daily bonus, but the core way to get them is through in-app microtransactions; yep, it's a free-to-start download. You can also make figures using material obtained when you buy a Booster, so you can get any specific figure that you have already seen.
+When you load the game up, you will immediately see a big Play button. This puts you into League Matches with other random players online. It also has special Boosters that unlock gradually through playing online, with 10 keys needed to unlock it. You get one key for playing a match online and two more if you happen to win; you also get more timed boosters that you can unlock for jewels.
+You could be forgiven if you think that this is all there is to it, but you'd be mistaken. In an earlier version of the game released in Japan, the single player was the prime focus but now it has been relegated to a small corner of a tiny menu in the corner of the starting screen, and is therefore easily overlooked. In this story, you are entering the Pokémon Figure World Championships in Carmonte Island in order to go through the various buildings, defeating all the leaders to win the Jewel Tower (yes, the actual tower). Each stage has a different team and progresses the story, and when you beat a stage you can try and complete various challenges that give you access to items. Not all of the buildings are available to contest, with the most recent one opening up last May, so the story cannot be completed at the time of writing.
+[Pokémon Duel Review - Screenshot 4 of 4]
+There is also a mode that lets you play against friends. This is a Room Match where you get a specific room number and a password that you can share out with people you really want to play against. There's also a Featured Match option where you can watch special matches that have gone online. On top of this, there are Daily Missions that you can tackle. These are simple missions that give you a special bonus item, which could be coins, Gems or items, and when you have completed 10 daily missions you get a special roulette wheel of prizes.
+The gameplay of Pokémon Duel, ultimately, feels like a mesh between smart strategic planning and a disappointing reliance on random factors. This is where the game misses its main target, but there are a couple of other issues. First, the localisation is surprisingly off-note. There are numerous typos in the text, including some Pokémon's names (for example a Plate refers to "Genesect" as "Genosect"), and bizarrely poor grammar when detailing challenges ("Put an opponent's Figures to sleep 1 times"). Like Super Mario Run, the game also requires a constant online connection, which results in long load times even when you're performing simple actions, such as changing a menu, and often crashes and boots (in our experience) back to the title screen. It makes the whole experience feel quite rushed, which is odd when you consider the game has been available in Japan for almost a year.
+Graphically, the game is nice and sleek. The figures are generally beautiful poses of each of the Pokémon, making us question exactly why Nintendo hasn't produced more 'mon amiibo. The moves aren't overly animated, but the interface and the look of the playing board is very nice and has a great style to it. It's something the game has done really well, but let's not forget that this is a video game of a board game, so it's not going to have the most animated, colourful and attention grabbing visuals. The story cutscenes are a bit barebones, however. Rather than animations, it's just stock images of the characters with text in front of them and a background. The audio, on the other hand, is really great. The music is catchy and even lets you know when you're in peril, with the tune changing as you get close to the opponent's goal or when an opponent is getting close to yours.
+Conclusion
+Pokémon Duel is an odd game. It's a smart, strategic board game that also has questionable design choices, a reliance on in-app purchases and a battle system that relies too heavily on luck. It has the potential to be so much more, and it could fulfil that latent promise with future updates; despite its design issues it is oddly compelling and we found ourselves coming back to it as a result. It's a mixed bag, all told, and in the context of the grand nature of the Pokémon brand that's a disappointment - improvements are needed for it to stand tall within the franchise.
+Not Bad 6/10
+How we review products
+Scoring Policy
+Share:
+0
+36
+About Joe Merrick
+[Joe Merrick]
+Joe is the webmaster of Serebii.net, a site devoted to chronicling all news, data, and other information related to the Pokémon franchise, including all the games, TCG, anime, manga, and more.
+ Author Profile
+ Reply
+Comments 36
+[What_Sthat]
+1
+What_Sthat
+Tue 31st Jan 2017
+Spent an hour or so on it but couldn't really get into it after a few significant streaks of no progress with single battles ending with miss miss dodge miss tie miss tie tie dodge miss miss etc. Even with items made to improve chance it more often than not worked out with the same stalemate results. 6 is an appropriate score. I can see me playing it occasionally if I'm not carrying my 3DS outside (or soon Switch?) and have a little bit of down time.
+1
+[JubilifeRival]
+2
+JubilifeRival
+Tue 31st Jan 2017
+Meh, I'll be skipping this one.
+3
+[Raptor78]
+3
+Raptor78
+Tue 31st Jan 2017
+I wanted to like it but I couldn't get into it, I just wasn't enjoying it. I plan on giving it another go sometime as it looked good but it just felt about meh to me when I tried it. Looking forward to Feb 2nd though for a bit of Fire Emblem mobile.
+2
+[JarusPokemon]
+4
+JarusPokemon
+Tue 31st Jan 2017
+I wonder why they decided to translate Comaster now. Pokemon Comaster (Japanese version of Duel) has been out in Japan for well over a year. I also tried this game out for a bit, and couldn't really find it enjoyable. Sorry, mobile Pokemon games, but you certainly aren't wowing me.
+3
+[Seacliff]
+5
+Seacliff
+Tue 31st Jan 2017
+I played the TFG back when it was... relevant? And I did enjoy it.
+However, this keeps crashing or failing to load on my Kindle Fire, I want to play it more. I think the core gameplay is decently strategic with a few RNG elements like Fire Emblem.
+0
+[XCWarrior]
+6
+XCWarrior
+Tue 31st Jan 2017
+A few people on my Twitter feed have posted about this. They seem to dislike it a lot. Doesn't sound fun at all.
+Hopefully this is not what to expect with FE Heroes.
+1
+[Firelork]
+7
+Firelork
+Tue 31st Jan 2017
+This game kind of reminds me of all those fake Pokemon game ads that appear on youtube all the time.
+2
+[CartoonDan]
+8
+CartoonDan
+Tue 31st Jan 2017
+1/10 Reliance on in-app purchases
+0
+[ThePoochyKid]
+9
+ThePoochyKid
+Tue 31st Jan 2017
+@InternetBowser So you just hate all Pokémon dpin-off games?
+0
+[Nintendo_Ninja]
+10
+Nintendo_Ninja
+Tue 31st Jan 2017
+I think this score is 1 point too low. The connectivity is lag free and for a very quick and simple mobile game it has some depth to it. The graphics aren't anything to go crazy over, but it's a solid package that will get better with updates.
+0
+[Kalmaro]
+11
+Kalmaro
+Tue 31st Jan 2017
+I think the game is an 8/10
+Its a lot of fun and the strategy is pretty deep, plus they give a lot of gems away.
+2
+[CloudyTheGlace]
+12
+CloudyTheGlace
+Tue 31st Jan 2017
+Gave this a try. The random aspect of it does ruin the game quite a bit for me, but did lead to a pretty intense game where my opponent had an Yveltal on their goal and I had to work a pair of Zangoose up to surround it and take their goal, giving that game a bit of a chess aspect. Sadly, I'm not much for winning a game based on luck. Will be dropping this in favor of Fire Emblem Heroes in a few days. Was hoping it would fill the gap till then, but I put it down in favor of Fates a few days ago.
+0
+[BulbasaurusRex]
+13
+BulbasaurusRex
+Tue 31st Jan 2017
+As a veteran of the trading figure game, you've really missed the point of the game. It's meant to be a combination of strategy and luck! It's not supposed to be an extremely hardcore strategy experience like Chess or SRPGs. Haven't you ever played one of the many board games out there that uses both strategy and the luck of dice rolls and/or card draws to determine a winner?! Are you as biased against games like "Risk" and "Settlers of Catan"?
+Besides, the entire balance of the game would be broken if you were allowed to pick your moves! Everyone would always pick the high priority or high powered moves and never the low powered low priority moves or the misses. Heck, part of the strategy behind picking your figurines is in determining how likely you'll spin something good as opposed to something not as good.
+Once you understand the game's design, this game is more like an 8/10.
+7
+[Rumncoke25]
+14
+Rumncoke25
+Tue 31st Jan 2017
+I downloaded this game, thinking it would be a goood time waster. I played two matches and deleted it. Too random, and I don't like what looks to be pay to get a decent Pokémon. I didn't give it much of a chance but there didn't seem much here.
+I kinda feel like if they took off the Pokémon skins, this game probably would be considered blasé.
+0
+[Kalmaro]
+15
+Kalmaro
+Tue 31st Jan 2017
+@BulbasaurusRex That's what I'm saying. The game only feels random because people think this game is just figurines bashing against each other. There's much more to it than that, you don't even need to fight to win.
+There's randomness in every Pokémon game out there, this game is about knowing your Pokémon and planning accordingly to maximize their damage and minimize any loses you take while going for their goal.
+I think too many people were wanting this to be a Pokémon clone where they just picked the strongest move. Ignoring the fact that it would invalidate 95% of the roster if you did that.
+I love how the game is balanced, you don't even need super powerful Pokémon to win. My Lugia was getting wrecked by rattata thanks to me ignoring my accuracy.
+1
+[feelinsupersonic]
+16
+feelinsupersonic
+Tue 31st Jan 2017
+well they can't all be the new pac-man
+0
+[TravinoEXE]
+17
+TravinoEXE
+Tue 31st Jan 2017
+@Rumncoke25 They actually seem to give a ridiculous amount of gems away. They give gems away for maintenance downtimes, a lot more if the schedule downtime is surpassed. Plus naturally playing the game, daily missions, etc. I've gotten over 1,200 gems in just a couple days. Didn't spend a dime. There's a special booster pack for 300 where you get a guaranteed EX-rarity figure (the rarest) and I've gotten more EX figures than I've bought Booster Packs, as a few times I've gotten multiple EX figures. The game is very generous that way so far. And besides, the rarity of the figures mean nearly nothing outside of a collector's perspective - typings and species mean nearly nothing. Sure, your Legendaries have wicked strong moves, but often can't move more than one space at a time, which is detrimental in this type of game, and they still can be beaten depending on the move you roll. As someone made an example in this comment section, a Rattata can very easily beat something like Mewtwo or Ho-Oh with a little luck. I've been on both sides of that sort of situation. Those rare figures are best left by your own checkpoint as sort of a final boss for your opponent to conquer. I tend to run teams of more common Pokémon that can move more spaces and have a lot of success with it.
+0
+[TravinoEXE]
+18
+TravinoEXE
+Tue 31st Jan 2017
+I personally love this game.
+At the beginning it did have a lot of connectivity issues where playing online with randoms was a bit troublesome, especially when daily missions require it. But aside from that, I personally love games that sblend strategy and luck, and this game is no exception to that rule.
+There's always a sense of suspense, no matter what you're up against. I can't tell you how many times I've had what's normally considered a weak and worthless Pokémon beat out a mighty legendary. It gives viability to Pokémon that rarely see the light of day, if at all, in the main series games and makes them fun to use. How many times my Bidoof ran through enemy lines to hit that goal, i can't really say. But it's super satisfying every single time.
+Yeah, the element of luck outweighs strategy to some degree, but most board games do. You have to rely on luck (the roll of a dice or the drawing of a much needed card) in most board games, and this mobile board game is no exception. It adds an element of extreme satisfaction when your underdog Pokémon beats out a legendary, and it adds a sense of crippling defeat when the same happens to you. It's an emotional rollercoaster and it's damn addicting.
+Despite some technical issues regarding online connectivity, the core game itself is an absolute blast. I personally give it at 8/10 easy.
+0
+[Serebii]
+19
+Serebii
+Tue 31st Jan 2017
+@Nintendo_Ninja Going between menus often has over 5 seconds of "Loading/Connecting" in the bottom right after loading it before you can do anything. That's not a good thing. Hopefully it'll be resolved but at time of writing, it's a bad thing.
+0
+[Late]
+20
+Late
+Tue 31st Jan 2017
+I've said it a couple times before but I like the game very much. The strategy comes to play as you try to minimize the randomness by upgrading your figures, choosing the right ones, using the plates and trying to surround the other figures instead of battling. I've noticed that many players attack whenever they can while ending the turn without attacking is oftentimes a much better option.
+And as some others have already said. They are giving a lot of gems away. I have 800 at the moment and I've already used 900 to purchase sextuple figure packs. And I'm going to get those 900 gems back since they made a minor mistake with the booster text (check the latest news messages).
+I've had troubles with the connection issues and constant loading but for the last two days, the app has worked almost flawlessly. Fast menus and always found opponents in under 5 seconds.
+0
+[Serebii]
+21
+Serebii
+Tue 31st Jan 2017
+@Kalmaro There is randomness in Pokémon, sure, and you can win without battling but the fact that pure random makes or breaks every battle is not ideal. It doesn't make it a good system
+0
+[Serebii]
+22
+Serebii
+Tue 31st Jan 2017
+@GoshDangTravino I've been playing this game since April and never before the localisation have we got this many gems. Once the launch period is over, it'll go back to how it was and it'll be hard to get gems again, especially when the Booster bundles disappear (also a launch thing)
+0
+[TravinoEXE]
+23
+TravinoEXE
+Tue 31st Jan 2017
+@Serebii Oh, absolutely, and I understand that completely. It's been wildly useful for collecting a lot of unique figurines early on, so I have the variety I need to play the game for as long as I feel like it. I mainly made the comment that Inmade to highlight the fact that the makers of this game acknowledge when they make mistakes and apologize to players with rewards. Normally a standard 'we apologize for the inconvenience' is plenty for me, but they go above and beyond, which is refreshing. I'm sure I'll still be playing once things are settled and we aren't getting tons of gems for free all the time. To me, the gameplay itself is what matters, and it hardens back to the days where my family and friends would play board games with each other and is quite pleasant in today's mobile gaming market.
+I will say that my opinion seems to be in the minority here, but still. I enjoy it. The mass gems are just an added bonus to me.
+0
+[felippecmfv]
+24
+felippecmfv
+Tue 31st Jan 2017
+I love it because I'm a collection fanatic. And I think the majority of board games rely on luck? So that doesn't bother me
+0
+[BulbasaurusRex]
+25
+BulbasaurusRex
+Tue 31st Jan 2017
+@Serebii It's only a bad system when battling is the main object of a game. In this game, it's only one tactic in your quest to reach your opponent's goal. There are several others, including simply surrounding an opposing figure so that you automatically defeat it without a fight.
+0
+[ThePoochyKid]
+26
+ThePoochyKid
+Tue 31st Jan 2017
+@InternetBowser Play either Pokémon Mystery Dungeon: Explorers of Sky or Super Pokémon Mystery Dungeon. Now.
+1
+[Kalmaro]
+27
+Kalmaro
+Tue 31st Jan 2017
+@GoshDangTravino
+Yeah I was going up against someone with an mewtwo last night, I didn't even fight it, I just surrounded it and took it out that way. No randomness involved.
+@Serebii That's just it though, pure random does not describe e this game.
+Not o lyrics that but Pokémon, in general, is all about randomness.
+In the form of hoping your attacks don't miss in the main games, or that you burn them
+Critical hits
+Causing status effects with moves
+That the chu you're fighting doesn't do something dumb if you aren't playing a person
+And don't get me started on the pure chance of breeding and hunting for shinies.
+This game has random elements but it's not completely out of control, it's up to you to know how to put yourself in the position where the odds are best in your favor and know when to completely avoid fights. Fighting in general in this game is a bad idea and is usually a last resort. Thus game is mostly about positioning and using your plates wisely.
+Also, they just finished maintenance and the game runs much faster for me now.
+0
+[Baker1000]
+28
+Baker1000
+Tue 31st Jan 2017
+This is exactly like the Pokémon Battle Coin game that came out during Pokemania of the 90s. You'd buy packs of 3 random coins that came in CD cases which had to be spun whilst flat like spinning tops. They had damage segments marked on them like the spinners in this game. I actually sold all of mine just before Christmas on eBay.
+Google 'em.
+0
+[Late]
+29
+Late
+Tue 31st Jan 2017
+@Baker1000 I had all kinds of Pokémon stuff as a kid but not these although I might have seen them long ago. I wasn't aware of the connection. I only knew of PTFG which now seems to be the middle step from Battle Coin to Duel.
+0
+[FatherChesz]
+30
+FatherChesz
+Tue 31st Jan 2017
+I agree somewhat, at higher levels of play it seriously does just come down to luck. Assuming both players know it's not typically smart to attack, you will move and counter your opponent's advances until there is no option but to press the attack, at which point the best laid plans simply fall apart from RNG. Or, you make quick safe moves to get your opponent's timer to run out first. Either way, it sucks.
+Being a TFG vet it was fun storming across the board but it was a bit of a hollow victory, playing against people who obviously didn't know what was going on.
+0
+[Kit]
+31
+Kit
+Tue 31st Jan 2017
+I actually really like it and I'm not usually that into PKMN spin-offs. Interesting how people have been decrying it because of randomness, has no one else figured out that you can stop the spinners in the right place by tapping on them at the right moment?!! I manage to get the attack I want 8/10 times. I also would've given this app 8/10 rather than the miserly 6/10. Call yourselves fans? Pah! lol X-D
+0
+[Kalmaro]
+32
+Kalmaro
+Tue 31st Jan 2017
+@Kit I've been wondering if that was possible or not.
+I've done a few test but I haven't been able to 'select' my attack. I don't think it is possible.
+@FatherChesz if no chance was involved though, everyone would just buy the rarest Pokémon and spam the strongest attacks. There's be no strategy.
+0
+[BulbasaurusRex]
+33
+BulbasaurusRex
+Wed 1st Feb 2017
+@FatherChesz I'd say you'd have to fight more often than just as a last resort. However, the key is to have backup plans so that you're not screwed if a single battle doesn't go your way until/unless your opponent has successfully managed to bypass all of your defenses.
+0
+[Kit]
+34
+Kit
+Wed 1st Feb 2017
+@Kalmaro Works for me. 
+0
+[Kalmaro]
+35
+Kalmaro
+Wed 1st Feb 2017
+@Kit I haven't had any luck yet, still seems as random as ever
+0
+[wizzgamer]
+36
+wizzgamer
+Wed 1st Mar 2017
+Releasing games on rival platforms is a clear sign of a struggling game company please Nintendo release Mario odyssey on PS4.
+0
+ Show Comments
+Leave A Comment
+Hold on there, you need to login to post a comment...
+Related Articles
+[Pokémon Unite Ending Service For Switch In March 2027]
+Pokémon Unite Ending Service For Switch In March 2027
+"Thank you for playing"
+["We Couldn't Believe It" - Man's Forgotten Pokémon Collection Sells For $2 Million]
+"We Couldn't Believe It" - Man's Forgotten Pokémon Collection Sells For $2 Million
+Money where your Meowth is
+[Pokémon Legends: Z-A's Latest Mystery Gift Distribution Is Now Live]
+Pokémon Legends: Z-A's Latest Mystery Gift Distribution Is Now Live
+Spewpa Duper
+[Pokémon Apps Are Coming Back Online After Extended Cybersecurity Outage]
+Pokémon Apps Are Coming Back Online After Extended Cybersecurity Outage
+Sleep, HOME and Champions all went down yesterday
+[Pokémon Pokopia Pumpkaboo's Sweet Surprises Halloween Event Guide, From Pumpkin Candy To Gourgeist]
+Pokémon Pokopia Pumpkaboo's Sweet Surprises Halloween Event Guide, From Pumpkin Candy To Gourgeist
+Treat yourself to two Ghost-types this Halloween
+Game Profile
+[Pokémon Duel]
+Title:
+Pokémon Duel
+System:
+Nintendo Mobile
+Publisher:
+Nintendo
+Developer:
+Heroz Japan
+Release Date:
+iPhone/iOS
+[US] 24th Jan 2017
+[EU] 24th Jan 2017
+Also Known As:
+Pokémon Co-master (Japan)
+Reviews:
+Review: Pokémon Duel (Mobile)
+Latest Reviews
+[Mouthwashing (Switch) - A Disgustingly Beautiful Port That Brings You Even Closer To The Horror]
+ 15
+Review Mouthwashing (Switch) - A Disgustingly Beautiful Port That Brings You Even Closer To The Horror
+[Goodboy Galaxy (Switch) – A Brilliant GBA Throwback That Loves Taking Your Toys Away]
+ 26
+Review Goodboy Galaxy (Switch) – A Brilliant GBA Throwback That Loves Taking Your Toys Away
+[The Séance Of Blake Manor (Switch 2) - A Special Game, And A Perfect Halloween Treat]
+ 15
+Review The Séance Of Blake Manor (Switch 2) - A Special Game, And A Perfect Halloween Treat
+[Shadow Of The Tomb Raider: Definitive Edition (Switch 2) - The Weakest Survivor Entry, But Still A Good Time]
+ 27
+Review Shadow Of The Tomb Raider: Definitive Edition (Switch 2) - The Weakest Survivor Entry, But Still A Good Time
+[Minecraft (Switch 2) - A Satisfying Upgrade Overall, But Where's Mouse Mode?]
+ 37
+Mini Review Minecraft (Switch 2) - A Satisfying Upgrade Overall, But Where's Mouse Mode?
+Most Read
+ 1 
+Guide All Stranded Keypad Codes In Modern Warfare 4
+ 2 
+News Walmart Cancels Zelda Switch 2 Pre-Orders A Day Before Release
+ 3 
+News Hori Unveils Brand New Legend Of Zelda Switch 2 Products
+ 4 
+Review Call Of Duty: Modern Warfare 4 (Switch 2) - Best-In-Class Bombast That D...
+ 5 
+Opinion I May Never Play The Original Ocarina Of Time Again
+ 6 
+Guide Nintendo Indie World Showcase October 2026: Every Announcement, Game Rev...
+ 7 
+Community 42 Switch Games We Missed, As Recommended By You
+ 8 
+Guide 61 Switch 1 & 2 Games You Should Check Out In Nintendo's 'Halloween Sale...
+ 9 
+News Nintendo Expands Switch Online's Game Boy Library With Three More Titles
+ 10 
+News Cyberpunk 2077: Edgerunners 2 Update (2.5) Officially Revealed, Here Are...
+A
+B
+C
+D
+E
+F
+G
+H
+I
+J
+K
+L
+M
+N
+O
+P
+Q
+R
+S
+T
+U
+V
+W
+X
+Y
+Z
+ Top
+About
+Staff
+How We Work
+Support Us
+Contact
+Privacy Policy
+Terms of Use
+Ads Policy
+Archive
+Cookie Settings
+Desktop Version
+Popular Right Now
+[Wurmple Pokémon GO Evolution Tips - How To Evolve Wurmple Into Silcoon Or Cascoon]Wurmple Pokémon GO Evolution Tips - How To Evolve Wurmple Into Silcoon Or CascoonSat 8th Aug 2020
+[Pokémon GO Spotlight Hour Schedule - February 2026]Pokémon GO Spotlight Hour Schedule - February 2026Mon 16th Jan 2023
+[Opinion: I Played Mario Kart Tour Every Day For Seven Years, And What Am I Left With?]Opinion: I Played Mario Kart Tour Every Day For Seven Years, And What Am I Left With?Sun 27th Sep 2026
+[Best Mario Kart Games Of All Time]Best Mario Kart Games Of All TimeSun 15th Jun 2025
+[Pokémon GO Community Day October 2026: Time, Date & All Previous Community Day Pokémon]Pokémon GO Community Day October 2026: Time, Date & All Previous Community Day PokémonSat 18th May 2024
+[Pokémon GO Eevee Evolutions - How To Evolve Eevee Into Sylveon, Leafeon, Glaceon, Umbreon, Espeon, Vaporeon, Jolteon And Flareon]Pokémon GO Eevee Evolutions - How To Evolve Eevee Into Sylveon, Leafeon, Glaceon, Umbreon, Espeon, Vaporeon, Jolteon And FlareonTue 25th May 2021
+[Nintendo Has Now Shut Down Mario Kart Tour]Nintendo Has Now Shut Down Mario Kart TourThu 1st Oct 2026
+[Pokémon Apps Are Coming Back Online After Extended Cybersecurity Outage]Pokémon Apps Are Coming Back Online After Extended Cybersecurity OutageThu 22nd Oct 2026
+[Which Pokémon GO 'Auto Catch' Companion Device Is Best?]Which Pokémon GO 'Auto Catch' Companion Device Is Best?Wed 13th Jul 2022
+[Pokémon GO Developer Niantic Changes Its Name And Logo]Pokémon GO Developer Niantic Changes Its Name And LogoTue 7th Jul 2026
+[How To Redeem Pokémon GO Promo Codes]How To Redeem Pokémon GO Promo CodesThu 18th Aug 2022
+[Community: Pokémon GO Friend Codes - Share Yours Here To Gain Easy XP]Community: Pokémon GO Friend Codes - Share Yours Here To Gain Easy XPSun 6th Oct 2019
+Show More 
+Join 1,611,201 people following Nintendo Life:
+RSS Feed
+YouTube
+TikTok
+Twitter
+Bluesky
+Instagram
+Threads
+Facebook
+© 2026 Hookshot Media, partner of IGN Entertainment. | Hosted by 44 Bytes. | [i] AdChoices | Do Not Sell My Personal Information
+Friends:
+Push Square
+Pure Xbox
+Time Extension
+Steam Hype
+Digital Foundry
+Nintendo News
+IGN
+Eurogamer
+VGC
+GamesIndustry.biz
+CVG
+RPS
+ All the latest Nintendo Life goodness straight to your inbox
+[Beacon]
+[ZDBB]
+

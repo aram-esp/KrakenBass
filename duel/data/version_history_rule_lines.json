@@ -1,0 +1,214 @@
+[
+ [
+  "2.0.0",
+  [
+   "Updates in League Match interface"
+  ]
+ ],
+ [
+  "3.0.0",
+  [
+   "Added Cosmo Energy and Flame Energy Plates"
+  ]
+ ],
+ [
+  "3.0.0",
+  [
+   "Added Long Barrel and Dark Energy Plates"
+  ]
+ ],
+ [
+  "3.0.0",
+  [
+   "Added Tropical Energy, Phantom Energy, Sticky Grass, and Concentrated Fertilizer Plates"
+  ]
+ ],
+ [
+  "3.0.0",
+  [
+   "Cosmo Energy plate no longer affects Pokémon that are on the bench",
+   "Flame Energy plate now inflicts Wait on opponent's Pokémon that are burned at the time of use"
+  ]
+ ],
+ [
+  "3.0.0",
+  [
+   "Added Steel Energy, Burn Drive W, Douse Drive W, Chill Drive W, and Shock Drive W Plates"
+  ]
+ ],
+ [
+  "3.0.0",
+  [
+   "Added Muscle Energy Plate"
+  ]
+ ],
+ [
+  "3.0.0",
+  [
+   "Added Mud Energy Plate"
+  ]
+ ],
+ [
+  "3.0.0",
+  [
+   "Added Electro Energy Plate"
+  ]
+ ],
+ [
+  "3.0.0",
+  [
+   "Added Molting Energy Plate",
+   "Fixed bug that displayed Electro Energy Plate as ID 339"
+  ]
+ ],
+ [
+  "4.0.0",
+  [
+   "Mega Evolution is here!",
+   "The deck cost cap for plates has increased.",
+   "A new League has been added.",
+   "Added Mega Evolution and rarity for Mega Evolved Pokémon (UX)",
+   "Added new material Carmonite",
+   "Increased total plate cost for decks (6→8)",
+   "Adjusted League thresholds and added Legend League"
+  ]
+ ],
+ [
+  "4.0.0",
+  [
+   "Flame Power Plate added back a period"
+  ]
+ ],
+ [
+  "4.0.0",
+  [
+   "Added Poison Blade Plate"
+  ]
+ ],
+ [
+  "4.0.0",
+  [
+   "Fixed the Black Core Ability not nullifying all the effects of the Phantom Energy Plate",
+   "Fixed a bug where a figure with the Surprise Strike Ability moved to the bench when next to a figure with the Otherworldly Talons Ability"
+  ]
+ ],
+ [
+  "4.0.0",
+  [
+   "UI altered: information and messages condensed into one menu; Featured Duel replacing the former messages button; Room Match, Quests, and current event buttons moved to a tab in the upper left corner; background of the League (renamed Home), Decks, Fusion, and Menu screens changed; Monthly Loyalty Rewards directly accessible from the Shop screen",
+   "Fixed bug causing a Pokémon using the Surprise Strike Ability to surround an opponent with the Slippery Ability initiating a battle instead of automatically knocking out the opponent"
+  ]
+ ],
+ [
+  "5.0.3",
+  [
+   "Fixed bug that caused Abilities that activate when moving from the bench to the field to not trigger when moved via Wimp Out or Emergency Exit"
+  ]
+ ],
+ [
+  "5.0.6",
+  [
+   "Ultra Space added",
+   "Maximum figure case capacity increased (2,000→3,000); starting capacity increased (50→100)",
+   "91 had its MP increased (MP1→MP2)",
+   "The X Speed Plate no longer changes non-damaging White Attacks to Gold Attacks",
+   "League restrictions added to Room Match settings",
+   "Fixed the Dark Energy Plate nullifying the effect of the Phantom Energy Plate on opposing non-Psychic and non-Ghost-type figures"
+  ]
+ ],
+ [
+  "5.0.6",
+  [
+   "Fixed the Black Core Ability not triggering Evolution when knocking out an opponent via surrounding when the movement to surround was triggered by an Attack",
+   "Fixed the Steel Energy and Metal Sphere Plates preventing damage being increased by Swords Dance"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "Fixed bug where the duel was automatically lost when a figure is returned from Ultra Space via the Homeward Lights Ability or the Nebby's Power attack, while the player is using AI"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "Fixed bug preventing the player from Mega Evolving a Pokémon if another of their Mega Evolved Pokémon was in Ultra Space",
+   "Fixed Abilities not triggering when moved from the bench to the field by the effects of Night Slash",
+   "Fixed bug causing Pokémon sent to Ultra Space via 416's Homeward Lights Ability to be returned to the field paralyzed if Mega Ampharos was knocked out by Zap Cannon"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "Added Microwave Oven Plate",
+   "Fixed Ballast Plate not being usable on Pokémon on the bench"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "315 increased its MP (2→3)"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "Fixed bug where special conditions weren't being removed when a figure moved from Ultra Space to the bench"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "Changes made to the Hall search function"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "421 increased MP (2→3)",
+   "422 increased MP (2→3)",
+   "Fixed bug where the effects of the Metal Sphere and Steel Energy Plates weren't being reflected by Icicle Spear"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "Added Grass Sphere Plate",
+   "Fixed bug where Dragon-type Pokémon on the bench under the effect of the Dragon Sphere Plate could move over Pokémon at entry points"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "Added Electric Fan Plate"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "80 increased its MP (1→2), altered the effect of its Primal Rage Ability, and increased the damage of Smash (110→13) and Break Energy (70→100)",
+   "Fixed bug where the effects of Solar Blade, Freeze Shock, and Ice Beam were triggering after the opponent's figure gains Wait from its own attack"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "1. Mega Evolution has been revamped!",
+   "2. League promotion rewards have been released!"
+  ]
+ ],
+ [
+  "6.0.0",
+  [
+   "2. [UX] Mega Gardevoir, [UX] Mega Banette, and [UX] Giratina Origin Forme are here!",
+   "3. You can get a daily Booster at no cost! Special log-in event!"
+  ]
+ ],
+ [
+  "7.0.0",
+  [
+   "6. We're giving you [UX] Pikachu, which can activate an exclusive Z-Move!",
+   "8. Mega Evolution figure sets are here!"
+  ]
+ ]
+]

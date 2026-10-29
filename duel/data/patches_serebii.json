@@ -1,0 +1,214 @@
+[
+ {
+  "version": "Version 1.0 May",
+  "text": "| \nRelease Dates:\nMay 31st 2016\nSize:\n??\nAlterations:\nAdded new \"Gold Skills\". Gold Skills beat Purple Skills and can stun the opponent\nAdded the new hotel, Iridium\nClarified the text on the No Guard & Transparent Cloak plates.\nNew figures have been added\nVarious Figure Alterations\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 1.1",
+  "text": "| \nRelease Dates:\nJune 14th 2016\nSize:\n77.4MN\nAlterations:\nAdded Queen's Cup event\nStatus Affliction Alterations\nParalysis: No longer choses the attack that is removed randomly, instead it goes for the smallest\nMove Alterations\nPsychic Blow: Fixed an issue where only the Pok�mon that moved had to wait after being pushed back. Now all Pok�mon have to wait\nFocus Energy: Fixed an issue where if a non-White attack came up after selecting Focus Energy, the effect would have been that move rather than a 0 damage Focus Enegy move.\nSwords Dance: Fixed an issue where if a non-White attack came up after selecting Swords Dance, the effect would have been that move rather than a 0 damage Swords Dance move.\nFake Tears: Fixed an issue where if a non-White attack came up after selecting Fake Tears, the effect would have been that move rather than a 0 damage Fake Tears move.\nThrowback: Altered it so if a Pok�mon is knocked backwards, they can also choose to go on a diagonal route if one exists.\nAdded new figures:\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 1.2",
+  "text": "| \nRelease Dates:\nJuly 12th 2016\nSize:\n77.4MB\nAlterations:\nAdded Haunted Cup event\nNew Items added\nRare Metal (C, UC, R, EX) - Exchange for Experience. EX = 10,500 Experience\nIngot (C, R, EX) - Exchange for Coins - EX = 35,000 Coins\nDaily Missions Added\nAbility to clear cache and redownload elements of the game\nPower Saving Mode Added\nNew Figures added\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 1.2.1",
+  "text": "| \nRelease Dates:\nAugust 9th 2016\nSize:\n77.4MB\nAlterations:\nAdded Pikachu Cup event\nFixed an issue with Fusion\nAdded new Fusion feature where if you fuse with the same figure, it will improve a new stat and when that levels up, you can increase move damage\nImproved features of the Trevo\nNew Figures added\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 1.2.2",
+  "text": "| \nRelease Dates:\nSeptember 13th 2016\nSize:\n77.4MB\nAlterations:\nAdded Roger Fes event\nNew Figures added\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 1.3",
+  "text": "| \nRelease Dates:\nSeptember 29th 2016\nSize:\n158MB\nAlterations:\nRenewed Ranking Matches\nAltered the point ranking system to be based on your performance and opponent's performance\nRemoved the need for Lounge Tickets and Coins to play Ranked Matches. Lounge Tickets can be exchanged for 100 Coins a piece\nAdded the Time Trevo as victory prize. Opens over time to give 1 or more figures\nUpdated the UI for Ranked Matches\nFixed a bug with Totodile where it would not move beyond the bench\nFixed a bug where other players couldn't choose where their Pok�mon moves after an attack forces movement\nFixed a bug preventing tapping of Pok�mon\nAdded new Duel features\nNew Figures added\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 1.3.1",
+  "text": "| \nRelease Dates:\nOctober 4th 2016\nSize:\n158MB\nAlterations:\nAdded a feature to allow for you to spectate currently running online matches\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 1.4",
+  "text": "| \nRelease Dates:\nOctober 24th 2016\nSize:\n158MB\nAlterations:\nAdded Evolution feature - Some figures can now evolve into slightly stronger variants during combat\nVarious Figure Alterations\n | Character | Feature | Alteration\n | Meowth | Fake Out | Rating increased from ☆ to ☆☆☆\n | Meowth | Scratch | Damage increased from 30 to 40\n | Meowth | Evade | Increased size of segment\n | Meowth | Miss | Decreased size of segment\n | Sneasel | Fake Out | Rating increased from ☆ to ☆☆☆\n | Salamence | Movement | Increased movement points from 1 to 2\n | Salamence | Flight | Increased size of segment\n | Salamence | Miss | Decreased size of segment\n | Shiftry | Razor Wind | Damage increased from 50 to 60\n | Shiftry | Pound | Damage increased from 30 to 40\n | Shiftry | Pound | Increased size of segment\n | Shiftry | Tengu Fan | Increased size of segment\n | Shiftry | Miss | Decreased size of segment\n | Shiftry | Razor Wind | Decreased size of segment\n | Gabite | Sand Veil | Added ability of Sand Veil\n | Gabite | Dragon Claw | Damage increased from 50 to 70\n | Gabite | Dragon Claw | Decreased size of segment\n | Gabite | Miss | Decreased size of segment\n | Gabite | Slash | Increased size of segment\n | Gabite | Sand Attack | Increased size of segment\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 2.0",
+  "text": "| \nRelease Dates:\nNovember 10th 2016\nSize:\n172MB\nAlterations:\nAdded Training Center\nAltered UI options - Fusion now available from main menu\nAdded Training Center\nAdded Duel Trial in League Matches where you get more rewards depending on how many people you have played\nGeneral bug fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 2.0.1",
+  "text": "| \nRelease Dates:\nNovember 29th 2016\nSize:\n159MB\nAlterations:\nGeneral bug fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 2.0.2",
+  "text": "| \nRelease Dates:\nDecember 13th 2016\nSize:\n159MB\nAlterations:\nGeneral bug fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 2.1",
+  "text": "| \nRelease Dates:\nDecember 27th 2016\nSize:\n161MB\nAlterations:\nAdded Event Data\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0",
+  "text": "| \nRelease Dates:\nJanuary 24th 2017\nSize:\n163MB\nAlterations:\nAdded English language data for international release\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0.1",
+  "text": "| \nRelease Dates:\nFebruary 9th 2017\nSize:\n163MB\nAlterations:\nBug fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0.2",
+  "text": "| \nRelease Dates:\nFebruary 16th 2017\nSize:\n163MB\nAlterations:\nVarious figure alterations\n | Character | Feature | Alteration\n | Mew | Hyper Sonic | Added effect of Mew not being Knocked Out if the move used against it does damage of over 100\n | Mew | Vanish | Move removed\n | Mew | Shuttle Flip | Move added\n | Rayquaza | Miss | Segments broken up into 3 and repositioned\n | Rayquaza | Extreme Speed | Increased width of bar\n | Rayquaza | Twister | Move removed\n | Rayquaza | Break Energy | Move added\n | Machamp | Movement | MP increased from 1 to 2\n | Machamp | Miss | Decreased width of bar\n | Machamp | Submission | Increased width of bar\n | Machamp | Karate Chop | Damage increased from 50 to 60\n | Heracross | Miss | Decreased width of bar\n | Heracross | Overhead Toss | Increased width of bar\n | Heracross | Horn Attack | Damage increased from 40 to 60\n | Zygarde | Land's Wrath | Change in text to require spinning purple for the opposing Pok�mon to be knocked out\nIntroduction of Energy Plates\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0.3",
+  "text": "| \nRelease Dates:\nMarch 2nd 2017\nSize:\n163MB\nAlterations:\nVarious figure alterations\n | Character | Feature | Alteration\n | Charizard | Speed Booster | Gained the Speed Booster ability\n | Charizard | Iron Tail | Move Removed\n | Charizard | Dragon Tail | Move Added\n | Zygarde | Land's Wrath | Damage increased from 60 to 70\n | Zygarde | Dragon Breath | Damage increased from 80 to 100\n | Metagross | Rapid Calculation | Gained the Rapid Calculation ability\n | Metagross | Metal Claw | Damage increased from 80 to 90\n | Tyranitar | Speed Booster | Gained the Speed Booster ability\n | Tyranitar | Earthquake | Increased width of bar\n | Tyranitar | Bite | Damage increased from 40 to 50\n | Tyranitar | Crunch & Earthquake | Move positions switched\n | Tyranitar | Miss | Decreased width of bar\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0.4",
+  "text": "| \nRelease Dates:\nMarch 16th 2017\nSize:\n163MB\nAlterations:\nVarious bug fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0.5",
+  "text": "| \nRelease Dates:\nMarch 23rd 2017\nSize:\n163MB\nAlterations:\nVarious figure alterations\n | Character | Feature | Alteration\n | Groudon | Slash | Move Removed\n | Groudon | Break Energy | Move Added\n | Groudon | Miss | Decreased width of bar\n | Torterra | Earthquake | Damage increased from 90 to 120\n | Delphox | Hyperspace Hole | Move Removed\n | Delphox | Flame Kinesis | Move Added\n | Delphox | Magic Trick | Ability added\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0.6",
+  "text": "| \nRelease Dates:\nApril 12h2017\nSize:\n163MB\nAlterations:\nVarious figure alterations\n | Character | Feature | Alteration\n | Venusaur | Chemical Pollen | Ability added\n | Drapion | Toxic | Move Removed\n | Drapion | Bite | Move Removed\n | Drapion | Venom Whip | Move Added\n | Drapion | Noxious Fang | Move Added\n | Drapion | Cross Poison | Damage increased from 60 to 70\n | Groudon | Miss | Decreased width of bar\n | Bulbasaur | Vine Whip | Move Removed\n | Bulbasaur | Seed Bomb | Move Added\n | Bulbasaur | Miss | Decreased width of bar\n | Weezing | Poison Gas | Strength increased from ☆ to ☆☆\n | Weezing | Sludge Bomb | Damage increased from 40 to 50\n | Weezing | Miss | Decreased width of bar\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0.8",
+  "text": "| \nRelease Dates:\nApril 26th 2017\nSize:\n163MB\nAlterations:\nVarious figure alterations\n | Character | Feature | Alteration\n | Dialga | Roar of Time | Power increased from 120 to 130\n | Dialga | Roar of Time | New effect: Return the opponent to their start of the duel state\n | Dialga | Dragon Claw | Power increased from 60 to 70\n | Dialga | Dragon Claw | Increased width of bar\n | Dialga | Miss | Decreased width of bar\n | Palkia | Spacial Rend | Power increased from 100 to 120\n | Palkia | Spacial Rend | New effect: If the battle is a tie, the battle opponent is excluded from the duel\n | Palkia | Dragon Claw | Power increased from 60 to 70\n | Deoxys | Time Slip | Power increased from ☆ to ☆☆☆\n | Deoxys | Time Slip | New effect: This Pok�mon gains Wait 3\n | Empoleon | Metal Claw | Move removed\n | Empoleon | Ice Beam | Move added\n | Empoleon | Hydro Pump | Power increased from 70 to 90\n | Groudon | Primal Rage | New ability added\n | Rayquaza | Primal Rage | New ability added\n | Kyogre | Primal Rage | New ability added\n | Kyogre | Water Pulse | Move removed\n | Kyogre | Break Energy | Move added\n | Kyogre | Hydro Pump | Power increased from 120 to 130\n | Kyogre | Hydro Pump | Decreased size of bar\n | Kyogre | Miss | Decreased size of bar\n | Kyogre | Dodge | Section added\n | Shiftry | Razor Wind | Power increased from 60 to 70\n | Shiftry | Pound | Power increased from 40 to 50\n | Reuniclus | Psychic Net | Ability effect altered\n | Solosis | Dual Brains | Ability effect altered\n | Duosion | Dual Brains | Ability effect altered\n | Psyduck | Scratch | Move removed\n | Psyduck | Water Pulse | Move added\n | Psyduck | Disable | Increased width of bar\n | Psyduck | Miss | Decreased width of bar\n | Kabuto | Scratch | Move removed\n | Kabuto | Mud Shot | Move added\n | Kabuto | Aqua Jet | Move added\n | Kabuto | Protect | Increased width of bar\n | Kabuto | Miss | Decreased width of bar\n | Nuzleaf | Feint Attack | Power increased from 30 to 40\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0.8",
+  "text": "| \nRelease Dates:\nMay 10th 2017\nSize:\n163MB\nAlterations:\nVarious figure alterations\n | Character | Feature | Alteration\n | Aggron | Counter | Move removed\n | Aggron | Heavy Slam | Move added\n | Aggron | Iron Tail | Power increased from 90 to 120\n | Armaldo | Swift Swim | Ability added\n | Armaldo | Aqua Jet | Move added\n | Armaldo | Miss | Decreased width of bar\n | Armaldo | Iron Tail | Power increased from 40 to 90\n | Skarmory | Air Cutter | Move removed\n | Skarmory | Swords Dance | Move added\n | Skarmory | Steel Wing | Increased width of bar\n | Geodude | Miss | Decreased width of bar\n | Geodude | Self-Destruct | Increased width of bar\n | Graveler | Miss | Decreased width of bar\n | Graveler | Landslide | Increased width of bar\n | Golem | Miss | Decreased width of bar\n | Golem | Rock Blast | Increased width of bar\n | Rhyhorn | Miss | Decreased width of bar\n | Rhyhorn | Hyper Take Down | Increased width of bar\n | Magnemite | Miss | Decreased width of bar\n | Magnemite | Dodge | Increased width of bar\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0.10",
+  "text": "| \nRelease Dates:\nJune 7th 2017\nSize:\n163MB\nAlterations:\nVarious figure alterations\n | Character | Feature | Alteration\n | Lugia | Marine Rage | New Ability given\n | Lugia | Hurricane | Move removed\n | Lugia | Cyclone | Move added\n | Feraligatr | Speed Booster | New Ability given\n | Feraligatr | Bite | Increased damage from 60 to 70\n | Feraligatr | Bite | Decreased wheel size\n | Feraligatr | Hydro Pump | Increased wheel size\n | Feraligatr | Wash Out | Increased wheel size\n | Feraligatr | Miss | Increased wheel size\n | Mudkip | Tackle | Move removed\n | Mudkip | Dodge | Move added\n | Mudkip | Take Down | Increased wheel size\n | Mudkip | Miss | Decreased wheel size\n | Larvitar | Thrash | Increased damage from 40 to 50\n | Larvitar | Thrash | Increased wheel size\n | Larvitar | Crunch | Increased wheel size\n | Larvitar | Miss | Decreased wheel size\n | Diglett | Dig | Increased wheel size\n | Diglett | Scratch | Decreased wheel size\n | Diglett | Miss | Decreased wheel size\n | Carvanha | Scary Face | Increased wheel size\n | Carvanha | Miss | Decreased wheel size\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0.11",
+  "text": "| \nRelease Dates:\nJune 21st 2017\nSize:\n163MB\nAlterations:\nVarious figure alterations\n | Character | Feature | Alteration\n | Raikou | Nonstop | Ability altered\n | Raikou | Thunderous Blow | New effect added\n | Raikou | Bite | Move removed\n | Raikou | Thunder | Move added\n | Raikou | Bite | Wheel size increased\n | Raikou | Miss | Wheel size decreased\n | Garchomp | Double Flight | New effect added\n | Garchomp | Dragon Rush | Power increased from 90 to 100\n | Garchomp | Dragon Rush | Wheel size increased\n | Garchomp | Dragon Claw | Move removed\n | Garchomp | Fire Fang | Move added\n | Garchomp | Miss | Wheel size decreased\n | Zygarde | Land's Call | Ability added\n | Zygarde | Dragon Breath | Power increased from 100 to 110\n | Steelix | Crunch | Move removed\n | Steelix | Explosion | Move removed\n | Steelix | Screech | Move removed\n | Steelix | Gyro Ball | Move added\n | Steelix | Dig | Move added\n | Steelix | Pull In | Move added\n | Steelix | Iron Tail | Power decreased from 90 to 70\n | Voltorb | Spark | Move removed\n | Voltorb | Shock Blast | Move added\n | Voltorb | Explosion | Wheel size increased\n | Voltorb | Tackle | Wheel size decreased\n | Plusle | Plus | Ability altered\n | Plusle | Spark | Move removed\n | Plusle | Tackle | Move removed\n | Plusle | Nuzzle | Move added\n | Plusle | Spark | Move added\n | Plusle | Miss | Wheel size decreased\n | Minun | Minus | Ability altered\n | Minun | Tackle | Move removed\n | Minun | Nuzzle | Move added\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 3.0.12",
+  "text": "| \nRelease Dates:\nJuly 11th 2017\nSize:\n163MB\nAlterations:\nVarious figure alterations\n | Character | Feature | Alteration\n | Snorlax | Stall | Altered the ability to prevent status conditions\n | Snorlax | Body Slam | Increased power to 110. Added new effect\n | Snorlax | Pound | Increased power to 70\n | Snorlax | Pound | Increased wheel size\n | Snorlax | Miss | Decreased wheel size\n | Typhlosion | Flame Acceleration | Altered effect\n | Ho-Oh | Fire Blast | Increased wheel size\n | Ho-Oh | Gust | Decreased wheel size\n | Genesect | Techno Blast | Altered effect\n | Pinsir | Vice Grip | Increased power to 50\n | Pinsir | Guillotine | Increased wheel size\n | Pinsir | Seismic Toss | Increased wheel size\n | Pinsir | Miss | Decreased wheel size\n | Eevee | Spontaneous Evolution | Ability Added\n | Eevee | Tackle | Move removed\n | Eevee | Quick Attack | Move added\n | Butterfree | Compound Eyes | Ability Added\n | Butterfree | Psybeam | Increased power to 70\n | Cyndaquil | Ember | Increased wheel size\n | Cyndaquil | Tackle | Decreased wheel size\n | Torchic | Fire Leak | Ability Added\n | Torchic | Ember | Increased wheel size\n | Torchic | Peck | Decreased wheel size\n | Torchic | Miss | Decreased wheel size\n | Ledyba | Swarm | Ability altered\n | Ledyba | Double-Edge | Increased wheel size\n | Ledyba | Miss | Decreased wheel size\n | Lairon | Harden | Effect altered\n | Fletchling | Acrobatics | Effect altered\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 4",
+  "text": "| \nRelease Dates:\nAugust 8th 2017\nSize:\n163MB\nAlterations:\nAdded Mega Evolution figures. These are activated using Plates\nAdded Missions\nAdded Team Battles\nIncreased Plate value count from 6 to 8\nVarious figure alterations\n | Character | Feature | Alteration\n | Giratina | Shadow Claw | Increased power from 110 to 130\n | Giratina | Slash | Move removed\n | Giratina | Will-o-Wisp | Move added\n | Giratina | Hex | Move added\n | Rayquaza | Extreme Speed | Increased power from 120 to 140\n | Latias | Mist Ball | Increased power from 110 to 130\n | Latias | Dragon Breath | Increased power from 70 to 100\n | Latios | Luster Purge | Increased power from 110 to 130\n | Latios | Dragon Breath | Increased power from 70 to 100\n | Druddigon | Revenge | Increased power from 40 to 70\n | Dratini | Tail Slap | Move removed\n | Dratini | Freezing Tail | Move added\n | Dratini | Dragon Rage | Increased wheel size\n | Dratini | Push Aside | Increased wheel size\n | Dratini | Miss | Decreased wheel size\n | Smoochum | Lovely Kiss | Increased wheel size\n | Smoochum | Miss | Decreased wheel size\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 4.0.2",
+  "text": "| \nRelease Dates:\nSeptember 1st 2017\nSize:\n163MB\nAlterations:\nVarious figure alterations\n | Character | Feature | Alteration\n | Tyranitar | Earthquake | Increased wheel size\n | Tyranitar | Miss | Decreased wheel size\n | Tyranitar | Crunch | Increased power from 60 to 70\n | Haunter | Eerie Light | Move removed\n | Haunter | Toxic | Move added\n | Mightyena | Crunch | Increased power from 50 to 60\n | Mightyena | Bite | Move removed\n | Mightyena | Ice Fang | Move added\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 4.0.4",
+  "text": "| \nRelease Dates:\nOctober 2nd2017\nSize:\n163MB\nAlterations:\nVarious figure alterations\nMega Beedrill\nRemoved Twineedle and replaced with Pin Missile\nIncreased wheel size of Poison Shock\nDecreased wheel size of Miss\nBeedrill\nRemoved Twineedle and replaced with Pin Missile\nAdded Toxic\nDecreased wheel size of Miss\nMewtwo\nChanged An nihilate's effect\nIncreased wheel size for Annihilate\nRemoved Psychic and replaced it with Psycho Cut with a smaller wheel size\nGardevoir\nIncreased Super Psy power from 40 to 100 with a larger wheel size\nIncreased wheel size of Warp Hole\nDecreased wheel size of Moonblast and Miss\nMetagross\nIncreased Metal Claw power from 90 to 100\nBronzong\nRemoved Confusion and replaced it with Heavy Slam\nIncreased Extrasensory power from 80 to 100 with a smaller wheel size\nIncreased wheel size for Iron Defense\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 4.0.5",
+  "text": "| \nRelease Dates:\nOctober 18th 2017\nSize:\n163MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 4.0.7",
+  "text": "| \nRelease Dates:\nNovember 6th 2017\nSize:\n163MB\nAlterations:\nVarious Figure Alterations:\nMega Charizard X\nMovement increased from 2 to 3\nMega Charizard Y\nMovement increased from 2 to 3\nChesnaught\nIncreased Hammer Arm power from 90 to 100\nTorterra\nIncreased Bite power from 60 to 100\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 4.0.8",
+  "text": "| \nRelease Dates:\nNovember 16th 2017\nSize:\n163MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 5.0.0",
+  "text": "| \nRelease Dates:\nNovember 29th 2017\nSize:\n247MB\nAlterations:\nVarious UI changes to bring the interface to be more snappy and up to date. It also special UX versions of the Cube, Rare Metal and Ingot items, allowing for further enhancements of your figures\nVarious Figure Alterations:\nXerneas\nIncreased Moonblast Power from 70 to 99\nYveltal\nIncreased Oblivion Wing Power from 100 to 111\nLapras\nRemoved Pound and replaced it with Ice Beam\nIncreased Surf power from 60 to 70\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 5.0.1",
+  "text": "| \nRelease Dates:\nDecember 4th 2017\nSize:\n247MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 5.0.3",
+  "text": "| \nRelease Dates:\nDecember 13th 2017\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 5.0.4",
+  "text": "| \nRelease Dates:\nDecember 20th 2017\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 5.0.6",
+  "text": "| \nRelease Dates:\nJanuary 17th 2018\nSize:\n245MB\nAlterations:\nVarious Figure Alterations:\nDrapion\nMovement increased from 1 to 2\nArbok\nAdded new ability: Shed Skin\nIncreased power of Poison Fang from 40 to 50\nSeviper\nAdded new ability: Rapid Approach\nIncreased wheel size of Toxic Fluid & Poison Tail\nDecreated wheel size of Wrap\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 5.0.7",
+  "text": "| \nRelease Dates:\nJanuary 25th 2018\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 5.0.8",
+  "text": "| \nRelease Dates:\nFebruary 1st 2018\nSize:\n245MB\nAlterations:\nFigure Alterations:\nKeldeo\nRemoved Dodge and adds new attack, Water Jump which moves the Pok�mon two steps away and gains Wait\nHariyama\nChanges Slap Push to Heavy Slam\nIncreases damage of other Slap Push to 60\nIncreases wheel size of Push Away\nDecreases wheel size of Miss\nDrowzee\nIncreased wheel size of Hypnosis and Confusion\nDecreased wheel size of Miss\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 5.0.9",
+  "text": "| \nRelease Dates:\nFebruary 14th 2018\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 5.0.10",
+  "text": "| \nRelease Dates:\nMarch 1st 2018\nSize:\n245MB\nAlterations:\nFigure Alterations:\nVikavolt\nIncreases damage for Zap Cannon from 100 to 120\nNoivern\nIncreases damage of Boomburst from 100 to 110\nChanged Hurricane to move the battle opponent to the bench.\nChanged Dragon Pulse to add 50 damage against Dragon-type Pok�mon\nCosmog\nChanged Nebby's Power ability to allow for moving of Pok�mon from Ultra Space\nLuxray\nRemoved Bite and added Fire Fang with a power of 70\nRemoved Crunch and added Ice Fang with a power of 70\nRemoved Roar and added Quick Attack with a power of 50 and a larger wheel\nAdded Dodge\nDecreased size of Miss\nChanged ability to Blue Spark, which makes the opponent's dodges become misses\nMareep\nIncreased wheel size for Thunder Wave\nDecreased wheel size of Miss\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 5.0.11",
+  "text": "| \nRelease Dates:\nMarch 14th 2018\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.0",
+  "text": "| \nRelease Dates:\nApril 2nd 2018\nSize:\n245MB\nAlterations:\nIt has added a brand new tournament mode which will start very soon\nIt has also added various social features so you can start following the progress of other players in the game\nFigure Alterations\nFirst, the effects of Night Slash and Volt Switch are being changed.\nDecidueye\nIncreases damage for Spirit Shackle from 100 to 120\nIncreases damage for Phantom Arrow from 70 to 90\nArticuno\nIncreases damage for Steel Wing from 70 to 130\nZekrom\nChanged effect of Fusion Bolt to specify Fusion Flare instead of Reshiram\nReshiram\nChanged effect of Fusion Flare to specify Fusion Bolt instead of Zekrom\nTreecko\nAddition of new ability: Wall-Climb. Allows for it to move over other Pok�mon with MP Move\nRemoved Pound and replaced it with Quick Attack\nIncreases damage of Slam from 30 to 40\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.2",
+  "text": "| \nRelease Dates:\nApril 18th 2018\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.3",
+  "text": "| \nRelease Dates:\nApril 25th 2018\nSize:\n245MB\nAlterations:\nThis patch contains various fixes for Mega Evolution where you couldn't Mega Evolve if you had a Mega Evolved Pok�mon in Ultra Space, as well as some bug fixes on moves Night Slash ansd Zap Cannon where the effects wouldn't activate\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.4",
+  "text": "| \nRelease Dates:\nMay 1st2018\nSize:\n245MB\nAlterations:\nFigure Alterations\nTapu Bulu\nIncreases damage for Full Swing from 110 to 120\nTerrakion\nIncreases damage for Stone Edge from 120 to 130 with an increased wheel size\nDecreased wheel size for Protect\nAggron\nChanged the effect of the Territoriality ability\nIncreases damage for Iron Tail from 120 to 140 with a larger wheel size\nIncreased damage of Heavy Slam from 50 to 90\nRemoved Roar\nAdded Brutal Swing\nRayquaza & Shiny Rayquaza\nIncreased wheel size of Extreme Speed\nDecreased wheel size of Break Energy & Fly\nTyranitar\nRemoved Crunch\nAdded Dragon Tail with damage of 90\nPupitar\nAdded the Beat Down ability\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.5",
+  "text": "| \nRelease Dates:\nMay 16th 2018\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.6",
+  "text": "| \nRelease Dates:\nMay 23rd 2018\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.7",
+  "text": "| \nRelease Dates:\nJune 1st 2018\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.9",
+  "text": "| \nRelease Dates:\nJune 13th 2018\nSize:\n245MB\nAlterations:\nThis patch contains contained a bug fix to the Serene Light ability\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.10",
+  "text": "| \nRelease Dates:\nJune 20th 2018\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.11",
+  "text": "| \nRelease Dates:\nJuly 2nd 2018\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.12",
+  "text": "| \nRelease Dates:\nJuly 2nd 2018\nSize:\n245MB\nAlterations:\nFigure Alterations\nShaymin Sky Forme\nIncreases wheel size of Dodge\nDecreased wheel size of Seed Flare\nDecreased wheel size of Quick Attack\nDecreased wheel size of Dazzling Gleam\nLurantis\nChanged Green Power ability effect to boost benefit from +2 to +5\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.0.13",
+  "text": "| \nRelease Dates:\nJuly 18th 2018\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ },
+ {
+  "version": "Version 6.1.0",
+  "text": "| \nRelease Dates:\nJuly 2nd 2018\nSize:\n245MB\nAlterations:\nBug Fixes\nNotes\nThis update is required for your game to go online.\n |"
+ }
+]

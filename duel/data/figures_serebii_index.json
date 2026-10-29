@@ -1,0 +1,3566 @@
+{
+ "1": {
+  "name": "Dialga",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "2": {
+  "name": "Tauros",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "3": {
+  "name": "Armaldo",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "4": {
+  "name": "Charmander",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "5": {
+  "name": "Mightyena",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "6": {
+  "name": "Ekans",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "7": {
+  "name": "Bayleef",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "8": {
+  "name": "Snubbull",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "9": {
+  "name": "Plusle",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "10": {
+  "name": "Seedot",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "11": {
+  "name": "Metagross",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "12": {
+  "name": "Sentret",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "13": {
+  "name": "Golem",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "14": {
+  "name": "Spinarak",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "15": {
+  "name": "Aipom",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "16": {
+  "name": "Sandshrew",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "17": {
+  "name": "Murkrow",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "18": {
+  "name": "Caterpie",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "19": {
+  "name": "Mudkip",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "20": {
+  "name": "Bidoof",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "21": {
+  "name": "Steelix",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "22": {
+  "name": "Marill",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "23": {
+  "name": "Raticate",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "24": {
+  "name": "Machop",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "25": {
+  "name": "Luxray",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "26": {
+  "name": "Poliwag",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "27": {
+  "name": "Teddiursa",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "28": {
+  "name": "Tyrogue",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "29": {
+  "name": "Chespin",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "30": {
+  "name": "Lugia",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "31": {
+  "name": "Shinx",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "32": {
+  "name": "Aron",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "33": {
+  "name": "Emolga",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "34": {
+  "name": "Doduo",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "35": {
+  "name": "Treecko",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "36": {
+  "name": "Heracross",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "38": {
+  "name": "Combee",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "39": {
+  "name": "Squirtle",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "40": {
+  "name": "Meowth",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "41": {
+  "name": "Zubat",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "42": {
+  "name": "Ho-Oh",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "43": {
+  "name": "Skarmory",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "44": {
+  "name": "Audino",
+  "rarity": "C",
+  "mp": 1,
+  "mats": 250
+ },
+ "45": {
+  "name": "Machamp",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "46": {
+  "name": "Kyogre",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "47": {
+  "name": "Psyduck",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "48": {
+  "name": "Spinda",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "49": {
+  "name": "Shroomish",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "50": {
+  "name": "Charizard",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "51": {
+  "name": "Wobbuffet",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "52": {
+  "name": "Pikachu",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "53": {
+  "name": "Palkia",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "54": {
+  "name": "Cacnea",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "55": {
+  "name": "Froakie",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "56": {
+  "name": "Dratini",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "57": {
+  "name": "Eevee",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "58": {
+  "name": "Minun",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "59": {
+  "name": "Pinsir",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "60": {
+  "name": "Feraligatr",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "61": {
+  "name": "Bagon",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "62": {
+  "name": "Kabuto",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "63": {
+  "name": "Geodude",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "64": {
+  "name": "Bulbasaur",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "65": {
+  "name": "Magnemite",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "66": {
+  "name": "Fennekin",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "67": {
+  "name": "Darkrai",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "68": {
+  "name": "Absol",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "69": {
+  "name": "Drowzee",
+  "rarity": "C",
+  "mp": 1,
+  "mats": 250
+ },
+ "70": {
+  "name": "Salamence",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "71": {
+  "name": "Mareep",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "72": {
+  "name": "Exeggcute",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "73": {
+  "name": "Scyther",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "74": {
+  "name": "Goomy",
+  "rarity": "C",
+  "mp": 1,
+  "mats": 250
+ },
+ "75": {
+  "name": "Smoochum",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "76": {
+  "name": "Spearow",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "77": {
+  "name": "Gabite",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "78": {
+  "name": "Dedenne",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "79": {
+  "name": "Hawlucha",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "80": {
+  "name": "Groudon",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "81": {
+  "name": "Nidoran♂",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "82": {
+  "name": "Fletchling",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "83": {
+  "name": "Espurr",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "84": {
+  "name": "Beedrill",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "85": {
+  "name": "Ledyba",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "86": {
+  "name": "Rhyhorn",
+  "rarity": "C",
+  "mp": 1,
+  "mats": 250
+ },
+ "87": {
+  "name": "Torchic",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "88": {
+  "name": "Mankey",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "89": {
+  "name": "Zangoose",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "90": {
+  "name": "Weedle",
+  "rarity": "C",
+  "mp": 1,
+  "mats": 250
+ },
+ "91": {
+  "name": "Drapion",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "92": {
+  "name": "Pachirisu",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "93": {
+  "name": "Venusaur",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "94": {
+  "name": "Seviper",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "95": {
+  "name": "Piplup",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "96": {
+  "name": "Mewtwo",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "97": {
+  "name": "Weezing",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "98": {
+  "name": "Goodra",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "99": {
+  "name": "Girafarig",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "100": {
+  "name": "Butterfree",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "101": {
+  "name": "Blastoise",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "102": {
+  "name": "Lapras",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "103": {
+  "name": "Staraptor",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "104": {
+  "name": "Pikachu",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "106": {
+  "name": "Bronzong",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "107": {
+  "name": "Sneasel",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "108": {
+  "name": "Carvanha",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "109": {
+  "name": "Turtwig",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "110": {
+  "name": "Mew",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "111": {
+  "name": "Taillow",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "112": {
+  "name": "Rayquaza",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "114": {
+  "name": "Tropius",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "115": {
+  "name": "Pangoro",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "116": {
+  "name": "Rattata",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "117": {
+  "name": "Electabuzz",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "118": {
+  "name": "Tyranitar",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "119": {
+  "name": "Zygarde",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "120": {
+  "name": "Tentacruel",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "121": {
+  "name": "Snorlax",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "122": {
+  "name": "Bellsprout",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "123": {
+  "name": "Voltorb",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "124": {
+  "name": "Xatu",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "125": {
+  "name": "Chimchar",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "126": {
+  "name": "Banette",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "127": {
+  "name": "Slaking",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "128": {
+  "name": "Haunter",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "129": {
+  "name": "Larvitar",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "130": {
+  "name": "Keldeo",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "131": {
+  "name": "Giratina",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "132": {
+  "name": "Hariyama",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "133": {
+  "name": "Diglett",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "134": {
+  "name": "Corphish",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "135": {
+  "name": "Jigglypuff",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "136": {
+  "name": "Mawile",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "137": {
+  "name": "Cyndaquil",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "138": {
+  "name": "Xerneas",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "139": {
+  "name": "Yveltal",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "140": {
+  "name": "Liepard",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "141": {
+  "name": "Bibarel",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "142": {
+  "name": "Chesnaught",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "143": {
+  "name": "Poliwhirl",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "144": {
+  "name": "Lairon",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "145": {
+  "name": "Skorupi",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "146": {
+  "name": "Onix",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "147": {
+  "name": "Gible",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "148": {
+  "name": "Pancham",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "149": {
+  "name": "Quilladin",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "150": {
+  "name": "Graveler",
+  "rarity": "C",
+  "mp": 1,
+  "mats": 250
+ },
+ "152": {
+  "name": "Koffing",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "153": {
+  "name": "Gastly",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "154": {
+  "name": "Hoothoot",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "155": {
+  "name": "Metapod",
+  "rarity": "UC",
+  "mp": 0,
+  "mats": 450
+ },
+ "156": {
+  "name": "Shelgon",
+  "rarity": "C",
+  "mp": 1,
+  "mats": 250
+ },
+ "158": {
+  "name": "Tentacool",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "159": {
+  "name": "Pichu",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "160": {
+  "name": "Monferno",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "161": {
+  "name": "Grotle",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "162": {
+  "name": "Wartortle",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "163": {
+  "name": "Gyarados",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "164": {
+  "name": "Frogadier",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "166": {
+  "name": "Prinplup",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "167": {
+  "name": "Swellow",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "168": {
+  "name": "Swampert",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "169": {
+  "name": "Flaaffy",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "170": {
+  "name": "Greninja",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "171": {
+  "name": "Electivire",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "172": {
+  "name": "Rhydon",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "173": {
+  "name": "Flygon",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "174": {
+  "name": "Purrloin",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "175": {
+  "name": "Ledian",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "176": {
+  "name": "Sylveon",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "177": {
+  "name": "Pupitar",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "178": {
+  "name": "Igglybuff",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "179": {
+  "name": "Leafeon",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "180": {
+  "name": "Croconaw",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "181": {
+  "name": "Munchlax",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "182": {
+  "name": "Makuhita",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "183": {
+  "name": "Bronzor",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "185": {
+  "name": "Golbat",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "186": {
+  "name": "Rhyperior",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "187": {
+  "name": "Vaporeon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "188": {
+  "name": "Jolteon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "189": {
+  "name": "Marshtomp",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "190": {
+  "name": "Garchomp",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "191": {
+  "name": "Empoleon",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "192": {
+  "name": "Poliwrath",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "193": {
+  "name": "Poochyena",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "196": {
+  "name": "Luxio",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "197": {
+  "name": "Hypno",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "198": {
+  "name": "Magikarp",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "199": {
+  "name": "Ivysaur",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "200": {
+  "name": "Elekid",
+  "rarity": "C",
+  "mp": 3,
+  "mats": 250
+ },
+ "201": {
+  "name": "Natu",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "202": {
+  "name": "Raichu",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "203": {
+  "name": "Lucario",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "205": {
+  "name": "Kakuna",
+  "rarity": "UC",
+  "mp": 0,
+  "mats": 450
+ },
+ "206": {
+  "name": "Wigglytuff",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "207": {
+  "name": "Aggron",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "208": {
+  "name": "Infernape",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "209": {
+  "name": "Totodile",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "210": {
+  "name": "Politoed",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "211": {
+  "name": "Gardevoir",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "212": {
+  "name": "Vibrava",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "213": {
+  "name": "Nuzleaf",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "214": {
+  "name": "Shiftry",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "215": {
+  "name": "Kirlia",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "216": {
+  "name": "Noctowl",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "217": {
+  "name": "Ralts",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "218": {
+  "name": "Deoxys",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "219": {
+  "name": "Deoxys",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "220": {
+  "name": "Exeggutor",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "221": {
+  "name": "Slakoth",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "222": {
+  "name": "Chikorita",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "223": {
+  "name": "Glaceon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "224": {
+  "name": "Deoxys",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "225": {
+  "name": "Weavile",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "226": {
+  "name": "Manaphy",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "227": {
+  "name": "Heatran",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "228": {
+  "name": "Mr. Mime",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "229": {
+  "name": "Deoxys",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "230": {
+  "name": "Torterra",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "231": {
+  "name": "Suicune",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "232": {
+  "name": "Zekrom",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "233": {
+  "name": "Raikou",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "234": {
+  "name": "Latios",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "235": {
+  "name": "Genesect",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "237": {
+  "name": "Latias",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "238": {
+  "name": "Vigoroth",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "239": {
+  "name": "Sliggoo",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "240": {
+  "name": "Crobat",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "241": {
+  "name": "Sharpedo",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "242": {
+  "name": "Mime Jr.",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "243": {
+  "name": "Talonflame",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "244": {
+  "name": "Entei",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "245": {
+  "name": "Quilava",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "246": {
+  "name": "Braixen",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "247": {
+  "name": "Fletchinder",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "248": {
+  "name": "Flareon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "249": {
+  "name": "Arbok",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "250": {
+  "name": "Magmar",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "251": {
+  "name": "Shuppet",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "252": {
+  "name": "Seaking",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "253": {
+  "name": "Delphox",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "254": {
+  "name": "Magby",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "255": {
+  "name": "Charmeleon",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "256": {
+  "name": "Umbreon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "258": {
+  "name": "Typhlosion",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "259": {
+  "name": "Espeon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "260": {
+  "name": "Corsola",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "261": {
+  "name": "Reshiram",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "262": {
+  "name": "Magmortar",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "263": {
+  "name": "Goldeen",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "264": {
+  "name": "Hydreigon",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "265": {
+  "name": "Trapinch",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "266": {
+  "name": "Zweilous",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "268": {
+  "name": "Riolu",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "269": {
+  "name": "Zapdos",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "270": {
+  "name": "Vespiquen",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "271": {
+  "name": "Moltres",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "272": {
+  "name": "Crawdaunt",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "273": {
+  "name": "Floatzel",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "274": {
+  "name": "Articuno",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "275": {
+  "name": "Mega Venusaur",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "276": {
+  "name": "Mega Charizard X",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "277": {
+  "name": "Mega Charizard Y",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "278": {
+  "name": "Mega Blastoise",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "279": {
+  "name": "Mega Beedrill",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "280": {
+  "name": "Dragonair",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "281": {
+  "name": "Dragonite",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "282": {
+  "name": "Grovyle",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "283": {
+  "name": "Sceptile",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "284": {
+  "name": "Mega Sceptile",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "285": {
+  "name": "Combusken",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "286": {
+  "name": "Blaziken",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "287": {
+  "name": "Mega Blaziken",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "288": {
+  "name": "Mega Swampert",
+  "rarity": "UX",
+  "mp": 1,
+  "mats": 5000
+ },
+ "289": {
+  "name": "Nincada",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "290": {
+  "name": "Ninjask",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "292": {
+  "name": "Mega Salamence",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "293": {
+  "name": "Spiritomb",
+  "rarity": "R",
+  "mp": 0,
+  "mats": 1800
+ },
+ "294": {
+  "name": "Tympole",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "295": {
+  "name": "Palpitoad",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "296": {
+  "name": "Seismitoad",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "297": {
+  "name": "Cottonee",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "298": {
+  "name": "Whimsicott",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "299": {
+  "name": "Petilil",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "300": {
+  "name": "Lilligant",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "303": {
+  "name": "Gothita",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "304": {
+  "name": "Gothorita",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "305": {
+  "name": "Gothitelle",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "306": {
+  "name": "Solosis",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "307": {
+  "name": "Duosion",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "308": {
+  "name": "Reuniclus",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "309": {
+  "name": "Joltik",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "310": {
+  "name": "Galvantula",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "311": {
+  "name": "Stunfisk",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "312": {
+  "name": "Druddigon",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "314": {
+  "name": "Heatmor",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "315": {
+  "name": "Durant",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "316": {
+  "name": "Cobalion",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "317": {
+  "name": "Terrakion",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "318": {
+  "name": "Virizion",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "319": {
+  "name": "Honedge",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "320": {
+  "name": "Doublade",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "321": {
+  "name": "Inkay",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "322": {
+  "name": "Malamar",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "323": {
+  "name": "Phantump",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "324": {
+  "name": "Trevenant",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "325": {
+  "name": "Pumpkaboo",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "326": {
+  "name": "Gourgeist",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "327": {
+  "name": "Bergmite",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "328": {
+  "name": "Avalugg",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "329": {
+  "name": "Noibat",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "330": {
+  "name": "Noivern",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "331": {
+  "name": "Aegislash Blade Forme",
+  "rarity": "EX",
+  "mp": 0,
+  "mats": 4000
+ },
+ "332": {
+  "name": "Aegislash Shield Forme",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "336": {
+  "name": "Mega Scizor",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "337": {
+  "name": "Mega Gengar",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "338": {
+  "name": "Tapu Koko",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "339": {
+  "name": "Vikavolt",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "340": {
+  "name": "Magnezone",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "341": {
+  "name": "Solgaleo",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "342": {
+  "name": "Tapu Lele",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "343": {
+  "name": "Scizor",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "344": {
+  "name": "Lunala",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "345": {
+  "name": "Gengar",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "346": {
+  "name": "Chandelure",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "347": {
+  "name": "Decidueye",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "348": {
+  "name": "Incineroar",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "349": {
+  "name": "Tapu Bulu",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "350": {
+  "name": "Primarina",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "351": {
+  "name": "Tapu Fini",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "352": {
+  "name": "Magearna",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "353": {
+  "name": "Alolan Ninetales",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "354": {
+  "name": "Electrode",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "355": {
+  "name": "Magneton",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "357": {
+  "name": "Alolan Raichu",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "358": {
+  "name": "Cosmoem",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "359": {
+  "name": "Golisopod",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "360": {
+  "name": "Metang",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "361": {
+  "name": "Cosmog",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "362": {
+  "name": "Sableye",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "363": {
+  "name": "Mimikyu",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "364": {
+  "name": "Dartrix",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "365": {
+  "name": "Torracat",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "366": {
+  "name": "Ludicolo",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "367": {
+  "name": "Mow Rotom",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "368": {
+  "name": "Brionne",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "369": {
+  "name": "Azumarill",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "370": {
+  "name": "Lanturn",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "371": {
+  "name": "Wash Rotom",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "372": {
+  "name": "Grubbin",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "373": {
+  "name": "Charjabug",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "375": {
+  "name": "Oricorio Pom-Pom Style",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "376": {
+  "name": "Wimpod",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "377": {
+  "name": "Beldum",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "378": {
+  "name": "Oricorio Pau Style",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "379": {
+  "name": "Litwick",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "380": {
+  "name": "Lampent",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "381": {
+  "name": "Alolan Grimer",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "382": {
+  "name": "Salandit",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "383": {
+  "name": "Oricorio Sensu Style",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "384": {
+  "name": "Rowlet",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "385": {
+  "name": "Litten",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "386": {
+  "name": "Lombre",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "387": {
+  "name": "Salazzle",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "388": {
+  "name": "Oricorio Baile Style",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "389": {
+  "name": "Popplio",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "390": {
+  "name": "Delibird",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "391": {
+  "name": "Stantler",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "392": {
+  "name": "Togedemaru",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "393": {
+  "name": "Chinchou",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "394": {
+  "name": "Lotad",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "395": {
+  "name": "Shiny Rayquaza",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "397": {
+  "name": "Shiny Metagross",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "399": {
+  "name": "Shiny Ho-Oh",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "400": {
+  "name": "Shiny Gyarados",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "401": {
+  "name": "Shiny Magikarp",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "402": {
+  "name": "Mega Gardevoir",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "403": {
+  "name": "Mega Altaria",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "404": {
+  "name": "Nihilego",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "405": {
+  "name": "Mega Mewtwo Y",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "406": {
+  "name": "Buzzwole",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "407": {
+  "name": "Mega Gallade",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "408": {
+  "name": "Mega Mewtwo X",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "409": {
+  "name": "Pheromosa",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "410": {
+  "name": "Mega Absol",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "411": {
+  "name": "Mega Sableye",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "412": {
+  "name": "Mega Banette",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "413": {
+  "name": "Mega Gyarados",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "414": {
+  "name": "Xurkitree",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "415": {
+  "name": "Celesteela",
+  "rarity": "UX",
+  "mp": 1,
+  "mats": 5000
+ },
+ "416": {
+  "name": "Mega Ampharos",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "417": {
+  "name": "Kartana",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "418": {
+  "name": "Shaymin Sky Forme",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "419": {
+  "name": "Mega Aggron",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "420": {
+  "name": "Mega Tyranitar",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "421": {
+  "name": "Black Kyurem",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "422": {
+  "name": "White Kyurem",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "423": {
+  "name": "Mega Glalie",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "424": {
+  "name": "Mega Lucario",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "425": {
+  "name": "Primal Groudon",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "426": {
+  "name": "Regigigas",
+  "rarity": "UX",
+  "mp": 0,
+  "mats": 5000
+ },
+ "427": {
+  "name": "Primal Kyogre",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "428": {
+  "name": "Keldeo Resolute Form",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "429": {
+  "name": "Mega Houndoom",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "430": {
+  "name": "Drampa",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "431": {
+  "name": "Altaria",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "432": {
+  "name": "Cresselia",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "433": {
+  "name": "Toxapex",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "434": {
+  "name": "Gallade",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "435": {
+  "name": "Bewear",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "436": {
+  "name": "Marshadow",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "437": {
+  "name": "Zoroark",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "438": {
+  "name": "Drifblim",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "439": {
+  "name": "Honchkrow",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "440": {
+  "name": "Ampharos",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "441": {
+  "name": "Eelektross",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "442": {
+  "name": "Shaymin Land Forme",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "443": {
+  "name": "Lurantis",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "444": {
+  "name": "Regirock",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "445": {
+  "name": "Meganium",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "446": {
+  "name": "Regice",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "447": {
+  "name": "Kyurem",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "448": {
+  "name": "Registeel",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "449": {
+  "name": "Arcanine",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "450": {
+  "name": "Houndoom",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "451": {
+  "name": "Turtonator",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "452": {
+  "name": "Milotic",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "453": {
+  "name": "Shiinotic",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "454": {
+  "name": "Dragalge",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "455": {
+  "name": "Alolan Vulpix",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "456": {
+  "name": "Mareanie",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "457": {
+  "name": "Toxicroak",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "458": {
+  "name": "Beheeyem",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "459": {
+  "name": "Elgyem",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "460": {
+  "name": "Zorua",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "461": {
+  "name": "Scrafty",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "462": {
+  "name": "Rotom",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "463": {
+  "name": "Mandibuzz",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "464": {
+  "name": "Eelektrik",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "465": {
+  "name": "Sigilyph",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "466": {
+  "name": "Cacturne",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "467": {
+  "name": "Tangrowth",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "468": {
+  "name": "Fan Rotom",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "469": {
+  "name": "Lycanroc Midday Form",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "470": {
+  "name": "Lycanroc Midnight Form",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "471": {
+  "name": "Glalie",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "472": {
+  "name": "Froslass",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "473": {
+  "name": "Frost Rotom",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "474": {
+  "name": "Excadrill",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "475": {
+  "name": "Alolan Sandslash",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "476": {
+  "name": "Growlithe",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "477": {
+  "name": "Heat Rotom",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "478": {
+  "name": "Swablu",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "479": {
+  "name": "Morelull",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "480": {
+  "name": "Skrelp",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "481": {
+  "name": "Croagunk",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "482": {
+  "name": "Stufful",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "483": {
+  "name": "Scraggy",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "484": {
+  "name": "Drifloon",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "485": {
+  "name": "Vullaby",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "486": {
+  "name": "Tynamo",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "487": {
+  "name": "Fomantis",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "488": {
+  "name": "Tangela",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "489": {
+  "name": "Rockruff",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "490": {
+  "name": "Carnivine",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "491": {
+  "name": "Snorunt",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "492": {
+  "name": "Relicanth",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "493": {
+  "name": "Drilbur",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "494": {
+  "name": "Houndour",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "495": {
+  "name": "Feebas",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "496": {
+  "name": "Alolan Sandshrew",
+  "rarity": "C",
+  "mp": 2,
+  "mats": 250
+ },
+ "497": {
+  "name": "Guzzlord",
+  "rarity": "UX",
+  "mp": 1,
+  "mats": 5000
+ },
+ "498": {
+  "name": "Necrozma",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "499": {
+  "name": "Mega Rayquaza",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "500": {
+  "name": "Poipole",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "501": {
+  "name": "Naganadel",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "502": {
+  "name": "Giratina Origin Forme",
+  "rarity": "UX",
+  "mp": 1,
+  "mats": 5000
+ },
+ "503": {
+  "name": "Dusk Mane Necrozma",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "504": {
+  "name": "Dawn Wings Necrozma",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "505": {
+  "name": "Mega Metagross",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "507": {
+  "name": "Shiny Mega Gengar",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "509": {
+  "name": "Shiny Gengar",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "512": {
+  "name": "Shiny Eevee",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "513": {
+  "name": "Shiny Vaporeon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "514": {
+  "name": "Shiny Jolteon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "515": {
+  "name": "Shiny Flareon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "516": {
+  "name": "Shiny Espeon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "517": {
+  "name": "Shiny Umbreon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "518": {
+  "name": "Shiny Leafeon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "519": {
+  "name": "Shiny Glaceon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "520": {
+  "name": "Shiny Sylveon",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "523": {
+  "name": "Stakataka",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "524": {
+  "name": "Blacephalon",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "525": {
+  "name": "Ultra Necrozma",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "526": {
+  "name": "Eevee",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "527": {
+  "name": "Vaporeon",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "528": {
+  "name": "Jolteon",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "529": {
+  "name": "Flareon",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "530": {
+  "name": "Espeon",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "531": {
+  "name": "Umbreon",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "532": {
+  "name": "Leafeon",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "533": {
+  "name": "Glaceon",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "534": {
+  "name": "Sylveon",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "535": {
+  "name": "Mega Alakazam",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "536": {
+  "name": "Mega Kangaskhan",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "537": {
+  "name": "Mega Pinsir",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "538": {
+  "name": "Mega Aerodactyl",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "539": {
+  "name": "Mega Steelix",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "540": {
+  "name": "Mega Heracross",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "541": {
+  "name": "Mega Mawile",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "542": {
+  "name": "Mega Manectric",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "543": {
+  "name": "Mega Sharpedo",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "544": {
+  "name": "Mega Latias",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "545": {
+  "name": "Mega Latios",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "546": {
+  "name": "Mega Garchomp",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "547": {
+  "name": "Mega Abomasnow",
+  "rarity": "UX",
+  "mp": 1,
+  "mats": 5000
+ },
+ "548": {
+  "name": "Mega Diancie",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "549": {
+  "name": "Tornadus Therian Forme",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "550": {
+  "name": "Thundurus Therian Forme",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "551": {
+  "name": "Landorus Therian Forme",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "552": {
+  "name": "Zygarde Complete Forme",
+  "rarity": "UX",
+  "mp": 1,
+  "mats": 5000
+ },
+ "553": {
+  "name": "Arceus",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "554": {
+  "name": "Dialga",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "555": {
+  "name": "Palkia",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "556": {
+  "name": "Darkrai",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "557": {
+  "name": "Pikachu",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "558": {
+  "name": "Alakazam",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "560": {
+  "name": "Kangaskhan",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "561": {
+  "name": "Pinsir",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "562": {
+  "name": "Gyarados",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "563": {
+  "name": "Aerodactyl",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "564": {
+  "name": "Steelix",
+  "rarity": "EX",
+  "mp": 1,
+  "mats": 4000
+ },
+ "565": {
+  "name": "Heracross",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "566": {
+  "name": "Tyranitar",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "567": {
+  "name": "Celebi",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "568": {
+  "name": "Mawile",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "569": {
+  "name": "Manectric",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "570": {
+  "name": "Sharpedo",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "571": {
+  "name": "Banette",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "572": {
+  "name": "Absol",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "574": {
+  "name": "Mismagius",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "576": {
+  "name": "Victini",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "577": {
+  "name": "Haxorus",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "579": {
+  "name": "Tornadus Incarnate Forme",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "580": {
+  "name": "Thundurus Incarnate Forme",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "581": {
+  "name": "Landorus Incarnate Forme",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "582": {
+  "name": "Tyrantrum",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "583": {
+  "name": "Aurorus",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "584": {
+  "name": "Goodra",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "585": {
+  "name": "Zygarde 10Percent Forme",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "586": {
+  "name": "Diancie",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "587": {
+  "name": "Tsareena",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "588": {
+  "name": "Silvally",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "591": {
+  "name": "Abra",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "592": {
+  "name": "Kadabra",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "593": {
+  "name": "Rapidash",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "594": {
+  "name": "Omastar",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "596": {
+  "name": "Aerodactyl",
+  "rarity": "R",
+  "mp": 3,
+  "mats": 1800
+ },
+ "597": {
+  "name": "Misdreavus",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "599": {
+  "name": "Abomasnow",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "600": {
+  "name": "Cofagrigus",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "601": {
+  "name": "Garbodor",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "602": {
+  "name": "Fraxure",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "603": {
+  "name": "Volcarona",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "604": {
+  "name": "Steenee",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "605": {
+  "name": "Type: Null",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "607": {
+  "name": "Ponyta",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "608": {
+  "name": "Slowpoke",
+  "rarity": "R",
+  "mp": 1,
+  "mats": 1800
+ },
+ "609": {
+  "name": "Omanyte",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "610": {
+  "name": "Electrike",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "612": {
+  "name": "Snover",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "613": {
+  "name": "Yamask",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "614": {
+  "name": "Trubbish",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "615": {
+  "name": "Axew",
+  "rarity": "UC",
+  "mp": 3,
+  "mats": 450
+ },
+ "617": {
+  "name": "Larvesta",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "618": {
+  "name": "Tyrunt",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "619": {
+  "name": "Amaura",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "620": {
+  "name": "Carbink",
+  "rarity": "UC",
+  "mp": 1,
+  "mats": 450
+ },
+ "621": {
+  "name": "Bounsweet",
+  "rarity": "UC",
+  "mp": 2,
+  "mats": 450
+ },
+ "623": {
+  "name": "Shiny Tapu Koko",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "628": {
+  "name": "Shiny Mimikyu",
+  "rarity": "R",
+  "mp": 2,
+  "mats": 1800
+ },
+ "629": {
+  "name": "Shiny Mewtwo",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "630": {
+  "name": "Shiny Charizard",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "633": {
+  "name": "Shiny Genesect",
+  "rarity": "EX",
+  "mp": 2,
+  "mats": 4000
+ },
+ "638": {
+  "name": "Shiny Mega Rayquaza",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "639": {
+  "name": "Shiny Mega Charizard X",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "640": {
+  "name": "Shiny Mega Charizard Y",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "641": {
+  "name": "Shiny Mega Mewtwo X",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "642": {
+  "name": "Shiny Mega Mewtwo Y",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "643": {
+  "name": "Shiny Greninja",
+  "rarity": "EX",
+  "mp": 3,
+  "mats": 4000
+ },
+ "646": {
+  "name": "Bidoof",
+  "rarity": "UX",
+  "mp": 3,
+  "mats": 5000
+ },
+ "647": {
+  "name": "Dawn Wings Necrozma",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ },
+ "648": {
+  "name": "Dawn Wings Necrozma",
+  "rarity": "UX",
+  "mp": 2,
+  "mats": 5000
+ }
+}
