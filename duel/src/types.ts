@@ -31,9 +31,11 @@ export interface Figure {
   uid: string;
   def: FigureDef;
   owner: PlayerId;
-  /** null while on the bench or knocked out (see `status`). */
+  /** null unless `status` is 'board'. */
   at: NodeId | null;
-  status: 'bench' | 'board' | 'ko';
+  status: 'bench' | 'board' | 'pc';
+  /** Turns of Wait left; counts down every turn of either player. */
+  wait: number;
 }
 
 export interface BoardDef {

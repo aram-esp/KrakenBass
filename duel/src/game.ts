@@ -6,13 +6,20 @@ import { defaultRules, type RulesConfig } from './rules.config.ts';
 
 export type Winner = PlayerId | 'none';
 
+/**
+ * One duel. A turn is: optionally move one figure (a bench figure enters through a free
+ * entry point for 1 MP), then optionally battle an adjacent enemy (which ends the turn),
+ * or call endTurn(). Plates, abilities, special conditions and Mega/Z-Moves are not modelled yet.
+ */
 export class Game {
   readonly board: Board;
   readonly figures: Figure[] = [];
+  readonly pc: Record<PlayerId, Figure[]> = { 0: [], 1: [] };
   turn = 1;
-  current: PlayerId = 0;
+  current: PlayerId;
   winner: Winner | null = null;
-
+  private moved = false;
+  private firstPlayer: PlayerId;
   private rng: Rng;
   private rules: RulesConfig;
 
@@ -21,13 +28,16 @@ export class Game {
     decks: [FigureDef[], FigureDef[]],
     rng: Rng,
     rules: RulesConfig = defaultRules,
+    first: PlayerId = 0,
   ) {
+    this.board = new Board(boardDef);
     this.rng = rng;
     this.rules = rules;
-    this.board = new Board(boardDef);
+    this.firstPlayer = first;
+    this.current = first;
     for (const p of [0, 1] as PlayerId[]) {
       decks[p].forEach((def, i) =>
-        this.figures.push({ uid: `${p}:${i}`, def, owner: p, at: null, status: 'bench' }));
+        this.figures.push({ uid: `${p}:${i}`, def, owner: p, at: null, status: 'bench', wait: 0 }));
     }
   }
 
@@ -35,70 +45,122 @@ export class Game {
     return this.figures.find((f) => f.status === 'board' && f.at === n);
   }
 
-  /** Put a bench figure on one of the player's spawn nodes. */
-  deploy(uid: string, node: NodeId): void {
-    const f = this.mine(uid);
-    if (f.status !== 'bench') throw new Error('figure is not on the bench');
-    if (!this.board.def.spawns[f.owner].includes(node)) throw new Error('not a spawn node');
-    if (this.figureAt(node)) throw new Error('node occupied');
-    f.status = 'board';
-    f.at = node;
-    this.endTurn();
+  /** MP available to this figure right now. */
+  mp(f: Figure): number {
+    const penalty = f.owner === this.firstPlayer && this.turn === 1 ? this.rules.firstTurnMpPenalty : 0;
+    return Math.max(0, f.def.mp - penalty);
   }
 
-  /** Nodes reachable within the figure's MP, one adjacent step per MP, through empty nodes only. */
-  reachable(f: Figure): Map<NodeId, number> {
-    const dist = new Map<NodeId, number>([[f.at!, 0]]);
-    const queue: NodeId[] = [f.at!];
+  /** Destinations for this figure's MP move. Occupied nodes block; bench figures pay 1 MP to enter. */
+  reachable(f: Figure): Set<NodeId> {
+    const out = new Set<NodeId>();
+    const mp = this.mp(f);
+    if (f.wait > 0 || mp < 1 || this.moved) return out;
+    const dist = new Map<NodeId, number>();
+    const queue: NodeId[] = [];
+    if (f.status === 'bench') {
+      for (const s of this.board.def.spawns[f.owner]) {
+        if (!this.figureAt(s)) { dist.set(s, 1); queue.push(s); }
+      }
+    } else if (f.status === 'board') {
+      dist.set(f.at!, 0);
+      queue.push(f.at!);
+    } else {
+      return out;
+    }
     while (queue.length) {
       const cur = queue.shift()!;
       const d = dist.get(cur)!;
-      if (d >= f.def.mp) continue;
+      if (d >= mp) continue;
       for (const nb of this.board.neighbors(cur)) {
         if (dist.has(nb) || this.figureAt(nb)) continue;
         dist.set(nb, d + 1);
         queue.push(nb);
       }
     }
-    dist.delete(f.at!);
-    return dist;
+    for (const n of dist.keys()) if (n !== f.at) out.add(n);
+    return out;
   }
 
   adjacentEnemies(f: Figure): Figure[] {
+    if (f.status !== 'board') return [];
     return this.board.neighbors(f.at!)
       .map((n) => this.figureAt(n))
       .filter((o): o is Figure => !!o && o.owner !== f.owner);
   }
 
-  /** Move to an empty node; if that leaves the figure next to an enemy, they battle. */
-  move(uid: string, to: NodeId): BattleResult | null {
+  move(uid: string, to: NodeId): void {
     const f = this.mine(uid);
-    if (f.status !== 'board') throw new Error('figure is not on the board');
     if (!this.reachable(f).has(to)) throw new Error('unreachable node');
+    f.status = 'board';
     f.at = to;
-    this.checkWin(f);
-    if (this.winner !== null) return null;
-
-    let result: BattleResult | null = null;
-    const [foe] = this.adjacentEnemies(f);
-    if (foe && this.rules.target === 'first') {
-      result = battle(f, foe, this.rules, this.rng);
-      for (const k of result.ko) this.knockOut(k);
+    this.moved = true;
+    if (to === this.board.def.goals[(1 - f.owner) as PlayerId]) {
+      this.winner = f.owner;
+      return;
     }
-    this.checkEncirclement();
+    this.settle();
+  }
+
+  /** Battle an adjacent enemy. Allowed before or after moving; ends the turn. */
+  battle(uid: string, targetUid: string): BattleResult {
+    const f = this.mine(uid);
+    if (f.status !== 'board' || f.wait > 0) throw new Error('figure cannot attack');
+    const target = this.adjacentEnemies(f).find((e) => e.uid === targetUid);
+    if (!target) throw new Error('target is not an adjacent enemy');
+    const result = battle(f, target, this.rules, this.rng);
+    for (const k of result.ko) this.sendToPc(k);
+    this.settle();
     this.endTurn();
     return result;
   }
 
-  legalMoveCount(p: PlayerId): number {
+  endTurn(): void {
+    if (this.winner !== null) throw new Error('game is over');
+    for (const f of this.figures) if (f.wait > 0) f.wait -= 1;
+    this.current = (1 - this.current) as PlayerId;
+    this.turn += 1;
+    this.moved = false;
+    if (this.turn > this.rules.turnLimit) { this.winner = 'none'; return; }
+    if (this.legalActionCount(this.current) === 0) this.winner = (1 - this.current) as PlayerId;
+  }
+
+  setWait(uid: string, turns: number): void {
+    const f = this.figures.find((x) => x.uid === uid);
+    if (!f) throw new Error('unknown figure');
+    f.wait = turns;
+  }
+
+  /** Send a figure to its owner's P.C.; a full P.C. pushes its oldest figure back to the bench. */
+  sendToPc(f: Figure): void {
+    f.status = 'pc';
+    f.at = null;
+    this.pc[f.owner].push(f);
+    while (this.pc[f.owner].length > this.rules.pcSize) {
+      const back = this.pc[f.owner].shift()!;
+      back.status = 'bench';
+    }
+  }
+
+  /** A figure with every adjacent spot held by enemies is knocked out without battle. */
+  settle(): void {
+    for (const f of this.figures) {
+      if (f.status !== 'board') continue;
+      const nbs = this.board.neighbors(f.at!);
+      if (nbs.length && nbs.every((n) => this.figureAt(n)?.owner === 1 - f.owner)) this.sendToPc(f);
+    }
+  }
+
+  legalActionCount(p: PlayerId): number {
+    const wasMoved = this.moved;
+    this.moved = false;
     let n = 0;
     for (const f of this.figures) {
       if (f.owner !== p) continue;
-      if (f.status === 'board') n += this.reachable(f).size;
-      if (f.status === 'bench') {
-        n += this.board.def.spawns[p].filter((s) => !this.figureAt(s)).length;
-      }
+      n += this.reachable(f).size;
+      if (f.status === 'board' && f.wait === 0) n += this.adjacentEnemies(f).length;
     }
+    this.moved = wasMoved;
     return n;
   }
 
@@ -108,35 +170,5 @@ export class Game {
     if (!f) throw new Error('unknown figure');
     if (f.owner !== this.current) throw new Error('not your figure');
     return f;
-  }
-
-  private knockOut(f: Figure): void {
-    f.status = 'ko';
-    f.at = null;
-  }
-
-  private checkWin(mover: Figure): void {
-    if (mover.status === 'board' && mover.at === this.board.def.goals[(1 - mover.owner) as PlayerId]) {
-      this.winner = mover.owner;
-    }
-  }
-
-  /** A figure with every adjacent node held by enemies is knocked out without battle. */
-  private checkEncirclement(): void {
-    for (const f of this.figures) {
-      if (f.status !== 'board') continue;
-      const nbs = this.board.neighbors(f.at!);
-      if (nbs.length && nbs.every((n) => this.figureAt(n)?.owner === 1 - f.owner)) this.knockOut(f);
-    }
-  }
-
-  private endTurn(): void {
-    this.current = (1 - this.current) as PlayerId;
-    this.turn += 1;
-    if (this.turn > this.rules.turnLimit) {
-      this.winner = 'none'; // 'both-lose' and 'draw' are indistinguishable until scoring exists
-      return;
-    }
-    if (this.legalMoveCount(this.current) === 0) this.winner = (1 - this.current) as PlayerId;
   }
 }

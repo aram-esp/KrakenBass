@@ -18,6 +18,10 @@ const T: Record<Color, Record<Color, Outcome>> = {
 export interface RulesConfig {
   /** Turn limit; if nobody has won by then both players lose (Fandom archive wiki). */
   turnLimit: number;
+  /** MP removed from every figure of the first player during their first turn. */
+  firstTurnMpPenalty: number;
+  /** Capacity of each player's P.C.; a further KO sends the oldest figure back to the bench. */
+  pcSize: number;
   outcome: (a: Color, b: Color) => Outcome;
   /** Which adjacent enemy is fought when several are adjacent. UNVERIFIED: the real game lets the player choose. */
   target: 'first' | 'none';
@@ -25,6 +29,8 @@ export interface RulesConfig {
 
 export const defaultRules: RulesConfig = {
   turnLimit: 300,
+  firstTurnMpPenalty: 1,
+  pcSize: 2,
   outcome: (a, b) => T[a][b],
   target: 'first',
 };
