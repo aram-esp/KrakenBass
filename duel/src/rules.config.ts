@@ -1,27 +1,30 @@
 import type { Color } from './types.ts';
 
 /**
- * Sources: Bulbapedia "Pokémon Trading Figure Game" (Mechanics), which says Duel
- * used rules almost identical to it. Items marked UNVERIFIED are not in a source.
+ * Colour matchup, read from the community chart (Fandom archive wiki "Color chart") and
+ * the Serebii/Bulbapedia rule text. 'a' = the row colour wins, 'b' = the column colour wins,
+ * 'cmp' = compare damage (stars for purple/purple), 'none' = nothing happens.
  */
+export type Outcome = 'a' | 'b' | 'cmp' | 'none';
+
+const T: Record<Color, Record<Color, Outcome>> = {
+  red:    { red: 'none', white: 'b',   purple: 'b',   gold: 'b',   blue: 'b' },
+  white:  { red: 'a',    white: 'cmp',  purple: 'b',   gold: 'cmp', blue: 'b' },
+  purple: { red: 'a',    white: 'a',    purple: 'cmp', gold: 'b',   blue: 'b' },
+  gold:   { red: 'a',    white: 'cmp',  purple: 'a',   gold: 'cmp', blue: 'b' },
+  blue:   { red: 'a',    white: 'a',    purple: 'a',   gold: 'a',   blue: 'none' },
+};
+
 export interface RulesConfig {
-  /** Max turns before the game is declared over. UNVERIFIED value. */
+  /** Turn limit; if nobody has won by then both players lose (Fandom archive wiki). */
   turnLimit: number;
-  /** Does colour `a` beat a different colour `b`? */
-  colorBeats: (a: Color, b: Color) => boolean;
-  /** Which adjacent enemy is fought when several are adjacent. UNVERIFIED. */
+  outcome: (a: Color, b: Color) => Outcome;
+  /** Which adjacent enemy is fought when several are adjacent. UNVERIFIED: the real game lets the player choose. */
   target: 'first' | 'none';
 }
 
-/**
- * Verified (TFG): blue beats all; purple beats white; red (miss) loses to all.
- * UNVERIFIED: where gold sits. Duel added gold; one search summary put it
- * between blue and purple, so that is used as a placeholder.
- */
-const ORDER: Color[] = ['blue', 'gold', 'purple', 'white', 'red'];
-
 export const defaultRules: RulesConfig = {
-  turnLimit: 100,
-  colorBeats: (a, b) => ORDER.indexOf(a) < ORDER.indexOf(b),
+  turnLimit: 300,
+  outcome: (a, b) => T[a][b],
   target: 'first',
 };

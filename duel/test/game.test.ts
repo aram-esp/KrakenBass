@@ -21,22 +21,24 @@ const asFigure = (def: FigureDef): Figure =>
 const fight = (a: Move, b: Move) =>
   battle(asFigure(fig('a', 1, a)), asFigure(fig('b', 1, b)), defaultRules, seeded(1)).ko.length;
 
-test('colour hierarchy (TFG): blue beats all, purple beats white, red loses to all', () => {
+test('colour matchup table', () => {
   const koOf = (a: Move, b: Move) => {
     const x = asFigure(fig('x', 1, a)), y = asFigure(fig('y', 1, b));
     return battle(x, y, defaultRules, seeded(1)).ko.map((k) => k.def.id);
   };
-  assert.deepEqual(koOf(mv('purple'), mv('white', 9)), ['y']);
   assert.deepEqual(koOf(mv('red'), mv('white', 1)), ['x']);
   assert.deepEqual(koOf(mv('white', 5), mv('white', 3)), ['y']);
-  assert.deepEqual(koOf(mv('purple', 0, 2), mv('purple', 0, 1)), ['y']);
+  assert.deepEqual(koOf(mv('gold', 10), mv('purple', 0, 3)), ['y']); // gold beats purple, any damage > 0 KOs
+  assert.deepEqual(koOf(mv('white', 50), mv('gold', 10)), ['y']);     // white vs gold: damage compared
+  assert.deepEqual(koOf(mv('gold', 50), mv('white', 60)), ['x']);
 });
 
-test('blue dodges: nothing is knocked out', () => {
+test('blue dodges and purple wins apply no KO', () => {
   assert.equal(fight(mv('blue'), mv('white', 9)), 0);
+  assert.equal(fight(mv('purple', 0, 1), mv('white', 9)), 0);
 });
 
-test('ties do nothing (TFG)', () => {
+test('ties do nothing', () => {
   assert.equal(fight(mv('white', 4), mv('white', 4)), 0);
   assert.equal(fight(mv('red'), mv('red')), 0);
   assert.equal(fight(mv('purple', 0, 1), mv('purple', 0, 1)), 0);
@@ -100,4 +102,24 @@ test('cannot move opponent figures', () => {
   const g = new Game(board, [[fig('a', 1, mv('blue'))], [fig('b', 1, mv('blue'))]], seeded(1));
   g.deploy('0:0', 'B');
   assert.throws(() => g.move('0:0', 'C'), /not your figure/);
+});
+
+test('real board: 28 nodes, 34 edges, 180-degree symmetric', async () => {
+  const { readFileSync } = await import('node:fs');
+  const b = JSON.parse(readFileSync(new URL('../data/board.json', import.meta.url), 'utf8'));
+  assert.equal(b.nodes.length, 28);
+  assert.equal(b.edges.length, 34);
+  const flip = (n: string) => {
+    const m: Record<string, string> = { C1: 'C3', C3: 'C1', I1a: 'I3b', I3b: 'I1a', I1b: 'I3a', I3a: 'I1b', I2a: 'I2b', I2b: 'I2a' };
+    if (m[n]) return m[n];
+    const r = n[0], i = Number(n.slice(1));
+    if (r === 'T') return 'B' + (6 - i);
+    if (r === 'B') return 'T' + (6 - i);
+    if (r === 'L') return 'R' + (4 - i);
+    if (r === 'R') return 'L' + (4 - i);
+    return n;
+  };
+  const key = (x: string, y: string) => [x, y].sort().join('-');
+  const edges = new Set(b.edges.map(([x, y]: string[]) => key(x, y)));
+  for (const [x, y] of b.edges) assert.ok(edges.has(key(flip(x), flip(y))), `asymmetric edge ${x}-${y}`);
 });

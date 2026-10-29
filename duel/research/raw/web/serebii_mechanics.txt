@@ -1,0 +1,535 @@
+
+Pok�mon Duel - Mechanics
+ [Serebii.net Header]
+Quick Links
+Home
+Forums
+Contact
+Discord
+Pok�dex Hub
+Scarlet & Violet Pok�dex
+Champions Pok�dex
+Pok�arth
+ Databases
+News
+Archived news
+Pok�dex
+-Red/Blue Pok�dex
+-Gold/Silver Pok�dex
+-Ruby/Sapphire Pok�dex
+-Diamond/Pearl Pok�dex
+-Black/White Pok�dex
+-X & Y Pok�dex
+-Sun & Moon Pok�dex
+-Let's Go Pok�dex
+-Sword & Shield Pok�dex
+-BDSP Pok�dex
+-Legends: Arceus Pok�dex
+-GO Pok�dex
+-Scarlet & Violet Pok�dex
+-Legends: Z-A Pok�dex
+-Champions Pok�dex
+Attackdex
+-Gen 1 Attackdex
+-Gen 2 Attackdex
+-Gen 3 Attackdex
+-Gen 4 Attackdex
+-Gen 5 Attackdex
+-Gen 6 Attackdex
+-Gen 7 Attackdex
+-Gen 8 Attackdex
+-Gen 9 Attackdex
+-Champions Attackdex
+ItemDex
+Pok�arth
+Abilitydex
+Spin-Off Pok�dex
+Spin-Off Pok�dex DP
+Spin-Off Pok�dex BW
+Cardex
+Cinematic Pok�dex
+Game Mechanics
+-Scarlet/Violet IV Calc.
+Pok�mon of the Week
+-Champions
+-9th Gen
+-8th Gen
+-7th Gen
+Pok�mon Timeline
+Pok�mon Centers
+Pok�mon Championship Series
+Pok�monXP
+Hatsune Miku Project Voltage
+Pok�mon in Museums & Exhibitions
+-Pok�mon x Van Gogh
+Pok�mon Day
+Pok�mon Presentations
+LEGO Pok�mon
+Pok�mon Shirts
+Theme Parks
+Forums
+Discord Chat 
+Current & Upcoming Events
+Event Database
+9th Generation Pok�mon
+-New Pok�mon in DLC
+-Paldean Form Pok�mon
+ Anime & TV
+Episode Listings & Pictures
+Anim�Dex
+Character Bios
+The Indigo League
+The Orange League
+The Johto Saga
+The Saga in Hoenn!
+Kanto Battle Frontier Saga!
+The Sinnoh Saga!
+Best Wishes - Unova Saga
+XY - Kalos Saga
+Sun & Moon - Alola Saga
+Pok�mon Journeys - Galar Saga
+Pok�mon Aim To Be A Pok�mon Master
+Pok�mon Horizons - Paldea Saga
+Pok�mon Chronicles 
+The Special Episodes
+The Banned Episodes
+Shiny Pok�mon
+Other Web Series
+Pok�mon Generations
+Pok�mon Twilight Wings
+Pok�mon Evolutions
+Pok�mon: Hisuian Snow
+Pok�mon: Paldean Winds
+Pok�Toon
+Path to the Peak
+Pok�Minutes
+Pok�VideoDex
+Good Morning with Pok�mon
+Other Animations
+Other Series
+Pok�mon Concierge
+Pok�mon Tales: The Misadventures of Sirfetch'd & Pichu
+Live Action
+Pok�Tsume
+ Video Games
+Gen X
+Winds & Waves
+Gen IX
+Scarlet & Violet
+Legends: Z-A
+Pok�mon Champions
+Pok�mon Pokopia
+Pok�mon Friends
+Pok�mon GO
+Pok�mon Caf� ReMix
+Pok�mon Masters EX
+Pok�mon UNITE
+Pok�mon Sleep
+Detective Pikachu Returns
+Pok�mon TCG Pocket
+Gen VIII
+Sword & Shield
+Brilliant Diamond & Shining Pearl
+Pok�mon Legends: Arceus
+Pok�mon HOME
+Pok�mon GO
+Pok�mon Masters EX
+Pok�mon Mystery Dungeon Rescue Team DX
+Pok�mon Smile
+Pok�mon Caf� ReMix
+New Pok�mon Snap
+Pok�mon UNITE
+Pok�mon TCG Live
+Gen VII
+Sun & Moon
+Ultra Sun & Ultra Moon
+Let's Go, Pikachu! & Let's Go, Eevee!
+Pok�mon GO
+Pok�mon: Magikarp Jump
+Pok�mon Rumble Rush
+Pokk�n Tournament DX
+Detective Pikachu
+Pok�mon Quest
+Super Smash Bros. Ultimate
+Gen VI
+X & Y
+Omega Ruby & Alpha Sapphire
+Pok�mon Bank
+Pok�mon Battle TrozeiPok�mon Link: Battle
+Pok�mon Art Academy
+The Band of Thieves & 1000 Pok�mon
+Pok�mon Shuffle
+Pok�mon Rumble World
+Pok�mon Super Mystery Dungeon
+Pok�mon Picross
+Detective Pikachu
+Pokk�n Tournament
+Pok�mon Duel
+Smash Bros for 3DS/Wii U
+Nintendo Badge Arcade
+Gen V
+Black & White
+Black 2 & White 2
+Pok�mon Dream Radar
+Pok�mon Tretta Lab
+Pok�mon Rumble U
+Mystery Dungeon: Gates to Infinity
+Pok�mon Conquest
+Pok�Park 2: Wonders Beyond
+Pok�mon Rumble Blast
+Pok�dex 3D
+Pok�dex 3D Pro
+Learn With Pok�mon: Typing Adventure
+TCG How to Play DS
+Pok�dex for iOS
+Gen IV
+Diamond & Pearl
+Platinum
+Heart Gold & Soul Silver
+Pok�mon Ranger: Guardian Signs
+Pok�mon Rumble
+Mystery Dungeon: Blazing, Stormy & Light Adventure Squad
+Pok�Park Wii - Pikachu's Adventure
+Pok�mon Battle Revolution
+Mystery Dungeon - Explorers of Sky
+Pok�mon Ranger: Shadows of Almia
+Mystery Dungeon - Explorers of Time & Darkness
+My Pok�mon Ranch
+Smash Bros Brawl
+Gen III
+Ruby & Sapphire
+Fire Red & Leaf Green
+Emerald
+Pok�mon Colosseum
+Pok�mon XD: Gale of Darkness
+Pok�mon Dash
+Pok�mon Channel
+Pok�mon Box: RS
+Pok�mon Pinball RS
+Pok�mon Ranger
+Mystery Dungeon Red & Blue
+Pok�monTrozei
+Pikachu DS Tech Demo
+Pok�Park Fishing Rally
+The E-Reader
+Pok�Mate
+Gen II
+Gold/Silver
+Crystal
+Pok�mon Stadium 2
+Pok�mon Puzzle Challenge
+Pok�mon Mini
+Super Smash Bros. Melee
+Gen I
+Red, Blue & Green
+Yellow
+Pok�mon Puzzle League
+Pok�mon Snap
+Pok�mon Pinball
+Pok�mon Stadium (Japanese)
+Pok�mon Stadium
+Pok�mon Trading Card Game GB
+Super Smash Bros.
+Miscellaneous
+Game Mechanics
+Pok�mon Championship Series
+In Other Games
+Virtual Console
+Special Edition Consoles
+Pok�mon 3DS Themes
+Smartphone & Tablet Apps
+Virtual Pets
+amiibo
+Nintendo Switch Online & Icons
+Board Game
+Pok�mon Goita
+Arcade
+Pok�mon FRIENDA
+ Manga
+General Information
+MangaDex
+Character BIOs
+Detailed BIOs
+Chapter Guides
+Volume Guides
+RBG Series
+Yellow Series
+GSC Series
+RS Series
+FRLG Series
+Emerald Series
+DP Series
+Platinum Series
+HGSS Series
+BW Series
+B2W2 Series
+XY Series
+ORAS Series
+SM Series
+ Movies
+Anime
+The Origin of Mewtwo
+Mewtwo Strikes Back
+The Power of One
+Spell Of The Unown
+Mewtwo Returns
+Celebi: Voice of the Forest
+Pok�mon Heroes
+Jirachi - Wish Maker
+Destiny Deoxys!
+Lucario and the Mystery of Mew!
+Pok�mon Ranger & The Temple of the Sea!
+The Rise of Darkrai!
+Giratina & The Sky Warrior!
+Arceus and the Jewel of Life
+Zoroark - Master of Illusions
+Black: Victini & ReshiramWhite: Victini & Zekrom
+Kyurem VS The Sword of Justice
+-Meloetta's Midnight Serenade
+Genesect and the Legend Awakened
+Diancie & The Cocoon of Destruction
+Hoopa & The Clash of Ages
+Volcanion and the Mechanical Marvel
+Pok�mon I Choose You!
+Pok�mon The Power of Us
+Mewtwo Strikes Back Evolution
+Secrets of the Jungle
+Wild Card
+Live Action
+Pok�mon Detective Pikachu
+ Pikachu Shorts
+Pikachu's Summer Vacation
+Pikachu's Rescue Adventure
+Pikachu And Pichu
+Pikachu's PikaBoo
+Camp Pikachu!
+Gotta Dance!!
+Pikachu's Summer Festival!
+Pikachu's Ghost Festival!
+Pikachu's Island Adventure!
+Pikachu's Exploration Club
+Pikachu's Great Ice Adventure
+Pikachu's Sparkling Search
+Pikachu's Really Mysterious Adventure
+Eevee & Friends
+Pikachu, What's This Key?
+Pikachu & The Pok�mon Music Squad
+ Trading Cards
+Pok�mon TCG Live
+Cardex
+-Extra Pok�mon Types
+Trainer Cards
+Energy Cards
+Alternate Art Cards
+Raid Battles
+Pok�mon TCG Classic
+English Sets
+-Delta Reign
+-30th Celebration
+-Pitch Black
+-Chaos Rising
+-Perfect Order
+-Ascended Heroes
+-Phantasmal Flames
+-Mega Evolution
+-Black Bolt
+-White Flare
+-Destined Rivals
+-Journey Together
+-Prismatic Evolutions
+-Surging Sparks
+-Stellar Crown
+-Shrouded Fable
+-Twilight Masquerade
+-Temporal Forces
+-Paldean Fates
+-Paradox Rift
+-151
+-Obsidian Flames
+-Paldea Evolved
+-Scarlet Violet
+-SWSH Series
+-SM Series
+-XY Series
+-BW Series
+-DPtHS Series
+-EX Series
+-Neo/eSeries
+-First Gen Series
+English Promos
+-Mega Promos
+-SV Promos
+-SWSH Promos
+-SM Promos
+-XY Promos
+-POP Series
+Japanese Sets
+-Abyss Eye
+-Ninja Spinner
+-Nihil Zero
+-Mega Dream ex
+-Inferno X
+-Mega Brave
+-Mega Symphonia
+-Black Bolt
+-White Flare
+-Glory of Team Rocket
+-Hot Air Arena
+-Battle Partners
+-Terastal Festival ex
+-Super Electric Breaker
+-Paradise Dragona
+-Stellar Miracle
+-Night Wanderer
+-Mask of Change
+-Crimson Haze
+-Wild Force
+-Cyber Judge
+-VSTAR Universe
+-Pok�mon VS
+Japanese Promos
+-SV Promos
+-S Promos
+-SM Promos
+As Pok�mon Duel is a new game, there are a number of special mechanics created for this game. This page will detail everything about these mechanics.
+ | The Board
+ | 
+The bulk of the game takes place on the board. To start off, the starting player is chosen at random. The first player makes the decision to move their pieces. There are two portals from which Pok�mon can be spawned on each player's side. If a piece is on top of a portal, the player cannot use it to put a Pok�mon on the field. The idea of the game is to either have one of your pieces reach the goal spot on the opponent's side, or to remove all the opponent's pieces from the board and prevent them from putting on new pieces. You have a limit of 300 turns per match.
+Each player starts with 6 Pok�mon, but as they are defeated, they will go into the backup. You can only have two Pok�mon in the backup area at any one time. If another is to go in, then one is sent back to your bench and can be used in gameplay again.
+Each Pok�mon piece can move a set amount of spaces from 1 to 3 depending on the piece. This can be reduced, however, by special effects from an opponent's attack such as String Shot. You can move one piece per turn.
+When it's your turn, you can tap each piece and see how far they can travel and what they can do. You can only attack if your piece is adjacent to the opponent's piece.
+If you are unsure how to move, you can let the computer take your move for you, making the most logical course of action.
+ | 
+ | Combat
+ | 
+Combat is quite simple in this game. Each Pok�mon piece has got a wheel of moves that it can do. When combat is activated, both players spin their wheel and wherever it stops, that's the attack that is activated. Whichever attack happens depends on the colour
+White Attacks: These are your standard damaging attacks and are ones that can remove Pok�mon from a board. Each has got set damage total, while some have special effects such as allowing for rerolling for multiplication of damage and so forth. The player with the highest value at the end wins. If both players have the same value, then it's a draw and both remain on the board.
+Purple Attacks: These attacks have priority over the standard attacks. These attacks offer special effects such as poisoning the opponent, slowing them and so forth. The priority depends on how many stars the attack has. If both players land on Purple, then whoever has the highest amount of stars has their attack activate.
+Blue Attacks: These are the defensive attacks such as Protect and Dodge. They win against all other kind of attacks.
+Gold Attacks: Priority moves. Goes before Purple attacks
+Miss: The red option is Miss. If it lands on this, then the opponent's attack will win out.
+There are various Support cards that can be used to augment these attacks.
+ | 
+ | Status Conditions
+ | 
+Like the main games, there are a numer of status afflictions that can afflict your pieces and your opponent's pieces. These can be afflicted through Purple moves, or by special effects of White moves. The conditions are as follows
+Confusion: Your Pok�mon's move is rotated away one move from where it lands in combat
+Poison: The damage of moves is reduced by 20
+Noxious: The damage of moves is reduced by 40
+Paralysis: At the start of each combat round, the smallest of the Pok�mon's White, Blue, Purple or Gold move turns into a Miss.
+Sleep: The Pok�mon cannot move or make an attack. It can be woken up by an adjacent Pok�mon.
+Frozen: The Pok�mon cannot take actions and their attacks miss. They can move. Freeze is cleared after a battle regardless of the outcome.
+Burn: The Pok�mon's smallest White, Blue, Purple or Gold move turns into a miss. Damage inflicted is reduced by 10
+Wait: The Pok�mon is unable to make any actions or movement
+Curse: When the Pok�mon is defeated, it is removed from the duel
+There are various Support cards that can be used to heal these conditions.
+ | 
+ | Levelling Up
+ | 
+As you play the game, you can actually level your figures up. This allows for you to have a little bit of customisation to your figures. With each level, you will get a point which will allow you to alter the size of one of your attacks, either making it larger or smaller. This will allow for you to remove some Miss chances and increase your most powerful attacks.
+Even if you lose, you will get experience.
+You can also level up by fusing various figures in the deck option. You will lose the side figures that are selected for this. When you have selected the figures that you want to fuse, you can then spend coins in order to fuse them. The experience gained for the main figure is equal to that of all the experience from each figure added together.
+Each Pok�mon has only 5 levels, giving an addition of +4 bringing the total move spaces up to 100.
+As of Version 4, a new update called Carmonite became available. This allowed you to get your Pok�mon up to Level 10. It can only be used once the figure is Level 5. With that, you can then increase other moves widths while decreasing others
+ | 
+ | Levelling Up - Chain Level
+ | 
+As of Version 1.2.1, when you fuse with the same figure, it'll increase a new level bar known as the Chain Level. This allows for you to combine figures of the same species to boost the level and the amount you need to increase changes depending on the figures rarity
+EX- 1
+R- 3
+UC- 9
+C- 30
+This can also be done by using the Cube items.
+When your Chain Level increases, you gain the ability to increase the power of a move by 1 point meaning a move that was 40 can now be 41, allowing for your figure to have an advantage over others of the same figure. The amount of Carmonite for each level is different depending upon the rarity of the figure
+UX - 50
+EX - 40
+R - 30
+UC - 20
+C - 10
+ | 
+ | Energy & Match Costs
+ | Single Player
+As the game is free to play it has an Energy Gauge. This gauge increases over time by 1 point for every 2 minutes. Each stage you play in the game costs a certain amount of energy to play. This energy is depleted when you go into the match and they cannot be played if you do not have the required energy
+Online
+To play the ranked matches, you need to have special Lounge Tickets to play. For each match, you have to use one Lounge Ticket. These are obtained through the story mode as well as in Check-in Bonuses each day. This was removed in Version 2
+ | 
+ | Evolution
+ | 
+Evolution is a feature introduced in Version 2 of the game. When you get a figure that evolves from another, you have the ability to attach that figure to the previous evolution when selecting the Pok�mon in the deck. When the Pok�mon defeats a Pok�mon in battle, it gains the ability to evolve. The evolved figure takes the new details of the figure, but adds 10 to the damage and ☆ to each of the moves, making it more powerful than a standard figure of its species. This can make your Pok�mon even more powerful than before.
+Some Pok�mon can evolve more than once, giving you a variety of options for your Pok�mon.
+ | 
+ | Mega Evolution
+ | 
+Mega Evolution is a feature introduced in Version 5 of the game. When you get a figure that is a Mega Evolution of another, you can equip it in the deck and you'll receive a special plate to Mega Evolve the Pok�mon. When a Pok�mon is Mega Evolved, it will remain Mega Evolved for 7 turns. They typically have more power and have an effect that affects your entire team of figures.
+You can only Mega Evolve 1 Pok�mon per game.
+ | 
+ | Z-Moves
+ | 
+Z-Moves are a feature introduced in Version 7 of the game. As you make moves through the game, you power up your Z-Move gauge. When it's full, you have the ability to activate the Z-Move on any Pok�mon you have in play. The Z-Move will be able to be selected based on the Pok�mon's type, with each Z-Move having a different effect. If it's a White Attack, the power is double the highest power of the figure's strongest move.
+ | Type | Name | Colour | Effect
+ | Normal | Breakneck Blitz | White Z-Move | Pokémon knocked out by this Attack\'s damage are temporarily excluded from the duel, returning to the bench 7 turns later.
+ | Fighting | All-Out Pummelling | White Z-Move | Attaches a Cracked marker to opposing Pokémon in a straight line directly behind the battle opponent
+ | Flying | Supersonic Skystrike | White Z-Move | Any Pokémon adjacent to the battle opponent other than this Pokémon spin. Those that spin White Attacks move to the bench. This Pokémon gains Wait 3.
+ | Poison | Acid Downpour | White Z-Move | All opposing Pokémon on the field spin. Those that spin White Attacks become Poisoned.
+ | Ground | Tectonic Rage | Purple Z-Move | Knocks out the battle opponent
+ | Rock | Continental Crush | Purple Z-Move | The battle opponent and opposing Pokémon adjacent to the battle opponent gain Wait 9
+ | Bug | Savage Spin-Out | White Z-Move | Attaches a MP-2 marker to opposing Pokémon within 2 steps.
+ | Ghost | Never-Ending Nightmare | White Z-Move | All opposing Pokémon on the field spin. Those that spin White Attacks get an MP-1 marker.
+ | Steel | Corkscrew Crash | White Z-Move | If the battle opponent is knocked out, then after the battle, this Pokémon moves to a point 2 steps away
+ | Fire | Inferno Overdrive | White Z-Move | The battle opponent and the Pokémon in a straight line directly behind it become burned.
+ | Water | Hydro Vortex | White Z-Move | The battle opponent and opposing Pokémon within 2 steps of it become confused.
+ | Grass | Bloom Doom | White Z-Move | Removes all special conditions from your Pokémon
+ | Electric | Gigavolt Havoc | White Z-Move | The battle opponent and a succession of Pokémon adjacent to the battle opponent (other than this Pokémon) become paralyzed
+ | Psychic | Shattered Psyche | White Z-Move | If this Pokémon is on the field, this Pokémon moves to a point 3 steps away after battle
+ | Ice | Subzero Slammer | White Z-Move | An opposing Pokémonwithin 2 steps becomes frozen
+ | Dragon | Devastating Drake | Purple Z-Move | A Pokémon on the field spins. If it spins a Miss or a White Attack of 120 damage or more, it is knocked out
+ | Dark | Black Hole Eclipse | White Z-Move | Reduces the opponetn\'s Z-Move gauge by two thirds of its max value
+ | Fairy | Twinkle Tackle | Purple Z-Move | Moves the battle opponent to the bench
+Certain other figures also have their own unique Z-Moves.
+ | 
+Game Names
+Pok�mon Duel
+Pok�mon Comaster
+Console
+iOS
+Android
+Game Sections
+Information
+Pre-Release Screenshots
+Pok�mon Figure Listings
+Pok�mon Abilities Listings
+Plate Listings
+Quest Mode
+Carmonte Island
+-Location Listings
+League Details
+Gameplay Mechanics
+Items
+Shop & Microtransactions
+Events & Updates
+Carnival Events
+Gym Events
+Patches & Updates
+Picture
+Details
+Developer:
+HEROZ 
+Genre:
+Board Game
+Players:
+1-2
+Menu Icon
+[Icon] [Icon] [Icon] [Icon]
+Release Date
+Android
+Japan: April 12th 2016
+International: January 24th 2017
+iOS
+Japan: April 19th 2016
+International: January 24th 2017
+ All Content is © Copyright of Serebii.net 1999-2026. |
+ Privacy Policy |
+ Manage Cookie Settings
+ Pok�mon and All Respective Names are Trademark & © of Nintendo 1996-2026
+Support us on Patreon
+

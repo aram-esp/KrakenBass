@@ -20,24 +20,26 @@ export interface BattleResult {
   ko: Figure[];
 }
 
-/** Returns >0 if `a` wins, <0 if `b` wins, 0 for nothing happens. */
+/** >0: `a` wins, <0: `b` wins, 0: nothing happens. */
 function compare(a: Move, b: Move, rules: RulesConfig): number {
-  if (a.color !== b.color) return rules.colorBeats(a.color, b.color) ? 1 : -1;
-  if (a.color === 'white' || a.color === 'gold') return Math.sign(a.damage - b.damage);
-  if (a.color === 'purple') return Math.sign((a.stars ?? 0) - (b.stars ?? 0));
-  return 0; // blue/blue and red/red: nothing happens
+  const o = rules.outcome(a.color, b.color);
+  if (o === 'a') return 1;
+  if (o === 'b') return -1;
+  if (o === 'none') return 0;
+  if (a.color === 'purple' && b.color === 'purple') return Math.sign((a.stars ?? 0) - (b.stars ?? 0));
+  return Math.sign(a.damage - b.damage);
 }
 
 /**
- * Both figures spin; the colours decide the outcome. Per the TFG rules ties
- * do nothing. A white win knocks the loser out; whether purple/gold wins also
- * knock out is UNVERIFIED and treated the same here.
+ * Both figures spin and the colour matchup decides. Only a winning white/gold attack
+ * with damage > 0 knocks the loser out; purple wins apply effects (not modelled yet)
+ * and blue wins just dodge.
  */
 export function battle(mover: Figure, other: Figure, rules: RulesConfig, rng: Rng): BattleResult {
   const mm = spin(mover, rng);
   const om = spin(other, rng);
   const c = compare(mm, om, rules);
-  const knocks = (m: Move) => m.color === 'white' || m.color === 'gold' || m.color === 'purple';
+  const knocks = (m: Move) => (m.color === 'white' || m.color === 'gold') && m.damage > 0;
   let ko: Figure[] = [];
   if (c > 0 && knocks(mm)) ko = [other];
   if (c < 0 && knocks(om)) ko = [mover];
