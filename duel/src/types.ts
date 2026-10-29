@@ -20,7 +20,10 @@ export interface Segment {
 }
 
 export interface FigureDef {
+  /** Matches assets/models/<id>.glb when a model is provided. */
   id: string;
+  /** Pokémon-style type used only for placeholder colours. */
+  type?: string;
   name: string;
   /** Movement points available per turn. */
   mp: number;

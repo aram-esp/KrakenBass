@@ -3,6 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test "test/*.test.ts""
+    "test": "node --test \"test/*.test.ts\"",
+    "build": "esbuild web/src/main.ts --bundle --format=esm --outfile=web/dist/app.js --sourcemap",
+    "serve": "python3 -m http.server 8080"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.0",
+    "three": "0.160.0"
   }
 }

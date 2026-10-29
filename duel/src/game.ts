@@ -18,6 +18,8 @@ export class Game {
   turn = 1;
   current: PlayerId;
   winner: Winner | null = null;
+  /** Called after every battle, e.g. so a UI can show the wheels. */
+  onBattle?: (mover: Figure, other: Figure, result: BattleResult) => void;
   private moved = false;
   private firstPlayer: PlayerId;
   private rng: Rng;
@@ -110,6 +112,7 @@ export class Game {
     if (!target) throw new Error('target is not an adjacent enemy');
     const result = battle(f, target, this.rules, this.rng);
     for (const k of result.ko) this.sendToPc(k);
+    this.onBattle?.(f, target, result);
     this.settle();
     this.endTurn();
     return result;
