@@ -18,5 +18,6 @@ Board (28 nodes), entry points, MP and the first-turn MP-1, bench entry for 1 MP
 the real colour table, P.C. (2 slots), Wait, encirclement KO, goal win, Wait win (no legal action), 300-turn limit.
 Not yet: plates, abilities/attack effects, special conditions, evolution, Mega Evolution, Z-Moves, per-figure levels, timers.
 
-See `research/FINDINGS.md` for sources and open questions. The browser console shows harmless 404s while it checks for
+Full project state, decisions, known issues and next steps: `docs/NOTES.md`. Rule sources and open questions: `research/FINDINGS.md`.
+To use your own sprites or models: `tools/import_sprites.py` and `assets/models/README.md`. The browser console shows harmless 404s while it checks for
 optional models in `assets/models/`.

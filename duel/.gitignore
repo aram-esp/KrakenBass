@@ -3,3 +3,4 @@ web/dist/
 publish/app.min.js
 assets/models/*
 !assets/models/README.md
+assets/sprites/
