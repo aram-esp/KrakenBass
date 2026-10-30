@@ -129,3 +129,31 @@ test('no evolution is listed twice', () => {
   const evolves: Record<string, unknown[]> = JSON.parse(readFileSync(new URL('../data/evolutions.json', import.meta.url), 'utf8')).evolves;
   for (const [id, tos] of Object.entries(evolves)) assert.equal(new Set(tos.map(String)).size, tos.length, `figure ${id}`);
 });
+
+test('AI uses ability moves: wakes a sleeping ally, Cut Off when its goal is threatened, Run Off to get closer', async () => {
+  const { houseRules } = await import('../src/rules.config.ts');
+  const { aiTurn } = await import('../src/ai.ts');
+  const f = (id: string, ability?: string): FigureDef => ({ id, name: id, mp: 1, wheel: [{ move: { name: 'T', color: 'white', damage: 10 }, weight: 1 }], ...(ability ? { ability: { name: ability, effect: '' } } : {}) });
+  const put = (g: Game, uid: string, n: string) => { const x = g.figures.find((y) => y.uid === uid)!; x.status = 'board'; x.at = n; };
+
+  const tag = new Game(board, [[f('a'), f('b')], [f('c')]], seeded(1), houseRules, 0);
+  put(tag, '0:0', 'C3'); put(tag, '0:1', 'I3a'); tag.figures[1].cond = 'sleep';
+  aiTurn(tag, seeded(2));
+  assert.equal(tag.figures[1].cond, null, 'woke the ally');
+
+  const cut = new Game(board, [[f('s', 'Cut Off')], [f('c')]], seeded(1), houseRules, 0);
+  put(cut, '0:0', 'C1'); put(cut, '1:0', 'C3'); // enemy one step from player 0's goal
+  aiTurn(cut, seeded(2));
+  assert.equal(cut.figures[0].at, board.goals[0], 'Cut Off to defend');
+
+  // Run Off: the ally next to it that is nearer the opponent's goal is swapped with first.
+  const off = new Game(board, [[f('r', 'Run Off'), f('b')], [f('c')]], seeded(1), houseRules, 0);
+  const toGoal = off.distances(board.goals[1]);
+  const near = off.board.neighbors('C3').filter((n) => !Object.values(board.goals).includes(n)).sort((x, y) => toGoal.get(x)! - toGoal.get(y)!)[0];
+  assert.ok(toGoal.get(near)! < toGoal.get('C3')!);
+  put(off, '0:0', 'C3'); put(off, '0:1', near);
+  const notes: string[] = [];
+  off.onNote = (t) => notes.push(t);
+  aiTurn(off, seeded(2));
+  assert.ok(notes.some((t) => t.startsWith('Run Off')), notes.join(' | '));
+});

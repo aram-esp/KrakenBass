@@ -46,6 +46,9 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   Ability moves are purple targets (`Game.specials`: Run Off, Swarm, Forest Leap, Cut Off, tag); Run Away and Sand Veil
   are always used; Metamorphosis evolves in the duel (+10/+1★); figures obtained by evolving count as "evolved".
   Interpretations are listed in `NOTES` (shown in the Pokédex).
+- AI and ability moves (`src/ai.ts`, 2026-10-30): Run Off first if the swap brings that figure nearer the goal; wakes a
+  sleeping ally unless a move wins; Cut Off to its goal when an enemy is within 2 steps of it; Forest Leap and Swarm are
+  scored like moves (Swarm +0.6, it ends the turn). In simulations it uses Run Off, Forest Leap and Cut Off.
 - Abilities as in 1.0.0 (21 of the 82 figures have one, read per version from `data/figures.json`); see below.
 - Secondary types (`type2`, 31 of 82): shown on cards (types line, base side colour). No type effectiveness (Duel has none).
 - 2.5D board restyled after research/img/field.png: pale mottled surface, thick white routes, ring points, concentric
@@ -86,7 +89,7 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 45 passing.
+- Tests: `npm test` -> 46 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.
