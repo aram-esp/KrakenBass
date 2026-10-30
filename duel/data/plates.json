@@ -1,0 +1,3279 @@
+[
+ {
+  "id": 1,
+  "category": "Movement",
+  "name": "Long Throw",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Move one Pokémon from your bench to one space away from your entry point. Your turn ends.",
+    "cost": 2,
+    "gems": 160,
+    "since_version": null
+   },
+   {
+    "description": "Move one Pokémon from your bench to one space away from your entry point. Your turn ends.",
+    "cost": 2,
+    "gems": 80,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 2,
+  "category": "Pokémon",
+  "name": "Bright Powder",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field. For this turn, you can make any battle opponent of this Pokémon spin again once.",
+    "cost": 1,
+    "gems": 160,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field. For this turn, you can make any battle opponent of this Pokémon spin again once.",
+    "cost": 1,
+    "gems": 80,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 3,
+  "category": "Plates",
+  "name": "Recycle",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "All Plates from both players except Recycle become usable. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "All Plates from both players except Recycle become usable. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 4,
+  "category": "Pokémon",
+  "name": "X Sp. Atk",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, it has ★+2.",
+    "cost": 1,
+    "gems": 160,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, it has ★+2.",
+    "cost": 1,
+    "gems": 80,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 5,
+  "category": "Recovery",
+  "name": "Max Revive",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Select one of your Pokémon in your P.C. That Pokémon moves to the bench. (That Pokémon cannot have Wait.)",
+    "cost": 2,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Select one of your Pokémon in your P.C. That Pokémon moves to the bench. (That Pokémon cannot have Wait.)",
+    "cost": 2,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 6,
+  "category": "Battle",
+  "name": "Desperate Times",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, if that Pokémon spins an Attack between 10 and 50 damage, it deals +50 damage.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, if that Pokémon spins an Attack between 10 and 50 damage, it deals +50 damage.",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 7,
+  "category": "Spin",
+  "name": "Double Chance",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose a Pokémon on the field or bench. (You cannot select unusable Pokémon) For this turn, you can choose to respin once for it.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose a Pokémon on the field or bench. (You cannot select unusable Pokémon) For this turn, you can choose to respin once for it.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 8,
+  "category": "Recovery",
+  "name": "Clear Wait",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field or bench. Remove Wait from that Pokémon.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. Remove Wait from that Pokémon.",
+    "cost": 2,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 9,
+  "category": "Pokémon",
+  "name": "Focus Band",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, it cannot be knocked out.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, it cannot be knocked out.",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 10,
+  "category": "Pokémon",
+  "name": "Full Heal",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field. Remove all special conditions from that Pokémon. (This excludes Wait.)",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field. Remove all special conditions from that Pokémon. (This excludes Wait.)",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 11,
+  "category": "Movement",
+  "name": "Scoop Up",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field. Return it to the bench.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field. Return it to the bench.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 12,
+  "category": "Battle",
+  "name": "X Attack",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, it deals +30 damage.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, it deals +30 damage.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 13,
+  "category": "Movement",
+  "name": "Pokémon Switch",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose two of your Pokémon on the field or bench and switch their positions. Your turn ends. (You cannot select two Pokémon from the bench.)",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose two of your Pokémon on the field or bench and switch their positions. Your turn ends. (You cannot select two Pokémon from the bench.)",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 14,
+  "category": "Movement",
+  "name": "Swap Spot",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field. Switch it with another of your Pokémon that it is next to.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field. Switch it with another of your Pokémon that it is next to.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 15,
+  "category": "Pokémon",
+  "name": "X Defend",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, if its opponent deals 10-100 damage in battle, this Pokémon will not be knocked out.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, if its opponent deals 10-100 damage in battle, this Pokémon will not be knocked out.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 16,
+  "category": "Spin",
+  "name": "No Guard",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, it can spin again once if it spins a Blue Attack.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, if that Pokémon or its battle opponent spins a Blue Attack, shift the spin one segment clockwise.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": "7.0.7"
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, if that Pokémon or its battle opponent spins a Blue Attack, shift the spin one segment clockwise.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 17,
+  "category": "Movement",
+  "name": "Quick Care",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Select one of your Pokémon on the field. If there is space in your P.C., move it there. Your turn ends.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Select one of your Pokémon on the field. If there is space in your P.C., move it there. Your turn ends.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 18,
+  "category": "Movement",
+  "name": "Priority Recovery",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Switch the order of your Pokémon in your P.C. You cannot use this Plate unless you have two or more of your Pokémon in your P.C. Your turn ends.",
+    "cost": 1,
+    "gems": 10,
+    "since_version": null
+   },
+   {
+    "description": "Switch the order of your Pokémon in your P.C. You cannot use this Plate unless you have two or more of your Pokémon in your P.C. Your turn ends.",
+    "cost": 1,
+    "gems": 5,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 19,
+  "category": "Pokémon",
+  "name": "Ballast",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field. For this turn, it cannot be affected by Whirlwind.",
+    "cost": 1,
+    "gems": 10,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field. For this turn, it cannot be affected by Whirlwind.",
+    "cost": 1,
+    "gems": 5,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 20,
+  "category": "Recovery",
+  "name": "Awakening",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field. That Pokémon is no longer asleep.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field. That Pokémon is no longer asleep.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 21,
+  "category": "Recovery",
+  "name": "Paralyze Heal",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field. That Pokémon is no longer paralyzed.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field. That Pokémon is no longer paralyzed.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 22,
+  "category": "Recovery",
+  "name": "Confuse Heal",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Choose one your Pokémon on the field. That Pokémon is no longer confused.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one your Pokémon on the field. That Pokémon is no longer confused.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 23,
+  "category": "Recovery",
+  "name": "Antidote",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Choose one your Pokémon on the field. That Pokémon is no longer poisoned or noxious.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one your Pokémon on the field. That Pokémon is no longer poisoned or noxious.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 24,
+  "category": "Battle",
+  "name": "Iron Power",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Steel-type Pokémon deal +20 damage. Continues until an enemy is knocked out by a Steel-type Pokémon's Attack. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Steel-type Pokémon deal +20 damage. Continues until an enemy is knocked out by a Steel-type Pokémon's Attack. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 25,
+  "category": "Battle",
+  "name": "Dread Power",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Dark-type Pokémon deal +20 damage. Continues until an enemy is knocked out by a Dark-type Pokémon's Attack. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Dark-type Pokémon deal +20 damage. Continues until an enemy is knocked out by a Dark-type Pokémon's Attack. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 26,
+  "category": "Battle",
+  "name": "Flame Power",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Fire-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Fire-type Pokémon's Attack. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Fire-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Fire-type Pokémon's Attack. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 27,
+  "category": "Battle",
+  "name": "Meadow Power",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Grass-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Grass-type Pokémon's Attack. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Grass-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Grass-type Pokémon's Attack. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 28,
+  "category": "Battle",
+  "name": "Splash Power",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Water-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Water-type Pokémon's Attack. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Water-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Water-type Pokémon's Attack. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 39,
+  "category": "Movement",
+  "name": "Invisibility Cape",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the bench. For this turn, it can move through other Pokémon when making an MP move.",
+    "cost": 3,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the bench. For this turn, it can move through other Pokémon when making an MP move.",
+    "cost": 3,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 40,
+  "category": "Spin",
+  "name": "Power Battle",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, if this Pokémon or its opponent spins a Purple Attack in battle, they must both spin again once.",
+    "cost": 2,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, if that Pokémon or its battle opponent spins a Purple Attack, shift the spin one segment clockwise.",
+    "cost": 2,
+    "gems": 18,
+    "since_version": "7.0.7"
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, if that Pokémon or its battle opponent spins a Purple Attack, shift the spin one segment clockwise.",
+    "cost": 2,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 41,
+  "category": "Movement",
+  "name": "Hurdle Jump",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field, and move it over a connected Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field, and move it over a connected Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": 80,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 42,
+  "category": "Battle",
+  "name": "Mind Power",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Psychic-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Psychic-type Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": 10,
+    "since_version": null
+   },
+   {
+    "description": "Psychic-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Psychic-type Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": 5,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 49,
+  "category": "Battle",
+  "name": "Toxic Power",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Poison-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Poison-type Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": 10,
+    "since_version": null
+   },
+   {
+    "description": "Poison-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Poison-type Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": 5,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 50,
+  "category": "Battle",
+  "name": "Draco Power",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Dragon-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Dragon-type Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Dragon-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Dragon-type Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 53,
+  "category": "Movement",
+  "name": "Switcheroo",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Select one of your Pokémon on the bench. That Pokémon switches with one of your Pokémon in your P.C. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Select one of your Pokémon on the bench. That Pokémon switches with one of your Pokémon in your P.C. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 56,
+  "category": "Movement",
+  "name": "Goal Block",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field and move it to your goal point if it is open. Your turn ends.",
+    "cost": 2,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field and move it to your goal point if it is open. Your turn ends.",
+    "cost": 2,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 57,
+  "category": "Battle",
+  "name": "Clay Power",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Ground-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Ground-type Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 61,
+  "category": "Battle",
+  "name": "Spooky Power",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Ghost-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Ghost-type Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Ghost-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by a Ghost-type Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 73,
+  "category": "Battle",
+  "name": "Zap Power",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Electric-type Pokémon deal +20 damage. This effect lasts until one of your opponent's Pokémon is knocked out by an Electric-type Pokémon. Your turn ends.",
+    "cost": 2,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "",
+    "cost": 2,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 80,
+  "category": "Recovery",
+  "name": "Ice Heal",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field. That Pokémon is no longer frozen.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field. That Pokémon is no longer frozen.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 90,
+  "category": "Recovery",
+  "name": "Burn Heal",
+  "rarity": "Common",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field. That Pokémon is no longer burned.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field. That Pokémon is no longer burned.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 91,
+  "category": "Spin",
+  "name": "X Speed",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, one of this Pokémon's White Attacks will be changed to a Gold Attack before battle.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. For this turn, one of this Pokémon's White Attacks will be changed to a Gold Attack before battle.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 303,
+  "category": "Pokémon",
+  "name": "Force Remove",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This Plate can be used when you have Pokémon on all of your opponent's entry points. Select one of your Pokémon on the field or bench. If that Pokémon's attack knocks a Pokémon out that turn, it will be eliminated from the duel.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "This Plate can be used when you have Pokémon on all of your opponent's entry points. Select one of your Pokémon on the field or bench. If that Pokémon's attack knocks a Pokémon out that turn, it will be eliminated from the duel.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 304,
+  "category": "Movement",
+  "name": "Counter Attack",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This Plate can be used when you have enemy Pokémon on all your own entry points. Select one of your Pokémon on the field. That Pokémon will have MP +1 for that turn.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "This Plate can be used when you have enemy Pokémon on all your own entry points. Select one of your Pokémon on the field. That Pokémon will have MP +1 for that turn.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 306,
+  "category": "Spin",
+  "name": "X Accuracy",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Select one of your Pokémon on the field or bench. If the Attack for that Pokémon is a miss that turn, it will shift to the adjacent Attack.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Select one of your Pokémon on the field or bench. If the Attack for that Pokémon is a miss that turn, it will shift to the adjacent Attack.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 312,
+  "category": "Pokémon",
+  "name": "Burn Drive",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Select your Genosect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Grass-type, Ice-type, Bug-type, or Steel-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Grass-type, Ice-type, Bug-type, or Steel-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Grass-type, Ice-type, Bug-type, or Steel-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 313,
+  "category": "Pokémon",
+  "name": "Douse Drive",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Select your Genosect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Fire-type, Ground-type, or Rock-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Fire-type, Ground-type, or Rock-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Fire-type, Ground-type, or Rock-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 314,
+  "category": "Pokémon",
+  "name": "Chill Drive",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Select your Genosect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Grass-type, Ground-type, Flying-type, or Dragon-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Grass-type, Ground-type, Flying-type, or Dragon-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Grass-type, Ground-type, Flying-type, or Dragon-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 315,
+  "category": "Pokémon",
+  "name": "Shock Drive",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Select your Genosect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Water-type or Flying-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Water-type or Flying-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, if your Pokémon's move lands on Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pokémon is a Water-type or Flying-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 316,
+  "category": "Pokémon",
+  "name": "Burn Drive EX",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, this Pokémon can re-spin 1 time during battle. Also, if the Fainted opposing Pokémon is a Grass-type, Ice-type, Bug-type, or Steel-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, this Pokémon can re-spin 1 time during battle. Also, if the Fainted opposing Pokémon is a Grass-type, Ice-type, Bug-type, or Steel-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 317,
+  "category": "Pokémon",
+  "name": "Douse Drive EX",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, this Pokémon can re-spin 1 time during battle. Also, if the Fainted opposing Pokémon is a Fire-type, Ground-type, or Rock-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, this Pokémon can re-spin 1 time during battle. Also, if the Fainted opposing Pokémon is a Fire-type, Ground-type, or Rock-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 318,
+  "category": "Pokémon",
+  "name": "Chill Drive EX",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, this Pokémon can re-spin 1 time during battle. Also, if the Fainted opposing Pokémon is a Grass-type, Ground-type, Flying-type, or Dragon-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, this Pokémon can re-spin 1 time during battle. Also, if the Fainted opposing Pokémon is a Grass-type, Ground-type, Flying-type, or Dragon-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 319,
+  "category": "Pokémon",
+  "name": "Shock Drive EX",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, this Pokémon can re-spin 1 time during battle. Also, if the Fainted opposing Pokémon is a Water-type or Flying-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Select your Genesect from the field or bench. During this turn, this Pokémon can re-spin 1 time during battle. Also, if the Fainted opposing Pokémon is a Water-type or Flying-type, the opponent will be removed from the duel.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 320,
+  "category": "Pokémon",
+  "name": "Cosmo Energy",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "During this duel, when your Deoxys is attacked, before the battle, you may switch that Deoxys with another of your Deoxys on the field or bench. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "During this duel, when your Deoxys is attacked, before the battle, you may switch that Deoxys with another of your Deoxys on the field. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "3.0.7"
+   },
+   {
+    "description": "During this duel, when your Deoxys is attacked, before the battle, you may switch that Deoxys with another of your Deoxys on the field. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 321,
+  "category": "Pokémon",
+  "name": "Flame Energy",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "During this duel, your Fire-type Pokémon cannot be frozen or burned. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Your opponent's burned Pokémon gain Wait 3. During this duel, your Fire-type Pokémon cannot be frozen or burned. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "3.0.7"
+   },
+   {
+    "description": "Your opponent's burned Pokémon gain Wait 3. During this duel, your Fire-type Pokémon cannot be frozen or burned. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 323,
+  "category": "Battle",
+  "name": "Overdrive",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Reshiram or Zekrom on the field. Remove all special conditions affecting that Pokémon. (Except wait.) While that Pokémon is on the field, that Pokémon deals +30 damage.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Reshiram or Zekrom on the field. Remove all special conditions affecting that Pokémon. (Except for Wait.) While that Pokémon is on the field, that Pokémon deals +30 damage.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Reshiram, Zekrom, White Kyurem, or Black Kyurem on the field. Remove all special conditions affecting that Pokémon. (Except for Wait.) While that Pokémon is on the field, that Pokémon deals +30 damage.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "7.0.10"
+   },
+   {
+    "description": "Choose one of your Reshiram, Zekrom, White Kyurem, or Black Kyurem on the field. Remove all special conditions affecting that Pokémon. (Except for Wait.) While that Pokémon is on the field, that Pokémon deals +30 damage.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 324,
+  "category": "Pokémon",
+  "name": "Land's Energy",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "During this duel, the effect of Land's Wrath from your Zygarde becomes, \"Spin for all of the opponent's Pokémon on the field, excluding Flying-types. If it lands on Purple Attack, the Pokémon faints.\" Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "During this duel, the effect of Land's Wrath from your Zygarde becomes, \"Spin for all of the opponent's Pokémon on the field, excluding Flying-types. If it lands on Purple Attack, the Pokémon faints.\" Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 325,
+  "category": "Pokémon",
+  "name": "Long Barrel",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose 1 of your Rhyperior on the field or bench. Until the end of the duel, the effect of that Rhyperior's Rock Wrecker becomes: \"Knock out 1 of your opponent's Fire-, Ice-, Flying-, or Bug-type Pokémon that is 2 or 3 steps away.\" Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Rhyperior on the field or bench. Until the end of the duel, the effect of that Rhyperior's Rock Wrecker becomes: \"Knock out one of your opponent's Pokémon within 3 steps.\" Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "7.0.10"
+   },
+   {
+    "description": "Choose one of your Rhyperior on the field or bench. Until the end of the duel, the effect of that Rhyperior's Rock Wrecker becomes: \"Knock out one of your opponent's Pokémon within 3 steps.\" Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 328,
+  "category": "Pokémon",
+  "name": "Concentrated Fertilizer",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Select one of your Grass-type Pokémon on the field or bench. For this turn, that Pokémon gains ★+1 and damage +20.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Select one of your Grass-type Pokémon on the field or bench. For this turn, that Pokémon gains ★+1 and damage +20.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 329,
+  "category": "Pokémon",
+  "name": "Sticky Grass",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Select one of your Grass-type Pokémon on the field. While that Pokémon is on the field, the battle opponents of that Pokémon cannot respin. Spin-again effects are treated as single spins only.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Select one of your Grass-type Pokémon on the field. While that Pokémon is on the field, the battle opponents of that Pokémon cannot respin. Spin-again effects are treated as single spins only.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 331,
+  "category": "Pokémon",
+  "name": "Tropical Energy",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Any special conditions are removed from your Grass-, Flying-, and Bug-type Pokémon. During this duel, the effects of Abilities that allow you or your opponent to respin or force respins in battle are nullified for the battle opponents of your Grass-, Flying-, and Bug-type Pokémon. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Any special conditions are removed from your Grass-, Flying-, and Bug-type Pokémon. During this duel, the effects of Abilities that allow you or your opponent to respin or force respins in battle are nullified for the battle opponents of your Grass-, Flying-, and Bug-type Pokémon. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 332,
+  "category": "Pokémon",
+  "name": "Dark Energy",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "During this duel, if the opponent Pokémon is a Psychic type, your Dark-type Pokémon are not knocked out in battle, but are moved to the bench and gain Wait instead. And when you have two or more Dark-type Pokémon on the field, Energy effects on your opponent's Psychic- and Ghost-type Pokémon are nullified. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "During this duel, if the opponent Pokémon is a Psychic type, your Dark-type Pokémon are not knocked out in battle, but are moved to the bench and gain Wait instead. And when you have two or more Dark-type Pokémon on the field, Energy effects on your opponent's Psychic- and Ghost-type Pokémon are nullified. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 333,
+  "category": "Pokémon",
+  "name": "Phantom Energy",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "During this duel, your Ghost-type Pokémon can move over Pokémon affected by special conditions when using an MP move. In addition, when one or more of your Ghost-type Pokémon surround an opposing Pokémon, if there are three or more opposing Pokémon on the field or on your opponent's bench with the same name as the surrounded Pokémon, remove the surrounded Pokémon from the game. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "During this duel, your Ghost-type Pokémon can move over Pokémon affected by special conditions when using an MP move. In addition, when one or more of your Ghost-type Pokémon surround an opposing Pokémon, if there are three or more opposing Pokémon on the field or on your opponent's bench with the same name as the surrounded Pokémon, remove the surrounded Pokémon from the game. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 335,
+  "category": "Pokémon",
+  "name": "Steel Energy",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "During this duel, your Steel-type Pokémon cannot become poisoned or noxious, and the damage of one of each of those Pokémon's most highly damaging White Attacks that normally deals at least 10 damage is increased by 10. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "During this duel, your Steel-type Pokémon cannot become poisoned or noxious, and the damage of one of each of those Pokémon's most highly damaging White Attacks that normally deals at least 10 damage is increased by 10. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 336,
+  "category": "Pokémon",
+  "name": "Poison Blade",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Select one of your Steel-type Pokémon on the field. While that Pokémon is on the field, the White Attacks of that Pokémon gain: The battle opponent becomes poisoned.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Select one of your Steel-type Pokémon on the field. While that Pokémon is on the field, the White Attacks of that Pokémon gain: The battle opponent becomes poisoned.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 338,
+  "category": "Pokémon",
+  "name": "Muscle Energy",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Remove the sleep and frozen conditions, MP -1, and MP -2 markers, and Wait from all of your Fighting-type Pokémon. During this duel, your Fighting-type Pokémon gain +1 to the damage they deal whenever those Pokémon move from a P.C. to the bench. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Remove the sleep and frozen conditions, MP -1, and MP -2 markers, and Wait from all of your Fighting-type Pokémon. During this duel, your Fighting-type Pokémon gain +1 to the damage they deal whenever those Pokémon move from a P.C. to the bench. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 339,
+  "category": "Pokémon",
+  "name": "Mud Energy",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "During this duel, if there are 2 or more Water-type Pokémon and 2 or more Ground-type Pokémon on the field, your opponent's Pokémon on the field get +1 to Wait effects that they receive. Your turn ends.*",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "During this duel, if there are 2 or more Water-type Pokémon and 2 or more Ground-type Pokémon on the field, your opponent's Pokémon on the field get +1 to Wait effects that they receive. Your turn ends.*",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   },
+   {
+    "description": "Removes the paralyzed condition from all of your Electric-type Pokémon. During this duel, if one of your Electric-type Pokémon would deal damage, and there is an Electric-type Pokémon adjacent to it, that damage increases by 10. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   }
+  ]
+ },
+ {
+  "id": 340,
+  "category": "Pokémon",
+  "name": "Electro Energy",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Removes the paralyzed condition from all of your Electric-type Pokémon. During this duel, if one of your Electric-type Pokémon would deal damage, and there is an Electric-type Pokémon adjacent to it, that damage increases by 10. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "3.0.12"
+   },
+   {
+    "description": "Removes the paralyzed condition from all of your Electric-type Pokémon. During this duel, if one of your Electric-type Pokémon would deal damage, and there is an Electric-type Pokémon adjacent to it, that damage increases by 10. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 341,
+  "category": "Pokémon",
+  "name": "Molting Energy",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "During this duel, whenever one of your Bug-type Pokémon or Flying-type Pokémon moves from a P.C. to the bench, it can evolve. If it does, that Pokémon gains Wait 3. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "During this duel, whenever one of your Bug-type Pokémon or Flying-type Pokémon moves from a P.C. to the bench, it can evolve. If it does, that Pokémon gains Wait 3. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 343,
+  "category": "Pokémon",
+  "name": "Eon Flute",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "During a duel, this plate can be used when your Latias or Latios is excluded from the duel. That one Latias or Latios appears on your bench. That Pokémon is excluded from the duel after your next turn has ended.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "This plate can be used during a duel when any of your Latias or Latios have been excluded fro the duel. Return one such Latias or Latios to the bench, and, if possible, Mega Evolve it for 7 turns (even if you have any other Pokémon that are Mega Evolved).",
+    "cost": 2,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "This plate can be used during a duel when any of your Latias or Latios have been excluded fro the duel. Return one such Latias or Latios to the bench, and, if possible, Mega Evolve it for 7 turns (even if you have any other Pokémon that are Mega Evolved).",
+    "cost": 2,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 344,
+  "category": "Pokémon",
+  "name": "Salamencite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Salamence on the field, and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "4.0.0"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Salamence on the field, and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 345,
+  "category": "Pokémon",
+  "name": "Charizardite X",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Charizard on the field, and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "4.0.0"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Charizard on the field, and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 346,
+  "category": "Pokémon",
+  "name": "Charizardite Y",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Charizard on the field, and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "4.0.0"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Charizard on the field, and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 347,
+  "category": "Pokémon",
+  "name": "Beedrillite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Beedrill on the field, and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "4.0.0"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Beedrill on the field, and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 365,
+  "category": "Pokémon",
+  "name": "Venusaurite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Venusaur on the field, and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "4.0.2"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Venusaur on the field, and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 366,
+  "category": "Pokémon",
+  "name": "Blastoisinite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Blastoise on the field, and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "4.0.2"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Blastoise on the field, and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 367,
+  "category": "Pokémon",
+  "name": "Gengarite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Gengar on the field, and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "4.0.2"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Gengar on the field, and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 368,
+  "category": "Pokémon",
+  "name": "Sceptilite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Sceptile on the field, and Mega Evolve it for seven turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "5.0.0"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Sceptile on the field, and Mega Evolve it for seven turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 369,
+  "category": "Pokémon",
+  "name": "Blazikenite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Blaziken on the field, and Mega Evolve it for seven turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "5.0.0"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Blaziken on the field, and Mega Evolve it for seven turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 370,
+  "category": "Pokémon",
+  "name": "Swampertite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Swampert on the field, and Mega Evolve it for seven turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "5.0.0"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Swampert on the field, and Mega Evolve it for seven turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 371,
+  "category": "Pokémon",
+  "name": "Metal Coat",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Choose one of your Onix, Scyther, or Steel-type Pokémon on the field. If you chose Onix or Scyther, evolve it. Until the end of the duel, battle opponents of the Pokémon you chose, or the Pokémon that evolved from it, have the effects of their Abilities that increase or decrease Attack damage nullified. This ends your turn.",
+    "cost": 1,
+    "gems": 160,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Onix, Scyther, or Steel-type Pokémon on the field. If you chose Onix or Scyther, evolve it. Until the end of the duel, battle opponents of the Pokémon you chose, or the Pokémon that evolved from it, have the effects of their Abilities that increase or decrease Attack damage nullified. This ends your turn.",
+    "cost": 1,
+    "gems": 80,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 372,
+  "category": "Pokémon",
+  "name": "Golden Module",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Choose one of your Genesect on the field or bench. For this turn, that Pokémon's Purple Attack becomes the Gold Attack Extreme Speed 100. Also, if a battle opponent knocked out by that Pokémon is a Dark- or Fairy-type Pokémon, that battle opponent is excluded from the duel.",
+    "cost": 2,
+    "gems": 160,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Genesect on the field or bench. For this turn, that Pokémon's Purple Attack becomes the Gold Attack Extreme Speed 100. Also, if a battle opponent knocked out by that Pokémon is a Dark- or Fairy-type Pokémon, that battle opponent is excluded from the duel.",
+    "cost": 2,
+    "gems": 80,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 373,
+  "category": "Pokémon",
+  "name": "Scizorite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Scizor on the field, and Mega Evolve it for seven turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "5.0.3"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Scizor on the field, and Mega Evolve it for seven turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 374,
+  "category": "Pokémon",
+  "name": "Metal Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Steel-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Steel-type Pokémon do not become poisoned or noxious, and their White Attacks that deal 10 or more damage deal +10 damage. Your turn ends. The effects of this plate do not stack.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Steel-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Steel-type Pokémon do not become poisoned or noxious, and their White Attacks that deal 10 or more damage deal +10 damage. Your turn ends. The effects of this plate do not stack.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 375,
+  "category": "Pokémon",
+  "name": "Phantom Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Ghost-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Ghost-type Pokémon on the bench can MP move past Ghost-type Pokémon and Pokémon affected by special conditions. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Ghost-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Ghost-type Pokémon on the bench can MP move past Ghost-type Pokémon and Pokémon affected by special conditions. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 376,
+  "category": "Pokémon",
+  "name": "Flame Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Fire-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Fire-type Pokémon do not become frozen or burned, and they can MP move past burned Pokémon on the field. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Fire-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Fire-type Pokémon do not become frozen or burned, and they can MP move past burned Pokémon on the field. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 377,
+  "category": "Pokémon",
+  "name": "Electro Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Electric-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Electric-type Pokémon deal +10 damage for each Electric-type Pokémon next to them. Your Electric-type Pokémon can MP move past Pokémon that have Wait. Your turn ends. The effects of this plate do not stack.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Electric-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Electric-type Pokémon deal +10 damage for each Electric-type Pokémon next to them. Your Electric-type Pokémon can MP move past Pokémon that have Wait. Your turn ends. The effects of this plate do not stack.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 378,
+  "category": "Pokémon",
+  "name": "Mewtwonite X",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Mewtwo on the field and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "5.0.6"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Mewtwo on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 379,
+  "category": "Pokémon",
+  "name": "Mewtwonite Y",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Mewtwo on the field and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "5.0.6"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Mewtwo on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 380,
+  "category": "Pokémon",
+  "name": "Mighty Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Fighting-type Pokémon. Until the end of the duel, while that Pokémon is on the field, opposing Pokémon surrounded by your Fighting-type Pokémon move to your P.C. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Fighting-type Pokémon. Until the end of the duel, while that Pokémon is on the field, opposing Pokémon surrounded by your Fighting-type Pokémon move to your P.C. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 381,
+  "category": "Pokémon",
+  "name": "Winged Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Bug-type Pokémon or Flying-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Stage 1-or-higher Bug- or Flying-type Pokémon may MP move over opposing, non-Flying-type Pokémon. Your turn ends.",
+    "cost": 1,
+    "gems": null,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Bug-type Pokémon or Flying-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Stage 1-or-higher Bug- or Flying-type Pokémon may MP move over opposing, non-Flying-type Pokémon. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 382,
+  "category": "Pokémon",
+  "name": "Galladite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Gallade on the field and Mega Evolve it for seven turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "5.0.8"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Gallade on the field and Mega Evolve it for seven turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 383,
+  "category": "Pokémon",
+  "name": "Dark Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Dark-type Pokémon. Until the end of the duel, while that Pokémon is on the field, opposing Ghost-type Pokémon and Psychic-type Pokémon cannot pass through your Dark-type Pokémon by the effects of Abilities. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Dark-type Pokémon. Until the end of the duel, while that Pokémon is on the field, opposing Ghost-type Pokémon and Psychic-type Pokémon cannot pass through your Dark-type Pokémon by the effects of Abilities. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 384,
+  "category": "Pokémon",
+  "name": "Mystic Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Fairy-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Fairy-type Pokémon cannot have markers attached to them from the Attacks of other Pokémon. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Fairy-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Fairy-type Pokémon cannot have markers attached to them from the Attacks of other Pokémon. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 385,
+  "category": "Pokémon",
+  "name": "Sablenite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Sableye on the field and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "5.0.9"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Sableye on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 386,
+  "category": "Pokémon",
+  "name": "Altarianite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Altaria on the field and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "5.0.9"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Altaria on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 387,
+  "category": "Pokémon",
+  "name": "Ampharosite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Ampharos on the field and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "5.0.10"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Ampharos on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 388,
+  "category": "Battle",
+  "name": "Magnet",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Electric-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Electric-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 389,
+  "category": "Battle",
+  "name": "Sharp Beak",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Flying-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Flying-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 390,
+  "category": "Pokémon",
+  "name": "DNA Splicers",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Choose one of your Kyurem on the field, and one of your Zekrom or Reshiram on the field or bench or in the P.C. Exclude that Zekrom or Reshiram from the duel, and change the form of Kyurem to Black Kyurem or White Kyurem. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Kyurem on the field, plus one of your Zekrom or Reshiram on the field, bench, or in the P.C. Exclude that Zekrom or Reshiram from the duel, and change the form of Kyurem to Black Kyurem or White Kyurem. If any of your Kyurem is knocked out, this plate returns to its unused state.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "7.0.10"
+   },
+   {
+    "description": "Choose one of your Kyurem on the field, plus one of your Zekrom or Reshiram on the field, bench, or in the P.C. Exclude that Zekrom or Reshiram from the duel, and change the form of Kyurem to Black Kyurem or White Kyurem. If any of your Kyurem is knocked out, this plate returns to its unused state.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 391,
+  "category": "Battle",
+  "name": "Miracle Seed",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Grass-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Grass-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 392,
+  "category": "Battle",
+  "name": "Never-Melt Ice",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Ice-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Ice-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 393,
+  "category": "Pokémon",
+  "name": "Microwave Oven",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Rotom, Wash Rotom, Frost Rotom, Fan Rotom, or Mow Rotom on the field and change its form to Heat Rotom. Removes the frozen condition from all Pokémon. All Pokémon become Fire-type Pokémon for 9 turns.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Rotom, Wash Rotom, Frost Rotom, Fan Rotom, or Mow Rotom on the field and change its form to Heat Rotom. Removes the frozen condition from all Pokémon. All Pokémon become Fire-type Pokémon for 9 turns.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 394,
+  "category": "Pokémon",
+  "name": "Washing Machine",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Rotom, Heat Rotom, Frost Rotom, Fan Rotom, or Mow Rotom on the field and change its form to Wash Rotom. Removes the poisoned condition from all Pokémon. All Pokémon become Water-type Pokémon for 9 turns.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Rotom, Heat Rotom, Frost Rotom, Fan Rotom, or Mow Rotom on the field and change its form to Wash Rotom. Removes the poisoned condition from all Pokémon. All Pokémon become Water-type Pokémon for 9 turns.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 395,
+  "category": "Pokémon",
+  "name": "Refrigerator",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Rotom, Heat Rotom, Wash Rotom, Fan Rotom, or Mow Rotom on the field and change its form to Frost Rotom. Removes the burned condition from all Pokémon. All Pokémon become Ice-type Pokémon for 9 turns.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Rotom, Heat Rotom, Wash Rotom, Fan Rotom, or Mow Rotom on the field and change its form to Frost Rotom. Removes the burned condition from all Pokémon. All Pokémon become Ice-type Pokémon for 9 turns.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 396,
+  "category": "Pokémon",
+  "name": "Electric Fan",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Rotom, Heat Rotom, Wash Rotom, Frost Rotom, or Mow Rotom on the field and change its form to Fan Rotom. Removes the Wait condition from all Pokémon. All Pokémon become Flying-type Pokémon for 9 turns.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Rotom, Heat Rotom, Wash Rotom, Frost Rotom, or Mow Rotom on the field and change its form to Fan Rotom. Removes the Wait condition from all Pokémon. All Pokémon become Flying-type Pokémon for 9 turns.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 397,
+  "category": "Pokémon",
+  "name": "Lawnmower",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Rotom, Heat Rotom, Wash Rotom, Frost Rotom, or Fan Rotom on the field and change its form to Mow Rotom. Removes the asleep condition from all Pokémon. All Pokémon become Grass-type Pokémon for 9 turns.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Rotom, Heat Rotom, Wash Rotom, Frost Rotom, or Fan Rotom on the field and change its form to Mow Rotom. Removes the asleep condition from all Pokémon. All Pokémon become Grass-type Pokémon for 9 turns.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 398,
+  "category": "Pokémon",
+  "name": "Tyranitarite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Tyranitar on the field and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "6.0.4"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Tyranitar on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 399,
+  "category": "Pokémon",
+  "name": "Aggronite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Aggron on the field and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "6.0.4"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Aggron on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 400,
+  "category": "Pokémon",
+  "name": "Gracidea",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Choose one of your Shaymin on the field and change its form to Sky Forme. If any of your Shaymin become knocked out, this plate returns to its unused state.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Shaymin on the field and change its form to Sky Forme. If any of your Shaymin become knocked out, this plate returns to its unused state.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 401,
+  "category": "Pokémon",
+  "name": "Stony Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Rock-type Pokémon. Until the end of the duel, while that Pokémon is on the field, opposing Flying-type and Fairy-type Pokémon cannot pass through your Rock-type Pokémon by the effects of Abilities. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Rock-type Pokémon. Until the end of the duel, while that Pokémon is on the field, opposing Flying-type and Fairy-type Pokémon cannot pass through your Rock-type Pokémon by the effects of Abilities. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 402,
+  "category": "Battle",
+  "name": "Hard Stone",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Rock-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Rock-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 403,
+  "category": "Pokémon",
+  "name": "Lucarionite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Lucario on the field and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "6.0.7"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Lucario on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 404,
+  "category": "Pokémon",
+  "name": "Houndoominite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Houndoom on the field and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "6.0.7"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Houndoom on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 405,
+  "category": "Battle",
+  "name": "Charcoal",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Fire-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Fire-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 406,
+  "category": "Pokémon",
+  "name": "Meteoric Teachings",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Rayquaza on the field and Mega Evolve it for 7 turns. That Rayquaza's Break Energy becomes Dragon Ascent 90 until the duel ends. If any of your Rayquaza or Mega Rayquaza become knocked out, this plate returns to its unused state.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Rayquaza on the field and Mega Evolve it for 7 turns. That Rayquaza's Break Energy becomes Dragon Ascent 90 until the duel ends. If any of your Rayquaza or Mega Rayquaza become knocked out, this plate returns to its unused state.",
+    "cost": 2,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 407,
+  "category": "Pokémon",
+  "name": "Glalitite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Glalie on the field and Mega Evolve it for 7 turns.",
+    "cost": 2,
+    "gems": 72,
+    "since_version": "6.0.11"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Glalie on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.0"
+   }
+  ]
+ },
+ {
+  "id": 408,
+  "category": "Battle",
+  "name": "Dragon Fang",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Dragon-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Dragon-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 409,
+  "category": "Pokémon",
+  "name": "Dragon Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Dragon-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Dragon-type Pokémon with MP 1 or lower get +1 MP. If those Pokémon are not affected by a special condition, they can MP move over other Pokémon on the field. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Dragon-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Dragon-type Pokémon with MP 1 or lower get +1 MP. If those Pokémon are not affected by a special condition, they can MP move over other Pokémon on the field. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 410,
+  "category": "Pokémon",
+  "name": "Blue Orb",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Choose one of your Kyogre on the bench. It undergoes Primal Reversion.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Kyogre on the bench. It undergoes Primal Reversion.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 411,
+  "category": "Pokémon",
+  "name": "Red Orb",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Choose one of your Groudon on the bench. It undergoes Primal Reversion.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Groudon on the bench. It undergoes Primal Reversion.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 412,
+  "category": "Battle",
+  "name": "Mystic Water",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Water-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Water-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 413,
+  "category": "Pokémon",
+  "name": "Aqua Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Water-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Water-type Pokémon that are next to Water-type Pokémon gain +1 MP (to a maximum of MP 3). Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Water-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Water-type Pokémon that are next to Water-type Pokémon gain +1 MP (to a maximum of MP 3). Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 414,
+  "category": "Pokémon",
+  "name": "Gyaradosite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Gyarados on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.1"
+   }
+  ]
+ },
+ {
+  "id": 415,
+  "category": "Pokémon",
+  "name": "Grass Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Grass-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Grass-type Pokémon do not move from effects of opposing Attacks that would move them to the bench, P.C., or the Ultra Space. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Grass-type Pokémon. Until the end of the duel, while that Pokémon is on the field, your Grass-type Pokémon do not move from effects of opposing Attacks that would move them to the bench, P.C., or the Ultra Space. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 416,
+  "category": null,
+  "name": "Latiasite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Latias on the field, and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": null
+   }
+  ],
+  "source": "serebii"
+ },
+ {
+  "id": 417,
+  "category": "Pokémon",
+  "name": "Gardevoirite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Gardevoir on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.5"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Latias on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.3"
+   }
+  ]
+ },
+ {
+  "id": 418,
+  "category": "Pokémon",
+  "name": "Banettite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Banette on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.5"
+   },
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Latios on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "6.2.3"
+   }
+  ]
+ },
+ {
+  "id": 419,
+  "category": "Battle",
+  "name": "Soul Dew",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Latias or Latios on the field. While that Pokémon is on the field, it deals +30 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Latias or Latios on the field. While that Pokémon is on the field, it deals +30 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 420,
+  "category": "Pokémon",
+  "name": "Venom Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Poison-type Pokémon. Until the end of the duel, while that Pokémon is on the field, the effects of Abilities of opposing Pokémon that are poisoned or noxious that increase or decrease Attack damage are nullified. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Poison-type Pokémon. Until the end of the duel, while that Pokémon is on the field, the effects of Abilities of opposing Pokémon that are poisoned or noxious that increase or decrease Attack damage are nullified. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 421,
+  "category": "Battle",
+  "name": "Poison Barb",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Poison-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Poison-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 422,
+  "category": "Pokémon",
+  "name": "Rocky Helmet",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field or bench. If that Pokémon is knocked out by Attack damage on this turn, its battle opponent is also knocked out.",
+    "cost": 1,
+    "gems": null,
+    "since_version": "6.2.9"
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. If that Pokémon is knocked out by Attack damage on this turn, its battle opponent is also knocked out.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 423,
+  "category": "Pokémon",
+  "name": "Air Balloon",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Pokémon on the field or bench. Until the end of that Pokémon's next battle, its MP is 2, and it can MP move over other Pokémon on the field",
+    "cost": 1,
+    "gems": null,
+    "since_version": "6.2.9"
+   },
+   {
+    "description": "Choose one of your Pokémon on the field or bench. Until the end of that Pokémon's next battle, its MP is 2, and it can MP move over other Pokémon on the field",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 424,
+  "category": "Pokémon",
+  "name": "Necroizer",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Choose one of your Necrozma on the field and one of your Solgaleo or Lunala on the field, bench, or in a P.C. That Solgaleo or Lunala moves to the Ultra Space, and the Necrozma changes its form to Dusk Mane Necrozma or Dawn Wings Necrozma.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Necrozma on the field and one of your Solgaleo or Lunala on the field, bench, or in a P.C. That Solgaleo or Lunala moves to the Ultra Space, and the Necrozma changes its form to Dusk Mane Necrozma or Dawn Wings Necrozma.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 425,
+  "category": "Battle",
+  "name": "Spell Tag",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Ghost-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Ghost-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 426,
+  "category": "Battle",
+  "name": "Odd Incense",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Psychic-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Psychic-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 429,
+  "category": "Pokémon",
+  "name": "Absolite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Absolite on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.0"
+   }
+  ]
+ },
+ {
+  "id": 430,
+  "category": "Battle",
+  "name": "Black Glasses",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Dark-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Dark-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 431,
+  "category": "Pokémon",
+  "name": "Alakazite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Alakazam on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.0"
+   }
+  ]
+ },
+ {
+  "id": 432,
+  "category": "Pokémon",
+  "name": "Kangaskhanite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Kangaskhan on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.0"
+   }
+  ]
+ },
+ {
+  "id": 433,
+  "category": "Pokémon",
+  "name": "Twisted Spoon",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Psychic-type Pokémon on the field. While that Pokémon is on the field, it gains ★+1. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Psychic-type Pokémon on the field. While that Pokémon is on the field, it gains ★+1. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 435,
+  "category": "Pokémon",
+  "name": "Ultra Burst",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Choose one of your Dusk Mane Necrozma or Dawn Wings Necrozma on the field and change its form to Ultra Necrozma for 7 turns.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": null
+   },
+   {
+    "description": "Choose one of your Dusk Mane Necrozma or Dawn Wings Necrozma on the field and change its form to Ultra Necrozma for 7 turns.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 436,
+  "category": "Pokémon",
+  "name": "Mawilite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Mawile on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.4"
+   }
+  ]
+ },
+ {
+  "id": 437,
+  "category": "Pokémon",
+  "name": "Diancite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Diancie on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.4"
+   }
+  ]
+ },
+ {
+  "id": 438,
+  "category": "Pokémon",
+  "name": "Metagrossite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Metagross on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.7"
+   }
+  ]
+ },
+ {
+  "id": 439,
+  "category": "Pokémon",
+  "name": "Steelixite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Steelix on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.7"
+   }
+  ]
+ },
+ {
+  "id": 440,
+  "category": "Recovery",
+  "name": "Restorer",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose a Restored Pokémon in your P.C. That Pokémon moves to the bench without gaining Wait. Move one of your Restored Pokémon that has been excluded from the duel to your P.C.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "7.0.10"
+   },
+   {
+    "description": "Choose a Restored Pokémon in your P.C. That Pokémon moves to the bench without gaining Wait. Move one of your Restored Pokémon that has been excluded from the duel to your P.C.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 441,
+  "category": "Pokémon",
+  "name": "Primal Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Restored Pokémon. Until the end of the duel, while that Pokémon is on the field, if the number of your own Pokémon on the field, bench, and in your P.C. is lower than the number of the opponent's Pokémon on the field, bench, and in the opponent's P.C., your Restored Pokémon and Pokémon that have evolved from Restored Pokémon deal +30 damage and gain +1 ★. Your turn ends. The effects of this plate do not stack.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "7.0.10"
+   },
+   {
+    "description": "Choose one of your Restored Pokémon. Until the end of the duel, while that Pokémon is on the field, if the number of your own Pokémon on the field, bench, and in your P.C. is lower than the number of the opponent's Pokémon on the field, bench, and in the opponent's P.C., your Restored Pokémon and Pokémon that have evolved from Restored Pokémon deal +30 damage and gain +1 ★. Your turn ends. The effects of this plate do not stack.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 442,
+  "category": "Pokémon",
+  "name": "Frost Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Ice-type Pokémon. Until the end of the duel, plates with Sphere in their name, except for Frost Sphere, have their effects negated on opposing Pokémon within 3 steps of that Pokémon. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "7.0.10"
+   },
+   {
+    "description": "Choose one of your Ice-type Pokémon. Until the end of the duel, plates with Sphere in their name, except for Frost Sphere, have their effects negated on opposing Pokémon within 3 steps of that Pokémon. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 443,
+  "category": "Pokémon",
+  "name": "Aerodactylite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Aerodactyl on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.10"
+   }
+  ]
+ },
+ {
+  "id": 444,
+  "category": "Pokémon",
+  "name": "Abomasite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Abomasnow on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.10"
+   }
+  ]
+ },
+ {
+  "id": 445,
+  "category": "Pokémon",
+  "name": "Pinsirite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Pinsir on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.11"
+   }
+  ]
+ },
+ {
+  "id": 446,
+  "category": "Pokémon",
+  "name": "Heracronite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Heracross on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.11"
+   }
+  ]
+ },
+ {
+  "id": 447,
+  "category": "Plates",
+  "name": "Reveal Glass",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "Change the form of each Tornadus, Thundurus, and Landorus on the field, if possible. This plate can be used again if the opponent uses a plate that is not Reveal Glass. This ends your turn.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "7.0.11"
+   },
+   {
+    "description": "Change the form of each Tornadus, Thundurus, and Landorus on the field, if possible. This plate can be used again if the opponent uses a plate that is not Reveal Glass. This ends your turn.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 448,
+  "category": "Pokémon",
+  "name": "Silk Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Select one of your Bug-type Pokémon. While this Pokémon is on the field, the Abilities of opposing Pokémon that have an MP-reducing marker attached to them are nullified. This ends your turn.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "7.0.11"
+   },
+   {
+    "description": "Select one of your Bug-type Pokémon. While this Pokémon is on the field, the Abilities of opposing Pokémon that have an MP-reducing marker attached to them are nullified. This ends your turn.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 449,
+  "category": "Pokémon",
+  "name": "Manectite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Manectric on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.12"
+   }
+  ]
+ },
+ {
+  "id": 450,
+  "category": "Pokémon",
+  "name": "Sharpedonite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Sharpedo on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.12"
+   }
+  ]
+ },
+ {
+  "id": 451,
+  "category": "Battle",
+  "name": "Silver Powder",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Bug-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": "7.0.12"
+   },
+   {
+    "description": "Choose one of your Bug-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 452,
+  "category": "Battle",
+  "name": "Silk Scarf",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Normal-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": "7.0.12"
+   },
+   {
+    "description": "Choose one of your Normal-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 453,
+  "category": "Battle",
+  "name": "Karate Belt",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Fighting-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": "7.0.12"
+   },
+   {
+    "description": "Choose one of your Fighting-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 454,
+  "category": "Battle",
+  "name": "Soft Sand",
+  "rarity": "Uncommon",
+  "variants": [
+   {
+    "description": "Choose one of your Ground-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 18,
+    "since_version": "7.0.12"
+   },
+   {
+    "description": "Choose one of your Ground-type Pokémon on the field. While that Pokémon is on the field, it deals +20 damage. Your turn ends.",
+    "cost": 1,
+    "gems": 9,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 455,
+  "category": "Pokémon",
+  "name": "Guardian Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Tapu Koko, Tapu Lele, Tapu Bulu, or Tapu Fini. Until the end of the duel, while that Pokémon is on the field, the Misses of your Tapu Koko, Tapu Lele, Tapu Bulu, or Tapu Fini become the ★★ Purple Attack Nature's Madness (attaches a Final Song marker to the battle opponent; Pokémon with that marker are knocked out after 5 turns), and your Fairy-type Pokémon may MP move through your other Fairy-type Pokémon. Your turn ends.",
+    "cost": 1,
+    "gems": 72,
+    "since_version": "7.0.12"
+   },
+   {
+    "description": "Choose one of your Tapu Koko, Tapu Lele, Tapu Bulu, or Tapu Fini. Until the end of the duel, while that Pokémon is on the field, the Misses of your Tapu Koko, Tapu Lele, Tapu Bulu, or Tapu Fini become the ★★ Purple Attack Nature's Madness (attaches a Final Song marker to the battle opponent; Pokémon with that marker are knocked out after 5 turns), and your Fairy-type Pokémon may MP move through your other Fairy-type Pokémon. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 456,
+  "category": "Pokémon",
+  "name": "White Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Normal-type Pokémon. Until the end of the duel, while that Pokémon is on the field, the Z-Move gauge increases of your Normal-type Pokémon when they attack and when they move to the P.C. are boosted. This effect does not stack. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 457,
+  "category": "Pokémon",
+  "name": "Gold Sphere",
+  "rarity": "Rare",
+  "variants": [
+   {
+    "description": "Choose one of your Ground-type Pokémon. Until the end of the duel, while that Pokémon is on the field, all the White Attacks of your evolved Ground-type Pokémon become Gold Attacks in their first battles after moving to the field. Your turn ends.",
+    "cost": 1,
+    "gems": 36,
+    "since_version": "7.0.14"
+   }
+  ]
+ },
+ {
+  "id": 458,
+  "category": "Pokémon",
+  "name": "Garchompite",
+  "rarity": "EX",
+  "variants": [
+   {
+    "description": "This plate can be used when none of your Pokémon are Mega Evolved. Choose one of your Garchomp on the field and Mega Evolve it for 7 turns.",
+    "cost": 0,
+    "gems": null,
+    "since_version": "7.0.14"
+   }
+  ]
+ }
+]

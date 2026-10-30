@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>Pokémon Duel - Mechanics</title>
+
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<meta http-equiv="imagetoolbar" CONTENT="no">
+	<link rel="stylesheet" type="text/css" href="/style/layout.css" />
+<meta name="viewport" content="width=device-width,initial-scale=1" id="viewport-meta">
+
+<!-- GDPR Compliancy -->
+<style>
+body {
+	--cmpBgColor: #507C36;
+	--cmpTextColor: #000000;
+	--cmpLinkColor: #ffffff;
+	--cmpPurposesColor: #000000;
+	--cmpBrandColor: #000000;
+	--cmpLogo: url('https://www.serebii.net/extralogo.png');
+}
+</style>
+<!-- GDPR Compliancy -->
+
+<link rel="search" href="/serebii-opensearch.xml" type="application/opensearchdescription+xml" title="Serebii Open Search" />
+<link rel="shortcut icon" href="/favicon.ico" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128947957-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-128947957-1');
+</script>
+<!-- Place the below code anywhere you like in the <head> (higher is better) -->
+
+
+<meta name="keywords" content="Serebii, Pokemon, Pokémon, Duel, Comaster, Co-master, Komaster, Mechanics" />
+<link rel="stylesheet" href="/style/tablenew.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/js/prototype.js"></script>
+<script type="text/javascript" src="/js/scriptaculous.js?load=effects"></script>
+<script type="text/javascript" src="/js/lightbox.js"></script>
+<link rel="stylesheet" href="/css/lightbox.css" type="text/css" media="screen" />
+
+</head>
+<body>
+<script type="text/javascript">
+	var viewport_meta = document.getElementById('viewport-meta');
+	var viewport_timer;
+
+	// these body*Class are reused in the lbar mobile menu
+	function bodyAddClass(className){
+		if(document.body) document.body.classList.add(className);
+	}
+	function bodyRemoveClass(className){
+		if(document.body) document.body.className = document.body.className.replace(className,"");
+	}
+
+	function viewport_set() {
+		// Define our viewport meta values
+		var viewports = {
+			default: viewport_meta.getAttribute('content'),
+			mobileL: 'width=device-width,initial-scale=0.75',
+			mobileM: 'width=device-width,initial-scale=0.5',
+			mobileS: 'width=device-width,initial-scale=0.4'
+		};
+
+		// Change the viewport value based on screen.width
+		if(screen.width < 370){
+			viewport_meta.setAttribute('content', viewports.mobileS);
+			bodyAddClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		} else if(screen.width < 505){
+			viewport_meta.setAttribute('content', viewports.mobileM);
+			bodyRemoveClass("nav_mobileS");
+			bodyAddClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		} else if (screen.width < 760){
+			viewport_meta.setAttribute('content', viewports.mobileL);
+			bodyRemoveClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyAddClass("nav_mobileL");
+		} else{
+			viewport_meta.setAttribute('content', viewports.default);
+			bodyRemoveClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		}
+	}
+
+	// Set the correct viewport value on page load
+	viewport_set();
+
+	/* attach listener to (delay) set the correct viewport after device orientation change or resize. also onload so the nav_mobile* class gets added to body AFTER <body> has loaded */
+	if(window.addEventListener){
+		window.addEventListener('load', viewport_set);
+		window.addEventListener('resize', function(){
+			clearTimeout(viewport_timer);
+			viewport_timer = setTimeout(viewport_set, 100);
+		})
+	} else{
+		window.attachEvent('onload', viewport_set)
+		window.attachEvent('onresize', function(){
+			clearTimeout(viewport_timer);
+			viewport_timer = setTimeout(viewport_set, 100);
+		})
+	}
+
+</script>
+
+
+<header id="header">
+	<div class="banner">
+		<a href="/"><img src="/Banner.jpg" alt="Serebii.net Header" style="height:139px"></a>
+	</div>
+
+	<nav class="quicklinks">
+		<ul>
+			<li><b>Quick Links</b></li>
+			<li><a href="/index2.shtml">Home</a></li>
+			<li><a href="https://forums.serebii.net/" target="blank">Forums</a></li>
+			<li><a href="mailto:webmaster@serebii.net">Contact</a></li>
+			<li><a href="/discord.shtml">Discord</a></li>
+			<li><a href="/pokemon">Pokédex Hub</a></li>
+			<li><a href="/pokedex-sv">Scarlet & Violet Pokédex</a></li>
+			<li><a href="/pokedex-champions">Champions Pokédex</a></li>
+			<li><a href="/pokearth">Pokéarth</a></li>
+
+			<li class="search">
+				<form id="searchbox_018410473690156091934:6gahkiyodbi" action="/search.shtml" style="margin:0px;">
+					<input type="hidden" name="cx" value="018410473690156091934:6gahkiyodbi" />
+					<input type="hidden" name="cof" value="FORID:11" />
+					<input name="q" type="text" size="20" />
+					<input type="submit" name="sa" value="Search" />
+				</form>
+				<script type="text/javascript" src="//www.google.com/coop/cse/brand?form=searchbox_018410473690156091934%3A6gahkiyodbi"></script>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+
+<div id="wrapper">
+
+<ul id="tbar_sticky">
+	<li>
+		<a href="#lbar" class="navheader" id="tbar_lbar_open"><img src="/hidden/2019-04/burger.svg"></a>
+	</li>
+	<li>
+		<form id="searchbox_018410473690156091934:6gahkiyodbi" action="/search.shtml" style="margin:0px;">
+			<input type="hidden" name="cx" value="018410473690156091934:6gahkiyodbi" />
+			<input type="hidden" name="cof" value="FORID:11" />
+			<input name="q" type="search" placeholder="Search Serebii.net..." />
+		</form>
+	</li>
+	<li>
+		<a href="#rbar" class="navheader" id="tbar_rbar_open" style="padding-right:20px"><img src="/hidden/2019-04/burger.svg"></a>
+	</li>
+</ul>
+<div id="tbar_backdrop"></div>
+
+<nav id="lbar">
+	<ul id="lbar_ul">
+		<li>
+			<a href="/" class="navheader">Databases</a>
+			<ul>
+				<li><a href="/index2.shtml">News</a>
+				<li><a href="/archive.shtml">Archived news</a></li>
+				<li><a href="/pokemon/"><b>Pokédex</b></a></li>
+				<li><a href="/pokedex/">-Red/Blue Pokédex</a></li>
+				<li><a href="/pokedex-gs/">-Gold/Silver Pokédex</a></li>
+				<li><a href="/pokedex-rs/">-Ruby/Sapphire Pokédex</a></li>
+				<li><a href="/pokedex-dp/">-Diamond/Pearl Pokédex</a></li>
+				<li><a href="/pokedex-bw/">-Black/White Pokédex</a></li>
+				<li><a href="/pokedex-xy/">-X & Y Pokédex</a></li>
+				<li><a href="/pokedex-sm/">-Sun & Moon Pokédex</a></li>
+				<li><a href="/pokedex-sm/">-Let's Go Pokédex</a></li>
+				<li><a href="/pokedex-swsh/">-Sword & Shield Pokédex</a></li>
+				<li><a href="/pokedex-swsh/">-BDSP Pokédex</a></li>
+				<li><a href="/pokedex-swsh/">-Legends: Arceus Pokédex</a></li>
+				<li><a href="/pokemongo/pokemon/">-GO Pokédex</a></li>
+				<li><a href="/pokedex-sv/">-Scarlet & Violet Pokédex</a></li>
+				<li><a href="/pokedex-sv/">-Legends: Z-A Pokédex</a></li>
+				<li><a href="/pokedex-champions/">-Champions Pokédex</a></li>
+
+				<li><strong>Attackdex</strong></li>
+				<li><a href="/attackdex-rby/">-Gen 1 Attackdex</a></li>
+				<li><a href="/attackdex-gs/">-Gen 2 Attackdex</a></li>
+				<li><a href="/attackdex/">-Gen 3 Attackdex</a></li>
+				<li><a href="/attackdex-dp/">-Gen 4 Attackdex</a></li>
+				<li><a href="/attackdex-bw/">-Gen 5 Attackdex</a></li>
+				<li><a href="/attackdex-xy/">-Gen 6 Attackdex</a></li>
+				<li><a href="/attackdex-sm/">-Gen 7 Attackdex</a></li>
+				<li><a href="/attackdex-swsh/">-Gen 8 Attackdex</a></li>
+				<li><a href="/attackdex-sv/">-Gen 9 Attackdex</a></li>
+				<li><a href="/attackdex-champions/">-Champions Attackdex</a></li>
+				<li><a href="/itemdex/">ItemDex</a></li>
+				<li><a href="/pokearth/">Pokéarth</a></li>
+				<li><a href="/abilitydex/">Abilitydex</a></li>
+				<li><a href="/spindex/">Spin-Off Pokédex</a></li>
+				<li><a href="/spindex-dp/">Spin-Off Pokédex DP</a></li>
+				<li><a href="/spindex-bw/">Spin-Off Pokédex BW</a></li>
+				<li><a href="/card/dex/">Cardex</a></li>
+				<li><a href="/movies/dex/">Cinematic Pokédex</a></li>
+				<li><a href="/games/mechanics.shtml">Game Mechanics</a></li>
+				<li><a href="/games/iv-calcsv.shtml">-Scarlet/Violet IV Calc.</a></li>
+				<li><a href="/potw-champions">Pokémon of the Week</a></li>
+				<li><a href="/potw-champions/">-Champions</a></li>
+				<li><a href="/potw-sv/">-9th Gen</a></li>
+				<li><a href="/potw-swsh/">-8th Gen</a></li>
+				<li><a href="/potw-sm/">-7th Gen</a></li>
+				<li><a href="/pokemon/timeline.shtml">Pokémon Timeline</a></li>
+				<li><a href="/pokemoncenter/">Pokémon Centers</a></li>
+				<li><a href="/playpokemon">Pokémon Championship Series</a></li>
+				<li><a href="/pokemonxp/">PokémonXP</a></li>
+
+				<li><a href="/music/projectvoltage">Hatsune Miku Project Voltage</a></li>
+				<li><a href="/museums/">Pokémon in Museums & Exhibitions</a></li>
+				<li><a href="/pokemon/vangoghmuseum/">-Pokémon x Van Gogh</a></li>
+				<li><a href="/pokemonday/">Pokémon Day</a></li>
+				<li><a href="/presentations">Pokémon Presentations</a></li>
+				<li><a href="/lego/">LEGO Pokémon</a></li>
+				<li><a href="/pokemonshirts/">Pokémon Shirts</a></li>
+				<li><a href="/themeparks/">Theme Parks</a></li>
+				<li><a href="https://forums.serebii.net" target="blank">Forums</a></li>
+				<li><a href="/discord.shtml">Discord Chat</a></li>		
+				<li><a href="/games/currentevents.shtml">Current & Upcoming Events</a></li>
+				<li><a href="/events">Event Database</a></li>
+				<li><a href="/scarletviolet/pokemon.shtml">9th Generation Pokémon</a></li>
+				<li><a href="/scarletviolet/dlc-pokemon.shtml">-New Pokémon in DLC</a></li>
+				<li><a href="/scarletviolet/paldeanforms.shtml">-Paldean Form Pokémon</a></li>
+
+			</ul>
+		</li>
+
+
+		<li>
+			<a href="/anime/" class="navheader">Anime & TV</a>
+			<ul>
+				<li><a href="/anime/epiguide/">Episode Listings & Pictures</a></li>
+				<li><a href="/anime/dex/">AniméDex</a></li>
+				<li><a href="/anime/characters/">Character Bios</a></li>
+				<li><a href="/anime/epiguide/indigo/">The Indigo League</a></li>
+				<li><a href="/anime/epiguide/orange/">The Orange League</a></li>
+				<li><a href="/anime/epiguide/johto/">The Johto Saga</a></li>
+				<li><a href="/anime/epiguide/houen/">The Saga in Hoenn!</a></li>
+				<li><a href="/anime/epiguide/kanto/">Kanto Battle Frontier Saga!</a></li>
+				<li><a href="/anime/epiguide/shinou/">The Sinnoh Saga!</a></li>
+				<li><a href="/anime/epiguide/bestwishes/">Best Wishes - Unova Saga</a></li>
+				<li><a href="/anime/epiguide/xy/">XY - Kalos Saga</a></li>
+				<li><a href="/anime/epiguide/sunmoon/">Sun & Moon - Alola Saga</a></li>
+				<li><a href="/anime/epiguide/pokemon/">Pokémon Journeys - Galar Saga</a></li>
+				<li><a href="/anime/epiguide/pokemonmaster/">Pokémon Aim To Be A Pokémon Master</a></li>
+				<li><a href="/anime/epiguide/pokemon2023/">Pokémon Horizons - Paldea Saga</a></li>
+				<li><a href="/anime/epiguide/chronicles/">Pokémon Chronicles</a></li>	
+				<li><a href="/anime/epiguide/specials/">The Special Episodes</a></li>
+				<li><a href="/anime/banned.shtml">The Banned Episodes</a></li>
+				<li><a href="/anime/shiny/">Shiny Pokémon</a></li>
+<li><b>Other Web Series</b></li>
+				<li><a href="/anime/epiguide/generations/">Pokémon Generations</a></li>
+				<li><a href="/anime/epiguide/twilightwings/">Pokémon Twilight Wings</a></li>
+				<li><a href="/anime/epiguide/evolutions/">Pokémon Evolutions</a></li>
+				<li><a href="/anime/hisuiansnow/">Pokémon: Hisuian Snow</a></li>
+				<li><a href="/anime/paldeanwinds/">Pokémon: Paldean Winds</a></li>
+				<li><a href="/anime/poketoon/">PokéToon</a></li>
+				<li><a href="/anime/other/pathtothepeak/">Path to the Peak</a></li>
+				<li><a href="/anime/other/pokeminutes/">PokéMinutes</a></li>
+				<li><a href="/anime/other/pokevideodex/">PokéVideoDex</a></li>
+				<li><a href="/anime/other/goodmorningwithpokemon/">Good Morning with Pokémon</a></li>
+				<li><a href="/anime/other/">Other Animations</a></li>
+				<li><b>Other Series</b></li>
+				<li><a href="/pokemonconcierge/">Pokémon Concierge</a></li>
+				<li><a href="/pokemontales/">Pokémon Tales: The Misadventures of Sirfetch'd & Pichu</a></li>
+
+				<li><b>Live Action</b></li>
+				<li><a href="/poketsume/">PokéTsume</a></li>
+
+
+			</ul>
+		</li>
+
+		<li>
+			<a href="/games/" class="navheader">Video Games</a>
+			<ul>
+				<li><a href="/pokemon/generation10.shtml"><b>Gen X</b></li>
+				<li><a href="/windswaves/">Winds & Waves</a></li>
+
+				<li><a href="/pokemon/generation9.shtml"><b>Gen IX</b></a></li>
+				<li><a href="/scarletviolet/">Scarlet & Violet</a></li>
+				<li><a href="/legendsz-a/">Legends: Z-A</a></li>
+				<li><a href="/pokemonchampions/">Pokémon Champions</a></li>
+				<li><a href="/pokemonpokopia/">Pokémon Pokopia</a></li>
+				<li><a href="/pokemonfriends/">Pokémon Friends</a></li>
+				<li><a href="/pokemongo/">Pokémon GO</a></li>
+				<li><a href="/cafemix/">Pokémon Café ReMix</a></li>
+				<li><a href="/pokemonmasters/">Pokémon Masters EX</a></li>
+				<li><a href="/pokemonunite/">Pokémon UNITE</a></li>
+				<li><a href="/pokemonsleep/">Pokémon Sleep</a></li>
+				<li><a href="/detectivepikachureturns/">Detective Pikachu Returns</a></li>
+				<li><a href="/tcgpocket/">Pokémon TCG Pocket</a></li>
+
+				<li><a href="/pokemon/generation8.shtml"><b>Gen VIII</b></a></li>
+				<li><a href="/swordshield/">Sword & Shield</a></li>
+				<li><a href="/brilliantdiamondshiningpearl/">Brilliant Diamond & Shining Pearl</a></li>
+				<li><a href="/legendsarceus/">Pokémon Legends: Arceus</a></li>
+				<li><a href="/pokemonhome/">Pokémon HOME</a></li>
+				<li><a href="/pokemongo/">Pokémon GO</a></li>
+				<li><a href="/pokemonmasters/">Pokémon Masters EX</a></li>
+				<li><a href="/dungeonrescueteamdx/">Pokémon Mystery Dungeon Rescue Team DX</a></li>
+				<li><a href="/pokemonsmile/">Pokémon Smile</a></li>
+				<li><a href="/cafemix/">Pokémon Café ReMix</a></li>
+				<li><a href="/newpokemonsnap/">New Pokémon Snap</a></li>
+				<li><a href="/pokemonunite/">Pokémon UNITE</a></li>
+				<li><a href="/tcglive/">Pokémon TCG Live</a></li>
+
+				<li><a href="/pokemon/generation7.shtml"><b>Gen VII</b></a></li>
+				<li><a href="/sunmoon/">Sun & Moon</a></li>
+				<li><a href="/ultrasunultramoon/">Ultra Sun & Ultra Moon</a></li>
+				<li><a href="/letsgopikachueevee/">Let's Go, Pikachu! & Let's Go, Eevee!</a></li>
+				<li><a href="/pokemongo/">Pokémon GO</a></li>
+				<li><a href="/magikarpjump/">Pokémon: Magikarp Jump</a></li>
+				<li><a href="/rumblerush/">Pokémon Rumble Rush</a></li>
+				<li><a href="/pokkendx/">Pokkén Tournament DX</a></li>
+				<li><a href="/detective/">Detective Pikachu</a></li>
+				<li><a href="/quest/">Pokémon Quest</a></li>
+				<li><a href="/smashbrosultimate/">Super Smash Bros. Ultimate</a></li>
+				<li><a href="/pokemon/generation6.shtml"><b>Gen VI</b></a></li>
+				<li><a href="/xy/">X & Y</a></li>
+				<li><a href="/omegarubyalphasapphire/">Omega Ruby & Alpha Sapphire</a></li>
+				<li><a href="/bank/">Pokémon Bank</a></li>
+				<li><a href="/battletrozei/">Pokémon Battle TrozeiPokémon Link: Battle</a></li>
+				<li><a href="/artacademy/">Pokémon Art Academy</a></li>
+				<li><a href="/bandofthieves/">The Band of Thieves & 1000 Pokémon</a></li>
+				<li><a href="/shuffle/">Pokémon Shuffle</a></li>
+				<li><a href="/rumbleworld/">Pokémon Rumble World</a></li>
+				<li><a href="/supermysterydungeon/">Pokémon Super Mystery Dungeon</a></li>
+				<li><a href="/picross/">Pokémon Picross</a></li>
+				<li><a href="/detective/">Detective Pikachu</a></li>
+				<li><a href="/pokken/">Pokkén Tournament</a></li>
+				<li><a href="/duel/">Pokémon Duel</a></li>
+				<li><a href="/smashbros3dswiiu/">Smash Bros for 3DS/Wii U</a></li>
+				<li><a href="/games/badge/">Nintendo Badge Arcade</a></li>
+				<li><a href="/pokemon/generation5.shtml"><b>Gen V</b></a></li>
+				<li><a href="/blackwhite/">Black & White</a></li>
+				<li><a href="/black2white2/">Black 2 & White 2</a></li>
+				<li><a href="/dreamradar/">Pokémon Dream Radar</a></li>
+				<li><a href="/trettalab/">Pokémon Tretta Lab</a></li>
+				<li><a href="/rumbleu/">Pokémon Rumble U</a></li>
+				<li><a href="/dungeoninfinity/">Mystery Dungeon: Gates to Infinity</a></li>
+				<li><a href="/conquest/">Pokémon Conquest</a></li>
+				<li><a href="/pokepark2/">PokéPark 2: Wonders Beyond</a></li>
+				<li><a href="/rumble2/">Pokémon Rumble Blast</a></li>
+				<li><a href="/pokedex3d/">Pokédex 3D</a></li>
+				<li><a href="/pokedex3dpro/">Pokédex 3D Pro</a></li>
+				<li><a href="/typingds/">Learn With Pokémon: Typing Adventure</a></li>
+				<li><a href="/card/howtoplayds/">TCG How to Play DS</a></li>
+				<li><a href="/pokedexios/">Pokédex for iOS</a></li>
+				<li><a href="/pokemon/generation4.shtml"><b>Gen IV</b></a></li>
+				<li><a href="/diamondpearl/">Diamond & Pearl</a></li>
+				<li><a href="/platinum/">Platinum</a></li>
+				<li><a href="/heartgoldsoulsilver/">Heart Gold & Soul Silver</a></li>
+				<li><a href="/ranger3/">Pokémon Ranger: Guardian Signs</a></li>
+				<li><a href="/melee/">Pokémon Rumble</a></li>
+				<li><a href="/dungeon3/">Mystery Dungeon: Blazing, Stormy & Light Adventure Squad</a></li>
+				<li><a href="/pokepark/">PokéPark Wii - Pikachu's  Adventure</a></li>
+				<li><a href="/battle/">Pokémon Battle Revolution</a></li>
+				<li><a href="/dungeonsky/">Mystery Dungeon - Explorers of Sky</a></li>
+				<li><a href="/ranger2/">Pokémon Ranger: Shadows of Almia</a></li>
+				<li><a href="/dungeon2/">Mystery Dungeon - Explorers of Time & Darkness</a></li>
+				<li><a href="/ranch/">My Pokémon Ranch</a></li>
+				<li><a href="/ssbb/">Smash Bros Brawl</a></li>
+				<li><a href="/pokemon/generation3.shtml"><b>Gen III</b></a></li>
+				<li><a href="/rubysapphire/">Ruby & Sapphire</a></li>
+				<li><a href="/fireredleafgreen/">Fire Red & Leaf Green</a></li>
+				<li><a href="/emerald/">Emerald</a></li>
+				<li><a href="/colosseum/">Pokémon Colosseum</a></li>
+				<li><a href="/xd/">Pokémon XD: Gale of Darkness</a></li>
+				<li><a href="/dash/">Pokémon Dash</a></li>
+				<li><a href="/pokemon_channel/">Pokémon Channel</a></li>
+				<li><a href="/pokemon_box/">Pokémon Box: RS</a></li>
+				<li><a href="/pinball_rs/">Pokémon Pinball RS</a></li>
+				<li><a href="/ranger/">Pokémon Ranger</a></li>
+				<li><a href="/mysteriousdungeon/">Mystery Dungeon Red & Blue</a></li>
+				<li><a href="/torouze/">PokémonTrozei</a></li>
+				<li><a href="/pikachu/">Pikachu DS Tech Demo</a></li>
+				<li><a href="/pokeparkfish/">PokéPark Fishing Rally</a></li>
+				<li><a href="/e-reader/">The E-Reader</a></li>
+				<li><a href="/pokemate/">PokéMate</a></li>
+				<li><a href="/pokemon/generation2.shtml"><b>Gen II</b></a></li>
+				<li><a href="/gs/">Gold/Silver</a></li>
+				<li><a href="/crystal/">Crystal</a></li>
+				<li><a href="/stadium2/">Pokémon Stadium 2</a></li>
+				<li><a href="/puzzlechallenge/">Pokémon Puzzle Challenge</a></li>
+				<li><a href="/mini/">Pokémon Mini</a></li>
+				<li><a href="/smash_bros_2/">Super Smash Bros. Melee</a></li>
+				<li><a href="/pokemon/generation1.shtml"><b>Gen I</b></a></li>
+				<li><a href="/rb/">Red, Blue & Green</a></li>
+				<li><a href="/yellow/">Yellow</a></li>
+				<li><a href="/puzzleleague/">Pokémon Puzzle League</a></li>
+				<li><a href="/snap/">Pokémon Snap</a></li>
+				<li><a href="/pinball/">Pokémon Pinball</a></li>
+				<li><a href="/stadiumjp/">Pokémon Stadium (Japanese)</a></li>
+				<li><a href="/stadium/">Pokémon Stadium</a></li>
+				<li><a href="/tradingcardgamegb/">Pokémon Trading Card Game GB</a></li>
+				<li><a href="/smash_bros/">Super Smash Bros.</a></li>
+
+				<li><strong>Miscellaneous</strong></li>
+				<li><a href="/games/mechanics.shtml">Game Mechanics</a></li>
+				<li><a href="/playpokemon">Pokémon Championship Series</a></li>
+				<li><a href="/games/others.shtml">In Other Games</a></li>
+				<li><a href="/games/virtualconsole.shtml">Virtual Console</a></li>
+				<li><a href="/games/consoles.shtml">Special Edition Consoles</a></li>
+				<li><a href="/games/themes.shtml">Pokémon 3DS Themes</a></li>
+				<li><a href="/apps">Smartphone & Tablet Apps</a></li>
+				<li><a href="/virtualpet">Virtual Pets</a></li>
+				<li><a href="/amiibo">amiibo</a></li>
+				<li><a href="/nintendoswitchonline/">Nintendo Switch Online & Icons</a></li>
+				<li><strong>Board Game</strong></li>
+				<li><a href="/pokemongoita">Pokémon Goita</a></li>
+				<li><strong>Arcade</strong></li>
+				<li><a href="/frienda">Pokémon FRIENDA</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/manga/" class="navheader">Manga</a>
+			<ul>
+				<li><a href="/manga/">General Information</a>
+				<li><a href="/manga/dex">MangaDex</a></li>
+				<li><a href="/manga/characters">Character BIOs</a></li>
+				<li><a href="/manga/characters-new">Detailed BIOs</a></li>
+				<li><a href="/manga/chapter.shtml">Chapter Guides</a></li>
+				<li><a href="/manga/volume.shtml">Volume Guides</a></li>
+				<li><a href="/manga/rby/">RBG Series</a></li>
+				<li><a href="/manga/yellow/">Yellow Series</a></li>
+				<li><a href="/manga/gsc/">GSC Series</a></li>
+				<li><a href="/manga/rs/">RS Series</a></li>
+				<li><a href="/manga/frlg/">FRLG Series</a></li>
+				<li><a href="/manga/bf/">Emerald Series</a></li>
+				<li><a href="/manga/dp/">DP Series</a></li>
+				<li><a href="/manga/pt/">Platinum Series</a></li>
+				<li><a href="/manga/hgss/">HGSS Series</a></li>
+				<li><a href="/manga/bw/">BW Series</a></li>
+				<li><a href="/manga/b2w2/">B2W2 Series</a></li>
+				<li><a href="/manga/xy/">XY Series</a></li>
+				<li><a href="/manga/oras/">ORAS Series</a></li>
+				<li><a href="/manga/sunmoon/">SM Series</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/movies/" class="navheader">Movies</a>
+			<ul>
+				<li><strong>Anime</strong></li>
+				<li><a href="/movies/mewtwo/origin/">The Origin of Mewtwo</a></li>
+				<li><a href="/movies/mewtwo/">Mewtwo Strikes Back</a></li>
+				<li><a href="/movies/lugia/">The Power of One</a></li>
+				<li><a href="/movies/entei/">Spell Of The Unown</a></li>
+				<li><a href="/anime/epiguide/specials/002.shtml">Mewtwo Returns</a></li>
+				<li><a href="/movies/serebii/">Celebi: Voice of the Forest</a></li>
+				<li><a href="/movies/latias_latios/">Pokémon Heroes</a></li>
+				<li><a href="/movies/jirachi/">Jirachi - Wish Maker</a></li>
+				<li><a href="/movies/deoxys/">Destiny Deoxys!</a></li>
+				<li><a href="/movies/mew/">Lucario and the Mystery of Mew!</a></li>
+				<li><a href="/movies/kyogre/">Pokémon Ranger & The Temple of the Sea!</a></li>
+				<li><a href="/movies/dp/">The Rise of Darkrai!</a></li>
+				<li><a href="/movies/giratina/">Giratina & The Sky Warrior!</a></li>
+				<li><a href="/movies/arceus/">Arceus and the Jewel of Life</a></li>
+				<li><a href="/movies/celebi/">Zoroark - Master of Illusions</a></li>
+				<li><a href="/movies/victini/">Black: Victini & ReshiramWhite: Victini & Zekrom</a></li>
+				<li><a href="/movies/kyurem/">Kyurem VS The Sword of Justice</a></li>
+				<li><a href="/movies/meloetta/">-Meloetta's Midnight Serenade</a></li>
+				<li><a href="/movies/genesect/">Genesect and the Legend Awakened</a></li>
+				<li><a href="/movies/xy/">Diancie & The Cocoon of Destruction</a></li>
+				<li><a href="/movies/hoopa/">Hoopa & The Clash of Ages</a></li>
+				<li><a href="/movies/volcanion/">Volcanion and the Mechanical Marvel</a></li>
+				<li><a href="/movies/pokemon20/">Pokémon I Choose You!</a></li>
+				<li><a href="/movies/thepowerofus/">Pokémon The Power of Us</a></li>
+				<li><a href="/movies/mewtwoevolution/">Mewtwo Strikes Back Evolution</a></li>
+				<li><a href="/movies/secretsofthejungle/">Secrets of the Jungle</a></li>
+				<li><a href="/movies/pokemonwildcard/">Wild Card</a></li>
+				<li><strong>Live Action</strong></li>
+				<li><a href="/movies/detectivepikachu/">Pokémon Detective Pikachu</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/movies/" class="navheader">Pikachu Shorts</a>
+			<ul>
+				<li><a href="/movies/pikachu1/">Pikachu's Summer Vacation</a></li>
+				<li><a href="/movies/pikachu2/">Pikachu's Rescue Adventure</a></li>
+				<li><a href="/movies/pikachu3/">Pikachu And Pichu</a></li>
+				<li><a href="/movies/pikachu4/">Pikachu's PikaBoo</a></li>
+				<li><a href="/movies/pikachu5/">Camp Pikachu!</a></li>
+				<li><a href="/movies/pikachu6/">Gotta Dance!!</a></li>
+				<li><a href="/movies/pikachu7/">Pikachu's Summer Festival!</a></li>
+				<li><a href="/movies/pikachu8/">Pikachu's Ghost Festival!</a></li>
+				<li><a href="/movies/pikachu9/">Pikachu's Island Adventure!</a></li>
+				<li><a href="/movies/pikachu10/">Pikachu's Exploration Club</a></li>
+				<li><a href="/movies/pikachu11/">Pikachu's Great Ice Adventure</a></li>
+				<li><a href="/movies/pikachu12/">Pikachu's Sparkling Search</a></li>
+				<li><a href="/movies/pikachu13/">Pikachu's Really Mysterious Adventure</a></li>
+				<li><a href="/movies/eevee/">Eevee & Friends</a></li>
+				<li><a href="/movies/klefki/">Pikachu, What's This Key?</a></li>
+				<li><a href="/movies/pikachumusic/">Pikachu & The Pokémon Music Squad</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/card/" class="navheader">Trading Cards</a>
+			<ul>
+				<li><a href="/tcglive/">Pokémon TCG Live</a></li>
+				<li><a href="/card/dex/">Cardex</a></li>
+				<li><a href="/card/dex/extra">-Extra Pokémon Types</a></li>
+				<li><a href="/card/dex/trainers">Trainer Cards</a></li>
+				<li><a href="/card/dex/energy">Energy Cards</a></li>
+				<li><a href="/card/dex/extra/altart.shtml">Alternate Art Cards</a></li>
+				<li><a href="/card/raidbattles">Raid Battles</a></li>
+				<li><a href="/card/classic/">Pokémon TCG Classic</a></li>
+				<li><a href="/card/english.shtml"><b>English Sets</b></a></li>
+				<li><a href="/card/deltareign/">-Delta Reign</a></li>
+				<li><a href="/card/30thcelebration/">-30th Celebration</a></li>
+				<li><a href="/card/pitchblack/">-Pitch Black</a></li>
+				<li><a href="/card/chaosrising/">-Chaos Rising</a></li>
+				<li><a href="/card/perfectorder/">-Perfect Order</a></li>
+				<li><a href="/card/ascendedheroes/">-Ascended Heroes</a></li>
+				<li><a href="/card/phantasmalflames/">-Phantasmal Flames</a></li>
+				<li><a href="/card/megaevolution/">-Mega Evolution</a></li>
+				<li><a href="/card/blackbolt/">-Black Bolt</a></li>
+				<li><a href="/card/whiteflare/">-White Flare</a></li>
+				<li><a href="/card/destinedrivals/">-Destined Rivals</a></li>
+				<li><a href="/card/journeytogether/">-Journey Together</a></li>
+				<li><a href="/card/prismaticevolutions/">-Prismatic Evolutions</a></li>
+				<li><a href="/card/surgingsparks/">-Surging Sparks</a></li>
+				<li><a href="/card/stellarcrown/">-Stellar Crown</a></li>
+				<li><a href="/card/shroudedfable/">-Shrouded Fable</a></li>
+				<li><a href="/card/twilightmasquerade/">-Twilight Masquerade</a></li>
+				<li><a href="/card/temporalforces/">-Temporal Forces</a></li>
+				<li><a href="/card/paldeanfates/">-Paldean Fates</a></li>
+				<li><a href="/card/paradoxrift/">-Paradox Rift</a></li>
+				<li><a href="/card/151/">-151</a></li>
+				<li><a href="/card/obsidianflames/">-Obsidian Flames</a></li>
+				<li><a href="/card/paldeaevolved/">-Paldea Evolved</a></li>
+				<li><a href="/card/scarletviolet/">-Scarlet Violet</a></li>
+				<li><a href="/card/swsh.shtml">-SWSH Series</a></li>
+				<li><a href="/card/sm.shtml">-SM Series</a></li>
+				<li><a href="/card/xy.shtml">-XY Series</a></li>
+				<li><a href="/card/bw.shtml">-BW Series</a></li>
+				<li><a href="/card/dpt.shtml">-DPtHS Series</a></li>
+				<li><a href="/card/ex.shtml">-EX Series</a></li>
+				<li><a href="/card/neo.shtml">-Neo/eSeries</a></li>
+				<li><a href="/card/first.shtml">-First Gen Series</a></li>
+				<li><a href="/card/engpromo.shtml"><b>English Promos</b></a></li>
+				<li><a href="/card/megapromos">-Mega Promos</a></li>
+				<li><a href="/card/svpromos">-SV Promos</a></li>
+				<li><a href="/card/swshpromos">-SWSH Promos</a></li>
+				<li><a href="/card/smpromos">-SM Promos</a></li>
+				<li><a href="/card/xypromos">-XY Promos</a></li>
+				<li><a href="/card/popseries.shtml">-POP Series</a></li>
+				<li><a href="/card/japanese.shtml"><b>Japanese Sets</b></a></li>
+				<li><a href="/card/abysseye/">-Abyss Eye</a></li>
+				<li><a href="/card/ninjaspinner/">-Ninja Spinner</a></li>
+				<li><a href="/card/nihilzero/">-Nihil Zero</a></li>
+				<li><a href="/card/megadreamex/">-Mega Dream ex</a></li>
+				<li><a href="/card/infernox/">-Inferno X</a></li>
+				<li><a href="/card/megabrave/">-Mega Brave</a></li>
+				<li><a href="/card/megasymphonia/">-Mega Symphonia</a></li>
+				<li><a href="/card/blackbolt-jp/">-Black Bolt</a></li>
+				<li><a href="/card/whiteflare-jp/">-White Flare</a></li>
+				<li><a href="/card/gloryofteamrocket/">-Glory of Team Rocket</a></li>
+				<li><a href="/card/hotairarena/">-Hot Air Arena</a></li>
+				<li><a href="/card/battlepartners/">-Battle Partners</a></li>
+				<li><a href="/card/terastalfestivalex/">-Terastal Festival ex</a></li>
+				<li><a href="/card/superelectricbreaker/">-Super Electric Breaker</a></li>
+				<li><a href="/card/paradisedragona/">-Paradise Dragona</a></li>
+				<li><a href="/card/stellarmiracle/">-Stellar Miracle</a></li>
+				<li><a href="/card/nightwanderer/">-Night Wanderer</a></li>
+				<li><a href="/card/maskofchange/">-Mask of Change</a></li>
+				<li><a href="/card/crimsonhaze/">-Crimson Haze</a></li>
+				<li><a href="/card/wildforce/">-Wild Force</a></li>
+				<li><a href="/card/cyberjudge/">-Cyber Judge</a></li>
+				<li><a href="/card/vstaruniverse/">-VSTAR Universe</a></li>
+				<li><a href="/card/vs">-Pokémon VS</a></li>
+				<li><a href="/card/jppromo.shtml"><b>Japanese Promos</b></a></li>
+				<li><a href="/card/svpromo">-SV Promos</a></li>
+				<li><a href="/card/spromo">-S Promos</a></li>
+				<li><a href="/card/smpromo">-SM Promos</a></li>
+
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+
+<script type="text/javascript">
+
+function loadMobileLbar(){
+	var tbar_lbar_open=document.getElementById('tbar_lbar_open'),
+		tbar_backdrop=document.getElementById('tbar_backdrop'),
+		lbar=document.getElementById('lbar'),
+		lbarLIs=document.querySelectorAll("#lbar_ul>li .navheader"),
+		lbarLIULs=document.querySelectorAll("#lbar_ul>li>ul");
+
+	/* lbar display/hide */
+	tbar_lbar_open.onclick=function() {
+		if (lbar.className.indexOf("show") > -1){//hide
+			lbar.className = lbar.className.replace("show","");
+			bodyRemoveClass("nav_modal");
+		} else{//show
+			lbar.classList.add("show");
+			bodyAddClass("nav_modal");
+		}
+
+		return false;
+	}
+
+
+	/* background clicked when bar shown */
+	tbar_backdrop.onclick=function() {// if the backdrop is clicked, hide menus
+		lbar.className = lbar.className.replace("show","");
+		rbar.className = rbar.className.replace("show","");
+		bodyRemoveClass("nav_modal");
+		return false;
+	}
+
+	/* handle expand/collapse sub-menus in lbar by attaching click events */
+	for(i=0; i<lbarLIs.length; i++){
+		lbarLIs[i].onclick=function(i) {
+			var elem=this.parentNode.getElementsByTagName("UL")[0];
+			var elemDisp=(elem.className.indexOf("show") === -1)
+
+			// hide all ul, then open one if clicked
+			for(i2=0; i2<lbarLIULs.length; i2++){
+				lbarLIULs[i2].className = lbarLIULs[i2].className.replace("show","");
+			}
+
+			if(elemDisp){
+				elem.classList.add("show");
+			}
+
+			return false;
+		}
+	}
+}
+function loadMobileRbar(){
+	var tbar_rbar_open=document.getElementById('tbar_rbar_open'),
+		rbar=document.getElementById('rbar');
+
+	/* rbar display/hide */
+	tbar_rbar_open.onclick=function() {
+		if (rbar.className.indexOf("show") > -1){//hide
+			rbar.className = rbar.className.replace("show","");
+			bodyRemoveClass("nav_modal");
+		} else{//show
+			rbar.classList.add("show");
+			bodyAddClass("nav_modal");
+		}
+
+		return false;
+	}
+}
+
+loadMobileLbar();
+
+/* attach listener to for rbar events AFTER page loads (because #rbar hasn't loaded at this point in page ) */
+if(window.addEventListener){
+	window.addEventListener('load', loadMobileRbar)
+} else{
+	window.attachEvent('onload', loadMobileRbar)
+}
+</script>
+
+
+
+<div id="content">
+		<div class="center" style="margin-top:16px;height:100px"><div id="nn_lb1"></div><div id="nn_mobile_lb1"></div></div>
+<main>
+<p>As Pokémon Duel is a new  game, there are a number of special mechanics created for this game. This page will detail everything about these mechanics.</p>
+
+<table class="tab" align="center">
+<tr>
+<td class="fooleft" colspan="2"><font size="3"><b>The Board</b></a></font></td>
+</tr>
+<tr>
+<td class="foocontent" valign="top"><p>The bulk of the game takes place on the board. To start off, the starting player is chosen at random. The first player makes the decision to move their pieces. There are two portals from which Pokémon can be spawned on each player's side. If a piece is on top of a portal, the player cannot use it to put a Pokémon on the field. The idea of the game is to either have one of your pieces reach the goal spot on the opponent's side, or to remove all the opponent's pieces from the board and prevent them from putting on new pieces. You have a limit of 300 turns per match.</p>
+<p>Each player starts with 6 Pokémon, but as they are defeated, they will go into the backup. You can only have two Pokémon in the backup area at any one time. If another is to go in, then one is sent back to your bench and can be used in gameplay again.</p>
+<p>Each Pokémon piece can move a set amount of spaces from 1 to 3 depending on the piece. This can be reduced, however, by special effects from an opponent's attack such as String Shot. You can move one piece per turn.</p>
+<p>When it's your turn, you can tap each piece and see how far they can travel and what they can do. You can only attack if your piece is adjacent to the opponent's piece.</p>
+<p>If you are unsure how to move, you can let the computer take your move for you, making the most logical course of action.</p>
+</font></td>
+<td class="picturetd"><img  src="board.jpg" /></td>
+</tr>
+<tr>
+<td class="fooleft" colspan="2"><font size="3"><b>Combat</b></a></font></td>
+</tr>
+<tr>
+<td class="foocontent" valign="top"><p>Combat is quite simple in this game. Each Pokémon piece has got a wheel of moves that it can do. When combat is activated, both players spin their wheel and wherever it stops, that's the attack that is activated. Whichever attack happens depends on the colour</p>
+<b>White Attacks</b>: These are your standard damaging attacks and are ones that can remove Pokémon from a board. Each has got set damage total, while some have special effects such as allowing for rerolling for multiplication of damage and so forth. The player with the highest value at the end wins. If both players have the same value, then it's a draw and both remain on the board.<br />
+<b>Purple Attacks</b>: These attacks have priority over the standard attacks. These attacks offer special effects such as poisoning the opponent, slowing them and so forth. The priority depends on how many stars the attack has. If both players land on Purple, then whoever has the highest amount of stars has their attack activate.<br />
+<b>Blue Attacks</b>: These are the defensive attacks such as Protect and Dodge. They win against all other kind of attacks.<br />
+<b>Gold Attacks</b>: Priority moves. Goes before Purple attacks<br />
+<b>Miss</b>: The red option is Miss. If it lands on this, then the opponent's attack will win out.</p>
+
+<p>There are various Support cards that can be used to augment these attacks.</p>
+</font></td>
+<td class="picturetd"><img  src="combat.jpg" /></td>
+</tr>
+<tr>
+<td class="fooleft" colspan="2"><font size="3"><b>Status Conditions</b></a></font></td>
+</tr>
+<tr>
+<td class="foocontent" valign="top"><p>Like the main games, there are a numer of status afflictions that can afflict your pieces and your opponent's pieces. These can be afflicted through Purple moves, or by special effects of White moves. The conditions are as follows</p>
+<b>Confusion</b>: Your Pokémon's move is rotated away one move from where it lands in combat<br />
+<b>Poison</b>: The damage of moves is reduced by 20<br />
+<b>Noxious</b>: The damage of moves is reduced by 40<br />
+<b>Paralysis</b>: At the start of each combat round, the smallest of the Pokémon's White, Blue, Purple or Gold move turns into a Miss.<br />
+<b>Sleep</b>: The Pokémon cannot move or make an attack. It can be woken up by an adjacent Pokémon.<br />
+<b>Frozen</b>: The Pokémon cannot take actions and their attacks miss. They can move. Freeze is cleared after a battle regardless of the outcome.<br />
+<b>Burn</b>: The Pokémon's smallest White, Blue, Purple or Gold move turns into a miss. Damage inflicted is reduced by 10<br />
+<b>Wait</b>: The Pokémon is unable to make any actions or movement<br />
+<b>Curse</b>: When the Pokémon is defeated, it is removed from the duel</p>
+
+<p>There are various Support cards that can be used to heal these conditions.</p>
+</font></td>
+<td class="picturetd"><img  src="status.jpg" /></td>
+</tr>
+<tr>
+<td class="fooleft" colspan="2"><font size="3"><b>Levelling Up</b></a></font></td>
+</tr>
+<tr>
+<td class="foocontent" valign="top"><p>As you play the game, you can actually level your figures up. This allows for you to have a little bit of customisation to your figures. With each level, you will get a point which will allow you to alter the size of one of your attacks, either making it larger or smaller. This will allow for you to remove some Miss chances and increase your most powerful attacks.</p>
+
+<p>Even if you lose, you will get experience.</p>
+<p>You can also level up by fusing various figures in the deck option. You will lose the side figures that are selected for this. When you have selected the figures that you want to fuse, you can then spend coins in order to fuse them. The experience gained for the main figure is equal to that of all the experience from each figure added together.</p>
+<p>Each Pokémon has only 5 levels, giving an addition of +4 bringing the total move spaces up to 100.</p>
+
+<p>As of Version 4, a new update called Carmonite became available. This allowed you to get your Pokémon up to Level 10. It can only be used once the figure is Level 5. With that, you can then increase other moves widths while decreasing others</p>
+<div align="center"><img  src="fusion.jpg" height="200"  /></div>
+</font></td>
+<td class="picturetd"><img  src="level.jpg"  /></td>
+</tr>
+<tr>
+<td class="fooleft" colspan="2"><font size="3"><b>Levelling Up - Chain Level</b></a></font></td>
+</tr>
+<tr>
+<td class="foocontent" valign="top"><p>As of Version 1.2.1, when you fuse with the same figure, it'll increase a new level bar known as the Chain Level. This allows for you to combine figures of the same species to boost the level and the amount you need to increase changes depending on the figures rarity<br />
+<b>EX</b>- 1<br />
+<b>R</b>- 3<br />
+<b>UC</b>- 9<br />
+<b>C</b>- 30<br />
+This can also be done by using the Cube items.</p>
+<p>When your Chain Level increases, you gain the ability to increase the power of a move by 1 point meaning a move that was 40 can now be 41, allowing for your figure to have an advantage over others of the same figure. The amount of Carmonite for each level is different depending upon the rarity of the figure<br />
+UX - 50<br />
+EX - 40<br />
+R - 30<br />
+UC - 20<br />
+C - 10</p>
+</font></td>
+<td class="picturetd"><img  src="chainlevel.jpg"  /></td>
+</tr>
+<tr>
+<td class="fooleft" colspan="2"><font size="3"><b>Energy & Match Costs</b></a></font></td>
+</tr>
+<tr>
+<td class="foocontent" valign="top"><b>Single Player</b><p>As the game is free to play it has an Energy Gauge. This gauge increases over time by 1 point for every 2 minutes. Each stage you play in the game costs a certain amount of energy to play. This energy is depleted when you go into the match and they cannot be played if you do not have the required energy</p>
+<b>Online</b>
+<p>To play the ranked matches, you need to have special Lounge Tickets to play. For each match, you have to use one Lounge Ticket. These are obtained through the story mode as well as in Check-in Bonuses each day. This was removed in Version 2</p>
+</font></td>
+<td class="picturetd"><img  src="stamina.jpg"  /></td>
+</tr>
+<tr>
+<td class="fooleft" colspan="2"><font size="3"><b>Evolution</b></a></font></td>
+</tr>
+<tr>
+<td class="foocontent" valign="top"><p>Evolution is a feature introduced in Version 2 of the game. When you get a figure that evolves from another, you have the ability to attach that figure to the previous evolution when selecting the Pokémon in the deck. When the Pokémon defeats a Pokémon in battle, it gains the ability to evolve. The evolved figure takes the new details of the figure, but adds 10 to the damage and &star; to each of the moves, making it more powerful than a standard figure of its species. This can make your Pokémon even more powerful than before.</p>
+<p>Some Pokémon can evolve more than once, giving you a variety of options for your Pokémon.</p>
+</font></td>
+<td class="picturetd"><img  src="evolution.jpg"  /></td>
+</tr>
+<tr>
+<td class="fooleft" colspan="2"><font size="3"><b>Mega Evolution</b></a></font></td>
+</tr>
+<tr>
+<td class="foocontent" valign="top"><p>Mega Evolution is a feature introduced in Version 5 of the game. When you get a figure that is a Mega Evolution of another, you can equip it in the deck and you'll receive a special plate to Mega Evolve the Pokémon. When a Pokémon is Mega Evolved, it will remain Mega Evolved for 7 turns. They typically have more power and have an effect that affects your entire team of figures.</p>
+<p>You can only Mega Evolve 1 Pokémon per game.</p>
+</font></td>
+<td class="picturetd"><img  src="megaevolution.jpg" height="200"  /></td>
+</tr>
+<tr>
+<td class="fooleft" colspan="2"><font size="3"><b>Z-Moves</b></a></font></td>
+</tr>
+<tr>
+<td class="foocontent" valign="top"><p>Z-Moves are a feature introduced in Version 7 of the game. As you make moves through the game, you power up your Z-Move gauge. When it's full, you have the ability to activate the Z-Move on any Pokémon you have in play. The Z-Move will be able to be selected based on the Pokémon's type, with each Z-Move having a different effect. If it's a White Attack, the power is double the highest power of the figure's strongest move.</p>
+<table class="dextable" align="center">
+<tr><td class="fooevo">Type</td><td class="fooevo">Name</td><td class="fooevo">Colour</td><td class="fooevo">Effect</td></tr><tr><td class="fooinfo">Normal</td><td class="fooinfo">Breakneck Blitz</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">Pok&eacute;mon knocked out by this Attack\'s damage are temporarily excluded from the duel, returning to the bench 7 turns later.</td></tr></tr>
+<tr><td class="fooinfo">Fighting</td><td class="fooinfo">All-Out Pummelling</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">Attaches a Cracked marker to opposing Pok&eacute;mon in a straight line directly behind the battle opponent</td></tr></tr>
+<tr><td class="fooinfo">Flying</td><td class="fooinfo">Supersonic Skystrike</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">Any Pok&eacute;mon adjacent to the battle opponent other than this Pok&eacute;mon spin. Those that spin White Attacks move to the bench. This Pok&eacute;mon gains Wait 3.</td></tr></tr>
+<tr><td class="fooinfo">Poison</td><td class="fooinfo">Acid Downpour</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">All opposing Pok&eacute;mon on the field spin. Those that spin White Attacks become Poisoned.</td></tr></tr>
+<tr><td class="fooinfo">Ground</td><td class="fooinfo">Tectonic Rage</td><td class="fooinfo">Purple Z-Move</td><td class="fooinfo">Knocks out the battle opponent</td></tr></tr>
+<tr><td class="fooinfo">Rock</td><td class="fooinfo">Continental Crush</td><td class="fooinfo">Purple Z-Move</td><td class="fooinfo">The battle opponent and opposing Pok&eacute;mon adjacent to the battle opponent gain Wait 9</td></tr></tr>
+<tr><td class="fooinfo">Bug</td><td class="fooinfo">Savage Spin-Out</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">Attaches a MP-2 marker to opposing Pok&eacute;mon within 2 steps.</td></tr></tr>
+<tr><td class="fooinfo">Ghost</td><td class="fooinfo">Never-Ending Nightmare</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">All opposing Pok&eacute;mon on the field spin. Those that spin White Attacks get an MP-1 marker.</td></tr></tr>
+<tr><td class="fooinfo">Steel</td><td class="fooinfo">Corkscrew Crash</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">If the battle opponent is knocked out, then after the battle, this Pok&eacute;mon moves to a point 2 steps away</td></tr></tr>
+<tr><td class="fooinfo">Fire</td><td class="fooinfo">Inferno Overdrive</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">The battle opponent and the Pok&eacute;mon in a straight line directly behind it become burned.</td></tr></tr>
+<tr><td class="fooinfo">Water</td><td class="fooinfo">Hydro Vortex</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">The battle opponent and opposing Pok&eacute;mon within 2 steps of it become confused.</td></tr></tr>
+<tr><td class="fooinfo">Grass</td><td class="fooinfo">Bloom Doom</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">Removes all special conditions from your Pok&eacute;mon</td></tr></tr>
+<tr><td class="fooinfo">Electric</td><td class="fooinfo">Gigavolt Havoc</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">The battle opponent and a succession of Pok&eacute;mon adjacent to the battle opponent (other than this Pok&eacute;mon) become paralyzed</td></tr></tr>
+<tr><td class="fooinfo">Psychic</td><td class="fooinfo">Shattered Psyche</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">If this Pok&eacute;mon is on the field, this Pok&eacute;mon moves to a point 3 steps away after battle</td></tr></tr>
+<tr><td class="fooinfo">Ice</td><td class="fooinfo">Subzero Slammer</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">An opposing Pok&eacute;monwithin 2 steps becomes frozen</td></tr></tr>
+<tr><td class="fooinfo">Dragon</td><td class="fooinfo">Devastating Drake</td><td class="fooinfo">Purple Z-Move</td><td class="fooinfo">A Pok&eacute;mon on the field spins. If it spins a Miss or a White Attack of 120 damage or more, it is knocked out</td></tr></tr>
+<tr><td class="fooinfo">Dark</td><td class="fooinfo">Black Hole Eclipse</td><td class="fooinfo">White Z-Move</td><td class="fooinfo">Reduces the opponetn\'s Z-Move gauge by two thirds of its max value</td></tr></tr>
+<tr><td class="fooinfo">Fairy</td><td class="fooinfo">Twinkle Tackle</td><td class="fooinfo">Purple Z-Move</td><td class="fooinfo">Moves the battle opponent to the bench</td></tr></tr>
+</table>
+<p>Certain other figures also have their own unique Z-Moves.</p>
+</font></td>
+<td class="picturetd"><img  src="zmove.jpg" width="300"  /></td>
+</tr>
+
+</table>
+
+</main></div><!-- END id="content" -->
+
+
+<aside id="rbar">
+
+	<div class="navheader">Game Names</div>
+<div><a href="#">Pokémon Duel<br />Pokémon Comaster</a></div>
+	<div class="navheader">Console</div>
+<div><a href="#">iOS<br />Android</a></div>
+	<div class="navheader">Game Sections</div>
+<div><ul><li><a href="/duel/">Information</a></li>
+<li><a href="/duel/pics.shtml">Pre-Release Screenshots</a></li>
+<li><a href="/duel/figures.shtml">Pokémon Figure Listings</a></li>
+<li><a href="/duel/abilities.shtml">Pokémon Abilities Listings</a></li>
+<li><a href="/duel/plates.shtml">Plate Listings</a></li>
+<li><a href="/duel/carmonteisland.shtml">Quest Mode<br />Carmonte Island<br />-Location Listings</a></li>
+<li><a href="/duel/league.shtml">League Details</a></li>
+<li><a href="/duel/mechanics.shtml">Gameplay Mechanics</a></li>
+<li><a href="/duel/items.shtml">Items</a></li>
+<li><a href="/duel/shop.shtml">Shop & Microtransactions</a></li>
+<li><b>Events & Updates</b></li>
+<li><a href="/duel/events.shtml">Carnival Events</a></li>
+<li><a href="/duel/gymevents.shtml">Gym Events</a></li>
+<li><a href="/duel/patch.shtml">Patches & Updates</a></li></ul></div>
+	<div class="navheader">Picture</div>
+<div><img src="/apps/comaster.jpg" width="140" /></div>
+	<div class="navheader">Details</div>
+<div><b>Developer:</b><div align="right"><a href="/pokemon/companies/heroz.shtml">HEROZ</a> </div>
+<b>Genre:</b><div align="right">Board Game</div>
+<b>Players:</b><div align="right">1-2</div>
+<b>Menu Icon</b><br /><div align="center"><img src="/Toolbar/icon/comasterlogo.png" alt="Icon" title="Icon" width="64" /> <img src="/Toolbar/icon/comasterlogo2.png" alt="Icon" title="Icon" width="64" /> <img src="/Toolbar/icon/comasterlogo3.png" alt="Icon" title="Icon" width="64" /> <img src="/Toolbar/icon/comasterlogo4.png" alt="Icon" title="Icon" width="64" /></div></div>
+
+	<div class="navheader">Release Date</div>
+<div><b>Android</b><br />
+<b>Japan</b>: April 12th 2016<br />
+<b>International</b>: January 24th 2017<br />
+<b>iOS</b><br />
+<b>Japan</b>:  April 19th 2016<br />
+<b>International</b>: January 24th 2017</div>
+
+
+	</aside>
+
+</div><!-- END id="wrapper" -->
+
+<footer id="footer">
+	<div class="copyright">
+		<a href="#top" alt="Top of Page" title="Top of Page" class="totop"></a>
+
+		All Content is &copy; Copyright of Serebii.net 1999-2026. |
+		<a href="/privacy.shtml">Privacy Policy</a> |
+		<a class="nn-cmp-show" href="#">Manage Cookie Settings</a><br/>
+		Pokémon and All Respective Names are Trademark &amp; &copy; of Nintendo 1996-2026<br /><br />
+<a href="https://www.patreon.com/serebiinet" target="blank" rel="nofollow"></u>Support us on Patreon</u></a>
+	</div>
+
+	<div style="height:102px">
+		<div id="nn_lb2"></div><div id="nn_mobile_lb2"></div>
+<div id="celtra-reveal-wrapper" style="position:fixed; height: auto; width: 100%">
+<div id="nn_1by1"></div>
+</div>
+	</div>
+<script data-cfasync="false" async src="//cdn.intergient.com/1025662/76683/ramp.js"></script>
+</footer>
+
+
+</body>
+
+</html>

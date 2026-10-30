@@ -1,0 +1,262 @@
+
+Pokémon Duel - WikiDex, la enciclopedia Pokémon
+Inicio » 
+Videojuegos » 
+Sexta generación ‹ Categorías ›
+[Android]
+[iOS]
+Pokémon Duel
+De WikiDex
+Ir a la navegaciónIr a la búsqueda
+Pokémon Duel
+ | [Pokémon Duel] Pokémon Duel
+ | [Pokémon Duel]Pokémon Duel
+Datos
+Sexta generación 
+ | Plataformas:
+ | iOS
+Android
+ | Género:
+ | Juego de mesa
+ | Jugadores:
+ | 1
+ | Publicado por:
+ | The Pokémon Company
+ | Desarrollado por:
+ | HEROZ Japan
+Fechas de lanzamiento
+ | Japón:
+ | 12 de abril de 2016
+ | América:
+ | 24 de enero de 2017
+ | Australia:
+ | 24 de enero de 2017
+ | Europa:
+ | 24 de enero de 2017
+(solo Reino Unido)
+Fecha de cierre
+ | Fin del servicio:
+ | 31 de octubre de 2019
+Páginas web oficiales
+Japón
+América
+Pokémon Duel (ポケモンコマスター Pokémon Comaster en japonés) es una aplicación free-to-play para dispositivos móviles con sistemas operativos iOS y Android. Fue lanzado en Japón el 12 de abril de 2016 y en países de habla inglesa el 24 de enero de 2017.
+Pokémon Duel fue retirado el 31 de octubre de 2019.
+Índice
+1 Características
+2 Isla Carmonte
+2.1 Lugares de interés
+3 Cómo jugar
+3.1 Aspectos básicos y objetivo
+3.2 Iniciando
+3.3 Moverse
+3.3.1 Clasificación según la cantidad de MP
+4 Ganar una partida
+5 Modos de juego
+5.1 Modo historia
+5.2 Modo online
+6 Personajes
+6.1 Personajes secundarios
+6.2 Dueños de hoteles
+7 Galería
+8 Vídeos
+9 Enlaces externos
+10 Otros videojuegos
+Características[editar código | editar]
+Pokémon Duel es una aplicación que consiste en un juego de estrategia desarrollado en conjunto por HEROZ Japan y The Pokémon Company, en la que el jugador debe coleccionar figuras Pokémon con habilidades características y armar una baraja con la que intentar derrotar a su oponente. Es un juego de 1 jugador, pero dispone de un modo en línea, además de la posibilidad de realizar compras dentro del juego.
+Este juego cuenta con la combinación del mundo de los Pokémon y la inteligencia artificial gracias al equipo de HEROZ Japan, quienes ya habían desarrollado IA para juegos como ajedrez y backgammon.
+Isla Carmonte[editar código | editar]
+Ilustración de Isla Carmonte
+Isla Carmonte en el mapa
+Isla Carmonte (Carmonte Island en inglés; カルモンテ島 Isla Carmonte en japonés) es una isla donde transcurren los eventos de Pokémon Duel. En esta isla existen un total de ocho hoteles, específicamente creados para alojar a los participantes del PFG durante el tiempo que dure el evento. Cada hotel albergará en su azotea al dueño, que estará esperando desafiantes. En esta isla se encuentra una torre llamada Jewel Tower, el símbolo de la región.
+Su nombre proviene de Montecarlo escrito al revés, famosa región de Mónaco, donde hay edificios de lujo como casinos y hoteles. Tiene cierto parecido con Dubái, esto se refleja en el aspecto de sus edificios y en que el aeropuerto de la región se halla en una isla artificial, aunque según los creadores de Pokémon está inspirada en la ciudad de Mónaco. Es, junto a Teselia y Kalos, la única región con un aeropuerto.
+Lugares de interés[editar código | editar]
+En Isla Carmonte hay un lugar para practicar cómo jugar llamado Training Center. Y los hoteles que hay son los siguientes (listados en el orden en que se desbloquean en el juego):
+Ulex
+Chateau de Rosa
+Atlantis
+Olivia Palace
+The Volcano
+Elysium
+Cómo jugar[editar código | editar]
+Aspectos básicos y objetivo[editar código | editar]
+El juego se desarrolla sobre un tablero de forma rectangular, con 5 casillas de largo por 7 de ancho y con un cuadrado más pequeño de 3×3 casillas dentro, ambos conectados mediante líneas diagonales (una en cada esquina). Cada casilla está representada por un pequeño círculo blanco con un punto igualmente blanco dentro, a excepción de las metas, que aparecen de un color azul eléctrico (para el jugador) y un rojo anaranjado brillante (para su oponente). El objetivo del juego es llegar a la meta del rival antes de que este alcance la del jugador.
+Aquí se puede leer claramente el efecto de la habilidad
+Iniciando[editar código | editar]
+La habilidad "time distortion" de Dialga no le permite salir de la banca a menos que sea el único en ésta
+Al comienzo de la partida, los Pokémon o figuras de ambos jugadores se encontrarán en la banca, punto inicial desde dónde pueden entrar al campo de batalla. Normalmente, una figura puede salir de la banca en el primer turno, a excepción de algunos como Dialga, cuya habilidad no le permite entrar al campo de batalla por métodos convencionales mientras queden más Pokémon en la banca, o Reshiram, quien debe esperar nueve turnos, contando tanto los del jugador como los de su oponente, para poder ingresar al campo de batalla. Si una figura acaba de salir del centro Pokémon, deberá esperar un turno antes de poder abandonar la banca.
+Una vez que un Pokémon ha salido de esta, puede regresar si se da uno de estos casos:
+Que sea forzado a regresar por el uso de un movimiento, como cola dragón.
+Que se use un plate específico para esto.
+Que un aliado debilitado tome su lugar en el centro Pokémon.
+Como la mayoría de juegos de mesa, el combate se disputa por turnos. El jugador y su oponente se moverán de manera alternada, aunque algunos movimientos como hiperrayo pueden ocasionar que se pierda un turno. El jugador que tendrá el primer turno se elige de manera aleatoria antes de cada partida usando una ruleta.
+Moverse[editar código | editar]
+Solo es posible mover una figura por turno a una casilla alcanzable. Existen, sin embargo, plates y movimientos que permiten desplazar las figuras de manera distinta. El número de casillas que una figura puede avanzar se indica con un pequeño número en la base que comúnmente va del 1 al 3. Este valor se denomina como movement points (puntos de movimiento) o MP y depende completamente de la especie. Sin embargo, durante el primer turno toda figura verá reducidos en 1 sus MP (esto quiere decir que los Pokémon con 3 MP tan solo tendrán dos, los que tengan 2 solo tendrán uno, etc.). Los MP volverán a la normalidad al final del primer turno.
+Aunque no existe un patrón real para determinar cuántos MP tendrá una especie, las que comparten el mismo valor de MP suelen tener una serie de características en común.
+Clasificación según la cantidad de MP[editar código | editar]
+Los Pokémon con 3 MP suelen ser pequeños y rápidos y tienen ataques débiles. Algunos como Whimsicott pueden tener movimientos de estado especiales que compensan su fragilidad. Por ejemplo, en el caso de Whimsicott conoce el movimiento Cotton Guard (rizo algodón). El objetivo de estos Pokémon es bloquear uno de los puntos de entrada del oponente, así como realizar ofensivas rápidas o distracciones.
+Los que tienen 2 MP son muy variados, incluyendo legendarios como Dialga, atacantes fuertes como Reuniclus, otros no tan fuertes como Dragonair, etc. No tienen un objetivo predefinido y por ende pueden usarse en gran cantidad de estrategias.
+Los que únicamente poseen 1 MP, son todo lo contrario del primer punto. Son Pokémon enormes, lentos, pesados y con defensas sólidas. Muchos Pokémon del tipo tierra o tipo roca pertenecen a esta categoría. Suelen contar con movimientos o habilidades especiales que facilitan su labor, siendo los mejores ejemplos casos como el de Shelgon, quien cuenta con el movimiento Conceal ("Ocultarse") que, a pesar de solo contar con una potencia de 10, tiene el efecto de no poder ser derrotado más que por un ataque con potencia superior a 100; o Torterra, que posee la habilidad Cornerstone ("Piedra Angular" en español), que le permite ser "saltado" por aliados, como si no estuviese en el campo de batalla. El objetivo de etas figuras es quedarse en una posición estratégica, generalmente cerca de la meta, para dificultar el acceso del rival a esta.
+Ganar una partida[editar código | editar]
+Existen un total de cuatro formas distintas de ganar una partida, siendo la primera y más común, mover una figura a la meta del oponente. La segunda, no tan conocida, es llamada wait win ("victoria de espera") que se da cuando el tiempo del oponente se acaba. Únicamente es posible ganar de esta forma en el modo online o en un room match con límite de tiempo, ya que en el modo historia dicha limitación es inexistente. La tercera ocurre cuando alguno de los dos jugadores se encuentra en una situación donde es incapaz de realizar acción alguna, es decir, que no le quedan figuras en el campo de batalla capaces de moverse o atacar, no puede sacar más figuras de su banca y tampoco le quedan plates que pudiera usar para revertir dicha situación, por lo que para evitar que la partida quede estancada al tratarse de un juego por turnos, dicho jugador es descalificado y automáticamente se le concede la victoria a su oponente. Y por último, pero no menos importante, tenemos el Forfeit Win, que vendría significando "Victoria por retirada" que, como su nombre lo indica, ocurre cuando un jugador decide rendirse.
+Modos de juego[editar código | editar]
+El juego cuenta con tres modalidades diferentes a elegir. Todas están disponibles desde el principio:
+Modo historia[editar código | editar]
+Luca
+En este juego se toma el papel de un participante del Torneo Mundial de PFG (Pokémon Figure Game) que viaja a Carmonte Island, sede del torneo en la que transcurre la historia del juego. Los participantes deben avanzar por los ocho hoteles diferentes de la isla (que vienen a sustituir a los gimnasios de los juegos principales) y en cada uno deberán derrotar a los distintos conserjes o asociados, según el caso, para seguir avanzando hasta llegar a la azotea, donde se encuentra el dueño del hotel (equivalente al líder de gimnasio). Si el participante logra derrotarlo, le será entregado el emblema del hotel (sustitutos de las medallas de gimnasio), la cual sirve como evidencia de que se ha superado ese hotel y derrotado a su respectivo dueño. Una vez obtenido el emblema de un hotel, se podrá avanzar al siguiente. Los participantes deberán repetir este proceso hasta llegar al último hotel, la Torre Jewel, y vencer al Maestro Rosé, anfitrión del evento y dueño de ésta. Una vez derrotado, se hará entrega del gran premio: convertirse en el próximo dueño de la Torre Jewel.
+De camino a la isla, el jugador se encontrará con Luca en su avión. Le dará al jugador un pequeño tutorial enseñándole los aspectos básicos del juego y retándole a un duelo. Una vez que esto haya terminado, se podrá jugar libremente en cualquiera de las tres modalidades que ofrece el juego. Luca se convertirá en su mejor amigo y a la vez en su rival. También se cuenta con el apoyo de una inteligencia artificial, un pequeño dispositivo electrónico de forma circular creado especialmente para el PFG cuya función es mover las figuras en lugar del jugador. Este se encontrará en el lado izquierdo de la pantalla, tras el área de juego, y puede ser activado en cualquier momento simplemente seleccionándolo y presionando "activar AI". Por cada turno que esté activo, consumirá AI Tickets, los cuales pueden ser obtenidos como bonus de inicio de sesión.
+Tras finalizar cada nivel, los Pokémon ganarán experiencia, pero a diferencia de otros juegos, todos ganarán la misma cantidad de sin importar su desempeño durante el combate. Esta cantidad varía dependiendo del punto de la historia, siendo más alta en los niveles más avanzados. Además de la experiencia, también se puede girar una ruleta para obtener un premio, ya sean monedas, gemas, plates o alguna figura. Por último, al derrotar algunos conserjes o asociados, generalmente el último de cada piso, entregarán una nueva máscara o antifaz como recompensa.
+Modo online[editar código | editar]
+En este modo, es posible enfrentarse en tiempo real a otro jugador con un nivel similar seleccionado de manera aleatoria por el sistema. A diferencia del modo historia, aquí existe un tiempo limitado de tan solo cinco minutos para terminar el duelo. El tiempo se cuenta de manera independiente para cada jugador y en forma de cuenta atrás, por lo que hay que pensar rápido para evitar que el reloj llegue a 0. Si esto ocurre, el jugador en cuestión será descalificado y su oponente se llevará la victoria. Tampoco se puede hacer uso de la AI tradicional. En su lugar existe una versión mejorada de esta, conocida como "Super AI" que, además de tener un mayor tamaño y una forma algo más elaborada, es capaz de usar plates y mover las figuras.
+En este modo no se gana experiencia, solo se obtienen puntos de liga sirven para avanzar a una liga superior, con los beneficios que esto conlleva. También se obtienen Timer Boosters, cuya calidad dependerá de lo fácil o difícil que haya sido el combate. Los Timer Boosters son una especie de cajas que se pueden abrir tras un determinado tiempo: a mayor calidad de Timer Booster, mayor tiempo de espera. Si no se quiere esperar el tiempo requerido, es posible usar gemas para abrirlos. Al abrir un Timer Booster se obtiene una figura. Existen también los Locked Boosters, que son cajas que se desbloquean no por tiempo, sino por llaves. Estas llaves se obtienen al jugar online: se obtiene una por perder una partida y tres por ganar. Se puede abrir un Locked Booster al día y para ello son necesarias 10 llaves, las cuales no se acumulan de un día para otro.
+Personajes[editar código | editar]
+Personajes secundarios[editar código | editar]
+ | Luca
+ | Sharon
+ | Tia
+ | Marabelle
+ | Karolin
+ | 
+ | 
+ | 
+ | 
+ | 
+Dueños de hoteles[editar código | editar]
+ | Yuji
+ | Nadya
+ | Joe
+ | Brenda
+ | Don Roger
+ | Number 7
+ | Rosé
+ | 
+ | 
+ | 
+ | 
+ | 
+ | 
+ | 
+Galería[editar código | editar]
+[Las figuras de Bulbasaur, Charmander, Squirtle y Pikachu para Pokémon Duel]
+Las figuras de Bulbasaur, Charmander, Squirtle y Pikachu para Pokémon Duel
+[Uno de los personajes de Pokémon Duel]
+Uno de los personajes de Pokémon Duel
+[Figuras virtuales de Charizard y Fennekin junto a muchos otros Pokémon]
+Figuras virtuales de Charizard y Fennekin junto a muchos otros Pokémon
+Vídeos[editar código | editar]
+Tráiler en inglés de Pokémon Duel.
+Enlaces externos[editar código | editar]
+Pokémon Duel en la Play Store
+Pokémon Duel en iTunes
+ Otros videojuegos 
+ | 
+ | Videojuegos de Pokémon
+ | Principales:
+ | RojoJP y VerdeJP • AzulJP • Rojo y Azul • Amarillo • Oro y Plata • Cristal
+Rubí y Zafiro(Battle-e) • Esmeralda • Rojo Fuego y Verde Hoja
+Diamante y Perla • Platino • Oro HeartGold y Plata SoulSilver
+Negro y Blanco • Negro 2 y Blanco 2 • Pokémon X y Pokémon Y
+Rubí Omega y Zafiro Alfa(Demo) • Sol y Luna(Demo) • Ultrasol y Ultraluna
+Let's Go, Pikachu! y Let's Go, Eevee!(Demo) • Espada y Escudo(PEX: IA • NC)
+Diamante Brillante y Perla Reluciente • Leyendas: Arceus
+Escarlata y Púrpura(TOAC: MT • DI) • Leyendas: Z-A(M) • Viento y Ola/Oleaje
+ | Juegos de combates:
+ | StadiumJP • Stadium • Stadium 2 • Colosseum (disco bonus) • XD: Tempestad oscura
+Battle Revolution • Pokkén Tournament • Pokkén Tournament DX • Champions
+ | Juegos de Pikachu:
+ | Hey You, Pikachu! • Channel • Dash • PokéPark Wii • PokéPark 2
+ | Juego de Cartas
+Coleccionables:
+ | Trading Card Game • Card GB2: GR-dan Sanjō!JP • Mazo 2 Player CD-ROM Starter Set
+Card Game: Asobikata DSJP • JCC Online • CartaDex de JCC • JCC Live • JCC Pocket
+ | Saga Super Smash Bros.:
+ | Super Smash Bros. • Super Smash Bros. Melee • Super Smash Bros. Brawl
+Super Smash Bros. para Nintendo 3DS y Wii U • Super Smash Bros. Ultimate
+ | Saga Snap:
+ | Snap • New Snap
+ | Saga Pinball:
+ | Pinball • Pinball: Rubí y Zafiro
+ | Juegos de puzles:
+ | Picross (GBC)? • Puzzle Challenge • Puzzle League • Link! • Link: Battle!
+Shuffle/Shuffle Mobile • Picross (3DS) • Café ReMix • Friends
+ | Almacenamiento:
+ | Box: Rubí y Zafiro • My Ranch • Banco + Poké Trasladador • HOME
+ | Saga Mundo misterioso:
+ | Equipo de rescate rojo y Equipo de rescate azul • Exploradores del tiempo y
+Exploradores de la oscuridad • Exploradores del cielo • BoukendanJP
+Portales al infinito • Mundo megamisterioso • Equipo de rescate DX
+ | Saga Ranger:
+ | Ranger • Sombras de Almia • Trazos de luz
+ | ArcadeJP:
+ | Battrio • Tretta • Tretta Lab • Ga-Olé • Mezastar • Frienda
+ | Saga Rumble:
+ | Rumble • Super Rumble • Rumble U • Rumble World • Rumble Rush
+ | Pokédex:
+ | Pokédex 3D • Pokédex 3D Pro • Pokédex para iOS
+ | Saga Detective Pikachu:
+ | Detective Pikachu(Demo) • Detective Pikachu: El regreso
+ | Otros:
+ | Project Studio • Nintendo e-Reader • Tetris • Game Boy Advance Video • Tsuri Taikai DSJP
+DS Download Station • PC MasterJP • Aventura entre las teclas • Conquest? • RAdar
+HarmoKnight • Art Academy • Tōzoku to 1000-Biki noJP • Nintendo Badge Arcade
+Quest • Taiko no Tatsujin: Drum 'n' Fun! • UNITE • Pokopia
+ | Aplicaciones:
+ | Ie TAP?JP • TV • Campamento • Jukebox • Odoru? OngakutaiJP • Fotomatón • Duel
+GO • Magikarp Jump • Casa de Juegos • PassEE.UU. • Masters EX • Smile • Sleep
+ | Lista de videojuegos por fecha de lanzamiento • Por generación • Por plataforma
+Obtenido de «https://www.wikidex.net/index.php?title=Pokémon_Duel&oldid=3378188»
+Categorías: 
+Videojuegos
+Aplicaciones móviles
+Usamos cookies para mantener tu sesión, y cookies de terceros para obtener estadísticas de visitas. Si continuas navegando por WikiDex, aceptas el uso de estas cookies.
+Más informaciónAceptar
+Menú de navegación
+Acciones de página
+Página
+Discusión
+Leer
+Editar código
+Editar
+Historial
+Acciones de página
+Página
+Discusión
+Más
+Herramientas
+En otros idiomas
+Herramientas personales
+No has accedido
+Discusión
+Contribuciones
+Acceder/crear cuenta
+Navegación
+WikiDex
+Pokémon
+Cómo colaborar
+Comunidad
+Ayuda
+Página aleatoria
+Cambios recientes
+Buscar
+Herramientas
+Lo que enlaza aquí
+Cambios relacionados
+Páginas especiales
+Versión para imprimir
+Enlace permanente
+Información de la página
+En otros idiomas
+Deutsch
+English
+Italiano
+日本語
+中文
+ [Creative Commons Reconocimiento-Compartir bajo la misma licencia 3.0 (Unported) (CC-BY-SA)]
+ [Powered by MediaWiki]
+ Esta página se editó por última vez el 8 nov 2025 a las 17:17.
+El contenido está disponible bajo la licencia Creative Commons Reconocimiento-Compartir bajo la misma licencia 3.0 (Unported) (CC-BY-SA) a menos que se indique lo contrario.
+Política de privacidad
+Acerca de WikiDex
+Descargos
+Versión para móviles
+

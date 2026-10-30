@@ -1,0 +1,2402 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>Pokémon Duel - Patches & Updates</title>
+
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<meta http-equiv="imagetoolbar" CONTENT="no">
+	<link rel="stylesheet" type="text/css" href="/style/layout.css" />
+<meta name="viewport" content="width=device-width,initial-scale=1" id="viewport-meta">
+
+<!-- GDPR Compliancy -->
+<style>
+body {
+	--cmpBgColor: #507C36;
+	--cmpTextColor: #000000;
+	--cmpLinkColor: #ffffff;
+	--cmpPurposesColor: #000000;
+	--cmpBrandColor: #000000;
+	--cmpLogo: url('https://www.serebii.net/extralogo.png');
+}
+</style>
+<!-- GDPR Compliancy -->
+
+<link rel="search" href="/serebii-opensearch.xml" type="application/opensearchdescription+xml" title="Serebii Open Search" />
+<link rel="shortcut icon" href="/favicon.ico" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128947957-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-128947957-1');
+</script>
+<!-- Place the below code anywhere you like in the <head> (higher is better) -->
+
+
+<meta name="keywords" content="Serebii, Pokemon, Pokémon, Duel, Comaster, Komaster, Co-Master, Patches, Updates" />
+<link rel="stylesheet" href="/style/tablenew.css" type="text/css" media="screen" />
+<script type="text/javascript" src="/js/prototype.js"></script>
+<script type="text/javascript" src="/js/scriptaculous.js?load=effects"></script>
+<script type="text/javascript" src="/js/lightbox.js"></script>
+<link rel="stylesheet" href="/css/lightbox.css" type="text/css" media="screen" />
+
+</head>
+<body>
+<script type="text/javascript">
+	var viewport_meta = document.getElementById('viewport-meta');
+	var viewport_timer;
+
+	// these body*Class are reused in the lbar mobile menu
+	function bodyAddClass(className){
+		if(document.body) document.body.classList.add(className);
+	}
+	function bodyRemoveClass(className){
+		if(document.body) document.body.className = document.body.className.replace(className,"");
+	}
+
+	function viewport_set() {
+		// Define our viewport meta values
+		var viewports = {
+			default: viewport_meta.getAttribute('content'),
+			mobileL: 'width=device-width,initial-scale=0.75',
+			mobileM: 'width=device-width,initial-scale=0.5',
+			mobileS: 'width=device-width,initial-scale=0.4'
+		};
+
+		// Change the viewport value based on screen.width
+		if(screen.width < 370){
+			viewport_meta.setAttribute('content', viewports.mobileS);
+			bodyAddClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		} else if(screen.width < 505){
+			viewport_meta.setAttribute('content', viewports.mobileM);
+			bodyRemoveClass("nav_mobileS");
+			bodyAddClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		} else if (screen.width < 760){
+			viewport_meta.setAttribute('content', viewports.mobileL);
+			bodyRemoveClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyAddClass("nav_mobileL");
+		} else{
+			viewport_meta.setAttribute('content', viewports.default);
+			bodyRemoveClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		}
+	}
+
+	// Set the correct viewport value on page load
+	viewport_set();
+
+	/* attach listener to (delay) set the correct viewport after device orientation change or resize. also onload so the nav_mobile* class gets added to body AFTER <body> has loaded */
+	if(window.addEventListener){
+		window.addEventListener('load', viewport_set);
+		window.addEventListener('resize', function(){
+			clearTimeout(viewport_timer);
+			viewport_timer = setTimeout(viewport_set, 100);
+		})
+	} else{
+		window.attachEvent('onload', viewport_set)
+		window.attachEvent('onresize', function(){
+			clearTimeout(viewport_timer);
+			viewport_timer = setTimeout(viewport_set, 100);
+		})
+	}
+
+</script>
+
+
+<header id="header">
+	<div class="banner">
+		<a href="/"><img src="/Banner.jpg" alt="Serebii.net Header" style="height:139px"></a>
+	</div>
+
+	<nav class="quicklinks">
+		<ul>
+			<li><b>Quick Links</b></li>
+			<li><a href="/index2.shtml">Home</a></li>
+			<li><a href="https://forums.serebii.net/" target="blank">Forums</a></li>
+			<li><a href="mailto:webmaster@serebii.net">Contact</a></li>
+			<li><a href="/discord.shtml">Discord</a></li>
+			<li><a href="/pokemon">Pokédex Hub</a></li>
+			<li><a href="/pokedex-sv">Scarlet & Violet Pokédex</a></li>
+			<li><a href="/pokedex-champions">Champions Pokédex</a></li>
+			<li><a href="/pokearth">Pokéarth</a></li>
+
+			<li class="search">
+				<form id="searchbox_018410473690156091934:6gahkiyodbi" action="/search.shtml" style="margin:0px;">
+					<input type="hidden" name="cx" value="018410473690156091934:6gahkiyodbi" />
+					<input type="hidden" name="cof" value="FORID:11" />
+					<input name="q" type="text" size="20" />
+					<input type="submit" name="sa" value="Search" />
+				</form>
+				<script type="text/javascript" src="//www.google.com/coop/cse/brand?form=searchbox_018410473690156091934%3A6gahkiyodbi"></script>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+
+<div id="wrapper">
+
+<ul id="tbar_sticky">
+	<li>
+		<a href="#lbar" class="navheader" id="tbar_lbar_open"><img src="/hidden/2019-04/burger.svg"></a>
+	</li>
+	<li>
+		<form id="searchbox_018410473690156091934:6gahkiyodbi" action="/search.shtml" style="margin:0px;">
+			<input type="hidden" name="cx" value="018410473690156091934:6gahkiyodbi" />
+			<input type="hidden" name="cof" value="FORID:11" />
+			<input name="q" type="search" placeholder="Search Serebii.net..." />
+		</form>
+	</li>
+	<li>
+		<a href="#rbar" class="navheader" id="tbar_rbar_open" style="padding-right:20px"><img src="/hidden/2019-04/burger.svg"></a>
+	</li>
+</ul>
+<div id="tbar_backdrop"></div>
+
+<nav id="lbar">
+	<ul id="lbar_ul">
+		<li>
+			<a href="/" class="navheader">Databases</a>
+			<ul>
+				<li><a href="/index2.shtml">News</a>
+				<li><a href="/archive.shtml">Archived news</a></li>
+				<li><a href="/pokemon/"><b>Pokédex</b></a></li>
+				<li><a href="/pokedex/">-Red/Blue Pokédex</a></li>
+				<li><a href="/pokedex-gs/">-Gold/Silver Pokédex</a></li>
+				<li><a href="/pokedex-rs/">-Ruby/Sapphire Pokédex</a></li>
+				<li><a href="/pokedex-dp/">-Diamond/Pearl Pokédex</a></li>
+				<li><a href="/pokedex-bw/">-Black/White Pokédex</a></li>
+				<li><a href="/pokedex-xy/">-X & Y Pokédex</a></li>
+				<li><a href="/pokedex-sm/">-Sun & Moon Pokédex</a></li>
+				<li><a href="/pokedex-sm/">-Let's Go Pokédex</a></li>
+				<li><a href="/pokedex-swsh/">-Sword & Shield Pokédex</a></li>
+				<li><a href="/pokedex-swsh/">-BDSP Pokédex</a></li>
+				<li><a href="/pokedex-swsh/">-Legends: Arceus Pokédex</a></li>
+				<li><a href="/pokemongo/pokemon/">-GO Pokédex</a></li>
+				<li><a href="/pokedex-sv/">-Scarlet & Violet Pokédex</a></li>
+				<li><a href="/pokedex-sv/">-Legends: Z-A Pokédex</a></li>
+				<li><a href="/pokedex-champions/">-Champions Pokédex</a></li>
+
+				<li><strong>Attackdex</strong></li>
+				<li><a href="/attackdex-rby/">-Gen 1 Attackdex</a></li>
+				<li><a href="/attackdex-gs/">-Gen 2 Attackdex</a></li>
+				<li><a href="/attackdex/">-Gen 3 Attackdex</a></li>
+				<li><a href="/attackdex-dp/">-Gen 4 Attackdex</a></li>
+				<li><a href="/attackdex-bw/">-Gen 5 Attackdex</a></li>
+				<li><a href="/attackdex-xy/">-Gen 6 Attackdex</a></li>
+				<li><a href="/attackdex-sm/">-Gen 7 Attackdex</a></li>
+				<li><a href="/attackdex-swsh/">-Gen 8 Attackdex</a></li>
+				<li><a href="/attackdex-sv/">-Gen 9 Attackdex</a></li>
+				<li><a href="/attackdex-champions/">-Champions Attackdex</a></li>
+				<li><a href="/itemdex/">ItemDex</a></li>
+				<li><a href="/pokearth/">Pokéarth</a></li>
+				<li><a href="/abilitydex/">Abilitydex</a></li>
+				<li><a href="/spindex/">Spin-Off Pokédex</a></li>
+				<li><a href="/spindex-dp/">Spin-Off Pokédex DP</a></li>
+				<li><a href="/spindex-bw/">Spin-Off Pokédex BW</a></li>
+				<li><a href="/card/dex/">Cardex</a></li>
+				<li><a href="/movies/dex/">Cinematic Pokédex</a></li>
+				<li><a href="/games/mechanics.shtml">Game Mechanics</a></li>
+				<li><a href="/games/iv-calcsv.shtml">-Scarlet/Violet IV Calc.</a></li>
+				<li><a href="/potw-champions">Pokémon of the Week</a></li>
+				<li><a href="/potw-champions/">-Champions</a></li>
+				<li><a href="/potw-sv/">-9th Gen</a></li>
+				<li><a href="/potw-swsh/">-8th Gen</a></li>
+				<li><a href="/potw-sm/">-7th Gen</a></li>
+				<li><a href="/pokemon/timeline.shtml">Pokémon Timeline</a></li>
+				<li><a href="/pokemoncenter/">Pokémon Centers</a></li>
+				<li><a href="/playpokemon">Pokémon Championship Series</a></li>
+				<li><a href="/pokemonxp/">PokémonXP</a></li>
+
+				<li><a href="/music/projectvoltage">Hatsune Miku Project Voltage</a></li>
+				<li><a href="/museums/">Pokémon in Museums & Exhibitions</a></li>
+				<li><a href="/pokemon/vangoghmuseum/">-Pokémon x Van Gogh</a></li>
+				<li><a href="/pokemonday/">Pokémon Day</a></li>
+				<li><a href="/presentations">Pokémon Presentations</a></li>
+				<li><a href="/lego/">LEGO Pokémon</a></li>
+				<li><a href="/pokemonshirts/">Pokémon Shirts</a></li>
+				<li><a href="/themeparks/">Theme Parks</a></li>
+				<li><a href="https://forums.serebii.net" target="blank">Forums</a></li>
+				<li><a href="/discord.shtml">Discord Chat</a></li>		
+				<li><a href="/games/currentevents.shtml">Current & Upcoming Events</a></li>
+				<li><a href="/events">Event Database</a></li>
+				<li><a href="/scarletviolet/pokemon.shtml">9th Generation Pokémon</a></li>
+				<li><a href="/scarletviolet/dlc-pokemon.shtml">-New Pokémon in DLC</a></li>
+				<li><a href="/scarletviolet/paldeanforms.shtml">-Paldean Form Pokémon</a></li>
+
+			</ul>
+		</li>
+
+
+		<li>
+			<a href="/anime/" class="navheader">Anime & TV</a>
+			<ul>
+				<li><a href="/anime/epiguide/">Episode Listings & Pictures</a></li>
+				<li><a href="/anime/dex/">AniméDex</a></li>
+				<li><a href="/anime/characters/">Character Bios</a></li>
+				<li><a href="/anime/epiguide/indigo/">The Indigo League</a></li>
+				<li><a href="/anime/epiguide/orange/">The Orange League</a></li>
+				<li><a href="/anime/epiguide/johto/">The Johto Saga</a></li>
+				<li><a href="/anime/epiguide/houen/">The Saga in Hoenn!</a></li>
+				<li><a href="/anime/epiguide/kanto/">Kanto Battle Frontier Saga!</a></li>
+				<li><a href="/anime/epiguide/shinou/">The Sinnoh Saga!</a></li>
+				<li><a href="/anime/epiguide/bestwishes/">Best Wishes - Unova Saga</a></li>
+				<li><a href="/anime/epiguide/xy/">XY - Kalos Saga</a></li>
+				<li><a href="/anime/epiguide/sunmoon/">Sun & Moon - Alola Saga</a></li>
+				<li><a href="/anime/epiguide/pokemon/">Pokémon Journeys - Galar Saga</a></li>
+				<li><a href="/anime/epiguide/pokemonmaster/">Pokémon Aim To Be A Pokémon Master</a></li>
+				<li><a href="/anime/epiguide/pokemon2023/">Pokémon Horizons - Paldea Saga</a></li>
+				<li><a href="/anime/epiguide/chronicles/">Pokémon Chronicles</a></li>	
+				<li><a href="/anime/epiguide/specials/">The Special Episodes</a></li>
+				<li><a href="/anime/banned.shtml">The Banned Episodes</a></li>
+				<li><a href="/anime/shiny/">Shiny Pokémon</a></li>
+<li><b>Other Web Series</b></li>
+				<li><a href="/anime/epiguide/generations/">Pokémon Generations</a></li>
+				<li><a href="/anime/epiguide/twilightwings/">Pokémon Twilight Wings</a></li>
+				<li><a href="/anime/epiguide/evolutions/">Pokémon Evolutions</a></li>
+				<li><a href="/anime/hisuiansnow/">Pokémon: Hisuian Snow</a></li>
+				<li><a href="/anime/paldeanwinds/">Pokémon: Paldean Winds</a></li>
+				<li><a href="/anime/poketoon/">PokéToon</a></li>
+				<li><a href="/anime/other/pathtothepeak/">Path to the Peak</a></li>
+				<li><a href="/anime/other/pokeminutes/">PokéMinutes</a></li>
+				<li><a href="/anime/other/pokevideodex/">PokéVideoDex</a></li>
+				<li><a href="/anime/other/goodmorningwithpokemon/">Good Morning with Pokémon</a></li>
+				<li><a href="/anime/other/">Other Animations</a></li>
+				<li><b>Other Series</b></li>
+				<li><a href="/pokemonconcierge/">Pokémon Concierge</a></li>
+				<li><a href="/pokemontales/">Pokémon Tales: The Misadventures of Sirfetch'd & Pichu</a></li>
+
+				<li><b>Live Action</b></li>
+				<li><a href="/poketsume/">PokéTsume</a></li>
+
+
+			</ul>
+		</li>
+
+		<li>
+			<a href="/games/" class="navheader">Video Games</a>
+			<ul>
+				<li><a href="/pokemon/generation10.shtml"><b>Gen X</b></li>
+				<li><a href="/windswaves/">Winds & Waves</a></li>
+
+				<li><a href="/pokemon/generation9.shtml"><b>Gen IX</b></a></li>
+				<li><a href="/scarletviolet/">Scarlet & Violet</a></li>
+				<li><a href="/legendsz-a/">Legends: Z-A</a></li>
+				<li><a href="/pokemonchampions/">Pokémon Champions</a></li>
+				<li><a href="/pokemonpokopia/">Pokémon Pokopia</a></li>
+				<li><a href="/pokemonfriends/">Pokémon Friends</a></li>
+				<li><a href="/pokemongo/">Pokémon GO</a></li>
+				<li><a href="/cafemix/">Pokémon Café ReMix</a></li>
+				<li><a href="/pokemonmasters/">Pokémon Masters EX</a></li>
+				<li><a href="/pokemonunite/">Pokémon UNITE</a></li>
+				<li><a href="/pokemonsleep/">Pokémon Sleep</a></li>
+				<li><a href="/detectivepikachureturns/">Detective Pikachu Returns</a></li>
+				<li><a href="/tcgpocket/">Pokémon TCG Pocket</a></li>
+
+				<li><a href="/pokemon/generation8.shtml"><b>Gen VIII</b></a></li>
+				<li><a href="/swordshield/">Sword & Shield</a></li>
+				<li><a href="/brilliantdiamondshiningpearl/">Brilliant Diamond & Shining Pearl</a></li>
+				<li><a href="/legendsarceus/">Pokémon Legends: Arceus</a></li>
+				<li><a href="/pokemonhome/">Pokémon HOME</a></li>
+				<li><a href="/pokemongo/">Pokémon GO</a></li>
+				<li><a href="/pokemonmasters/">Pokémon Masters EX</a></li>
+				<li><a href="/dungeonrescueteamdx/">Pokémon Mystery Dungeon Rescue Team DX</a></li>
+				<li><a href="/pokemonsmile/">Pokémon Smile</a></li>
+				<li><a href="/cafemix/">Pokémon Café ReMix</a></li>
+				<li><a href="/newpokemonsnap/">New Pokémon Snap</a></li>
+				<li><a href="/pokemonunite/">Pokémon UNITE</a></li>
+				<li><a href="/tcglive/">Pokémon TCG Live</a></li>
+
+				<li><a href="/pokemon/generation7.shtml"><b>Gen VII</b></a></li>
+				<li><a href="/sunmoon/">Sun & Moon</a></li>
+				<li><a href="/ultrasunultramoon/">Ultra Sun & Ultra Moon</a></li>
+				<li><a href="/letsgopikachueevee/">Let's Go, Pikachu! & Let's Go, Eevee!</a></li>
+				<li><a href="/pokemongo/">Pokémon GO</a></li>
+				<li><a href="/magikarpjump/">Pokémon: Magikarp Jump</a></li>
+				<li><a href="/rumblerush/">Pokémon Rumble Rush</a></li>
+				<li><a href="/pokkendx/">Pokkén Tournament DX</a></li>
+				<li><a href="/detective/">Detective Pikachu</a></li>
+				<li><a href="/quest/">Pokémon Quest</a></li>
+				<li><a href="/smashbrosultimate/">Super Smash Bros. Ultimate</a></li>
+				<li><a href="/pokemon/generation6.shtml"><b>Gen VI</b></a></li>
+				<li><a href="/xy/">X & Y</a></li>
+				<li><a href="/omegarubyalphasapphire/">Omega Ruby & Alpha Sapphire</a></li>
+				<li><a href="/bank/">Pokémon Bank</a></li>
+				<li><a href="/battletrozei/">Pokémon Battle TrozeiPokémon Link: Battle</a></li>
+				<li><a href="/artacademy/">Pokémon Art Academy</a></li>
+				<li><a href="/bandofthieves/">The Band of Thieves & 1000 Pokémon</a></li>
+				<li><a href="/shuffle/">Pokémon Shuffle</a></li>
+				<li><a href="/rumbleworld/">Pokémon Rumble World</a></li>
+				<li><a href="/supermysterydungeon/">Pokémon Super Mystery Dungeon</a></li>
+				<li><a href="/picross/">Pokémon Picross</a></li>
+				<li><a href="/detective/">Detective Pikachu</a></li>
+				<li><a href="/pokken/">Pokkén Tournament</a></li>
+				<li><a href="/duel/">Pokémon Duel</a></li>
+				<li><a href="/smashbros3dswiiu/">Smash Bros for 3DS/Wii U</a></li>
+				<li><a href="/games/badge/">Nintendo Badge Arcade</a></li>
+				<li><a href="/pokemon/generation5.shtml"><b>Gen V</b></a></li>
+				<li><a href="/blackwhite/">Black & White</a></li>
+				<li><a href="/black2white2/">Black 2 & White 2</a></li>
+				<li><a href="/dreamradar/">Pokémon Dream Radar</a></li>
+				<li><a href="/trettalab/">Pokémon Tretta Lab</a></li>
+				<li><a href="/rumbleu/">Pokémon Rumble U</a></li>
+				<li><a href="/dungeoninfinity/">Mystery Dungeon: Gates to Infinity</a></li>
+				<li><a href="/conquest/">Pokémon Conquest</a></li>
+				<li><a href="/pokepark2/">PokéPark 2: Wonders Beyond</a></li>
+				<li><a href="/rumble2/">Pokémon Rumble Blast</a></li>
+				<li><a href="/pokedex3d/">Pokédex 3D</a></li>
+				<li><a href="/pokedex3dpro/">Pokédex 3D Pro</a></li>
+				<li><a href="/typingds/">Learn With Pokémon: Typing Adventure</a></li>
+				<li><a href="/card/howtoplayds/">TCG How to Play DS</a></li>
+				<li><a href="/pokedexios/">Pokédex for iOS</a></li>
+				<li><a href="/pokemon/generation4.shtml"><b>Gen IV</b></a></li>
+				<li><a href="/diamondpearl/">Diamond & Pearl</a></li>
+				<li><a href="/platinum/">Platinum</a></li>
+				<li><a href="/heartgoldsoulsilver/">Heart Gold & Soul Silver</a></li>
+				<li><a href="/ranger3/">Pokémon Ranger: Guardian Signs</a></li>
+				<li><a href="/melee/">Pokémon Rumble</a></li>
+				<li><a href="/dungeon3/">Mystery Dungeon: Blazing, Stormy & Light Adventure Squad</a></li>
+				<li><a href="/pokepark/">PokéPark Wii - Pikachu's  Adventure</a></li>
+				<li><a href="/battle/">Pokémon Battle Revolution</a></li>
+				<li><a href="/dungeonsky/">Mystery Dungeon - Explorers of Sky</a></li>
+				<li><a href="/ranger2/">Pokémon Ranger: Shadows of Almia</a></li>
+				<li><a href="/dungeon2/">Mystery Dungeon - Explorers of Time & Darkness</a></li>
+				<li><a href="/ranch/">My Pokémon Ranch</a></li>
+				<li><a href="/ssbb/">Smash Bros Brawl</a></li>
+				<li><a href="/pokemon/generation3.shtml"><b>Gen III</b></a></li>
+				<li><a href="/rubysapphire/">Ruby & Sapphire</a></li>
+				<li><a href="/fireredleafgreen/">Fire Red & Leaf Green</a></li>
+				<li><a href="/emerald/">Emerald</a></li>
+				<li><a href="/colosseum/">Pokémon Colosseum</a></li>
+				<li><a href="/xd/">Pokémon XD: Gale of Darkness</a></li>
+				<li><a href="/dash/">Pokémon Dash</a></li>
+				<li><a href="/pokemon_channel/">Pokémon Channel</a></li>
+				<li><a href="/pokemon_box/">Pokémon Box: RS</a></li>
+				<li><a href="/pinball_rs/">Pokémon Pinball RS</a></li>
+				<li><a href="/ranger/">Pokémon Ranger</a></li>
+				<li><a href="/mysteriousdungeon/">Mystery Dungeon Red & Blue</a></li>
+				<li><a href="/torouze/">PokémonTrozei</a></li>
+				<li><a href="/pikachu/">Pikachu DS Tech Demo</a></li>
+				<li><a href="/pokeparkfish/">PokéPark Fishing Rally</a></li>
+				<li><a href="/e-reader/">The E-Reader</a></li>
+				<li><a href="/pokemate/">PokéMate</a></li>
+				<li><a href="/pokemon/generation2.shtml"><b>Gen II</b></a></li>
+				<li><a href="/gs/">Gold/Silver</a></li>
+				<li><a href="/crystal/">Crystal</a></li>
+				<li><a href="/stadium2/">Pokémon Stadium 2</a></li>
+				<li><a href="/puzzlechallenge/">Pokémon Puzzle Challenge</a></li>
+				<li><a href="/mini/">Pokémon Mini</a></li>
+				<li><a href="/smash_bros_2/">Super Smash Bros. Melee</a></li>
+				<li><a href="/pokemon/generation1.shtml"><b>Gen I</b></a></li>
+				<li><a href="/rb/">Red, Blue & Green</a></li>
+				<li><a href="/yellow/">Yellow</a></li>
+				<li><a href="/puzzleleague/">Pokémon Puzzle League</a></li>
+				<li><a href="/snap/">Pokémon Snap</a></li>
+				<li><a href="/pinball/">Pokémon Pinball</a></li>
+				<li><a href="/stadiumjp/">Pokémon Stadium (Japanese)</a></li>
+				<li><a href="/stadium/">Pokémon Stadium</a></li>
+				<li><a href="/tradingcardgamegb/">Pokémon Trading Card Game GB</a></li>
+				<li><a href="/smash_bros/">Super Smash Bros.</a></li>
+
+				<li><strong>Miscellaneous</strong></li>
+				<li><a href="/games/mechanics.shtml">Game Mechanics</a></li>
+				<li><a href="/playpokemon">Pokémon Championship Series</a></li>
+				<li><a href="/games/others.shtml">In Other Games</a></li>
+				<li><a href="/games/virtualconsole.shtml">Virtual Console</a></li>
+				<li><a href="/games/consoles.shtml">Special Edition Consoles</a></li>
+				<li><a href="/games/themes.shtml">Pokémon 3DS Themes</a></li>
+				<li><a href="/apps">Smartphone & Tablet Apps</a></li>
+				<li><a href="/virtualpet">Virtual Pets</a></li>
+				<li><a href="/amiibo">amiibo</a></li>
+				<li><a href="/nintendoswitchonline/">Nintendo Switch Online & Icons</a></li>
+				<li><strong>Board Game</strong></li>
+				<li><a href="/pokemongoita">Pokémon Goita</a></li>
+				<li><strong>Arcade</strong></li>
+				<li><a href="/frienda">Pokémon FRIENDA</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/manga/" class="navheader">Manga</a>
+			<ul>
+				<li><a href="/manga/">General Information</a>
+				<li><a href="/manga/dex">MangaDex</a></li>
+				<li><a href="/manga/characters">Character BIOs</a></li>
+				<li><a href="/manga/characters-new">Detailed BIOs</a></li>
+				<li><a href="/manga/chapter.shtml">Chapter Guides</a></li>
+				<li><a href="/manga/volume.shtml">Volume Guides</a></li>
+				<li><a href="/manga/rby/">RBG Series</a></li>
+				<li><a href="/manga/yellow/">Yellow Series</a></li>
+				<li><a href="/manga/gsc/">GSC Series</a></li>
+				<li><a href="/manga/rs/">RS Series</a></li>
+				<li><a href="/manga/frlg/">FRLG Series</a></li>
+				<li><a href="/manga/bf/">Emerald Series</a></li>
+				<li><a href="/manga/dp/">DP Series</a></li>
+				<li><a href="/manga/pt/">Platinum Series</a></li>
+				<li><a href="/manga/hgss/">HGSS Series</a></li>
+				<li><a href="/manga/bw/">BW Series</a></li>
+				<li><a href="/manga/b2w2/">B2W2 Series</a></li>
+				<li><a href="/manga/xy/">XY Series</a></li>
+				<li><a href="/manga/oras/">ORAS Series</a></li>
+				<li><a href="/manga/sunmoon/">SM Series</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/movies/" class="navheader">Movies</a>
+			<ul>
+				<li><strong>Anime</strong></li>
+				<li><a href="/movies/mewtwo/origin/">The Origin of Mewtwo</a></li>
+				<li><a href="/movies/mewtwo/">Mewtwo Strikes Back</a></li>
+				<li><a href="/movies/lugia/">The Power of One</a></li>
+				<li><a href="/movies/entei/">Spell Of The Unown</a></li>
+				<li><a href="/anime/epiguide/specials/002.shtml">Mewtwo Returns</a></li>
+				<li><a href="/movies/serebii/">Celebi: Voice of the Forest</a></li>
+				<li><a href="/movies/latias_latios/">Pokémon Heroes</a></li>
+				<li><a href="/movies/jirachi/">Jirachi - Wish Maker</a></li>
+				<li><a href="/movies/deoxys/">Destiny Deoxys!</a></li>
+				<li><a href="/movies/mew/">Lucario and the Mystery of Mew!</a></li>
+				<li><a href="/movies/kyogre/">Pokémon Ranger & The Temple of the Sea!</a></li>
+				<li><a href="/movies/dp/">The Rise of Darkrai!</a></li>
+				<li><a href="/movies/giratina/">Giratina & The Sky Warrior!</a></li>
+				<li><a href="/movies/arceus/">Arceus and the Jewel of Life</a></li>
+				<li><a href="/movies/celebi/">Zoroark - Master of Illusions</a></li>
+				<li><a href="/movies/victini/">Black: Victini & ReshiramWhite: Victini & Zekrom</a></li>
+				<li><a href="/movies/kyurem/">Kyurem VS The Sword of Justice</a></li>
+				<li><a href="/movies/meloetta/">-Meloetta's Midnight Serenade</a></li>
+				<li><a href="/movies/genesect/">Genesect and the Legend Awakened</a></li>
+				<li><a href="/movies/xy/">Diancie & The Cocoon of Destruction</a></li>
+				<li><a href="/movies/hoopa/">Hoopa & The Clash of Ages</a></li>
+				<li><a href="/movies/volcanion/">Volcanion and the Mechanical Marvel</a></li>
+				<li><a href="/movies/pokemon20/">Pokémon I Choose You!</a></li>
+				<li><a href="/movies/thepowerofus/">Pokémon The Power of Us</a></li>
+				<li><a href="/movies/mewtwoevolution/">Mewtwo Strikes Back Evolution</a></li>
+				<li><a href="/movies/secretsofthejungle/">Secrets of the Jungle</a></li>
+				<li><a href="/movies/pokemonwildcard/">Wild Card</a></li>
+				<li><strong>Live Action</strong></li>
+				<li><a href="/movies/detectivepikachu/">Pokémon Detective Pikachu</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/movies/" class="navheader">Pikachu Shorts</a>
+			<ul>
+				<li><a href="/movies/pikachu1/">Pikachu's Summer Vacation</a></li>
+				<li><a href="/movies/pikachu2/">Pikachu's Rescue Adventure</a></li>
+				<li><a href="/movies/pikachu3/">Pikachu And Pichu</a></li>
+				<li><a href="/movies/pikachu4/">Pikachu's PikaBoo</a></li>
+				<li><a href="/movies/pikachu5/">Camp Pikachu!</a></li>
+				<li><a href="/movies/pikachu6/">Gotta Dance!!</a></li>
+				<li><a href="/movies/pikachu7/">Pikachu's Summer Festival!</a></li>
+				<li><a href="/movies/pikachu8/">Pikachu's Ghost Festival!</a></li>
+				<li><a href="/movies/pikachu9/">Pikachu's Island Adventure!</a></li>
+				<li><a href="/movies/pikachu10/">Pikachu's Exploration Club</a></li>
+				<li><a href="/movies/pikachu11/">Pikachu's Great Ice Adventure</a></li>
+				<li><a href="/movies/pikachu12/">Pikachu's Sparkling Search</a></li>
+				<li><a href="/movies/pikachu13/">Pikachu's Really Mysterious Adventure</a></li>
+				<li><a href="/movies/eevee/">Eevee & Friends</a></li>
+				<li><a href="/movies/klefki/">Pikachu, What's This Key?</a></li>
+				<li><a href="/movies/pikachumusic/">Pikachu & The Pokémon Music Squad</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/card/" class="navheader">Trading Cards</a>
+			<ul>
+				<li><a href="/tcglive/">Pokémon TCG Live</a></li>
+				<li><a href="/card/dex/">Cardex</a></li>
+				<li><a href="/card/dex/extra">-Extra Pokémon Types</a></li>
+				<li><a href="/card/dex/trainers">Trainer Cards</a></li>
+				<li><a href="/card/dex/energy">Energy Cards</a></li>
+				<li><a href="/card/dex/extra/altart.shtml">Alternate Art Cards</a></li>
+				<li><a href="/card/raidbattles">Raid Battles</a></li>
+				<li><a href="/card/classic/">Pokémon TCG Classic</a></li>
+				<li><a href="/card/english.shtml"><b>English Sets</b></a></li>
+				<li><a href="/card/deltareign/">-Delta Reign</a></li>
+				<li><a href="/card/30thcelebration/">-30th Celebration</a></li>
+				<li><a href="/card/pitchblack/">-Pitch Black</a></li>
+				<li><a href="/card/chaosrising/">-Chaos Rising</a></li>
+				<li><a href="/card/perfectorder/">-Perfect Order</a></li>
+				<li><a href="/card/ascendedheroes/">-Ascended Heroes</a></li>
+				<li><a href="/card/phantasmalflames/">-Phantasmal Flames</a></li>
+				<li><a href="/card/megaevolution/">-Mega Evolution</a></li>
+				<li><a href="/card/blackbolt/">-Black Bolt</a></li>
+				<li><a href="/card/whiteflare/">-White Flare</a></li>
+				<li><a href="/card/destinedrivals/">-Destined Rivals</a></li>
+				<li><a href="/card/journeytogether/">-Journey Together</a></li>
+				<li><a href="/card/prismaticevolutions/">-Prismatic Evolutions</a></li>
+				<li><a href="/card/surgingsparks/">-Surging Sparks</a></li>
+				<li><a href="/card/stellarcrown/">-Stellar Crown</a></li>
+				<li><a href="/card/shroudedfable/">-Shrouded Fable</a></li>
+				<li><a href="/card/twilightmasquerade/">-Twilight Masquerade</a></li>
+				<li><a href="/card/temporalforces/">-Temporal Forces</a></li>
+				<li><a href="/card/paldeanfates/">-Paldean Fates</a></li>
+				<li><a href="/card/paradoxrift/">-Paradox Rift</a></li>
+				<li><a href="/card/151/">-151</a></li>
+				<li><a href="/card/obsidianflames/">-Obsidian Flames</a></li>
+				<li><a href="/card/paldeaevolved/">-Paldea Evolved</a></li>
+				<li><a href="/card/scarletviolet/">-Scarlet Violet</a></li>
+				<li><a href="/card/swsh.shtml">-SWSH Series</a></li>
+				<li><a href="/card/sm.shtml">-SM Series</a></li>
+				<li><a href="/card/xy.shtml">-XY Series</a></li>
+				<li><a href="/card/bw.shtml">-BW Series</a></li>
+				<li><a href="/card/dpt.shtml">-DPtHS Series</a></li>
+				<li><a href="/card/ex.shtml">-EX Series</a></li>
+				<li><a href="/card/neo.shtml">-Neo/eSeries</a></li>
+				<li><a href="/card/first.shtml">-First Gen Series</a></li>
+				<li><a href="/card/engpromo.shtml"><b>English Promos</b></a></li>
+				<li><a href="/card/megapromos">-Mega Promos</a></li>
+				<li><a href="/card/svpromos">-SV Promos</a></li>
+				<li><a href="/card/swshpromos">-SWSH Promos</a></li>
+				<li><a href="/card/smpromos">-SM Promos</a></li>
+				<li><a href="/card/xypromos">-XY Promos</a></li>
+				<li><a href="/card/popseries.shtml">-POP Series</a></li>
+				<li><a href="/card/japanese.shtml"><b>Japanese Sets</b></a></li>
+				<li><a href="/card/abysseye/">-Abyss Eye</a></li>
+				<li><a href="/card/ninjaspinner/">-Ninja Spinner</a></li>
+				<li><a href="/card/nihilzero/">-Nihil Zero</a></li>
+				<li><a href="/card/megadreamex/">-Mega Dream ex</a></li>
+				<li><a href="/card/infernox/">-Inferno X</a></li>
+				<li><a href="/card/megabrave/">-Mega Brave</a></li>
+				<li><a href="/card/megasymphonia/">-Mega Symphonia</a></li>
+				<li><a href="/card/blackbolt-jp/">-Black Bolt</a></li>
+				<li><a href="/card/whiteflare-jp/">-White Flare</a></li>
+				<li><a href="/card/gloryofteamrocket/">-Glory of Team Rocket</a></li>
+				<li><a href="/card/hotairarena/">-Hot Air Arena</a></li>
+				<li><a href="/card/battlepartners/">-Battle Partners</a></li>
+				<li><a href="/card/terastalfestivalex/">-Terastal Festival ex</a></li>
+				<li><a href="/card/superelectricbreaker/">-Super Electric Breaker</a></li>
+				<li><a href="/card/paradisedragona/">-Paradise Dragona</a></li>
+				<li><a href="/card/stellarmiracle/">-Stellar Miracle</a></li>
+				<li><a href="/card/nightwanderer/">-Night Wanderer</a></li>
+				<li><a href="/card/maskofchange/">-Mask of Change</a></li>
+				<li><a href="/card/crimsonhaze/">-Crimson Haze</a></li>
+				<li><a href="/card/wildforce/">-Wild Force</a></li>
+				<li><a href="/card/cyberjudge/">-Cyber Judge</a></li>
+				<li><a href="/card/vstaruniverse/">-VSTAR Universe</a></li>
+				<li><a href="/card/vs">-Pokémon VS</a></li>
+				<li><a href="/card/jppromo.shtml"><b>Japanese Promos</b></a></li>
+				<li><a href="/card/svpromo">-SV Promos</a></li>
+				<li><a href="/card/spromo">-S Promos</a></li>
+				<li><a href="/card/smpromo">-SM Promos</a></li>
+
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+
+<script type="text/javascript">
+
+function loadMobileLbar(){
+	var tbar_lbar_open=document.getElementById('tbar_lbar_open'),
+		tbar_backdrop=document.getElementById('tbar_backdrop'),
+		lbar=document.getElementById('lbar'),
+		lbarLIs=document.querySelectorAll("#lbar_ul>li .navheader"),
+		lbarLIULs=document.querySelectorAll("#lbar_ul>li>ul");
+
+	/* lbar display/hide */
+	tbar_lbar_open.onclick=function() {
+		if (lbar.className.indexOf("show") > -1){//hide
+			lbar.className = lbar.className.replace("show","");
+			bodyRemoveClass("nav_modal");
+		} else{//show
+			lbar.classList.add("show");
+			bodyAddClass("nav_modal");
+		}
+
+		return false;
+	}
+
+
+	/* background clicked when bar shown */
+	tbar_backdrop.onclick=function() {// if the backdrop is clicked, hide menus
+		lbar.className = lbar.className.replace("show","");
+		rbar.className = rbar.className.replace("show","");
+		bodyRemoveClass("nav_modal");
+		return false;
+	}
+
+	/* handle expand/collapse sub-menus in lbar by attaching click events */
+	for(i=0; i<lbarLIs.length; i++){
+		lbarLIs[i].onclick=function(i) {
+			var elem=this.parentNode.getElementsByTagName("UL")[0];
+			var elemDisp=(elem.className.indexOf("show") === -1)
+
+			// hide all ul, then open one if clicked
+			for(i2=0; i2<lbarLIULs.length; i2++){
+				lbarLIULs[i2].className = lbarLIULs[i2].className.replace("show","");
+			}
+
+			if(elemDisp){
+				elem.classList.add("show");
+			}
+
+			return false;
+		}
+	}
+}
+function loadMobileRbar(){
+	var tbar_rbar_open=document.getElementById('tbar_rbar_open'),
+		rbar=document.getElementById('rbar');
+
+	/* rbar display/hide */
+	tbar_rbar_open.onclick=function() {
+		if (rbar.className.indexOf("show") > -1){//hide
+			rbar.className = rbar.className.replace("show","");
+			bodyRemoveClass("nav_modal");
+		} else{//show
+			rbar.classList.add("show");
+			bodyAddClass("nav_modal");
+		}
+
+		return false;
+	}
+}
+
+loadMobileLbar();
+
+/* attach listener to for rbar events AFTER page loads (because #rbar hasn't loaded at this point in page ) */
+if(window.addEventListener){
+	window.addEventListener('load', loadMobileRbar)
+} else{
+	window.attachEvent('onload', loadMobileRbar)
+}
+</script>
+
+
+
+<div id="content">
+		<div class="center" style="margin-top:16px;height:100px"><div id="nn_lb1"></div><div id="nn_mobile_lb1"></div></div>
+<main>
+
+<p>Like most games in the current era, Pokémon Duel is capable of a variety of patches and updates to the software. These updates provide anything from fixes, to balance updates to fixing a variety of glitches</p>
+
+<table class="tab" align="center">
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 1.0 May</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+May 31st 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>??</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Added new "Gold Skills". Gold Skills beat Purple Skills and can stun the opponent</li>
+<li>Added the new hotel, Iridium</li>
+<li>Clarified the text on the No Guard & Transparent Cloak plates.</li>
+<li>New figures have been added</li>
+<li>Various Figure Alterations
+</li>
+
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 1.1</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+June 14th 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>77.4MN</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Added Queen's Cup event</li>
+<li>Status Affliction Alterations<ul><li><b>Paralysis</b>: No longer choses the attack that is removed randomly, instead it goes for the smallest</li></ul></li>
+<li>Move Alterations<ul>
+<li><b>Psychic Blow</b>: Fixed an issue where only the Pokémon that moved had to wait after being pushed back. Now all Pokémon have to wait</li>
+<li><b>Focus Energy</b>: Fixed an issue where if a non-White attack came up after selecting Focus Energy, the effect would have been that move rather than a 0 damage Focus Enegy move.</li>
+<li><b>Swords Dance</b>: Fixed an issue where if a non-White attack came up after selecting Swords Dance, the effect would have been that move rather than a 0 damage Swords Dance move.</li>
+<li><b>Fake Tears</b>: Fixed an issue where if a non-White attack came up after selecting Fake Tears, the effect would have been that move rather than a 0 damage Fake Tears move.</li>
+<li><b>Throwback</b>: Altered it so if a Pokémon is knocked backwards, they can also choose to go on a diagonal route if one exists.</li>
+</ul></li>
+<li>Added new figures:</li>
+
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 1.2</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+July 12th 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>77.4MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Added <a href="/duel/events.shtml"><u>Haunted Cup</u></a> event</li>
+<li>New Items added<ul><li>Rare Metal (C, UC, R, EX) - Exchange for Experience. EX = 10,500 Experience</li><li>Ingot (C, R, EX) - Exchange for Coins - EX = 35,000 Coins</li></ul></li>
+<li>Daily Missions Added</li>
+<li>Ability to clear cache and redownload elements of the game</li>
+<li>Power Saving Mode Added</li>
+<li>New <a href="figures.shtml"><u>Figures added</u></a>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 1.2.1</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+August 9th 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>77.4MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Added <a href="/duel/events.shtml"><u>Pikachu Cup</u></a> event</li>
+<li>Fixed an issue with Fusion</li>
+<li>Added new Fusion feature where if you fuse with the same figure, it will improve a new stat and when that levels up, you can increase move damage</li>
+<li>Improved features of the Trevo</li>
+<li>New <a href="figures.shtml"><u>Figures added</u></a>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 1.2.2</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+September 13th 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>77.4MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Added <a href="/duel/events.shtml"><u>Roger Fes</u></a> event</li>
+<li>New <a href="figures.shtml"><u>Figures added</u></a>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 1.3</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+September 29th 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>158MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Renewed Ranking Matches<ul><li>Altered the point ranking system to be based on your performance and opponent's performance</li><li>Removed the need for Lounge Tickets and Coins to play Ranked Matches. Lounge Tickets can be exchanged for 100 Coins a piece</li><li>Added the Time Trevo as victory prize. Opens over time to give 1 or more figures</li></ul></li>
+<li>Updated the UI for Ranked Matches</li>
+<li>Fixed a bug with Totodile where it would not move beyond the bench</li>
+<li>Fixed a bug where other players couldn't choose where their Pokémon moves after an attack forces movement</li>
+<li>Fixed a bug preventing tapping of Pokémon</li>
+<li>Added new Duel features</li>
+<li>New <a href="figures.shtml"><u>Figures added</u></a>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 1.3.1</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+October 4th 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>158MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Added a feature to allow for you to spectate currently running online matches</a>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 1.4</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+October 24th 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>158MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Added Evolution feature - Some figures can now evolve into slightly stronger variants during combat</li>
+<li>Various Figure Alterations
+<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/40-meowth.shtml"><u>Meowth</u></td><td class="fooinfo">Fake Out</td><td class="fooinfo">Rating increased from &star; to &star;&star;&star;</td></tr>
+<tr><td class="fooinfo"><a href="figures/40-meowth.shtml"><u>Meowth</u></td><td class="fooinfo">Scratch</td><td class="fooinfo">Damage increased from 30 to 40</td></tr>
+<tr><td class="fooinfo"><a href="figures/40-meowth.shtml"><u>Meowth</u></td><td class="fooinfo">Evade</td><td class="fooinfo">Increased size of segment</td></tr>
+<tr><td class="fooinfo"><a href="figures/40-meowth.shtml"><u>Meowth</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased size of segment</td></tr>
+<tr><td class="fooinfo"><a href="figures/107-sneasel.shtml"><u>Sneasel</u></td><td class="fooinfo">Fake Out</td><td class="fooinfo">Rating increased from &star; to &star;&star;&star;</td></tr>
+<tr><td class="fooinfo"><a href="figures/70-salamence.shtml"><u>Salamence</u></td><td class="fooinfo">Movement</td><td class="fooinfo">Increased movement points from 1 to 2</td></tr>
+<tr><td class="fooinfo"><a href="figures/70-salamence.shtml"><u>Salamence</u></td><td class="fooinfo">Flight</td><td class="fooinfo">Increased size of segment</td></tr>
+<tr><td class="fooinfo"><a href="figures/70-salamence.shtml"><u>Salamence</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased size of segment</td></tr>
+<tr><td class="fooinfo"><a href="figures/214-shiftry.shtml"><u>Shiftry</u></td><td class="fooinfo">Razor Wind</td><td class="fooinfo">Damage increased from 50 to 60</td></tr>
+<tr><td class="fooinfo"><a href="figures/214-shiftry.shtml"><u>Shiftry</u></td><td class="fooinfo">Pound</td><td class="fooinfo">Damage increased from 30 to 40</td></tr>
+<tr><td class="fooinfo"><a href="figures/214-shiftry.shtml"><u>Shiftry</u></td><td class="fooinfo">Pound</td><td class="fooinfo">Increased size of segment</td></tr>
+<tr><td class="fooinfo"><a href="figures/214-shiftry.shtml"><u>Shiftry</u></td><td class="fooinfo">Tengu Fan</td><td class="fooinfo">Increased size of segment</td></tr>
+<tr><td class="fooinfo"><a href="figures/214-shiftry.shtml"><u>Shiftry</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased size of segment</td></tr>
+<tr><td class="fooinfo"><a href="figures/214-shiftry.shtml"><u>Shiftry</u></td><td class="fooinfo">Razor Wind</td><td class="fooinfo">Decreased size of segment</td></tr>
+<tr><td class="fooinfo"><a href="figures/77-gabite.shtml"><u>Gabite</u></td><td class="fooinfo">Sand Veil</td><td class="fooinfo">Added ability of Sand Veil</td></tr>
+<tr><td class="fooinfo"><a href="figures/77-gabite.shtml"><u>Gabite</u></td><td class="fooinfo">Dragon Claw</td><td class="fooinfo">Damage increased from 50 to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/77-gabite.shtml"><u>Gabite</u></td><td class="fooinfo">Dragon Claw</td><td class="fooinfo">Decreased size of segment</td></tr>
+<tr><td class="fooinfo"><a href="figures/77-gabite.shtml"><u>Gabite</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased size of segment</td></tr>
+<tr><td class="fooinfo"><a href="figures/77-gabite.shtml"><u>Gabite</u></td><td class="fooinfo">Slash</td><td class="fooinfo">Increased size of segment</td></tr>
+<tr><td class="fooinfo"><a href="figures/77-gabite.shtml"><u>Gabite</u></td><td class="fooinfo">Sand Attack</td><td class="fooinfo">Increased size of segment</td></tr>
+</table></li>
+
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 2.0</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+November 10th 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>172MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Added Training Center</li>
+<li>Altered UI options - Fusion now available from main menu</li>
+<li>Added Training Center</li>
+<li>Added Duel Trial in League Matches where you get more rewards depending on how many people you have played</li>
+<li>General bug fixes</li>
+
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 2.0.1</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+November 29th 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>159MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>General bug fixes</li>
+
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 2.0.2</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+December 13th 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>159MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>General bug fixes</li>
+
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 2.1</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+December 27th 2016<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>161MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Added Event Data</li>
+
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/komaster1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+January 24th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Added English language data for international release</li>
+
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0.1</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+February 9th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Bug fixes</li>
+
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0.2</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+February 16th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various figure alterations<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/110-mew.shtml"><u>Mew</u></td><td class="fooinfo">Hyper Sonic</td><td class="fooinfo">Added effect of Mew not being Knocked Out if the move used against it does damage of over 100</td></tr>
+<tr><td class="fooinfo"><a href="figures/110-mew.shtml"><u>Mew</u></td><td class="fooinfo">Vanish</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/110-mew.shtml"><u>Mew</u></td><td class="fooinfo">Shuttle Flip </td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/112-rayquaza.shtml"><u>Rayquaza</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Segments broken up into 3 and repositioned</td></tr>
+<tr><td class="fooinfo"><a href="figures/112-rayquaza.shtml"><u>Rayquaza</u></td><td class="fooinfo">Extreme Speed </td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/112-rayquaza.shtml"><u>Rayquaza</u></td><td class="fooinfo">Twister </td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/112-rayquaza.shtml"><u>Rayquaza</u></td><td class="fooinfo">Break Energy </td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/45-machamp.shtml"><u>Machamp</u></td><td class="fooinfo">Movement </td><td class="fooinfo">MP increased from 1 to 2</td></tr>
+<tr><td class="fooinfo"><a href="figures/45-machamp.shtml"><u>Machamp</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/45-machamp.shtml"><u>Machamp</u></td><td class="fooinfo">Submission </td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/45-machamp.shtml"><u>Machamp</u></td><td class="fooinfo">Karate Chop </td><td class="fooinfo">Damage increased from 50 to 60</td></tr>
+<tr><td class="fooinfo"><a href="figures/36-heracross.shtml"><u>Heracross</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/36-heracross.shtml"><u>Heracross</u></td><td class="fooinfo">Overhead Toss </td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/36-heracross.shtml"><u>Heracross</u></td><td class="fooinfo">Horn Attack </td><td class="fooinfo">Damage increased from 40 to 60</td></tr>
+<tr><td class="fooinfo"><a href="figures/119-zygarde.shtml"><u>Zygarde</u></td><td class="fooinfo">Land's Wrath </td><td class="fooinfo">Change in text to require spinning purple for the opposing Pokémon to be knocked out</td></tr>
+</table></li>
+<li>Introduction of Energy Plates</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0.3</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+March 2nd 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various figure alterations<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/50-charizard.shtml"><u>Charizard</u></td><td class="fooinfo">Speed Booster </td><td class="fooinfo">Gained the Speed Booster ability</td></tr>
+<tr><td class="fooinfo"><a href="figures/50-charizard.shtml"><u>Charizard</u></td><td class="fooinfo">Iron Tail </td><td class="fooinfo">Move Removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/50-charizard.shtml"><u>Charizard</u></td><td class="fooinfo">Dragon Tail </td><td class="fooinfo">Move Added</td></tr>
+<tr><td class="fooinfo"><a href="figures/119-zygarde.shtml"><u>Zygarde</u></td><td class="fooinfo">Land's Wrath </td><td class="fooinfo">Damage increased from 60 to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/119-zygarde.shtml"><u>Zygarde</u></td><td class="fooinfo">Dragon Breath </td><td class="fooinfo">Damage increased from 80 to 100</td></tr>
+<tr><td class="fooinfo"><a href="figures/11-metagross.shtml"><u>Metagross</u></td><td class="fooinfo">Rapid Calculation </td><td class="fooinfo">Gained the Rapid Calculation ability</td></tr>
+<tr><td class="fooinfo"><a href="figures/11-metagross.shtml"><u>Metagross</u></td><td class="fooinfo">Metal Claw </td><td class="fooinfo">Damage increased from 80 to 90</td></tr>
+<tr><td class="fooinfo"><a href="figures/118-tyranitar.shtml"><u>Tyranitar</u></td><td class="fooinfo">Speed Booster </td><td class="fooinfo">Gained the Speed Booster ability</td></tr>
+<tr><td class="fooinfo"><a href="figures/118-tyranitar.shtml"><u>Tyranitar</u></td><td class="fooinfo">Earthquake </td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/118-tyranitar.shtml"><u>Tyranitar</u></td><td class="fooinfo">Bite </td><td class="fooinfo">Damage increased from 40 to 50</td></tr>
+<tr><td class="fooinfo"><a href="figures/118-tyranitar.shtml"><u>Tyranitar</u></td><td class="fooinfo">Crunch & Earthquake </td><td class="fooinfo">Move positions switched</td></tr>
+<tr><td class="fooinfo"><a href="figures/118-tyranitar.shtml"><u>Tyranitar</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Decreased width of bar</td></tr>
+</table></li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0.4</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+March 16th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various bug fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0.5</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+March 23rd 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various figure alterations<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/80-groudon.shtml"><u>Groudon</u></td><td class="fooinfo">Slash </td><td class="fooinfo">Move Removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/80-groudon.shtml"><u>Groudon</u></td><td class="fooinfo">Break Energy </td><td class="fooinfo">Move Added</td></tr>
+<tr><td class="fooinfo"><a href="figures/80-groudon.shtml"><u>Groudon</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/230-torterra.shtml"><u>Torterra</u></td><td class="fooinfo">Earthquake </td><td class="fooinfo">Damage increased from 90 to 120</td></tr>
+<tr><td class="fooinfo"><a href="figures/253-delphox.shtml"><u>Delphox</u></td><td class="fooinfo">Hyperspace Hole </td><td class="fooinfo">Move Removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/253-delphox.shtml"><u>Delphox</u></td><td class="fooinfo">Flame Kinesis </td><td class="fooinfo">Move Added</td></tr>
+<tr><td class="fooinfo"><a href="figures/253-delphox.shtml"><u>Delphox</u></td><td class="fooinfo">Magic Trick  </td><td class="fooinfo">Ability added</td></tr>
+</table></li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0.6</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+April 12h2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various figure alterations<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/93-venusaur.shtml"><u>Venusaur</u></td><td class="fooinfo">Chemical Pollen </td><td class="fooinfo">Ability added</td></tr>
+<tr><td class="fooinfo"><a href="figures/91-drapion.shtml"><u>Drapion</u></td><td class="fooinfo">Toxic </td><td class="fooinfo">Move Removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/91-drapion.shtml"><u>Drapion</u></td><td class="fooinfo">Bite </td><td class="fooinfo">Move Removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/91-drapion.shtml"><u>Drapion</u></td><td class="fooinfo">Venom Whip </td><td class="fooinfo">Move Added</td></tr>
+<tr><td class="fooinfo"><a href="figures/91-drapion.shtml"><u>Drapion</u></td><td class="fooinfo">Noxious Fang </td><td class="fooinfo">Move Added</td></tr>
+<tr><td class="fooinfo"><a href="figures/91-drapion.shtml"><u>Drapion</u></td><td class="fooinfo">Cross Poison</td><td class="fooinfo">Damage increased from 60 to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/91-drapion.shtml"><u>Groudon</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/64-bulbasaur.shtml"><u>Bulbasaur</u></td><td class="fooinfo">Vine Whip </td><td class="fooinfo">Move Removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/64-bulbasaur.shtml"><u>Bulbasaur</u></td><td class="fooinfo">Seed Bomb </td><td class="fooinfo">Move Added</td></tr>
+<tr><td class="fooinfo"><a href="figures/64-bulbasaur.shtml"><u>Bulbasaur</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/97-weezing.shtml"><u>Weezing</u></td><td class="fooinfo">Poison Gas </td><td class="fooinfo">Strength increased from &star; to &star;&star;</td></tr>
+<tr><td class="fooinfo"><a href="figures/97-weezing.shtml"><u>Weezing</u></td><td class="fooinfo">Sludge Bomb </td><td class="fooinfo">Damage increased from 40 to 50</td></tr>
+<tr><td class="fooinfo"><a href="figures/97-weezing.shtml"><u>Weezing</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Decreased width of bar</td></tr>
+</table></li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0.8</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+April 26th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various figure alterations<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/1-dialga.shtml"><u>Dialga</u></td><td class="fooinfo">Roar of Time </td><td class="fooinfo">Power increased from 120 to 130</td></tr>
+<tr><td class="fooinfo"><a href="figures/1-dialga.shtml"><u>Dialga</u></td><td class="fooinfo">Roar of Time </td><td class="fooinfo">New effect: Return the opponent to their start of the duel state</td></tr>
+<tr><td class="fooinfo"><a href="figures/1-dialga.shtml"><u>Dialga</u></td><td class="fooinfo">Dragon Claw </td><td class="fooinfo">Power increased from 60 to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/1-dialga.shtml"><u>Dialga</u></td><td class="fooinfo">Dragon Claw </td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/1-dialga.shtml"><u>Dialga</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/53-palkia.shtml"><u>Palkia</u></td><td class="fooinfo">Spacial Rend </td><td class="fooinfo">Power increased from 100 to 120</td></tr>
+<tr><td class="fooinfo"><a href="figures/53-palkia.shtml"><u>Palkia</u></td><td class="fooinfo">Spacial Rend </td><td class="fooinfo">New effect: If the battle is a tie, the battle opponent is excluded from the duel</td></tr>
+<tr><td class="fooinfo"><a href="figures/53-palkia.shtml"><u>Palkia</u></td><td class="fooinfo">Dragon Claw </td><td class="fooinfo">Power increased from 60 to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/224-deoxys.shtml"><u>Deoxys</u></td><td class="fooinfo">Time Slip </td><td class="fooinfo">Power increased from &star; to &star;&star;&star;</td></tr>
+<tr><td class="fooinfo"><a href="figures/224-deoxys.shtml"><u>Deoxys</u></td><td class="fooinfo">Time Slip </td><td class="fooinfo">New effect: This Pokémon gains Wait 3</td></tr>
+<tr><td class="fooinfo"><a href="figures/191-empoleon.shtml"><u>Empoleon</u></td><td class="fooinfo">Metal Claw </td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/191-empoleon.shtml"><u>Empoleon</u></td><td class="fooinfo">Ice Beam </td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/191-empoleon.shtml"><u>Empoleon</u></td><td class="fooinfo">Hydro Pump </td><td class="fooinfo">Power increased from 70 to 90</td></tr>
+<tr><td class="fooinfo"><a href="figures/80-groudon.shtml"><u>Groudon</u></td><td class="fooinfo">Primal Rage </td><td class="fooinfo">New ability added</td></tr>
+<tr><td class="fooinfo"><a href="figures/112-rayquaza.shtml"><u>Rayquaza</u></td><td class="fooinfo">Primal Rage </td><td class="fooinfo">New ability added</td></tr>
+<tr><td class="fooinfo"><a href="figures/46-kyogre.shtml"><u>Kyogre</u></td><td class="fooinfo">Primal Rage </td><td class="fooinfo">New ability added</td></tr>
+<tr><td class="fooinfo"><a href="figures/46-kyogre.shtml"><u>Kyogre</u></td><td class="fooinfo">Water Pulse </td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/46-kyogre.shtml"><u>Kyogre</u></td><td class="fooinfo">Break Energy </td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/46-kyogre.shtml"><u>Kyogre</u></td><td class="fooinfo">Hydro Pump </td><td class="fooinfo">Power increased from 120 to 130</td></tr>
+<tr><td class="fooinfo"><a href="figures/46-kyogre.shtml"><u>Kyogre</u></td><td class="fooinfo">Hydro Pump </td><td class="fooinfo">Decreased size of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/46-kyogre.shtml"><u>Kyogre</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Decreased size of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/46-kyogre.shtml"><u>Kyogre</u></td><td class="fooinfo">Dodge </td><td class="fooinfo">Section added</td></tr>
+<tr><td class="fooinfo"><a href="figures/214-shiftry.shtml"><u>Shiftry</u></td><td class="fooinfo">Razor Wind </td><td class="fooinfo">Power increased from 60 to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/214-shiftry.shtml"><u>Shiftry</u></td><td class="fooinfo">Pound </td><td class="fooinfo">Power increased from 40 to 50</td></tr>
+<tr><td class="fooinfo"><a href="figures/308-reuniclus.shtml"><u>Reuniclus</u></td><td class="fooinfo">Psychic Net </td><td class="fooinfo">Ability effect altered</td></tr>
+<tr><td class="fooinfo"><a href="figures/306-solosis.shtml"><u>Solosis</u></td><td class="fooinfo">Dual Brains </td><td class="fooinfo">Ability effect altered</td></tr>
+<tr><td class="fooinfo"><a href="figures/307-duosion.shtml"><u>Duosion</u></td><td class="fooinfo">Dual Brains </td><td class="fooinfo">Ability effect altered</td></tr>
+<tr><td class="fooinfo"><a href="figures/47-psyduck.shtml"><u>Psyduck</u></td><td class="fooinfo">Scratch </td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/47-psyduck.shtml"><u>Psyduck</u></td><td class="fooinfo">Water Pulse </td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/47-psyduck.shtml"><u>Psyduck</u></td><td class="fooinfo">Disable </td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/47-psyduck.shtml"><u>Psyduck</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/62-kabuto.shtml"><u>Kabuto</u></td><td class="fooinfo">Scratch </td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/62-kabuto.shtml"><u>Kabuto</u></td><td class="fooinfo">Mud Shot </td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/62-kabuto.shtml"><u>Kabuto</u></td><td class="fooinfo">Aqua Jet</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/62-kabuto.shtml"><u>Kabuto</u></td><td class="fooinfo">Protect </td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/62-kabuto.shtml"><u>Kabuto</u></td><td class="fooinfo">Miss </td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/213-nuzleaf.shtml"><u>Nuzleaf</u></td><td class="fooinfo">Feint Attack </td><td class="fooinfo">Power increased from 30 to 40</td></tr>
+
+</table></li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0.8</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+May 10th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various figure alterations<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/207-aggron.shtml"><u>Aggron</u></td><td class="fooinfo">Counter</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/207-aggron.shtml"><u>Aggron</u></td><td class="fooinfo">Heavy Slam</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/207-aggron.shtml"><u>Aggron</u></td><td class="fooinfo">Iron Tail</td><td class="fooinfo">Power increased from 90 to 120</td></tr>
+<tr><td class="fooinfo"><a href="figures/3-armaldo.shtml"><u>Armaldo</u></td><td class="fooinfo">Swift Swim</td><td class="fooinfo">Ability added</td></tr>
+<tr><td class="fooinfo"><a href="figures/3-armaldo.shtml"><u>Armaldo</u></td><td class="fooinfo">Aqua Jet</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/3-armaldo.shtml"><u>Armaldo</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/3-armaldo.shtml"><u>Armaldo</u></td><td class="fooinfo">Iron Tail</td><td class="fooinfo">Power increased from 40 to 90</td></tr>
+<tr><td class="fooinfo"><a href="figures/43-skarmory.shtml"><u>Skarmory</u></td><td class="fooinfo">Air Cutter</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/43-skarmory.shtml"><u>Skarmory</u></td><td class="fooinfo">Swords Dance</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/43-skarmory.shtml"><u>Skarmory</u></td><td class="fooinfo">Steel Wing</td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/63-geodude.shtml"><u>Geodude</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/63-geodude.shtml"><u>Geodude</u></td><td class="fooinfo">Self-Destruct</td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/150-graveler.shtml"><u>Graveler</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/150-graveler.shtml"><u>Graveler</u></td><td class="fooinfo">Landslide</td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/13-golem.shtml"><u>Golem</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/13-golem.shtml"><u>Golem</u></td><td class="fooinfo">Rock Blast</td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/86-rhyhorn.shtml"><u>Rhyhorn</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/86-rhyhorn.shtml"><u>Rhyhorn</u></td><td class="fooinfo"> 	Hyper Take Down</td><td class="fooinfo">Increased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/65-magnemite.shtml"><u>Magnemite</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased width of bar</td></tr>
+<tr><td class="fooinfo"><a href="figures/65-magnemite.shtml"><u>Magnemite</u></td><td class="fooinfo"> Dodge</td><td class="fooinfo">Increased width of bar</td></tr>
+
+</table></li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0.10</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+June 7th  2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various figure alterations<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/30-lugia.shtml"><u>Lugia</u></td><td class="fooinfo">Marine Rage</td><td class="fooinfo">New Ability given</td></tr>
+<tr><td class="fooinfo"><a href="figures/30-lugia.shtml"><u>Lugia</u></td><td class="fooinfo">Hurricane</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/30-lugia.shtml"><u>Lugia</u></td><td class="fooinfo">Cyclone</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/60-feraligatr.shtml"><u>Feraligatr</u></td><td class="fooinfo">Speed Booster</td><td class="fooinfo">New Ability given</td></tr>
+<tr><td class="fooinfo"><a href="figures/60-feraligatr.shtml"><u>Feraligatr</u></td><td class="fooinfo">Bite</td><td class="fooinfo">Increased damage from 60 to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/60-feraligatr.shtml"><u>Feraligatr</u></td><td class="fooinfo">Bite</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/60-feraligatr.shtml"><u>Feraligatr</u></td><td class="fooinfo">Hydro Pump</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/60-feraligatr.shtml"><u>Feraligatr</u></td><td class="fooinfo">Wash Out</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/60-feraligatr.shtml"><u>Feraligatr</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/19-mudkip.shtml"><u>Mudkip</u></td><td class="fooinfo">Tackle</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/19-mudkip.shtml"><u>Mudkip</u></td><td class="fooinfo">Dodge</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/19-mudkip.shtml"><u>Mudkip</u></td><td class="fooinfo">Take Down</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/19-mudkip.shtml"><u>Mudkip</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/129-larvitar.shtml"><u>Larvitar</u></td><td class="fooinfo">Thrash</td><td class="fooinfo">Increased damage from 40 to 50</td></tr>
+<tr><td class="fooinfo"><a href="figures/129-larvitar.shtml"><u>Larvitar</u></td><td class="fooinfo">Thrash</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/129-larvitar.shtml"><u>Larvitar</u></td><td class="fooinfo">Crunch</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/129-larvitar.shtml"><u>Larvitar</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/133-diglett.shtml"><u>Diglett</u></td><td class="fooinfo">Dig</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/133-diglett.shtml"><u>Diglett</u></td><td class="fooinfo">Scratch</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/133-diglett.shtml"><u>Diglett</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/108-carvanha.shtml"><u>Carvanha</u></td><td class="fooinfo">Scary Face</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/108-carvanha.shtml"><u>Carvanha</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased wheel size</td></tr>
+
+
+</table></li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0.11</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+June 21st  2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various figure alterations<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/233-raikou.shtml"><u>Raikou</u></td><td class="fooinfo">Nonstop</td><td class="fooinfo">Ability altered</td></tr>
+<tr><td class="fooinfo"><a href="figures/233-raikou.shtml"><u>Raikou</u></td><td class="fooinfo">Thunderous Blow</td><td class="fooinfo">New effect added</td></tr>
+<tr><td class="fooinfo"><a href="figures/233-raikou.shtml"><u>Raikou</u></td><td class="fooinfo">Bite</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/233-raikou.shtml"><u>Raikou</u></td><td class="fooinfo">Thunder</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/233-raikou.shtml"><u>Raikou</u></td><td class="fooinfo">Bite</td><td class="fooinfo">Wheel size increased</td></tr>
+<tr><td class="fooinfo"><a href="figures/233-raikou.shtml"><u>Raikou</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Wheel size decreased</td></tr>
+<tr><td class="fooinfo"><a href="figures/190-garchomp.shtml"><u>Garchomp</u></td><td class="fooinfo">Double Flight</td><td class="fooinfo">New effect added</td></tr>
+<tr><td class="fooinfo"><a href="figures/190-garchomp.shtml"><u>Garchomp</u></td><td class="fooinfo">Dragon Rush</td><td class="fooinfo">Power increased from 90 to 100</td></tr>
+<tr><td class="fooinfo"><a href="figures/190-garchomp.shtml"><u>Garchomp</u></td><td class="fooinfo">Dragon Rush</td><td class="fooinfo">Wheel size increased</td></tr>
+<tr><td class="fooinfo"><a href="figures/190-garchomp.shtml"><u>Garchomp</u></td><td class="fooinfo">Dragon Claw</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/190-garchomp.shtml"><u>Garchomp</u></td><td class="fooinfo">Fire Fang</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/190-garchomp.shtml"><u>Garchomp</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Wheel size decreased</td></tr>
+<tr><td class="fooinfo"><a href="figures/119-zygarde.shtml"><u>Zygarde</u></td><td class="fooinfo">Land's Call</td><td class="fooinfo">Ability added</td></tr>
+<tr><td class="fooinfo"><a href="figures/119-zygarde.shtml"><u>Zygarde</u></td><td class="fooinfo">Dragon Breath</td><td class="fooinfo">Power increased from 100 to 110</td></tr>
+<tr><td class="fooinfo"><a href="figures/21-steelix.shtml"><u>Steelix</u></td><td class="fooinfo">Crunch</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/21-steelix.shtml"><u>Steelix</u></td><td class="fooinfo">Explosion</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/21-steelix.shtml"><u>Steelix</u></td><td class="fooinfo">Screech</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/21-steelix.shtml"><u>Steelix</u></td><td class="fooinfo">Gyro Ball</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/21-steelix.shtml"><u>Steelix</u></td><td class="fooinfo">Dig</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/21-steelix.shtml"><u>Steelix</u></td><td class="fooinfo">Pull In</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/21-steelix.shtml"><u>Steelix</u></td><td class="fooinfo">Iron Tail</td><td class="fooinfo">Power decreased from 90 to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/123-voltorb.shtml"><u>Voltorb</u></td><td class="fooinfo">Spark</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/123-voltorb.shtml"><u>Voltorb</u></td><td class="fooinfo">Shock Blast</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/123-voltorb.shtml"><u>Voltorb</u></td><td class="fooinfo">Explosion</td><td class="fooinfo">Wheel size increased</td></tr>
+<tr><td class="fooinfo"><a href="figures/123-voltorb.shtml"><u>Voltorb</u></td><td class="fooinfo">Tackle</td><td class="fooinfo">Wheel size decreased</td></tr>
+<tr><td class="fooinfo"><a href="figures/9-plusle.shtml"><u>Plusle</u></td><td class="fooinfo">Plus</td><td class="fooinfo">Ability altered</td></tr>
+<tr><td class="fooinfo"><a href="figures/9-plusle.shtml"><u>Plusle</u></td><td class="fooinfo">Spark</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/9-plusle.shtml"><u>Plusle</u></td><td class="fooinfo">Tackle</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/9-plusle.shtml"><u>Plusle</u></td><td class="fooinfo">Nuzzle</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/9-plusle.shtml"><u>Plusle</u></td><td class="fooinfo">Spark</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/9-plusle.shtml"><u>Plusle</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Wheel size decreased</td></tr>
+<tr><td class="fooinfo"><a href="figures/58-minun.shtml"><u>Minun</u></td><td class="fooinfo">Minus</td><td class="fooinfo">Ability altered</td></tr>
+<tr><td class="fooinfo"><a href="figures/58-minun.shtml"><u>Minun</u></td><td class="fooinfo">Tackle</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/58-minun.shtml"><u>Minun</u></td><td class="fooinfo">Nuzzle</td><td class="fooinfo">Move added</td></tr>
+
+</table></li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 3.0.12</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+July 11th  2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various figure alterations<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/121-snorlax.shtml"><u>Snorlax</u></td><td class="fooinfo">Stall</td><td class="fooinfo">Altered the ability to prevent status conditions</td></tr>
+<tr><td class="fooinfo"><a href="figures/121-snorlax.shtml"><u>Snorlax</u></td><td class="fooinfo">Body Slam</td><td class="fooinfo">Increased power to 110. Added new effect</td></tr>
+<tr><td class="fooinfo"><a href="figures/121-snorlax.shtml"><u>Snorlax</u></td><td class="fooinfo">Pound</td><td class="fooinfo">Increased power to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/121-snorlax.shtml"><u>Snorlax</u></td><td class="fooinfo">Pound</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/121-snorlax.shtml"><u>Snorlax</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/258-snorlax.shtml"><u>Typhlosion</u></td><td class="fooinfo">Flame Acceleration</td><td class="fooinfo">Altered effect</td></tr>
+<tr><td class="fooinfo"><a href="figures/42-ho-oh.shtml"><u>Ho-Oh</u></td><td class="fooinfo">Fire Blast</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/42-ho-oh.shtml"><u>Ho-Oh</u></td><td class="fooinfo">Gust</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/235-genesect.shtml"><u>Genesect</u></td><td class="fooinfo">Techno Blast</td><td class="fooinfo">Altered effect</td></tr>
+<tr><td class="fooinfo"><a href="figures/59-pinsir.shtml"><u>Pinsir</u></td><td class="fooinfo">Vice Grip</td><td class="fooinfo">Increased power to 50</td></tr>
+<tr><td class="fooinfo"><a href="figures/59-pinsir.shtml"><u>Pinsir</u></td><td class="fooinfo">Guillotine</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/59-pinsir.shtml"><u>Pinsir</u></td><td class="fooinfo">Seismic Toss</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/59-pinsir.shtml"><u>Pinsir</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/57-eevee.shtml"><u>Eevee</u></td><td class="fooinfo">Spontaneous Evolution</td><td class="fooinfo">Ability Added</td></tr>
+<tr><td class="fooinfo"><a href="figures/57-eevee.shtml"><u>Eevee</u></td><td class="fooinfo">Tackle</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/57-eevee.shtml"><u>Eevee</u></td><td class="fooinfo">Quick Attack</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/100-butterfree.shtml"><u>Butterfree</u></td><td class="fooinfo">Compound Eyes</td><td class="fooinfo">Ability Added</td></tr>
+<tr><td class="fooinfo"><a href="figures/100-butterfree.shtml"><u>Butterfree</u></td><td class="fooinfo">Psybeam</td><td class="fooinfo">Increased power to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/137-cyndaquil.shtml"><u>Cyndaquil</u></td><td class="fooinfo">Ember</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/137-cyndaquil.shtml"><u>Cyndaquil</u></td><td class="fooinfo">Tackle</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/87-torchic.shtml"><u>Torchic</u></td><td class="fooinfo">Fire Leak</td><td class="fooinfo">Ability Added</td></tr>
+<tr><td class="fooinfo"><a href="figures/87-torchic.shtml"><u>Torchic</u></td><td class="fooinfo">Ember</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/87-torchic.shtml"><u>Torchic</u></td><td class="fooinfo">Peck</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/87-torchic.shtml"><u>Torchic</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/85-ledyba.shtml"><u>Ledyba</u></td><td class="fooinfo">Swarm</td><td class="fooinfo">Ability altered</td></tr>
+<tr><td class="fooinfo"><a href="figures/85-ledyba.shtml"><u>Ledyba</u></td><td class="fooinfo">Double-Edge</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/85-ledyba.shtml"><u>Ledyba</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/144-lairon.shtml"><u>Lairon</u></td><td class="fooinfo">Harden</td><td class="fooinfo">Effect altered</td></tr>
+<tr><td class="fooinfo"><a href="figures/82-fletchling.shtml"><u>Fletchling</u></td><td class="fooinfo">Acrobatics</td><td class="fooinfo">Effect altered</td></tr>
+
+</table></li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 4</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+August 8th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Added Mega Evolution figures. These are activated using Plates</li>
+<li>Added Missions</li>
+<li>Added Team Battles</li>
+<li>Increased Plate value count from 6 to 8</li>
+<li>Various figure alterations<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/131-giratina.shtml"><u>Giratina</u></td><td class="fooinfo">Shadow Claw</td><td class="fooinfo">Increased power from 110 to 130</td></tr>
+<tr><td class="fooinfo"><a href="figures/131-giratina.shtml"><u>Giratina</u></td><td class="fooinfo">Slash</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/131-giratina.shtml"><u>Giratina</u></td><td class="fooinfo">Will-o-Wisp</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/131-giratina.shtml"><u>Giratina</u></td><td class="fooinfo">Hex</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/112-rayquaza.shtml"><u>Rayquaza</u></td><td class="fooinfo">Extreme Speed</td><td class="fooinfo">Increased power from 120 to 140</td></tr>
+<tr><td class="fooinfo"><a href="figures/237-latias.shtml"><u>Latias</u></td><td class="fooinfo">Mist Ball</td><td class="fooinfo">Increased power from 110 to 130</td></tr>
+<tr><td class="fooinfo"><a href="figures/237-latias.shtml"><u>Latias</u></td><td class="fooinfo">Dragon Breath</td><td class="fooinfo">Increased power from 70 to 100</td></tr>
+<tr><td class="fooinfo"><a href="figures/234-latios.shtml"><u>Latios</u></td><td class="fooinfo">Luster Purge</td><td class="fooinfo">Increased power from 110 to 130</td></tr>
+<tr><td class="fooinfo"><a href="figures/234-latios.shtml"><u>Latios</u></td><td class="fooinfo">Dragon Breath</td><td class="fooinfo">Increased power from 70 to 100</td></tr>
+<tr><td class="fooinfo"><a href="figures/312-druddigon.shtml"><u>Druddigon</u></td><td class="fooinfo">Revenge</td><td class="fooinfo">Increased power from 40 to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/56-dratini.shtml"><u>Dratini</u></td><td class="fooinfo">Tail Slap</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/56-dratini.shtml"><u>Dratini</u></td><td class="fooinfo">Freezing Tail</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/56-dratini.shtml"><u>Dratini</u></td><td class="fooinfo">Dragon Rage</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/56-dratini.shtml"><u>Dratini</u></td><td class="fooinfo">Push Aside</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/56-dratini.shtml"><u>Dratini</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/75-smoochum.shtml"><u>Smoochum</u></td><td class="fooinfo">Lovely Kiss</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/75-smoochum.shtml"><u>Smoochum</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased wheel size</td></tr>
+
+
+</table></li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel1.jpg" width="300" />
+		</td>
+	</tr>
+
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 4.0.2</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+September 1st 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various figure alterations<table class="dextable" align="center"><tr><td class="fooevo">Character</td><td class="fooevo">Feature</td><td class="fooevo">Alteration</td></tr>
+<tr><td class="fooinfo"><a href="figures/118-tyranitar.shtml"><u>Tyranitar</u></td><td class="fooinfo">Earthquake</td><td class="fooinfo">Increased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/118-tyranitar.shtml"><u>Tyranitar</u></td><td class="fooinfo">Miss</td><td class="fooinfo">Decreased wheel size</td></tr>
+<tr><td class="fooinfo"><a href="figures/118-tyranitar.shtml"><u>Tyranitar</u></td><td class="fooinfo">Crunch</td><td class="fooinfo">Increased power from 60 to 70</td></tr>
+<tr><td class="fooinfo"><a href="figures/128-haunter.shtml"><u>Haunter</u></td><td class="fooinfo">Eerie Light</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/128-haunter.shtml"><u>Haunter</u></td><td class="fooinfo">Toxic</td><td class="fooinfo">Move added</td></tr>
+<tr><td class="fooinfo"><a href="figures/5-mightyena.shtml"><u>Mightyena</u></td><td class="fooinfo">Crunch</td><td class="fooinfo">Increased power from 50 to 60</td></tr>
+<tr><td class="fooinfo"><a href="figures/5-mightyena.shtml"><u>Mightyena</u></td><td class="fooinfo">Bite</td><td class="fooinfo">Move removed</td></tr>
+<tr><td class="fooinfo"><a href="figures/5-mightyena.shtml"><u>Mightyena</u></td><td class="fooinfo">Ice Fang</td><td class="fooinfo">Move added</td></tr>
+</table></li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 4.0.4</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+October 2nd2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various figure alterations<br />
+<a href="/duel/figures/279-megabeedrill.shtml"><u><b>Mega Beedrill</b></u></a><br />
+Removed Twineedle and replaced with Pin Missile<br />
+Increased wheel size of Poison Shock<br />
+Decreased wheel size of Miss<br />
+<a href="/duel/figures/84-beedrill.shtml"><u><b>Beedrill</b></u></a><br />
+Removed Twineedle and replaced with Pin Missile<br />
+Added Toxic<br />
+Decreased wheel size of Miss<br />
+<a href="/duel/figures/96-mewtwo.shtml"><u><b>Mewtwo</b></u></a><br />
+Changed An	nihilate's effect<br />
+Increased wheel size for Annihilate<br />
+Removed Psychic and replaced it with Psycho Cut with a smaller wheel size<br />
+<a href="/duel/figures/211-gardevoir.shtml"><u><b>Gardevoir</b></u></a><br />
+Increased Super Psy power from 40 to 100 with a larger wheel size<br />
+Increased wheel size of Warp Hole<br />
+Decreased wheel size of Moonblast and Miss<br />
+<a href="/duel/figures/11-metagross.shtml"><u><b>Metagross</b></u></a><br />
+Increased Metal Claw power from 90 to 100<br />
+<a href="/duel/figures/106-bronzong.shtml"><u><b>Bronzong</b></u></a><br />
+Removed Confusion and replaced it with Heavy Slam<br />
+Increased Extrasensory power from 80 to 100 with a smaller wheel size<br />
+Increased wheel size for Iron Defense</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 4.0.5</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+October 18th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 4.0.7</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+November 6th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various Figure Alterations:<br /><br />
+<a href="/duel/figures/276-megacharizardx.shtml"><u><b>Mega Charizard X</b></u></a><br />
+Movement increased from 2 to 3<br />
+<a href="/duel/figures/277-megacharizardy.shtml"><u><b>Mega Charizard Y</b></u></a><br />
+Movement increased from 2 to 3<br />
+<a href="/duel/figures/142-chesnaught.shtml"><u><b>Chesnaught</b></u></a><br />
+Increased Hammer Arm power from 90 to 100<br />
+<a href="/duel/figures/230-torterra.shtml"><u><b>Torterra</b></u></a><br />
+Increased Bite power from 60 to 100</li>
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 4.0.8</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+November 16th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>163MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 5.0.0</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+November 29th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>247MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various UI changes to bring the interface to be more snappy and up to date. It also special UX versions of the Cube, Rare Metal and Ingot items, allowing for further enhancements of your figures</li>
+<li>Various Figure Alterations:<br /><br />
+
+<a href="/duel/figures/138-xerneas.shtml"><u><b>Xerneas</b></u></a><br />
+Increased Moonblast Power from 70 to 99<br />
+<a href="/duel/figures/139-yveltal.shtml"><u><b>Yveltal</b></u></a><br />
+Increased Oblivion Wing Power from 100 to 111<br />
+<a href="/duel/figures/102-lapras.shtml"><u><b>Lapras</b></u></a><br />
+Removed Pound and replaced it with Ice Beam<br />
+Increased Surf power from 60 to 70<br /></li>
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 5.0.1</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+December 4th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>247MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 5.0.3</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+December 13th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 5.0.4</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+December 20th 2017<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 5.0.6</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+January 17th 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Various Figure Alterations:<br /><br />
+<br />
+<a href="/duel/figures/91-drapion.shtml"><u><b>Drapion</b></u></a><br />
+Movement increased from 1 to 2<br />
+<a href="/duel/figures/249-arbok.shtml"><u><b>Arbok</b></u></a><br />
+Added new ability: Shed Skin<br />
+Increased power of Poison Fang from 40 to 50<br />
+<a href="/duel/figures/94-seviper.shtml"><u><b>Seviper</b></u></a><br />
+Added new ability: Rapid Approach<br />
+Increased wheel size of Toxic Fluid &amp; Poison Tail<br />
+Decreated wheel size of Wrap
+</li>
+
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 5.0.7</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+January 25th 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+
+
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 5.0.8</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+February 1st 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+
+<li>Figure Alterations:<br />
+<br />
+<a href="/duel/figures/130-keldeo.shtml"><u><b>Keldeo</b></u></a><br />
+Removed Dodge and adds new attack, Water Jump which moves the Pokémon two steps away and gains Wait<br />
+<a href="/duel/figures/132-hariyama.shtml"><u><b>Hariyama</b></u></a><br />
+Changes Slap Push to Heavy Slam<br />
+Increases damage of other Slap Push to 60<br />
+Increases wheel size of Push Away<br />
+Decreases wheel size of Miss<br />
+<a href="/duel/figures/69-drowzee.shtml"><u><b>Drowzee</b></u></a><br />
+Increased wheel size of Hypnosis and Confusion<br />
+Decreased wheel size of Miss
+</li>
+
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 5.0.9</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+February 14th 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+
+
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 5.0.10</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+March 1st 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+
+<li>Figure Alterations:<br />
+<br />
+<br />
+<a href="/duel/figures/339-vikavolt.shtml"><u><b>Vikavolt</b></u></a><br />
+Increases damage for Zap Cannon from 100 to 120<br />
+<a href="/duel/figures/330-noivern.shtml"><u><b>Noivern</b></u></a><br />
+Increases damage of Boomburst from 100 to 110<br />
+Changed Hurricane to move the battle opponent to the bench.<br />
+Changed Dragon Pulse to add 50 damage against Dragon-type Pokémon<br />
+<a href="/duel/figures/361-cosmog.shtml"><u><b>Cosmog</b></u></a><br />
+Changed Nebby's Power ability to allow for moving of Pokémon from Ultra Space<br />
+<a href="/duel/figures/25-luxray.shtml"><u><b>Luxray</b></u></a><br />
+Removed Bite and added Fire Fang with a power of 70<br />
+Removed Crunch and added Ice Fang with a power of 70<br />
+Removed Roar and added Quick Attack with a power of 50 and a larger wheel<br />
+Added Dodge<br />
+Decreased size of Miss<br />
+Changed ability to Blue Spark, which makes the opponent's dodges become misses<br />
+<a href="/duel/figures/71-mareep.shtml"><u><b>Mareep</b></u></a><br />
+Increased wheel size for Thunder Wave<br />
+Decreased wheel size of Miss
+</li>
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 5.0.11</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+March 14th 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+
+
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel2.jpg" width="300" />
+		</td>
+	</tr>
+
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.0</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+April 2nd 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>It has added a brand new tournament mode which will start very soon</li>
+It has also added various social features so you can start following the progress of other players in the game</li>
+<li>Figure Alterations<br />
+First, the effects of Night Slash and Volt Switch are being changed.<br />
+<a href="/duel/figures/347-decidueye.shtml"><u><b>Decidueye</b></u></a><br />
+Increases damage for Spirit Shackle from 100 to 120<br />
+Increases damage for Phantom Arrow from 70 to 90<br />
+<a href="/duel/figures/274-articuno.shtml"><u><b>Articuno</b></u></a><br />
+Increases damage for Steel Wing from 70 to 130<br />
+<a href="/duel/figures/232-zekrom.shtml"><u><b>Zekrom</b></u></a><br />
+Changed effect of Fusion Bolt to specify Fusion Flare instead of Reshiram<br />
+<a href="/duel/figures/261-reshiram.shtml"><u><b>Reshiram</b></u></a><br />
+Changed effect of Fusion Flare to specify Fusion Bolt instead of Zekrom<br />
+<a href="/duel/figures/35-treecko.shtml"><u><b>Treecko</b></u></a><br />
+Addition of new ability: Wall-Climb. Allows for it to move over other Pokémon with MP Move<br />
+Removed Pound and replaced it with Quick Attack<br />
+Increases damage of Slam from 30 to 40</li>
+
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.2</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+April 18th 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+
+
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.3</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+April 25th 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+
+<li>This patch contains various fixes for Mega Evolution where you couldn't Mega Evolve if you had a Mega Evolved Pokémon in Ultra Space, as well as some bug fixes on moves Night Slash ansd Zap Cannon where the effects wouldn't activate</li>
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+	<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.4</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+May 1st2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+
+<li>Figure Alterations<br /><a href="/duel/figures/349-tapubulu.shtml"><u><b>Tapu Bulu</b></u></a><br />
+Increases damage for Full Swing from 110 to 120<br />
+<a href="/duel/figures/317-terrakion.shtml"><u><b>Terrakion</b></u></a><br />
+Increases damage for Stone Edge from 120 to 130 with an increased wheel size<br />
+Decreased wheel size for Protect<br />
+<a href="/duel/figures/207-aggron.shtml"><u><b>Aggron</b></u></a><br />
+Changed the effect of the Territoriality ability<br />
+Increases damage for Iron Tail from 120 to 140 with a larger wheel size<br />
+Increased damage of Heavy Slam from 50 to 90
+Removed Roar<br />
+Added Brutal Swing<br />
+<a href="/duel/figures/112-rayquaza.shtml"><u><b>Rayquaza</b></u></a> &amp; <a href="/duel/figures/395-shinyrayquaza.shtml"><u><b>Shiny Rayquaza</b></u></a><br />
+Increased wheel size of Extreme Speed<br />
+Decreased wheel size of Break Energy &amp; Fly<br />
+<a href="/duel/figures/118-tyranitar.shtml"><u><b>Tyranitar</b></u></a><br />
+Removed Crunch<br />
+Added Dragon Tail with damage of 90<br />
+<a href="/duel/figures/177-pupitar.shtml"><u><b>Pupitar</b></u></a><br />
+Added the Beat Down ability</li>
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.5</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+May 16th 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.6</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+May 23rd 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.7</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+June 1st 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.9</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+June 13th 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>This patch contains contained a bug fix to the Serene Light ability</li>
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+
+<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.10</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+June 20th 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul><li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+
+<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.11</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+July 2nd 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul><li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.12</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+July 2nd 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul>
+<li>Figure Alterations<br /><br />
+<a href="/duel/figures/418-shayminskyforme.shtml"><u><b>Shaymin Sky Forme</b></u></a><br />
+Increases wheel size of Dodge<br />
+Decreased wheel size of Seed Flare<br />
+Decreased wheel size of Quick Attack<br />
+Decreased wheel size of Dazzling Gleam<br />
+<a href="/duel/figures/443-lurantis.shtml"><u><b>Lurantis</b></u></a><br />
+Changed Green Power ability effect to boost benefit from +2 to +5
+</li>
+
+<li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+
+<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.0.13</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+July 18th 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul><li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+
+<tr>
+<td colspan="2" class="fooleft"><font size="2">Version 6.1.0</font></td>
+</tr>	<tr>
+
+		<td valign="top" class="fooinfo"><font size="1">
+<b>Release Dates</b>:<br /><br />
+July 2nd 2018<br /><br />
+
+<p><b>Size:</b><br >
+<ul><li>245MB</li></ul></p>
+
+<p><b>Alterations:</b><br >
+<ul><li>Bug Fixes</li>
+</ul></p>
+<p><b>Notes</b><br />
+This update is required for your game to go online.</p>
+		</td>
+		<td valign="top" width="256" class="cen"><font size="1">
+		<img  src="/duel3.jpg" width="300" />
+		</td>
+	</tr>
+
+
+
+
+</table>
+</main></div><!-- END id="content" -->
+
+
+<aside id="rbar">
+
+	<div class="navheader">Game Names</div>
+<div><a href="#">Pokémon Duel<br />Pokémon Comaster</a></div>
+	<div class="navheader">Console</div>
+<div><a href="#">iOS<br />Android</a></div>
+	<div class="navheader">Game Sections</div>
+<div><ul><li><a href="/duel/">Information</a></li>
+<li><a href="/duel/pics.shtml">Pre-Release Screenshots</a></li>
+<li><a href="/duel/figures.shtml">Pokémon Figure Listings</a></li>
+<li><a href="/duel/abilities.shtml">Pokémon Abilities Listings</a></li>
+<li><a href="/duel/plates.shtml">Plate Listings</a></li>
+<li><a href="/duel/carmonteisland.shtml">Quest Mode<br />Carmonte Island<br />-Location Listings</a></li>
+<li><a href="/duel/league.shtml">League Details</a></li>
+<li><a href="/duel/mechanics.shtml">Gameplay Mechanics</a></li>
+<li><a href="/duel/items.shtml">Items</a></li>
+<li><a href="/duel/shop.shtml">Shop & Microtransactions</a></li>
+<li><b>Events & Updates</b></li>
+<li><a href="/duel/events.shtml">Carnival Events</a></li>
+<li><a href="/duel/gymevents.shtml">Gym Events</a></li>
+<li><a href="/duel/patch.shtml">Patches & Updates</a></li></ul></div>
+	<div class="navheader">Picture</div>
+<div><img src="/apps/comaster.jpg" width="140" /></div>
+	<div class="navheader">Details</div>
+<div><b>Developer:</b><div align="right"><a href="/pokemon/companies/heroz.shtml">HEROZ</a> </div>
+<b>Genre:</b><div align="right">Board Game</div>
+<b>Players:</b><div align="right">1-2</div>
+<b>Menu Icon</b><br /><div align="center"><img src="/Toolbar/icon/comasterlogo.png" alt="Icon" title="Icon" width="64" /> <img src="/Toolbar/icon/comasterlogo2.png" alt="Icon" title="Icon" width="64" /> <img src="/Toolbar/icon/comasterlogo3.png" alt="Icon" title="Icon" width="64" /> <img src="/Toolbar/icon/comasterlogo4.png" alt="Icon" title="Icon" width="64" /></div></div>
+
+	<div class="navheader">Release Date</div>
+<div><b>Android</b><br />
+<b>Japan</b>: April 12th 2016<br />
+<b>International</b>: January 24th 2017<br />
+<b>iOS</b><br />
+<b>Japan</b>:  April 19th 2016<br />
+<b>International</b>: January 24th 2017</div>
+
+
+	</aside>
+
+</div><!-- END id="wrapper" -->
+
+<footer id="footer">
+	<div class="copyright">
+		<a href="#top" alt="Top of Page" title="Top of Page" class="totop"></a>
+
+		All Content is &copy; Copyright of Serebii.net 1999-2026. |
+		<a href="/privacy.shtml">Privacy Policy</a> |
+		<a class="nn-cmp-show" href="#">Manage Cookie Settings</a><br/>
+		Pokémon and All Respective Names are Trademark &amp; &copy; of Nintendo 1996-2026<br /><br />
+<a href="https://www.patreon.com/serebiinet" target="blank" rel="nofollow"></u>Support us on Patreon</u></a>
+	</div>
+
+	<div style="height:102px">
+		<div id="nn_lb2"></div><div id="nn_mobile_lb2"></div>
+<div id="celtra-reveal-wrapper" style="position:fixed; height: auto; width: 100%">
+<div id="nn_1by1"></div>
+</div>
+	</div>
+<script data-cfasync="false" async src="//cdn.intergient.com/1025662/76683/ramp.js"></script>
+</footer>
+
+
+</body>
+
+</html>

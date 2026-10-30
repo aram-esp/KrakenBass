@@ -1,0 +1,23 @@
+# Duel (from scratch)
+
+A board-game duel in the style of Pokémon Duel: rules engine (TypeScript, no runtime deps), real figure/plate/board data,
+a simple AI, and a 3D web client (Three.js) with placeholder figures.
+
+```bash
+npm install          # esbuild + three (dev only)
+npm test             # engine, data and 200 simulated AI duels
+npm run build        # bundles web/src/main.ts -> web/dist/app.js
+npm run serve        # then open http://localhost:8080/web/index.html
+```
+
+Play: click one of your figures (board or bench strip), green discs are legal destinations, click one to move;
+click an adjacent enemy to battle (ends the turn); "Terminar turno" passes. After each battle both Data Disks are shown.
+
+## What is modelled
+Board (28 nodes), entry points, MP and the first-turn MP-1, bench entry for 1 MP, one move per turn, adjacency battles with
+the real colour table, P.C. (2 slots), Wait, encirclement KO, goal win, Wait win (no legal action), 300-turn limit.
+Not yet: plates, abilities/attack effects, special conditions, evolution, Mega Evolution, Z-Moves, per-figure levels, timers.
+
+Full project state, decisions, known issues and next steps: `docs/NOTES.md`. Rule sources and open questions: `research/FINDINGS.md`.
+To use your own sprites or models: `tools/import_sprites.py` and `assets/models/README.md`. The browser console shows harmless 404s while it checks for
+optional models in `assets/models/`.

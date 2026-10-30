@@ -1,0 +1,1830 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Pok&eacute;mon Duel - Plate Listings</title>
+
+<script data-cfasync="false">
+  window.ramp = window.ramp || {};
+  window.ramp.que = window.ramp.que || [];
+</script>
+
+<meta http-equiv="imagetoolbar" CONTENT="no">
+	<link rel="stylesheet" type="text/css" href="/style/layout.css" />
+<meta name="viewport" content="width=device-width,initial-scale=1" id="viewport-meta">
+
+<!-- GDPR Compliancy -->
+<style>
+body {
+	--cmpBgColor: #507C36;
+	--cmpTextColor: #000000;
+	--cmpLinkColor: #ffffff;
+	--cmpPurposesColor: #000000;
+	--cmpBrandColor: #000000;
+	--cmpLogo: url('https://www.serebii.net/extralogo.png');
+}
+</style>
+<!-- GDPR Compliancy -->
+
+<link rel="search" href="/serebii-opensearch.xml" type="application/opensearchdescription+xml" title="Serebii Open Search" />
+<link rel="shortcut icon" href="/favicon.ico" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128947957-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-128947957-1');
+</script>
+<!-- Place the below code anywhere you like in the <head> (higher is better) -->
+
+
+
+<meta name="keywords" content="Serebii, Pokemon, Pok&eacute;mon, Duel, Comaster, Komaster, TFG, Co-master, Plates " />
+<link rel="stylesheet" type="text/css" HREF="/style/tablenew.css">
+
+
+</head>
+<body>
+<script type="text/javascript">
+	var viewport_meta = document.getElementById('viewport-meta');
+	var viewport_timer;
+
+	// these body*Class are reused in the lbar mobile menu
+	function bodyAddClass(className){
+		if(document.body) document.body.classList.add(className);
+	}
+	function bodyRemoveClass(className){
+		if(document.body) document.body.className = document.body.className.replace(className,"");
+	}
+
+	function viewport_set() {
+		// Define our viewport meta values
+		var viewports = {
+			default: viewport_meta.getAttribute('content'),
+			mobileL: 'width=device-width,initial-scale=0.75',
+			mobileM: 'width=device-width,initial-scale=0.5',
+			mobileS: 'width=device-width,initial-scale=0.4'
+		};
+
+		// Change the viewport value based on screen.width
+		if(screen.width < 370){
+			viewport_meta.setAttribute('content', viewports.mobileS);
+			bodyAddClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		} else if(screen.width < 505){
+			viewport_meta.setAttribute('content', viewports.mobileM);
+			bodyRemoveClass("nav_mobileS");
+			bodyAddClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		} else if (screen.width < 760){
+			viewport_meta.setAttribute('content', viewports.mobileL);
+			bodyRemoveClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyAddClass("nav_mobileL");
+		} else{
+			viewport_meta.setAttribute('content', viewports.default);
+			bodyRemoveClass("nav_mobileS");
+			bodyRemoveClass("nav_mobileM");
+			bodyRemoveClass("nav_mobileL");
+		}
+	}
+
+	// Set the correct viewport value on page load
+	viewport_set();
+
+	/* attach listener to (delay) set the correct viewport after device orientation change or resize. also onload so the nav_mobile* class gets added to body AFTER <body> has loaded */
+	if(window.addEventListener){
+		window.addEventListener('load', viewport_set);
+		window.addEventListener('resize', function(){
+			clearTimeout(viewport_timer);
+			viewport_timer = setTimeout(viewport_set, 100);
+		})
+	} else{
+		window.attachEvent('onload', viewport_set)
+		window.attachEvent('onresize', function(){
+			clearTimeout(viewport_timer);
+			viewport_timer = setTimeout(viewport_set, 100);
+		})
+	}
+
+</script>
+
+
+<header id="header">
+	<div class="banner">
+		<a href="/"><img src="/Banner.jpg" alt="Serebii.net Header" style="height:139px"></a>
+	</div>
+
+	<nav class="quicklinks">
+		<ul>
+			<li><b>Quick Links</b></li>
+			<li><a href="/index2.shtml">Home</a></li>
+			<li><a href="https://forums.serebii.net/" target="blank">Forums</a></li>
+			<li><a href="mailto:webmaster@serebii.net">Contact</a></li>
+			<li><a href="/discord.shtml">Discord</a></li>
+			<li><a href="/pokemon">Pokédex Hub</a></li>
+			<li><a href="/pokedex-sv">Scarlet & Violet Pokédex</a></li>
+			<li><a href="/pokedex-champions">Champions Pokédex</a></li>
+			<li><a href="/pokearth">Pokéarth</a></li>
+
+			<li class="search">
+				<form id="searchbox_018410473690156091934:6gahkiyodbi" action="/search.shtml" style="margin:0px;">
+					<input type="hidden" name="cx" value="018410473690156091934:6gahkiyodbi" />
+					<input type="hidden" name="cof" value="FORID:11" />
+					<input name="q" type="text" size="20" />
+					<input type="submit" name="sa" value="Search" />
+				</form>
+				<script type="text/javascript" src="//www.google.com/coop/cse/brand?form=searchbox_018410473690156091934%3A6gahkiyodbi"></script>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+
+
+
+<div id="wrapper">
+
+<ul id="tbar_sticky">
+	<li>
+		<a href="#lbar" class="navheader" id="tbar_lbar_open"><img src="/hidden/2019-04/burger.svg"></a>
+	</li>
+	<li>
+		<form id="searchbox_018410473690156091934:6gahkiyodbi" action="/search.shtml" style="margin:0px;">
+			<input type="hidden" name="cx" value="018410473690156091934:6gahkiyodbi" />
+			<input type="hidden" name="cof" value="FORID:11" />
+			<input name="q" type="search" placeholder="Search Serebii.net..." />
+		</form>
+	</li>
+	<li>
+		<a href="#rbar" class="navheader" id="tbar_rbar_open" style="padding-right:20px"><img src="/hidden/2019-04/burger.svg"></a>
+	</li>
+</ul>
+<div id="tbar_backdrop"></div>
+
+<nav id="lbar">
+	<ul id="lbar_ul">
+		<li>
+			<a href="/" class="navheader">Databases</a>
+			<ul>
+				<li><a href="/index2.shtml">News</a>
+				<li><a href="/archive.shtml">Archived news</a></li>
+				<li><a href="/pokemon/"><b>Pokédex</b></a></li>
+				<li><a href="/pokedex/">-Red/Blue Pokédex</a></li>
+				<li><a href="/pokedex-gs/">-Gold/Silver Pokédex</a></li>
+				<li><a href="/pokedex-rs/">-Ruby/Sapphire Pokédex</a></li>
+				<li><a href="/pokedex-dp/">-Diamond/Pearl Pokédex</a></li>
+				<li><a href="/pokedex-bw/">-Black/White Pokédex</a></li>
+				<li><a href="/pokedex-xy/">-X & Y Pokédex</a></li>
+				<li><a href="/pokedex-sm/">-Sun & Moon Pokédex</a></li>
+				<li><a href="/pokedex-sm/">-Let's Go Pokédex</a></li>
+				<li><a href="/pokedex-swsh/">-Sword & Shield Pokédex</a></li>
+				<li><a href="/pokedex-swsh/">-BDSP Pokédex</a></li>
+				<li><a href="/pokedex-swsh/">-Legends: Arceus Pokédex</a></li>
+				<li><a href="/pokemongo/pokemon/">-GO Pokédex</a></li>
+				<li><a href="/pokedex-sv/">-Scarlet & Violet Pokédex</a></li>
+				<li><a href="/pokedex-sv/">-Legends: Z-A Pokédex</a></li>
+				<li><a href="/pokedex-champions/">-Champions Pokédex</a></li>
+
+				<li><strong>Attackdex</strong></li>
+				<li><a href="/attackdex-rby/">-Gen 1 Attackdex</a></li>
+				<li><a href="/attackdex-gs/">-Gen 2 Attackdex</a></li>
+				<li><a href="/attackdex/">-Gen 3 Attackdex</a></li>
+				<li><a href="/attackdex-dp/">-Gen 4 Attackdex</a></li>
+				<li><a href="/attackdex-bw/">-Gen 5 Attackdex</a></li>
+				<li><a href="/attackdex-xy/">-Gen 6 Attackdex</a></li>
+				<li><a href="/attackdex-sm/">-Gen 7 Attackdex</a></li>
+				<li><a href="/attackdex-swsh/">-Gen 8 Attackdex</a></li>
+				<li><a href="/attackdex-sv/">-Gen 9 Attackdex</a></li>
+				<li><a href="/attackdex-champions/">-Champions Attackdex</a></li>
+				<li><a href="/itemdex/">ItemDex</a></li>
+				<li><a href="/pokearth/">Pokéarth</a></li>
+				<li><a href="/abilitydex/">Abilitydex</a></li>
+				<li><a href="/spindex/">Spin-Off Pokédex</a></li>
+				<li><a href="/spindex-dp/">Spin-Off Pokédex DP</a></li>
+				<li><a href="/spindex-bw/">Spin-Off Pokédex BW</a></li>
+				<li><a href="/card/dex/">Cardex</a></li>
+				<li><a href="/movies/dex/">Cinematic Pokédex</a></li>
+				<li><a href="/games/mechanics.shtml">Game Mechanics</a></li>
+				<li><a href="/games/iv-calcsv.shtml">-Scarlet/Violet IV Calc.</a></li>
+				<li><a href="/potw-champions">Pokémon of the Week</a></li>
+				<li><a href="/potw-champions/">-Champions</a></li>
+				<li><a href="/potw-sv/">-9th Gen</a></li>
+				<li><a href="/potw-swsh/">-8th Gen</a></li>
+				<li><a href="/potw-sm/">-7th Gen</a></li>
+				<li><a href="/pokemon/timeline.shtml">Pokémon Timeline</a></li>
+				<li><a href="/pokemoncenter/">Pokémon Centers</a></li>
+				<li><a href="/playpokemon">Pokémon Championship Series</a></li>
+				<li><a href="/pokemonxp/">PokémonXP</a></li>
+
+				<li><a href="/music/projectvoltage">Hatsune Miku Project Voltage</a></li>
+				<li><a href="/museums/">Pokémon in Museums & Exhibitions</a></li>
+				<li><a href="/pokemon/vangoghmuseum/">-Pokémon x Van Gogh</a></li>
+				<li><a href="/pokemonday/">Pokémon Day</a></li>
+				<li><a href="/presentations">Pokémon Presentations</a></li>
+				<li><a href="/lego/">LEGO Pokémon</a></li>
+				<li><a href="/pokemonshirts/">Pokémon Shirts</a></li>
+				<li><a href="/themeparks/">Theme Parks</a></li>
+				<li><a href="https://forums.serebii.net" target="blank">Forums</a></li>
+				<li><a href="/discord.shtml">Discord Chat</a></li>		
+				<li><a href="/games/currentevents.shtml">Current & Upcoming Events</a></li>
+				<li><a href="/events">Event Database</a></li>
+				<li><a href="/scarletviolet/pokemon.shtml">9th Generation Pokémon</a></li>
+				<li><a href="/scarletviolet/dlc-pokemon.shtml">-New Pokémon in DLC</a></li>
+				<li><a href="/scarletviolet/paldeanforms.shtml">-Paldean Form Pokémon</a></li>
+
+			</ul>
+		</li>
+
+
+		<li>
+			<a href="/anime/" class="navheader">Anime & TV</a>
+			<ul>
+				<li><a href="/anime/epiguide/">Episode Listings & Pictures</a></li>
+				<li><a href="/anime/dex/">AniméDex</a></li>
+				<li><a href="/anime/characters/">Character Bios</a></li>
+				<li><a href="/anime/epiguide/indigo/">The Indigo League</a></li>
+				<li><a href="/anime/epiguide/orange/">The Orange League</a></li>
+				<li><a href="/anime/epiguide/johto/">The Johto Saga</a></li>
+				<li><a href="/anime/epiguide/houen/">The Saga in Hoenn!</a></li>
+				<li><a href="/anime/epiguide/kanto/">Kanto Battle Frontier Saga!</a></li>
+				<li><a href="/anime/epiguide/shinou/">The Sinnoh Saga!</a></li>
+				<li><a href="/anime/epiguide/bestwishes/">Best Wishes - Unova Saga</a></li>
+				<li><a href="/anime/epiguide/xy/">XY - Kalos Saga</a></li>
+				<li><a href="/anime/epiguide/sunmoon/">Sun & Moon - Alola Saga</a></li>
+				<li><a href="/anime/epiguide/pokemon/">Pokémon Journeys - Galar Saga</a></li>
+				<li><a href="/anime/epiguide/pokemonmaster/">Pokémon Aim To Be A Pokémon Master</a></li>
+				<li><a href="/anime/epiguide/pokemon2023/">Pokémon Horizons - Paldea Saga</a></li>
+				<li><a href="/anime/epiguide/chronicles/">Pokémon Chronicles</a></li>	
+				<li><a href="/anime/epiguide/specials/">The Special Episodes</a></li>
+				<li><a href="/anime/banned.shtml">The Banned Episodes</a></li>
+				<li><a href="/anime/shiny/">Shiny Pokémon</a></li>
+<li><b>Other Web Series</b></li>
+				<li><a href="/anime/epiguide/generations/">Pokémon Generations</a></li>
+				<li><a href="/anime/epiguide/twilightwings/">Pokémon Twilight Wings</a></li>
+				<li><a href="/anime/epiguide/evolutions/">Pokémon Evolutions</a></li>
+				<li><a href="/anime/hisuiansnow/">Pokémon: Hisuian Snow</a></li>
+				<li><a href="/anime/paldeanwinds/">Pokémon: Paldean Winds</a></li>
+				<li><a href="/anime/poketoon/">PokéToon</a></li>
+				<li><a href="/anime/other/pathtothepeak/">Path to the Peak</a></li>
+				<li><a href="/anime/other/pokeminutes/">PokéMinutes</a></li>
+				<li><a href="/anime/other/pokevideodex/">PokéVideoDex</a></li>
+				<li><a href="/anime/other/goodmorningwithpokemon/">Good Morning with Pokémon</a></li>
+				<li><a href="/anime/other/">Other Animations</a></li>
+				<li><b>Other Series</b></li>
+				<li><a href="/pokemonconcierge/">Pokémon Concierge</a></li>
+				<li><a href="/pokemontales/">Pokémon Tales: The Misadventures of Sirfetch'd & Pichu</a></li>
+
+				<li><b>Live Action</b></li>
+				<li><a href="/poketsume/">PokéTsume</a></li>
+
+
+			</ul>
+		</li>
+
+		<li>
+			<a href="/games/" class="navheader">Video Games</a>
+			<ul>
+				<li><a href="/pokemon/generation10.shtml"><b>Gen X</b></li>
+				<li><a href="/windswaves/">Winds & Waves</a></li>
+
+				<li><a href="/pokemon/generation9.shtml"><b>Gen IX</b></a></li>
+				<li><a href="/scarletviolet/">Scarlet & Violet</a></li>
+				<li><a href="/legendsz-a/">Legends: Z-A</a></li>
+				<li><a href="/pokemonchampions/">Pokémon Champions</a></li>
+				<li><a href="/pokemonpokopia/">Pokémon Pokopia</a></li>
+				<li><a href="/pokemonfriends/">Pokémon Friends</a></li>
+				<li><a href="/pokemongo/">Pokémon GO</a></li>
+				<li><a href="/cafemix/">Pokémon Café ReMix</a></li>
+				<li><a href="/pokemonmasters/">Pokémon Masters EX</a></li>
+				<li><a href="/pokemonunite/">Pokémon UNITE</a></li>
+				<li><a href="/pokemonsleep/">Pokémon Sleep</a></li>
+				<li><a href="/detectivepikachureturns/">Detective Pikachu Returns</a></li>
+				<li><a href="/tcgpocket/">Pokémon TCG Pocket</a></li>
+
+				<li><a href="/pokemon/generation8.shtml"><b>Gen VIII</b></a></li>
+				<li><a href="/swordshield/">Sword & Shield</a></li>
+				<li><a href="/brilliantdiamondshiningpearl/">Brilliant Diamond & Shining Pearl</a></li>
+				<li><a href="/legendsarceus/">Pokémon Legends: Arceus</a></li>
+				<li><a href="/pokemonhome/">Pokémon HOME</a></li>
+				<li><a href="/pokemongo/">Pokémon GO</a></li>
+				<li><a href="/pokemonmasters/">Pokémon Masters EX</a></li>
+				<li><a href="/dungeonrescueteamdx/">Pokémon Mystery Dungeon Rescue Team DX</a></li>
+				<li><a href="/pokemonsmile/">Pokémon Smile</a></li>
+				<li><a href="/cafemix/">Pokémon Café ReMix</a></li>
+				<li><a href="/newpokemonsnap/">New Pokémon Snap</a></li>
+				<li><a href="/pokemonunite/">Pokémon UNITE</a></li>
+				<li><a href="/tcglive/">Pokémon TCG Live</a></li>
+
+				<li><a href="/pokemon/generation7.shtml"><b>Gen VII</b></a></li>
+				<li><a href="/sunmoon/">Sun & Moon</a></li>
+				<li><a href="/ultrasunultramoon/">Ultra Sun & Ultra Moon</a></li>
+				<li><a href="/letsgopikachueevee/">Let's Go, Pikachu! & Let's Go, Eevee!</a></li>
+				<li><a href="/pokemongo/">Pokémon GO</a></li>
+				<li><a href="/magikarpjump/">Pokémon: Magikarp Jump</a></li>
+				<li><a href="/rumblerush/">Pokémon Rumble Rush</a></li>
+				<li><a href="/pokkendx/">Pokkén Tournament DX</a></li>
+				<li><a href="/detective/">Detective Pikachu</a></li>
+				<li><a href="/quest/">Pokémon Quest</a></li>
+				<li><a href="/smashbrosultimate/">Super Smash Bros. Ultimate</a></li>
+				<li><a href="/pokemon/generation6.shtml"><b>Gen VI</b></a></li>
+				<li><a href="/xy/">X & Y</a></li>
+				<li><a href="/omegarubyalphasapphire/">Omega Ruby & Alpha Sapphire</a></li>
+				<li><a href="/bank/">Pokémon Bank</a></li>
+				<li><a href="/battletrozei/">Pokémon Battle TrozeiPokémon Link: Battle</a></li>
+				<li><a href="/artacademy/">Pokémon Art Academy</a></li>
+				<li><a href="/bandofthieves/">The Band of Thieves & 1000 Pokémon</a></li>
+				<li><a href="/shuffle/">Pokémon Shuffle</a></li>
+				<li><a href="/rumbleworld/">Pokémon Rumble World</a></li>
+				<li><a href="/supermysterydungeon/">Pokémon Super Mystery Dungeon</a></li>
+				<li><a href="/picross/">Pokémon Picross</a></li>
+				<li><a href="/detective/">Detective Pikachu</a></li>
+				<li><a href="/pokken/">Pokkén Tournament</a></li>
+				<li><a href="/duel/">Pokémon Duel</a></li>
+				<li><a href="/smashbros3dswiiu/">Smash Bros for 3DS/Wii U</a></li>
+				<li><a href="/games/badge/">Nintendo Badge Arcade</a></li>
+				<li><a href="/pokemon/generation5.shtml"><b>Gen V</b></a></li>
+				<li><a href="/blackwhite/">Black & White</a></li>
+				<li><a href="/black2white2/">Black 2 & White 2</a></li>
+				<li><a href="/dreamradar/">Pokémon Dream Radar</a></li>
+				<li><a href="/trettalab/">Pokémon Tretta Lab</a></li>
+				<li><a href="/rumbleu/">Pokémon Rumble U</a></li>
+				<li><a href="/dungeoninfinity/">Mystery Dungeon: Gates to Infinity</a></li>
+				<li><a href="/conquest/">Pokémon Conquest</a></li>
+				<li><a href="/pokepark2/">PokéPark 2: Wonders Beyond</a></li>
+				<li><a href="/rumble2/">Pokémon Rumble Blast</a></li>
+				<li><a href="/pokedex3d/">Pokédex 3D</a></li>
+				<li><a href="/pokedex3dpro/">Pokédex 3D Pro</a></li>
+				<li><a href="/typingds/">Learn With Pokémon: Typing Adventure</a></li>
+				<li><a href="/card/howtoplayds/">TCG How to Play DS</a></li>
+				<li><a href="/pokedexios/">Pokédex for iOS</a></li>
+				<li><a href="/pokemon/generation4.shtml"><b>Gen IV</b></a></li>
+				<li><a href="/diamondpearl/">Diamond & Pearl</a></li>
+				<li><a href="/platinum/">Platinum</a></li>
+				<li><a href="/heartgoldsoulsilver/">Heart Gold & Soul Silver</a></li>
+				<li><a href="/ranger3/">Pokémon Ranger: Guardian Signs</a></li>
+				<li><a href="/melee/">Pokémon Rumble</a></li>
+				<li><a href="/dungeon3/">Mystery Dungeon: Blazing, Stormy & Light Adventure Squad</a></li>
+				<li><a href="/pokepark/">PokéPark Wii - Pikachu's  Adventure</a></li>
+				<li><a href="/battle/">Pokémon Battle Revolution</a></li>
+				<li><a href="/dungeonsky/">Mystery Dungeon - Explorers of Sky</a></li>
+				<li><a href="/ranger2/">Pokémon Ranger: Shadows of Almia</a></li>
+				<li><a href="/dungeon2/">Mystery Dungeon - Explorers of Time & Darkness</a></li>
+				<li><a href="/ranch/">My Pokémon Ranch</a></li>
+				<li><a href="/ssbb/">Smash Bros Brawl</a></li>
+				<li><a href="/pokemon/generation3.shtml"><b>Gen III</b></a></li>
+				<li><a href="/rubysapphire/">Ruby & Sapphire</a></li>
+				<li><a href="/fireredleafgreen/">Fire Red & Leaf Green</a></li>
+				<li><a href="/emerald/">Emerald</a></li>
+				<li><a href="/colosseum/">Pokémon Colosseum</a></li>
+				<li><a href="/xd/">Pokémon XD: Gale of Darkness</a></li>
+				<li><a href="/dash/">Pokémon Dash</a></li>
+				<li><a href="/pokemon_channel/">Pokémon Channel</a></li>
+				<li><a href="/pokemon_box/">Pokémon Box: RS</a></li>
+				<li><a href="/pinball_rs/">Pokémon Pinball RS</a></li>
+				<li><a href="/ranger/">Pokémon Ranger</a></li>
+				<li><a href="/mysteriousdungeon/">Mystery Dungeon Red & Blue</a></li>
+				<li><a href="/torouze/">PokémonTrozei</a></li>
+				<li><a href="/pikachu/">Pikachu DS Tech Demo</a></li>
+				<li><a href="/pokeparkfish/">PokéPark Fishing Rally</a></li>
+				<li><a href="/e-reader/">The E-Reader</a></li>
+				<li><a href="/pokemate/">PokéMate</a></li>
+				<li><a href="/pokemon/generation2.shtml"><b>Gen II</b></a></li>
+				<li><a href="/gs/">Gold/Silver</a></li>
+				<li><a href="/crystal/">Crystal</a></li>
+				<li><a href="/stadium2/">Pokémon Stadium 2</a></li>
+				<li><a href="/puzzlechallenge/">Pokémon Puzzle Challenge</a></li>
+				<li><a href="/mini/">Pokémon Mini</a></li>
+				<li><a href="/smash_bros_2/">Super Smash Bros. Melee</a></li>
+				<li><a href="/pokemon/generation1.shtml"><b>Gen I</b></a></li>
+				<li><a href="/rb/">Red, Blue & Green</a></li>
+				<li><a href="/yellow/">Yellow</a></li>
+				<li><a href="/puzzleleague/">Pokémon Puzzle League</a></li>
+				<li><a href="/snap/">Pokémon Snap</a></li>
+				<li><a href="/pinball/">Pokémon Pinball</a></li>
+				<li><a href="/stadiumjp/">Pokémon Stadium (Japanese)</a></li>
+				<li><a href="/stadium/">Pokémon Stadium</a></li>
+				<li><a href="/tradingcardgamegb/">Pokémon Trading Card Game GB</a></li>
+				<li><a href="/smash_bros/">Super Smash Bros.</a></li>
+
+				<li><strong>Miscellaneous</strong></li>
+				<li><a href="/games/mechanics.shtml">Game Mechanics</a></li>
+				<li><a href="/playpokemon">Pokémon Championship Series</a></li>
+				<li><a href="/games/others.shtml">In Other Games</a></li>
+				<li><a href="/games/virtualconsole.shtml">Virtual Console</a></li>
+				<li><a href="/games/consoles.shtml">Special Edition Consoles</a></li>
+				<li><a href="/games/themes.shtml">Pokémon 3DS Themes</a></li>
+				<li><a href="/apps">Smartphone & Tablet Apps</a></li>
+				<li><a href="/virtualpet">Virtual Pets</a></li>
+				<li><a href="/amiibo">amiibo</a></li>
+				<li><a href="/nintendoswitchonline/">Nintendo Switch Online & Icons</a></li>
+				<li><strong>Board Game</strong></li>
+				<li><a href="/pokemongoita">Pokémon Goita</a></li>
+				<li><strong>Arcade</strong></li>
+				<li><a href="/frienda">Pokémon FRIENDA</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/manga/" class="navheader">Manga</a>
+			<ul>
+				<li><a href="/manga/">General Information</a>
+				<li><a href="/manga/dex">MangaDex</a></li>
+				<li><a href="/manga/characters">Character BIOs</a></li>
+				<li><a href="/manga/characters-new">Detailed BIOs</a></li>
+				<li><a href="/manga/chapter.shtml">Chapter Guides</a></li>
+				<li><a href="/manga/volume.shtml">Volume Guides</a></li>
+				<li><a href="/manga/rby/">RBG Series</a></li>
+				<li><a href="/manga/yellow/">Yellow Series</a></li>
+				<li><a href="/manga/gsc/">GSC Series</a></li>
+				<li><a href="/manga/rs/">RS Series</a></li>
+				<li><a href="/manga/frlg/">FRLG Series</a></li>
+				<li><a href="/manga/bf/">Emerald Series</a></li>
+				<li><a href="/manga/dp/">DP Series</a></li>
+				<li><a href="/manga/pt/">Platinum Series</a></li>
+				<li><a href="/manga/hgss/">HGSS Series</a></li>
+				<li><a href="/manga/bw/">BW Series</a></li>
+				<li><a href="/manga/b2w2/">B2W2 Series</a></li>
+				<li><a href="/manga/xy/">XY Series</a></li>
+				<li><a href="/manga/oras/">ORAS Series</a></li>
+				<li><a href="/manga/sunmoon/">SM Series</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/movies/" class="navheader">Movies</a>
+			<ul>
+				<li><strong>Anime</strong></li>
+				<li><a href="/movies/mewtwo/origin/">The Origin of Mewtwo</a></li>
+				<li><a href="/movies/mewtwo/">Mewtwo Strikes Back</a></li>
+				<li><a href="/movies/lugia/">The Power of One</a></li>
+				<li><a href="/movies/entei/">Spell Of The Unown</a></li>
+				<li><a href="/anime/epiguide/specials/002.shtml">Mewtwo Returns</a></li>
+				<li><a href="/movies/serebii/">Celebi: Voice of the Forest</a></li>
+				<li><a href="/movies/latias_latios/">Pokémon Heroes</a></li>
+				<li><a href="/movies/jirachi/">Jirachi - Wish Maker</a></li>
+				<li><a href="/movies/deoxys/">Destiny Deoxys!</a></li>
+				<li><a href="/movies/mew/">Lucario and the Mystery of Mew!</a></li>
+				<li><a href="/movies/kyogre/">Pokémon Ranger & The Temple of the Sea!</a></li>
+				<li><a href="/movies/dp/">The Rise of Darkrai!</a></li>
+				<li><a href="/movies/giratina/">Giratina & The Sky Warrior!</a></li>
+				<li><a href="/movies/arceus/">Arceus and the Jewel of Life</a></li>
+				<li><a href="/movies/celebi/">Zoroark - Master of Illusions</a></li>
+				<li><a href="/movies/victini/">Black: Victini & ReshiramWhite: Victini & Zekrom</a></li>
+				<li><a href="/movies/kyurem/">Kyurem VS The Sword of Justice</a></li>
+				<li><a href="/movies/meloetta/">-Meloetta's Midnight Serenade</a></li>
+				<li><a href="/movies/genesect/">Genesect and the Legend Awakened</a></li>
+				<li><a href="/movies/xy/">Diancie & The Cocoon of Destruction</a></li>
+				<li><a href="/movies/hoopa/">Hoopa & The Clash of Ages</a></li>
+				<li><a href="/movies/volcanion/">Volcanion and the Mechanical Marvel</a></li>
+				<li><a href="/movies/pokemon20/">Pokémon I Choose You!</a></li>
+				<li><a href="/movies/thepowerofus/">Pokémon The Power of Us</a></li>
+				<li><a href="/movies/mewtwoevolution/">Mewtwo Strikes Back Evolution</a></li>
+				<li><a href="/movies/secretsofthejungle/">Secrets of the Jungle</a></li>
+				<li><a href="/movies/pokemonwildcard/">Wild Card</a></li>
+				<li><strong>Live Action</strong></li>
+				<li><a href="/movies/detectivepikachu/">Pokémon Detective Pikachu</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/movies/" class="navheader">Pikachu Shorts</a>
+			<ul>
+				<li><a href="/movies/pikachu1/">Pikachu's Summer Vacation</a></li>
+				<li><a href="/movies/pikachu2/">Pikachu's Rescue Adventure</a></li>
+				<li><a href="/movies/pikachu3/">Pikachu And Pichu</a></li>
+				<li><a href="/movies/pikachu4/">Pikachu's PikaBoo</a></li>
+				<li><a href="/movies/pikachu5/">Camp Pikachu!</a></li>
+				<li><a href="/movies/pikachu6/">Gotta Dance!!</a></li>
+				<li><a href="/movies/pikachu7/">Pikachu's Summer Festival!</a></li>
+				<li><a href="/movies/pikachu8/">Pikachu's Ghost Festival!</a></li>
+				<li><a href="/movies/pikachu9/">Pikachu's Island Adventure!</a></li>
+				<li><a href="/movies/pikachu10/">Pikachu's Exploration Club</a></li>
+				<li><a href="/movies/pikachu11/">Pikachu's Great Ice Adventure</a></li>
+				<li><a href="/movies/pikachu12/">Pikachu's Sparkling Search</a></li>
+				<li><a href="/movies/pikachu13/">Pikachu's Really Mysterious Adventure</a></li>
+				<li><a href="/movies/eevee/">Eevee & Friends</a></li>
+				<li><a href="/movies/klefki/">Pikachu, What's This Key?</a></li>
+				<li><a href="/movies/pikachumusic/">Pikachu & The Pokémon Music Squad</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="/card/" class="navheader">Trading Cards</a>
+			<ul>
+				<li><a href="/tcglive/">Pokémon TCG Live</a></li>
+				<li><a href="/card/dex/">Cardex</a></li>
+				<li><a href="/card/dex/extra">-Extra Pokémon Types</a></li>
+				<li><a href="/card/dex/trainers">Trainer Cards</a></li>
+				<li><a href="/card/dex/energy">Energy Cards</a></li>
+				<li><a href="/card/dex/extra/altart.shtml">Alternate Art Cards</a></li>
+				<li><a href="/card/raidbattles">Raid Battles</a></li>
+				<li><a href="/card/classic/">Pokémon TCG Classic</a></li>
+				<li><a href="/card/english.shtml"><b>English Sets</b></a></li>
+				<li><a href="/card/deltareign/">-Delta Reign</a></li>
+				<li><a href="/card/30thcelebration/">-30th Celebration</a></li>
+				<li><a href="/card/pitchblack/">-Pitch Black</a></li>
+				<li><a href="/card/chaosrising/">-Chaos Rising</a></li>
+				<li><a href="/card/perfectorder/">-Perfect Order</a></li>
+				<li><a href="/card/ascendedheroes/">-Ascended Heroes</a></li>
+				<li><a href="/card/phantasmalflames/">-Phantasmal Flames</a></li>
+				<li><a href="/card/megaevolution/">-Mega Evolution</a></li>
+				<li><a href="/card/blackbolt/">-Black Bolt</a></li>
+				<li><a href="/card/whiteflare/">-White Flare</a></li>
+				<li><a href="/card/destinedrivals/">-Destined Rivals</a></li>
+				<li><a href="/card/journeytogether/">-Journey Together</a></li>
+				<li><a href="/card/prismaticevolutions/">-Prismatic Evolutions</a></li>
+				<li><a href="/card/surgingsparks/">-Surging Sparks</a></li>
+				<li><a href="/card/stellarcrown/">-Stellar Crown</a></li>
+				<li><a href="/card/shroudedfable/">-Shrouded Fable</a></li>
+				<li><a href="/card/twilightmasquerade/">-Twilight Masquerade</a></li>
+				<li><a href="/card/temporalforces/">-Temporal Forces</a></li>
+				<li><a href="/card/paldeanfates/">-Paldean Fates</a></li>
+				<li><a href="/card/paradoxrift/">-Paradox Rift</a></li>
+				<li><a href="/card/151/">-151</a></li>
+				<li><a href="/card/obsidianflames/">-Obsidian Flames</a></li>
+				<li><a href="/card/paldeaevolved/">-Paldea Evolved</a></li>
+				<li><a href="/card/scarletviolet/">-Scarlet Violet</a></li>
+				<li><a href="/card/swsh.shtml">-SWSH Series</a></li>
+				<li><a href="/card/sm.shtml">-SM Series</a></li>
+				<li><a href="/card/xy.shtml">-XY Series</a></li>
+				<li><a href="/card/bw.shtml">-BW Series</a></li>
+				<li><a href="/card/dpt.shtml">-DPtHS Series</a></li>
+				<li><a href="/card/ex.shtml">-EX Series</a></li>
+				<li><a href="/card/neo.shtml">-Neo/eSeries</a></li>
+				<li><a href="/card/first.shtml">-First Gen Series</a></li>
+				<li><a href="/card/engpromo.shtml"><b>English Promos</b></a></li>
+				<li><a href="/card/megapromos">-Mega Promos</a></li>
+				<li><a href="/card/svpromos">-SV Promos</a></li>
+				<li><a href="/card/swshpromos">-SWSH Promos</a></li>
+				<li><a href="/card/smpromos">-SM Promos</a></li>
+				<li><a href="/card/xypromos">-XY Promos</a></li>
+				<li><a href="/card/popseries.shtml">-POP Series</a></li>
+				<li><a href="/card/japanese.shtml"><b>Japanese Sets</b></a></li>
+				<li><a href="/card/abysseye/">-Abyss Eye</a></li>
+				<li><a href="/card/ninjaspinner/">-Ninja Spinner</a></li>
+				<li><a href="/card/nihilzero/">-Nihil Zero</a></li>
+				<li><a href="/card/megadreamex/">-Mega Dream ex</a></li>
+				<li><a href="/card/infernox/">-Inferno X</a></li>
+				<li><a href="/card/megabrave/">-Mega Brave</a></li>
+				<li><a href="/card/megasymphonia/">-Mega Symphonia</a></li>
+				<li><a href="/card/blackbolt-jp/">-Black Bolt</a></li>
+				<li><a href="/card/whiteflare-jp/">-White Flare</a></li>
+				<li><a href="/card/gloryofteamrocket/">-Glory of Team Rocket</a></li>
+				<li><a href="/card/hotairarena/">-Hot Air Arena</a></li>
+				<li><a href="/card/battlepartners/">-Battle Partners</a></li>
+				<li><a href="/card/terastalfestivalex/">-Terastal Festival ex</a></li>
+				<li><a href="/card/superelectricbreaker/">-Super Electric Breaker</a></li>
+				<li><a href="/card/paradisedragona/">-Paradise Dragona</a></li>
+				<li><a href="/card/stellarmiracle/">-Stellar Miracle</a></li>
+				<li><a href="/card/nightwanderer/">-Night Wanderer</a></li>
+				<li><a href="/card/maskofchange/">-Mask of Change</a></li>
+				<li><a href="/card/crimsonhaze/">-Crimson Haze</a></li>
+				<li><a href="/card/wildforce/">-Wild Force</a></li>
+				<li><a href="/card/cyberjudge/">-Cyber Judge</a></li>
+				<li><a href="/card/vstaruniverse/">-VSTAR Universe</a></li>
+				<li><a href="/card/vs">-Pokémon VS</a></li>
+				<li><a href="/card/jppromo.shtml"><b>Japanese Promos</b></a></li>
+				<li><a href="/card/svpromo">-SV Promos</a></li>
+				<li><a href="/card/spromo">-S Promos</a></li>
+				<li><a href="/card/smpromo">-SM Promos</a></li>
+
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+
+<script type="text/javascript">
+
+function loadMobileLbar(){
+	var tbar_lbar_open=document.getElementById('tbar_lbar_open'),
+		tbar_backdrop=document.getElementById('tbar_backdrop'),
+		lbar=document.getElementById('lbar'),
+		lbarLIs=document.querySelectorAll("#lbar_ul>li .navheader"),
+		lbarLIULs=document.querySelectorAll("#lbar_ul>li>ul");
+
+	/* lbar display/hide */
+	tbar_lbar_open.onclick=function() {
+		if (lbar.className.indexOf("show") > -1){//hide
+			lbar.className = lbar.className.replace("show","");
+			bodyRemoveClass("nav_modal");
+		} else{//show
+			lbar.classList.add("show");
+			bodyAddClass("nav_modal");
+		}
+
+		return false;
+	}
+
+
+	/* background clicked when bar shown */
+	tbar_backdrop.onclick=function() {// if the backdrop is clicked, hide menus
+		lbar.className = lbar.className.replace("show","");
+		rbar.className = rbar.className.replace("show","");
+		bodyRemoveClass("nav_modal");
+		return false;
+	}
+
+	/* handle expand/collapse sub-menus in lbar by attaching click events */
+	for(i=0; i<lbarLIs.length; i++){
+		lbarLIs[i].onclick=function(i) {
+			var elem=this.parentNode.getElementsByTagName("UL")[0];
+			var elemDisp=(elem.className.indexOf("show") === -1)
+
+			// hide all ul, then open one if clicked
+			for(i2=0; i2<lbarLIULs.length; i2++){
+				lbarLIULs[i2].className = lbarLIULs[i2].className.replace("show","");
+			}
+
+			if(elemDisp){
+				elem.classList.add("show");
+			}
+
+			return false;
+		}
+	}
+}
+function loadMobileRbar(){
+	var tbar_rbar_open=document.getElementById('tbar_rbar_open'),
+		rbar=document.getElementById('rbar');
+
+	/* rbar display/hide */
+	tbar_rbar_open.onclick=function() {
+		if (rbar.className.indexOf("show") > -1){//hide
+			rbar.className = rbar.className.replace("show","");
+			bodyRemoveClass("nav_modal");
+		} else{//show
+			rbar.classList.add("show");
+			bodyAddClass("nav_modal");
+		}
+
+		return false;
+	}
+}
+
+loadMobileLbar();
+
+/* attach listener to for rbar events AFTER page loads (because #rbar hasn't loaded at this point in page ) */
+if(window.addEventListener){
+	window.addEventListener('load', loadMobileRbar)
+} else{
+	window.attachEvent('onload', loadMobileRbar)
+}
+</script>
+
+
+
+<div id="content">
+		<div class="center" style="margin-top:16px;height:100px"><div id="nn_lb1"></div><div id="nn_mobile_lb1"></div></div>
+<main>
+<p>In addition to the Pok&eacute;mon figures that are used in gameplay, there are also a number of Plates that can be used. Plates are comparable to Trainer cards in the Pok&eacute;mon Trading Card Game in that they will give you special effects for your Pok&eacute;mon such as boosting their attack damage or healing them. They are obtained by Trevo, obtained at the end of a stage in the reward wheel, or by purchasing them outright in the shop.</p>
+<p>Each plate has got a specific cost and you cannot have the cost of the plates exceed 8 in your deck. Each plate can only be used once per game.</p>
+<table class="tab" align="center">
+	<tr>
+		<td class="fooevo">ID No.</td>
+		<td class="fooevo" width="32">Icon</td>
+		<td class="fooevo">Plate Title</td>
+		<td class="fooevo">Rarity</td>
+		<td class="fooevo">Cost</td>
+		<td class="fooevo" width="60%">Effect</td>
+	</tr>
+	<tr>
+		<td class="cen">ID-1</td>
+		<td class="cen" width="32"><img src="/duel/platepurple.png" alt="Purple" width="32" /></td>
+		<td class="fooinfo">Long Throw</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Move one Pok&eacute;mon from your bench to one space away from your entry point. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-2</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Bright Powder</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field. For this turn, you can make any battle opponent of this Pok&eacute;mon spin again once.</td>
+	</tr>	<tr>
+		<td class="cen">ID-3</td>
+		<td class="cen" width="32"><img src="/duel/plategreen.png" alt="Green" width="32" /></td>
+		<td class="fooinfo">Recycle</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">All Plates from both players except Recycle become usable. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-4</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">X Sp. Atk</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field or bench. For this turn, it has &star;+2</td>
+	</tr>	<tr>
+		<td class="cen">ID-5</td>
+		<td class="cen" width="32"><img src="/duel/platepink.png" alt="Pink" width="32" /></td>
+		<td class="fooinfo">Max Revive</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Choose on of your Pok&eacute;mon in the P.C. Move that Pok&eacute;mon to the bench. (It will not gain Wait.)</td>
+	</tr>	<tr>
+		<td class="cen">ID-6</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Desparate Times</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field or bench. For this turn, if that Pok&eacute;mon spins an attack between 10 and 50 damage, it deals +50 damage</td>
+	</tr>	<tr>
+		<td class="cen">ID-7</td>
+		<td class="cen" width="32"><img src="/duel/plateblue.png" alt="Blue" width="32" /></td>
+		<td class="fooinfo">Double Chance</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose a Pok&eacute;mon on the field or bench. (You cannot select unusable Pok&eacute;mon) For this turn, you can choose to respin once for it.</td>
+	</tr>	<tr>
+		<td class="cen">ID-8</td>
+		<td class="cen" width="32"><img src="/duel/platepink.png" alt="Pink" width="32" /></td>
+		<td class="fooinfo">Clear Wait</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field or bench. This Pok&eacute;mon cannot have Wait.</td>
+	</tr>	<tr>
+		<td class="cen">ID-9</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Focus Band</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Select a Pok&eacute;mon on the Field or on your Bench. This turn, the Pok&eacute;mon cannot be Knocked Out by attacks.</td>
+	</tr>	<tr>
+		<td class="cen">ID-10</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Full Heal</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field. Remove all special conditions from that Pok&eacute;mon. (This excludes Wait.)</td>
+	</tr>	<tr>
+		<td class="cen">ID-11</td>
+		<td class="cen" width="32"><img src="/duel/platepurple.png" alt="Purple" width="32" /></td>
+		<td class="fooinfo">Scoop Up</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field. Return it to the bench.</td>
+	</tr>	<tr>
+		<td class="cen">ID-12</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">X Attack</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field or bench. For this turn, it deals +30 damage</td>
+	</tr>	<tr>
+		<td class="cen">ID-13</td>
+		<td class="cen" width="32"><img src="/duel/platepurple.png" alt="Purple" width="32" /></td>
+		<td class="fooinfo">Pok&eacute;mon Switch</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose two of your Pok&eacute;mon on the field or bench and switch their positions. Your turn ends. (You cannot select two Pok&eacute;mon from the Bench)</td>
+	</tr>	<tr>
+		<td class="cen">ID-14</td>
+		<td class="cen" width="32"><img src="/duel/platepurple.png" alt="Purple" width="32" /></td>
+		<td class="fooinfo">Swap Spot</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Switch 1 of your Pok&eacute;mon with another of your Pok&eacute;mon on the field</td>
+	</tr>	<tr>
+		<td class="cen">ID-15</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">X Defend</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field or bench. For this turn, if its opponent deals 10-100 damage in battle, this Pok&eacute;mon will not be knocked out</td>
+	</tr>	<tr>
+		<td class="cen">ID-16</td>
+		<td class="cen" width="32"><img src="/duel/plateblue.png" alt="Blue" width="32" /></td>
+		<td class="fooinfo">No Guard</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field or bench. For this turn, it can spin again once if it spins a Blue Attack.</td>
+	</tr>	<tr>
+		<td class="cen">ID-17</td>
+		<td class="cen" width="32"><img src="/duel/platepurple.png" alt="Purple" width="32" /></td>
+		<td class="fooinfo">Quick Care</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field. If there is space in your P.C., move it there. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-18</td>
+		<td class="cen" width="32"><img src="/duel/platepurple.png" alt="Purple" width="32" /></td>
+		<td class="fooinfo">Priority Recovery</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Switch the order of your Pok&eacute;mon in the P.C. You cannot use this Plate if there are less than 2 Pok&eacute;mon in the P.C. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-19</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Ballast</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field. For this turn, it cannot be affected by Whirlwind.</td>
+	</tr>	<tr>
+		<td class="cen">ID-20</td>
+		<td class="cen" width="32"><img src="/duel/platepink.png" alt="Pink" width="32" /></td>
+		<td class="fooinfo">Awakening</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field. That Pok&eacute;mon is no longer asleep</td>
+	</tr>	<tr>
+		<td class="cen">ID-21</td>
+		<td class="cen" width="32"><img src="/duel/platepink.png" alt="Pink" width="32" /></td>
+		<td class="fooinfo">Paralyz Heal</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field. That Pok&eacute;mon is no longer paralysed</td>
+	</tr>	<tr>
+		<td class="cen">ID-22</td>
+		<td class="cen" width="32"><img src="/duel/platepink.png" alt="Pink" width="32" /></td>
+		<td class="fooinfo">Confuse Heal</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field. That Pok&eacute;mon is no longer confusion</td>
+	</tr>	<tr>
+		<td class="cen">ID-23</td>
+		<td class="cen" width="32"><img src="/duel/platepink.png" alt="Pink" width="32" /></td>
+		<td class="fooinfo">Antidote</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field. That Pok&eacute;mon is no longer Poisoned or noxious.</td>
+	</tr>	<tr>
+		<td class="cen">ID-24</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Iron Power</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Steel-type Pok&eacute;mon deal +20 damage. This effect lasts until one of your opponent's Pok&eacute;mon is knocked out by a Steel-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-25</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Dread Power</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Dark-type Pok&eacute;mon deal +20 damage. This effect lasts until one of your opponent's Pok&eacute;mon is knocked out by a Dark-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-26</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Flame Power</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Fire-type Pok&eacute;mon deal +20 damage. This effect lasts until one of your opponent's Pok&eacute;mon is knocked out by a Fire-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-27</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Meadow Power</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Grass-type Pok&eacute;mon deal +20 damage. This effect lasts until one of your opponent's Pok&eacute;mon is knocked out by a Grass-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-28</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Splash Power</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Water-type Pok&eacute;mon deal +20 damage. This effect lasts until one of your opponent's Pok&eacute;mon is knocked out by a Water-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-39</td>
+		<td class="cen" width="32"><img src="/duel/platepurple.png" alt="Purple" width="32" /></td>
+		<td class="fooinfo">Invisibility Cape</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">3</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the bench. For this turn, it can move through other Pok&eacute;mon when making an MP move</td>
+	</tr>	<tr>
+		<td class="cen">ID-40</td>
+		<td class="cen" width="32"><img src="/duel/plateblue.png" alt="Blue" width="32" /></td>
+		<td class="fooinfo">Power Battle</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Choose on of your Pok&eacute;mon on the field or bench. For this turn, if this Pok&eacute;mon or its opponent spins a Purple Attack in battle, they must both spin once again.</td>
+	</tr>	<tr>
+		<td class="cen">ID-41</td>
+		<td class="cen" width="32"><img src="/duel/platepurple.png" alt="Purple" width="32" /></td>
+		<td class="fooinfo">Hurdle Jump</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field and move it over a connected Pok&eacute;mon. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-42</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Mind Power</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Psychic-type Pok&eacute;mon deal +20 damage. This effect lasts until one of your opponent's Pok&eacute;mon is knocked out by a Psychic-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-49</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Toxic Power</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Poison-type Pok&eacute;mon deal +20 damage. This effect lasts until one of your opponent's Pok&eacute;mon is knocked out by a Poison-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-50</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Draco Power</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Dragon-type Pok&eacute;mon deal +20 damage. This effect lasts until one of your opponent's Pok&eacute;mon is knocked out by a Dragon-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-53</td>
+		<td class="cen" width="32"><img src="/duel/platepurple.png" alt="Purple" width="32" /></td>
+		<td class="fooinfo">Switcheroo</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the bech. Switch it with one of your Pok&eacute;mon from your P.C. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-56</td>
+		<td class="cen" width="32"><img src="/duel/platepurple.png" alt="Purple" width="32" /></td>
+		<td class="fooinfo">Goal Block</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field and move it to your goal point if it is open. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-57</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Clay Power</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Ground-type Pok&eacute;mon deal +20 damage. This effect lasts until one of your opponent's Pok&eacute;mon is knocked out by a Ground-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-61</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Spooky Power</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Ghost-type Pok&eacute;mon deal +20 damage. This effect lasts until one of your opponent's Pok&eacute;mon is knocked out by a Ghost-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-73</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Zap Power</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Electric-type Pok&eacute;mon deal +20 damage. This effect lasts until one of your opponent's Pok&eacute;mon is knocked out by a Electric-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-80</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Ice Heal</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field. That Pok&eacute;mon is no longer frozen</td>
+	</tr>	<tr>
+		<td class="cen">ID-90</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Burn Heal</td>
+		<td class="cen"><img src="/duel/c.png" /> C</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field. That Pok&eacute;mon is no longer burned</td>
+	</tr>	<tr>
+		<td class="cen">ID-91</td>
+		<td class="cen" width="32"><img src="/duel/plateblue.png" alt="Blue" width="32" /></td>
+		<td class="fooinfo">X Speed</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Pok&eacute;mon on the field or bench. For this turn, one of this Pok&eacute;mon's White Attacks will be changed to a Gold Attack before battle</td>
+	</tr>	<tr>
+		<td class="cen">ID-303</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Force Remove</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">This Plate can be used when you have Pok&eacute;mon on all of your opponent's entry points. Select one of your Pok&eacute;mon on the field or bench. If that Pok&eacute;mon's attack knocks a Pok&eacute;mon out that turn, it will be eliminated from the duel</td>
+	</tr>	<tr>
+		<td class="cen">ID-304</td>
+		<td class="cen" width="32"><img src="/duel/platepurple.png" alt="Purple" width="32" /></td>
+		<td class="fooinfo">Counter Attack</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">This plate can be used when you have enemy Pok&eacute;mon on all of your entry points. Select one of your Pok&eacute;mon on the field. That Pok&eacute;mon will have MP + 1 for that turn.</td>
+	</tr>	<tr>
+		<td class="cen">ID-306</td>
+		<td class="cen" width="32"><img src="/duel/plateblue.png" alt="Blue" width="32" /></td>
+		<td class="fooinfo">X Accuracy</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select one of your Pok&eacute;mon on the field or bench. If the Attack for that Pok&eacute;mon is a miss that turn, it will shift to the adjacent attack.</td>
+	</tr>	<tr>
+		<td class="cen">ID-312</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Burn Drive</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select your Genesect from the field or bench. During this turn, if your Pok&eacute;mon's move lands of Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pok&eacute;mon is a Grass-type, Ice-type, Bug-type or Steel-type, the opponent will be removed from the duel.</td>
+	</tr>	<tr>
+		<td class="cen">ID-313</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Douse Drive</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select your Genesect from the field or bench. During this turn, if your Pok&eacute;mon's move lands of Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pok&eacute;mon is a Fire-type, Ground-type or Rock-type, the opponent will be removed from the duel.</td>
+	</tr>	<tr>
+		<td class="cen">ID-314</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Chill Drive</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select your Genesect from the field or bench. During this turn, if your Pok&eacute;mon's move lands of Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pok&eacute;mon is a Grass-type, Ground-type, Flying-type or Dragon-type, the opponent will be removed from the duel.</td>
+	</tr>	<tr>
+		<td class="cen">ID-315</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Shock Drive</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select your Genesect from the field or bench. During this turn, if your Pok&eacute;mon's move lands of Miss, it will shift to the move next to it instead. Also, if the Fainted opposing Pok&eacute;mon is a Water-type or Flying-type, the opponent will be removed from the duel.</td>
+	</tr>	<tr>
+		<td class="cen">ID-316</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Burn Drive EX</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select 1 of your Genesect on the fieldor on the bench. During this turn, that Pok&eacute;mon can re-spin 1 time during battle. Also, if the fainted battle opponent is a Grass-type, Ice-type, Bug-type or Steel-type, the opponent will be excluded from the duel.</td>
+	</tr>	<tr>
+		<td class="cen">ID-317</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Douse Drive EX</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select 1 of your Genesect on the fieldor on the bench. During this turn, that Pok&eacute;mon can re-spin 1 time during battle. Also, if the fainted battle opponent is a Fire-type, Ground-type or Rock-type, the opponent will be excluded from the duel.</td>
+	</tr>	<tr>
+		<td class="cen">ID-318</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Chill Drive EX</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select 1 of your Genesect on the fieldor on the bench. During this turn, that Pok&eacute;mon can re-spin 1 time during battle. Also, if the fainted battle opponent is a Grass-type, Ground-type, Flying-type or Dragon-type, the opponent will be excluded from the duel.</td>
+	</tr>	<tr>
+		<td class="cen">ID-319</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Shock Drive EX</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select 1 of your Genesect on the fieldor on the bench. During this turn, that Pok&eacute;mon can re-spin 1 time during battle. Also, if the fainted battle opponent is a Water-type or Flying-type, the opponent will be excluded from the duel.</td>
+	</tr>	<tr>
+		<td class="cen">ID-320</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Cosmo Energy</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">During this duel, when your Deoxys is attacked, before the battle, you may switch that Deoxys with another of your Deoxys on the field or bench. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-321</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Flame Energy</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">During this duel, your Fire-type Pok&eacute;mon cannot be frozen or burned. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-323</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Overdrive</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose on of your Reshiram, Zekrom, Black Kyurem or White Kyurem on the field. Remove all special conditions affecting that Pok&eacute;mon. (Except Wait.). While that Pok&eacute;mon is on the field, that Pok&eacute;mon deals +30 damage</td>
+	</tr>	<tr>
+		<td class="cen">ID-324</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Land's Energy</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">During this duel, the effect of Land's Wrath from your Zygarde becomes "Spin for all of the opponent's Pok&eacute;mon on the field, excluding Flying-types. If it lands on Purple Attacks, the Pok&eacute;mon Faints". Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-325</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">	el</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose 1 of your Rhyperior on the field or bench. Until the end of the duel, the effect of that Rhyperior's Rock Wrecker becomes: : "Knock out 1 of your opponent's Fire, Ice, Flying or Bug-type Pok&eacute;mon that are 1, 2 or 3 steps away." Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-328</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Concentrated Fertilizer</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select 1 of your Grass-type pok&eacute;mon on the field or bench. For this turn, that Pok&eacute;mon gains &star;+1. It also gains damage +20</td>
+	</tr>	<tr>
+		<td class="cen">ID-329</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Sticky Grass</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select one of your Grass-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, the battle opponent of that Pok&eacute;mon cannot respin. Spin-again effects are trated as single spins only.</td>
+	</tr>	<tr>
+		<td class="cen">ID-331</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Tropical Energy</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Any special conditions are removed from your Grass-, Flying-, and Bug-type Pok&eacute;mon. During this duel, the effects of Abilities that allow you or your opponent to respin or force respins in battle are nullified for the battle opponents of your Grass-, Flying- and Bug-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-332</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Dark Energy</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">During this duel, if the opponent Pok&eacute;mon is a Psychic-type, your Dark-type Pok&eacute;mon are not knocked out in battle, but are moved to the bench and gain Wait instead. And, when you have two or more Dark-type Pok&eacute;mon on the field, Energy effects on your opponent's Psychic and Ghost-type Pok&eacute;mon are nullified. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-333</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Phantom Energy</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">During this duel, your Ghost-type Pok&eacute;mon can move over Pok&eacute;mon affected by special conditions when using an MP move. In addition, when one or more of your Ghost-type Pok&eacute;mon surround an opposing Pok&eacute;mon, if there are three or more opposing Pok&eacute;mon on the field or on your opponent's bench with the same name as the surrounded Pok&eacute;mon, remove the surrounded Pok&eacute;mon from the game. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-335</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Steel Energy</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">During this duel, your Steel-type Pok&eacute;mon cannot become poisoned or noxious and the damage of one of each of those Pok&eacute;mon's most highly damaging White Attacks that normally deal at least 10 damage is increased by 10. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-336</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Poison Blade</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select one of your Steel-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, the White Attacks of that Pok&eacute;mon gain: The battle opponent becomes Poisoned.</td>
+	</tr>	<tr>
+		<td class="cen">ID-338</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Muscle Energy</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Remove the sleep and frozen conditions, Mp-1 and MP -2 markers and Wait from all of your Fight-type Pok&eacute;mon. During this duel, your Fighting-type Pok&eacute;mon gain +1 to the damage they deal after those Pok&eacute;mon move from P.C. to bench. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-339</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Mud Energy</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">During this duel, if there are 2 or more Water-type Pok&eacute;mon and 2 or more Ground-type Pok&eacute;mon on the field, your opponent's Pok&eacute;mon on the field get +1 to Wait effects that they receive. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-340</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Electro Energy</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Removes the paralyzed condition from all of your Electric-type Pok&eacute;mon. During this duel, if one of your Electric-type Pok&eacute;mon would deal damage, and there is an Electric-type Pok&eacute;mon adjacent to it, that damage increased by 10. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-341</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Molting Energy</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">During this duel, whenever one of your Bug-type or Flying-type Pok&eacute;mon moves from the P.C. to the bench, it can evolve. If it does, that Pok&eacute;mon gains Wait 3. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-343</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Eon Flute</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">During a duel, this plate can be used when your Latias or Latios is excluded from the duel. That one Latias or Latios appears on your bench. That Pok&eacute;mon is excluded from the duel after your next turn has ended.</td>
+	</tr>	<tr>
+		<td class="cen">ID-344</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Salamencite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Salamence on the field, and Mega Evolve it for 7turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-345</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Charizardite X</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Charizard on the field, and Mega Evolve it for 7turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-346</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Charizardite Y</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Charizard on the field, and Mega Evolve it for 7turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-347</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Beedrillite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Beedrill on the field, and Mega Evolve it for 7turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-365</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Venusaurite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Venusaur on the field, and Mega Evolve it for 7turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-366</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Blastoisinite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Blastoise on the field, and Mega Evolve it for 7turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-367</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Gengarite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Gengar on the field, and Mega Evolve it for 7turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-368</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Sceptilite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Sceptile on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-369</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Blazikenite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Blaziken on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-370</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Swampertite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Swampert on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-371</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Metal Coat</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Onix, Scyther, or Steel-type Pok&eacute;mon on the field. If you choose Onix or Scyther, evolveit. Until the end of the duel, battle opponents of the Pok&eacute;mon you chose, or the Pok&eacute;mon that evolved from it, have the effects of their Abilities that increase or decrease Attack damage nullified. This ends your turn.</td>
+	</tr>	<tr>
+		<td class="cen">ID-372</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Golden Module</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Choose one of your Genesect on the field or bench. For this turn, that Pok&eacute;mon's Purple Attack becomes the Gold Attack Extreme Speed 100. Also, if a battle opponent knocked out by that Pok&eacute;mon is a Dark or Fairy-type Pok&eacute;mon, that battle opponent is excluded from the duel.</td>
+	</tr>	<tr>
+		<td class="cen">ID-373</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Scizorite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Scizor on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-374</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Metal Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Steel-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, your Steel-type Pok&eacute;mon do not become poisoned or noxious and their White Attacks that deal 10 or more damage deal +10 damage. Your turn end.s The effects of this plate do not stack.</td>
+	</tr>	<tr>
+		<td class="cen">ID-375</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Phantom Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Ghost-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, your Ghost-type Pok&eacute;mon on the bench can move past Ghost-type Pok&eacute;mon and Pok&eacute;mon affected by special conditions. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-376</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Flame Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Fire-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, your Fire-type Pok&eacute;mon do not become frozen or burned, and they can MO move past burned Pok&eacute;mon on the field. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-377</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Electro Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Electric-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, your Electric-type Pok&eacute;mon deal +10 damage for each Electric-type Pok&eacute;mon next to them. Your Electric-type Pok&eacute;mon can MP move past Pok&eacute;mon that have Wait. Your turn ends. The effects of this plate do note stack.</td>
+	</tr>	<tr>
+		<td class="cen">ID-378</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Mewtwonite X</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Mewtwo on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-379</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Winged Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Bug-type Pok&eacute;mon or Flying-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, your Stage 1 or higher Bug- or Flying-type Pok&eacute;mon may MP move over opposing non-Flying-type Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-380</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Galladite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Gallade on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-381</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Mystic Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose 1 of your Fairy-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, your Fairy-type Pok&eacute;mon cannot have markers attached to them from the Attacks of other Pok&eacute;mon. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-382</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Sablenite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Sableye on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-383</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Mewtwonite Y</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Mewtwo on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-384</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Mighty Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Fighting-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, opposing Pok&eacute;mon surrounded by your Fighting-type Pok&eacute;mon move to your P.C. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-385</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Dark Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Dark-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, opposing Ghost-type Pok&eacute;mon and Psychic-type Pok&eacute;mon cannot pass through your Dark-type Pok&eacute;mon by the effects of Abilities. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-386</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Altarianite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Altaria on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-387</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Ampharosite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Ampharos on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-388</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Magnet</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Electric-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-389</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Sharp Beak</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Flying-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-390</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">DNA Splicers</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Kyurem on the field, and one of your Zekrom or Reshiram on the field or bench in the P.C.. Exclude that Zekrom or Reshiram from the duel, and change form of Kyurem to Black Kyurem or White Kyurem.</td>
+	</tr>	<tr>
+		<td class="cen">ID-391</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Miracle Seed</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Grass-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-392</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Never-Melt Ice</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Ice-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-393</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Microwave Oven</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Rotom, Wash Rotom, Frost Rotom, Fan Rotom or Mow Rotom on the field and change its form to Heat Rotom. Removes the burned condition from all Pok&eacute;mon. All Pok&eacute;mon become Fire-type Pok&eacute;mon for 9 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-394</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Washing Machine</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Rotom, Heat Rotom, Frost Rotom, Fan Rotom, or Mow Rotom on the field and change its form to Wash Rotom. Remove the poisoned condition from all Pok&eacute;mon. All Pok&eacute;mon become Water-type Pok&eacute;mon for 9 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-395</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Refrigerator</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Rotom, Heat Rotom, Wash Rotom, Fan Rotom or Mow Rotom on the field and change its form to Frost Rotom. Removes the burned condition from all Pok&eacute;mon. All Pok&eacute;mon become Ice-type Pok&eacute;mon for 9 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-396</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Electric Fan</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Rotom, Heat Rotom, Wash Rotom, Frost Rotom or Mow Roton on the field and change its form to Fan Rotom. Removes the Wait Condition from all Pok&eacute;mon. All Pok&eacute;mon become Flying-type Pok&eacute;mon for 9 turns</td>
+	</tr>	<tr>
+		<td class="cen">ID-397</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Lawnmower</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Rotom, Heat Rotom, Wash Rotom, Frost Rotom or Fan Rotom on the field and change its form to Mow Rotom. Remove the asleep condition from all Pok&eacute;mon. All Pok&eacute;mon become Grass-type Pok&eacute;mon for 9 turns</td>
+	</tr>	<tr>
+		<td class="cen">ID-398</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Tyranitarite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Tyranitar on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-399</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Aggronite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Aggron on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-400</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Gracidea</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Choose one of your Shaymin on the field and change its form to Sky Forme. If any of your Sharmin becomes knocked out, this plate returns to its unused state</td>
+	</tr>	<tr>
+		<td class="cen">ID-401</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Stony Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Rock-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, opposing Flying-type Pok&eacute;mon and Fairy-type Pok&eacute;mon cannot pass through your Rock-type Pok&eacute;mon by the effects of Abilities. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-402</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Hard Stone</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Rock-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-403</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Lucarionite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Lucario on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-404</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Houndoominite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Houndoom on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-405</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Charcoal</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Fire-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-406</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Meteoric Teachings</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Rayquaza on the field, and Mega Evolve it for 7 turns. That Rayquaza's Break Energy becomes Dragon Ascent 90 until the duel ends. If any of your Rayquaza or Mega Rayquaza become knocked out, this plate returns to its unused state.</td>
+	</tr>	<tr>
+		<td class="cen">ID-407</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Glalitite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Glalie on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-408</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Dragon Fang</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Dragon-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-409</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Dragon Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Dragon-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, your Dragon-type Pok&eacute;mon with MP 1 or lower get +1 MP. If those Pok&eacute;mon are not affected by a special condition, they can MP move over other Pok&eacute;mon on the field. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-410</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Blue Orb</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Choose one of your Kyogre on the bench. It undergoes Primal Reversion</td>
+	</tr>	<tr>
+		<td class="cen">ID-411</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Red Orb</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">2</td>
+		<td class="fooinfo" width="40%">Choose one of your Groudon on the bench. It undergoes Primal Reversion</td>
+	</tr>	<tr>
+		<td class="cen">ID-412</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Mystic Water</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Water-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-413</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Aqua Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Water-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, your Water-type Pok&eacute;mon that are next to Water-type Pok&eacute;mon gain +1 MP (to a maximum of MP3) Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-414</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Gyaradosite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Gyarados on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-415</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Grass Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Grass-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, your Grass-type Pok&eacute;mon do not move from effects of opposing Attacks that would move them to the bench, P.C., or the Ultra Space. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-416</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Latiasite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Latias on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-417</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Gardevoirite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Gardevoir on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-418</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Latiosite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Latios on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-419</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Soul Dew</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Latias or Latios on the field. While that Pok&eacute;mon is on the field, it deals +30 damage. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-420</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Venom Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Poison-type Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, the effects of Abilities of opposing Pok&eacute;mon that are poisoned or noxious that increase or decrease Attack damage are nullified. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-421</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Poison Barb</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Poison-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-424</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Necroizer</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Necrozma on the field and one of your Solgaleo or Lunala on the field, bench or in the P.C. That Solgaleo or Lunala moves to the Ultra Space and the Necrozma changes its form into Dusk Mane Necrozma or Dawn Wings Necrozma</td>
+	</tr>	<tr>
+		<td class="cen">ID-425</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Spell Tag</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Ghost-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-426</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Odd Incense</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Psychic-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-430</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Black Glasses</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Dark-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-431</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Alakazite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Alakazam on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-432</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Kangaskhanite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Kangaskhan on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-433</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Twisted Spoon</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Psychic-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it gains &star;+1. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-435</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Ultra Burst</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Dusk Mane Necrozma or Dawn Wings Necrozma on the field and change its form to Ultra Necrozma for 4 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-436</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Mawilite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Mawile on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-437</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Diancite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Diancie on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-438</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Metagrossite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Metagross on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-439</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Steelixite</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo"></td>
+		<td class="fooinfo" width="40%">This plate can be used when none of your Pok&eacute;mon are Mega Evolved. Choose one of your Steelix on the field, and Mega Evolve it for 7 turns.</td>
+	</tr>	<tr>
+		<td class="cen">ID-440</td>
+		<td class="cen" width="32"><img src="/duel/platepink.png" alt="Pink" width="32" /></td>
+		<td class="fooinfo">Restorer</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose a Restored Pok&eacute;mon in your P.C. That Pok&eacute;mon moves to the bench without gaining Wait. Move one of your Restored Pok&eacute;mon that has been excluded from the duel to your P.C.</td>
+	</tr>	<tr>
+		<td class="cen">ID-441</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Primal Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Restored Pok&eacute;mon. Until the end of the duel, while that Pok&eacute;mon is on the field, if the number of your own Pok&eacute;mon on the field, bench and in your P.C. Is lower than the number of the opponent's Pok&eacute;mon on the field, bench, and in the opponent's P.C., your Restored Pok&eacute;mon and Pok&eacute;mon that have evolved from Restored Pok&eacute;mon deal +30 damage and gain +1 &star;. Your turn ends. The effects of this plate do not stack.</td>
+	</tr>	<tr>
+		<td class="cen">ID-442</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Frost Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Ice-type Pok&eacute;mon. Until the end of the duel, plates with Sphere in their name, except for Frost Sphere, have their effects negated on opposing Pok&eacute;mon within 3 steps of that Pok&eacute;mon. Your turn ends</td>
+	</tr>	<tr>
+		<td class="cen">ID-447</td>
+		<td class="cen" width="32"><img src="/duel/plategreen.png" alt="Green" width="32" /></td>
+		<td class="fooinfo">Reveal Glass</td>
+		<td class="cen"><img src="/duel/ex.png" /> EX</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Change the form of each Tornadus, Thundurus, and Landorus on the field, if possible. This plate can be used again if the opponent uses a plate that is not Reveal Glass. This ends your turn</td>
+	</tr>	<tr>
+		<td class="cen">ID-448</td>
+		<td class="cen" width="32"><img src="/duel/plategold.png" alt="Gold" width="32" /></td>
+		<td class="fooinfo">Silk Sphere</td>
+		<td class="cen"><img src="/duel/r.png" /> R</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Select one of your Bug-type Pok&eacute;mon. While this Pok&eacute;mon is on the field, the Abilities of opposing Pok&eacute;mon that have an MP-reducing marker attached to them are nullified. This ends your turn.</td>
+	</tr>	<tr>
+		<td class="cen">ID-451</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Silver Powder</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Bug-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-452</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Silk Scarf</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Normal-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-453</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Karate Belt</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Fighting-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr>	<tr>
+		<td class="cen">ID-454</td>
+		<td class="cen" width="32"><img src="/duel/platered.png" alt="Red" width="32" /></td>
+		<td class="fooinfo">Soft Sand</td>
+		<td class="cen"><img src="/duel/uc.png" /> UC</td>
+		<td class="fooinfo">1</td>
+		<td class="fooinfo" width="40%">Choose one of your Ground-type Pok&eacute;mon on the field. While that Pok&eacute;mon is on the field, it deals +20 damage. Your turn ends.</td>
+	</tr></table>
+
+</main></div><!-- END id="content" -->
+
+
+<aside id="rbar">
+
+	<div class="navheader">Game Names</div>
+<div><a href="#">Pokémon Duel<br />Pokémon Comaster</a></div>
+	<div class="navheader">Console</div>
+<div><a href="#">iOS<br />Android</a></div>
+	<div class="navheader">Game Sections</div>
+<div><ul><li><a href="/duel/">Information</a></li>
+<li><a href="/duel/pics.shtml">Pre-Release Screenshots</a></li>
+<li><a href="/duel/figures.shtml">Pokémon Figure Listings</a></li>
+<li><a href="/duel/abilities.shtml">Pokémon Abilities Listings</a></li>
+<li><a href="/duel/plates.shtml">Plate Listings</a></li>
+<li><a href="/duel/carmonteisland.shtml">Quest Mode<br />Carmonte Island<br />-Location Listings</a></li>
+<li><a href="/duel/league.shtml">League Details</a></li>
+<li><a href="/duel/mechanics.shtml">Gameplay Mechanics</a></li>
+<li><a href="/duel/items.shtml">Items</a></li>
+<li><a href="/duel/shop.shtml">Shop & Microtransactions</a></li>
+<li><b>Events & Updates</b></li>
+<li><a href="/duel/events.shtml">Carnival Events</a></li>
+<li><a href="/duel/gymevents.shtml">Gym Events</a></li>
+<li><a href="/duel/patch.shtml">Patches & Updates</a></li></ul></div>
+	<div class="navheader">Picture</div>
+<div><img src="/apps/comaster.jpg" width="140" /></div>
+	<div class="navheader">Details</div>
+<div><b>Developer:</b><div align="right"><a href="/pokemon/companies/heroz.shtml">HEROZ</a> </div>
+<b>Genre:</b><div align="right">Board Game</div>
+<b>Players:</b><div align="right">1-2</div>
+<b>Menu Icon</b><br /><div align="center"><img src="/Toolbar/icon/comasterlogo.png" alt="Icon" title="Icon" width="64" /> <img src="/Toolbar/icon/comasterlogo2.png" alt="Icon" title="Icon" width="64" /> <img src="/Toolbar/icon/comasterlogo3.png" alt="Icon" title="Icon" width="64" /> <img src="/Toolbar/icon/comasterlogo4.png" alt="Icon" title="Icon" width="64" /></div></div>
+
+	<div class="navheader">Release Date</div>
+<div><b>Android</b><br />
+<b>Japan</b>: April 12th 2016<br />
+<b>International</b>: January 24th 2017<br />
+<b>iOS</b><br />
+<b>Japan</b>:  April 19th 2016<br />
+<b>International</b>: January 24th 2017</div>
+
+
+	</aside>
+
+</div><!-- END id="wrapper" -->
+
+<footer id="footer">
+	<div class="copyright">
+		<a href="#top" alt="Top of Page" title="Top of Page" class="totop"></a>
+
+		All Content is &copy; Copyright of Serebii.net 1999-2026. |
+		<a href="/privacy.shtml">Privacy Policy</a> |
+		<a class="nn-cmp-show" href="#">Manage Cookie Settings</a><br/>
+		Pokémon and All Respective Names are Trademark &amp; &copy; of Nintendo 1996-2026<br /><br />
+<a href="https://www.patreon.com/serebiinet" target="blank" rel="nofollow"></u>Support us on Patreon</u></a>
+	</div>
+
+	<div style="height:102px">
+		<div id="nn_lb2"></div><div id="nn_mobile_lb2"></div>
+<div id="celtra-reveal-wrapper" style="position:fixed; height: auto; width: 100%">
+<div id="nn_1by1"></div>
+</div>
+	</div>
+<script data-cfasync="false" async src="//cdn.intergient.com/1025662/76683/ramp.js"></script>
+</footer>
+
+
+
+</body>
+</html>
