@@ -25,14 +25,15 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 20 passing.
+- Tests: `npm test` -> 21 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.
-- Game version: duels use only figures released up to 3.0.12, each with its wheel as of 3.0.12 (`GAME_VERSION` in
-  `src/data.ts`, `figurePool`). The user asked (2026-10-30) for the game as it was before the Mega update: the first Mega
-  figures and the UX rarity appear in 4.0.0 (Bulbapedia release versions). 265 figures, no Mega, no UX. `null` = all 562
+- Game version: duels use only figures released in the launch version 1.0.0 (82 figures: 42 C, 23 UC, 14 R, 3 EX),
+  each with its 1.0.0 wheel (`GAME_VERSION` in `src/data.ts`, `figurePool`; release versions from Bulbapedia). Asked
+  by the user on 2026-10-30, after first trying '3.0.12' (before the Mega update 4.0.0, 265 figures). `null` = all 562
   figures with their newest wheels. The published page carries every wheel version and applies the same cut.
+  Pinsir's 1.0.0 wheel sums to 108, not 96 (data error, one of the known ones); the engine uses the real total.
 - Spanish design summary of Duel: `docs/diseno-pokemon-duel.md` (shorter than `research/FINDINGS.md`, which wins on conflicts).
 
 Not done: plates, attack/ability effects, special conditions, evolution, Mega Evolution, Z-Moves, figure levels,

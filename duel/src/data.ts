@@ -16,11 +16,11 @@ export interface FigureRecord {
 const COLORS = new Set<string>(['white', 'gold', 'purple', 'blue', 'red']);
 
 /**
- * Game version the duel is played at. The user asked (2026-10-30) for the game as it was before the Mega Evolution
- * update: the first Mega figures (and the UX rarity) were released in 4.0.0 per Bulbapedia, and 3.0.12 is the last
- * earlier version in the data. Set to null to use every figure with its newest wheel.
+ * Game version the duel is played at: only figures released by then, each with its wheel at that version.
+ * The user asked (2026-10-30) for the launch version 1.0.0 (82 figures). Other cuts tried: '3.0.12' (last version
+ * before the Mega update 4.0.0, 265 figures). Set to null to use every figure with its newest wheel.
  */
-export const GAME_VERSION: string | null = '3.0.12';
+export const GAME_VERSION: string | null = '1.0.0';
 
 const parseVersion = (v: string) => v.split('.').map(Number);
 

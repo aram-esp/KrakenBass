@@ -27,8 +27,16 @@ test('Pikachu keeps its known wheel: 24/12/24/8/24/4 = 96', () => {
   assert.equal(d.mp, 2);
 });
 
+test('launch pool (game version 1.0.0): 82 figures, only 3 EX', () => {
+  assert.equal(GAME_VERSION, '1.0.0');
+  const launch = figurePool(records);
+  assert.equal(launch.length, 82);
+  const byId = new Map(records.map((r) => [String(r.id), r]));
+  assert.deepEqual(launch.filter((d) => byId.get(d.id)!.rarity === 'EX').map((d) => d.name).sort(), ['Dialga', 'Palkia', 'Venusaur']);
+  assert.ok(launch.every((d) => d.wheel.length > 1), 'every launch figure has a real wheel');
+});
+
 test('pre-Mega pool (game version 3.0.12): 265 figures, no Mega, no UX, period wheels', () => {
-  assert.equal(GAME_VERSION, '3.0.12');
   const old = figurePool(records, '3.0.12');
   assert.equal(old.length, 265);
   const byId = new Map(records.map((r) => [String(r.id), r]));

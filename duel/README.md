@@ -16,7 +16,7 @@ click an adjacent enemy to battle (ends the turn); "Terminar turno" passes. Afte
 ## What is modelled
 Board (28 nodes), entry points, MP and the first-turn MP-1, bench entry for 1 MP, one move per turn, adjacency battles with
 the real colour table, P.C. (2 slots), Wait, encirclement KO, goal win, Wait win (no legal action), 300-turn limit.
-Figures and wheels as of game version 3.0.12, before the Mega update (`GAME_VERSION` in `src/data.ts`).
+Figures and wheels as of the launch version 1.0.0: 82 figures (`GAME_VERSION` in `src/data.ts`).
 Not yet: plates, abilities/attack effects, special conditions, evolution, Mega Evolution, Z-Moves, per-figure levels, timers.
 
 Full project state, decisions, known issues and next steps: `docs/NOTES.md`. Rule sources and open questions: `research/FINDINGS.md`.
