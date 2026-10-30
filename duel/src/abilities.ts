@@ -11,6 +11,21 @@ export const WORKING = new Set([
   'Spicy Scent', 'Gleam Eyes', 'Plus', 'Minus', 'Battle Armor', 'Migraine', 'Time Distortion', 'Space Distortion', 'Bide',
 ]);
 
+/** Why an ability of the 1.0.0 figures has no effect yet. Any other name not in WORKING: not implemented yet. */
+export const PENDING: Record<string, string> = {
+  'Run Off': 'Hace falta que elijas con qué figura de al lado intercambiarla; aún no hay esa opción.',
+  Swarm: 'Hace falta que elijas a qué Ledyba mover; aún no hay esa opción.',
+  'Run Away': 'Hace falta que decidas, cuando te atacan, si huir al banquillo; además el texto no dice cuántos turnos de Wait.',
+  'Sand Veil': 'Hace falta que decidas, cuando te atacan, si esquivar y a qué casilla ir.',
+  'Reckless Charge': 'Hace falta un movimiento especial en línea recta, que el tablero aún no distingue.',
+  Gooey: 'El texto no dice cuántos turnos de Wait da, y no quiero inventarlo.',
+  Guts: 'Depende de los estados alterados (veneno, parálisis…), que este juego aún no tiene.',
+  Insomnia: 'Protege del sueño, y este juego aún no tiene estados alterados.',
+  'Own Tempo': 'Protege de la confusión, y este juego aún no tiene estados alterados.',
+  Immunity: 'Protege del veneno, y este juego aún no tiene estados alterados.',
+};
+export const pendingReason = (name: string) => PENDING[name] ?? 'Aún no está programada en este juego.';
+
 export const abilityName = (f: Figure) => f.def.ability?.name ?? '';
 export const hasAbility = (f: Figure, name: string) => abilityName(f) === name;
 

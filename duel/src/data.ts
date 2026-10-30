@@ -88,22 +88,49 @@ export function figurePool(records: FigureRecord[], v: string | null = GAME_VERS
   return records.filter((r) => releasedBy(r, v)).map((r) => toFigureDef(r, v));
 }
 
+/** An evolution with no Duel figure (data/evolutions.json "invented"). */
+export interface InventedFigure { species: string; from: string; name: string; type: string; type2: string | null }
+
+/**
+ * Wheel of an invented evolution: the previous stage's with +10 damage on white/gold attacks and +1 star on purple ones,
+ * which is what evolving during a duel gave in the original (Serebii, "Evolution", version 2).
+ */
+export function evolvedWheel(prev: FigureDef): Segment[] {
+  return prev.wheel.map(({ move, weight }) => ({
+    weight,
+    move: {
+      ...move,
+      damage: (move.color === 'white' || move.color === 'gold') && move.damage > 0 ? move.damage + 10 : move.damage,
+      stars: move.color === 'purple' ? (move.stars ?? 0) + 1 : move.stars,
+    },
+  }));
+}
+
 /**
  * Figures reachable by evolving figures of `base` (following `evolves`, data/evolutions.json), that are not in `base`.
- * One released after game version `v` uses its wheel and ability from its own release version.
+ * One released after game version `v` uses its wheel and ability from its own release version; an invented one
+ * ("x-<species>") gets `evolvedWheel` of its previous stage, that stage's MP, its real types and no ability.
  */
-export function evolutionPool(records: FigureRecord[], evolves: Record<string, (string | number)[]>, base: FigureDef[], v: string | null = GAME_VERSION): FigureDef[] {
+export function evolutionPool(records: FigureRecord[], evolves: Record<string, (string | number)[]>, base: FigureDef[],
+  v: string | null = GAME_VERSION, invented: Record<string, InventedFigure> = {}): FigureDef[] {
   const byId = new Map(records.map((r) => [String(r.id), r]));
-  const have = new Set(base.map((d) => d.id));
+  const defs = new Map(base.map((d) => [d.id, d]));
   const out: FigureDef[] = [];
-  const queue = [...have];
+  const queue = [...defs.keys()];
   while (queue.length) {
-    for (const to of (evolves[queue.shift()!] ?? []).map(String)) {
-      const rec = byId.get(String(to));
-      if (!rec || have.has(String(to))) continue;
-      have.add(String(to));
-      out.push(toFigureDef(rec, v !== null && compareVersions(rec.version, v) > 0 ? rec.version : v));
-      queue.push(String(to));
+    const cur = queue.shift()!;
+    for (const to of (evolves[cur] ?? []).map(String)) {
+      if (defs.has(to)) continue;
+      const rec = byId.get(to), inv = invented[to];
+      let def: FigureDef;
+      if (rec) def = toFigureDef(rec, v !== null && compareVersions(rec.version, v) > 0 ? rec.version : v);
+      else if (inv) {
+        const prev = defs.get(cur)!;
+        def = { id: to, name: inv.name, type: inv.type, ...(inv.type2 ? { type2: inv.type2 } : {}), mp: prev.mp, wheel: evolvedWheel(prev) };
+      } else continue;
+      defs.set(to, def);
+      out.push(def);
+      queue.push(to);
     }
   }
   return out;

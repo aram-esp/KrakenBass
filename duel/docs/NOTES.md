@@ -64,12 +64,20 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   and ability of their own release version (`evolutionPool` in `src/data.ts`): 37 of the 82 can evolve, 58 more figures
   are reachable (e.g. Squirtle > Wartortle > Blastoise). They are only obtained by evolving, never from boosters or by
   the AI. The other 45 have no evolution with a Duel figure (e.g. Psyduck: Golduck never had one).
+- Invented evolutions (user, 2026-10-30): a chain stage with no Duel figure becomes an invented figure `x-<species>`
+  (23, e.g. Golduck, Fearow, Machoke > real Machamp): wheel = previous stage +10 damage on white/gold and +1 star on purple
+  (the original's in-duel evolution bonus, Serebii), previous stage's MP and rarity, real name/types/sprite from PokeAPI,
+  no ability. Built by `tools/build_evolutions.py` ("invented" in `data/evolutions.json`, sprites copied to
+  `assets/sprites/x-*.png`). Regional-only evolutions (Perrserker, Sirfetch'd…) are left out.
+- In-game wiki (`web/src/wiki.ts`, Wiki tab): how to play (MP, turn, colours, house rules), all 163 figures with wheel %,
+  ability and status, evolutions; abilities table with the reason each pending one does nothing (`PENDING` in
+  `src/abilities.ts`); boosters (invented values tagged); evolution rules. Built only from the game's data and rules.
 - MP badges: every figure on the board shows the MP it has right now (`Game.mp`, so the first-turn MP-1 is included),
   or "Wait N" in yellow while it waits (`View.setBadges`, `drawBadge` in `web/src/shared.ts`).
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 35 passing.
+- Tests: `npm test` -> 36 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.

@@ -2,7 +2,8 @@ import type { FigureRecord } from '../../src/data.ts';
 import type { FigureDef } from '../../src/types.ts';
 import { $, TYPE_COLOR, spriteSrc } from './shared.ts';
 import { drawWheel } from './match.ts';
-import { WORKING } from '../../src/abilities.ts';
+import { WORKING, pendingReason } from '../../src/abilities.ts';
+import { WIKI_CSS, renderWiki } from './wiki.ts';
 import {
   BOOSTERS, CASE_SLOTS, EVOLVE_BATTLES, EVOLVE_DUELS, GEMS_LOSS, GEMS_WIN, SHOP_PRICE, evolve, evolveProgress,
   recordBattle, recordDuel, buyBooster, gemsToOpenNow, loadState, openFromCase, openReady, rewardDuel,
@@ -169,6 +170,7 @@ const CSS = `
 const ICON = {
   back: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M18 8 4 20l14 12v-7c9 0 14 3 18 9-1-10-6-17-18-18z" fill="#fff" stroke="#0b3a92" stroke-width="2" stroke-linejoin="round"/></svg>',
   league: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M11 6h18v6a9 9 0 0 1-18 0zM6 8h5v4a5 5 0 0 1-5-4zM29 8h5a5 5 0 0 1-5 4zM17 21h6v6h4v5H13v-5h4z" fill="#ffd21f" stroke="#7a5600" stroke-width="2" stroke-linejoin="round"/></svg>',
+  wiki: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 9c5-2 10-2 14 1v23c-4-3-9-3-14-1z" fill="#fff" stroke="#0b3a92" stroke-width="2" stroke-linejoin="round"/><path d="M34 9c-5-2-10-2-14 1v23c4-3 9-3 14-1z" fill="#cfe2ff" stroke="#0b3a92" stroke-width="2" stroke-linejoin="round"/></svg>',
   shop: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 14h24l-2 20H10z" fill="#fff" stroke="#0b3a92" stroke-width="2" stroke-linejoin="round"/><path d="M14 14a6 6 0 0 1 12 0" fill="none" stroke="#0b3a92" stroke-width="2.5"/><circle cx="20" cy="24" r="5" fill="#e53935" stroke="#0b3a92" stroke-width="2"/><path d="M15 24h10" stroke="#0b3a92" stroke-width="2"/></svg>',
   deck: '<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="9" width="18" height="24" rx="3" fill="#cfe2ff" stroke="#0b3a92" stroke-width="2" transform="rotate(-10 14 21)"/><rect x="16" y="7" width="18" height="24" rx="3" fill="#fff" stroke="#0b3a92" stroke-width="2"/><circle cx="25" cy="19" r="5" fill="#e53935" stroke="#0b3a92" stroke-width="2"/><path d="M20 19h10" stroke="#0b3a92" stroke-width="2"/></svg>',
 };
@@ -180,7 +182,7 @@ export interface MenuHooks {
   canContinue(): boolean;
 }
 
-type Screen = 'home' | 'deck' | 'pick' | 'shop';
+type Screen = 'home' | 'deck' | 'pick' | 'shop' | 'wiki';
 
 export interface Menus {
   /** Show the League (home) screen. */
@@ -196,7 +198,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   extras: FigureDef[] = [], evolves: Record<string, string[]> = {}): Menus {
   // `pool`: figures of the game version (boosters give these); `extras`: figures only reached by evolving.
   const style = document.createElement('style');
-  style.textContent = CSS;
+  style.textContent = CSS + WIKI_CSS;
   document.head.appendChild(style);
   if (!document.querySelector('link[data-dm-font]')) {
     const font = document.createElement('link');
@@ -275,6 +277,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         <p class="note" id="shopNote"></p>
       </div>
     </div>
+    <div class="screen" id="dmWiki"><div class="pill">Wiki</div><div id="dmWikiBody" style="width:100%;display:flex;justify-content:center"></div></div>
     <div class="open" id="dmOpen" role="dialog" aria-modal="true" aria-label="Abrir booster">
       <h2 id="dmOpenTitle"></h2>
       <div class="box" id="dmOpenBox"></div>
@@ -286,6 +289,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       <button type="button" class="tab" id="tabLeague">${ICON.league}Liga</button>
       <button type="button" class="tab" id="tabDeck">${ICON.deck}Mazos</button>
       <button type="button" class="tab" id="tabShop">${ICON.shop}Tienda</button>
+      <button type="button" class="tab" id="tabWiki">${ICON.wiki}Wiki</button>
     </nav>`;
   document.body.appendChild(root);
 
@@ -330,7 +334,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       el.appendChild(ab);
     }
     el.title = `${d.name} · ${[d.type, d.type2].filter(Boolean).map((t) => TYPE_ES[t!] ?? t).join(' / ')} · ${d.mp} MP`
-      + (d.ability ? `\nHabilidad ${d.ability.name}: ${d.ability.effect}${WORKING.has(d.ability.name) ? '' : ' (aún sin efecto en este juego)'}` : '')
+      + (d.ability ? `\nHabilidad ${d.ability.name}: ${d.ability.effect}${WORKING.has(d.ability.name) ? '' : ` (aún sin efecto: ${pendingReason(d.ability.name)})`}` : '')
       + '\n' + d.wheel.map((s) => `${s.move.name}${s.move.damage ? ' ' + s.move.damage : ''} (${s.move.color})`).join(' · ');
     return el;
   };
@@ -442,6 +446,9 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     $('dmPick').classList.toggle('on', s === 'pick');
     $('dmShop').classList.toggle('on', s === 'shop');
     $('tabShop').classList.toggle('on', s === 'shop');
+    $('dmWiki').classList.toggle('on', s === 'wiki');
+    $('tabWiki').classList.toggle('on', s === 'wiki');
+    if (s === 'wiki') renderWiki($('dmWikiBody'), { pool, extras, records, evolves, owned: () => gacha.owned });
     $('tabLeague').classList.toggle('on', s === 'home');
     $('tabDeck').classList.toggle('on', s === 'deck' || s === 'pick');
     $('menuContinue').hidden = !hooks.canContinue();
@@ -608,6 +615,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   $('tabLeague').onclick = () => go('home');
   $('tabDeck').onclick = () => go('deck');
   $('tabShop').onclick = () => go('shop');
+  $('tabWiki').onclick = () => go('wiki');
   $('tabBack').onclick = () => {
     const prev = history.pop();
     if (prev) go(prev, false);

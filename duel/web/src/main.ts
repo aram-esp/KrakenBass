@@ -1,4 +1,4 @@
-import { evolutionPool, figurePool, type FigureRecord } from '../../src/data.ts';
+import { evolutionPool, figurePool, type FigureRecord, type InventedFigure } from '../../src/data.ts';
 import type { FigureDef } from '../../src/types.ts';
 import { $, readData, type Layout } from './shared.ts';
 import { Match } from './match.ts';
@@ -10,15 +10,22 @@ async function main() {
   const [board, records, evo] = await Promise.all([
     readData<Layout>('data-board', '../data/board.json'),
     readData<FigureRecord[]>('data-figures', '../data/figures.json'),
-    readData<{ evolves: Record<string, (string | number)[]> }>('data-evolutions', '../data/evolutions.json'),
+    readData<{ evolves: Record<string, (string | number)[]>; invented?: Record<string, InventedFigure> }>('data-evolutions', '../data/evolutions.json'),
   ]);
   const pool: FigureDef[] = figurePool(records);
   const evolves = Object.fromEntries(Object.entries(evo.evolves).map(([k, v]) => [k, v.map(String)]));
-  const extras = evolutionPool(records, evolves, pool);
+  const invented = evo.invented ?? {};
+  const extras = evolutionPool(records, evolves, pool, undefined, invented);
+  // Invented evolutions take the rarity of the stage they come from; listed as records for the menus and the wiki.
+  const rarityOf = (id: string): string => records.find((r) => String(r.id) === id)?.rarity ?? (invented[id] ? rarityOf(invented[id].from) : 'Common');
+  const allRecords: FigureRecord[] = [...records, ...Object.entries(invented).map(([id, inv]) => ({
+    title: inv.name, id: id as unknown as number, name: inv.name, type: inv.type, type2: inv.type2, mp: 0,
+    rarity: rarityOf(id), version: 'inventada', wheels: {},
+  }))];
   const c2 = $<HTMLCanvasElement>('view2d'), c3 = $<HTMLCanvasElement>('view');
   const v2 = new View2D(board, c2), v3 = new View3D(board, c3);
   const match = new Match([v2, v3], board, pool);
-  const menus = setupMenus(pool, records, {
+  const menus = setupMenus(pool, allRecords, {
     play: (deck) => match.start(deck),
     canContinue: () => !!match.game && match.game.winner === null,
   }, extras, evolves);

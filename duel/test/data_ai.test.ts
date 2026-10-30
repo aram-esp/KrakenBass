@@ -102,3 +102,23 @@ test('evolutions from the 1.0.0 pool use the evolved figure as released, with a 
   assert.ok(!extra.some((d) => launch.some((l) => l.id === d.id)), 'no figure of the pool is repeated');
   assert.ok(!extra.some((d) => d.name === 'Venusaur'), 'Ivysaur evolves into the 1.0.0 Venusaur already in the pool');
 });
+
+test('invented evolutions: Pokémon with no Duel figure get the previous wheel +10 damage / +1 star', () => {
+  const evo = JSON.parse(readFileSync(new URL('../data/evolutions.json', import.meta.url), 'utf8'));
+  const launch = figurePool(records);
+  const extra = evolutionPool(records, evo.evolves, launch, undefined, evo.invented);
+  const psyduck = launch.find((d) => d.name === 'Psyduck')!;
+  const golduck = extra.find((d) => d.id === 'x-golduck')!;
+  assert.equal(golduck.name, 'Golduck');
+  assert.equal(golduck.type, 'Water');
+  assert.equal(golduck.ability, undefined);
+  golduck.wheel.forEach((s, i) => {
+    const p = psyduck.wheel[i].move;
+    assert.equal(s.weight, psyduck.wheel[i].weight);
+    if ((p.color === 'white' || p.color === 'gold') && p.damage > 0) assert.equal(s.move.damage, p.damage + 10);
+    if (p.color === 'purple') assert.equal(s.move.stars, (p.stars ?? 0) + 1);
+  });
+  // Machop > Machoke (invented) > Machamp (the real 1.0.0 figure, already in the pool).
+  assert.deepEqual(evo.evolves['x-machoke'].map(String), [String(launch.find((d) => d.name === 'Machamp')!.id)]);
+  assert.ok(!JSON.stringify(evo).includes('perrserker'), 'regional-only evolutions are left out');
+});

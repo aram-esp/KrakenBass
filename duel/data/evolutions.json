@@ -1,5 +1,5 @@
 {
- "_source": "Evolution chains from PokeAPI (pokeapi.co); each next species maps to its earliest Duel figure. Built by tools/build_evolutions.py.",
+ "_source": "Evolution chains, names and types from PokeAPI (pokeapi.co); each next species maps to its earliest Duel figure. 'invented': stages with no Duel figure (wheel = the previous stage's +10 damage / +1 star, built in src/data.ts). Built by tools/build_evolutions.py.",
  "evolves": {
   "591": [
    592
@@ -14,10 +14,12 @@
    602
   ],
   "61": [
-   156
+   156,
+   "156"
   ],
   "7": [
-   445
+   445,
+   "445"
   ],
   "377": [
    360
@@ -26,7 +28,8 @@
    328
   ],
   "20": [
-   141
+   141,
+   "141"
   ],
   "646": [
    141
@@ -35,7 +38,8 @@
    604
   ],
   "246": [
-   253
+   253,
+   "253"
   ],
   "368": [
    350
@@ -44,28 +48,34 @@
    106
   ],
   "64": [
-   199
+   199,
+   "199"
   ],
   "54": [
-   466
+   466,
+   "466"
   ],
   "108": [
    241
   ],
   "18": [
-   155
+   155,
+   "155"
   ],
   "373": [
    339
   ],
   "4": [
-   255
+   255,
+   "255"
   ],
   "255": [
-   630
+   630,
+   "630"
   ],
   "29": [
-   149
+   149,
+   "149"
   ],
   "222": [
    7
@@ -80,7 +90,8 @@
    270
   ],
   "285": [
-   286
+   286,
+   "286"
   ],
   "134": [
    272
@@ -108,16 +119,19 @@
    347
   ],
   "37": [
-   266
+   266,
+   "266"
   ],
   "320": [
    331
   ],
   "280": [
-   281
+   281,
+   "281"
   ],
   "56": [
-   280
+   280,
+   "280"
   ],
   "484": [
    438
@@ -126,7 +140,8 @@
    474
   ],
   "69": [
-   197
+   197,
+   "197"
   ],
   "307": [
    308
@@ -155,7 +170,8 @@
    520
   ],
   "6": [
-   249
+   249,
+   "249"
   ],
   "117": [
    171
@@ -170,22 +186,27 @@
    458
   ],
   "72": [
-   220
+   220,
+   "220"
   ],
   "495": [
    452
   ],
   "66": [
-   246
+   246,
+   "246"
   ],
   "169": [
-   440
+   440,
+   "440"
   ],
   "247": [
-   243
+   243,
+   "243"
   ],
   "82": [
-   247
+   247,
+   "247"
   ],
   "487": [
    443
@@ -194,31 +215,37 @@
    577
   ],
   "55": [
-   164
+   164,
+   "164"
   ],
   "164": [
-   643
+   643,
+   "643"
   ],
   "77": [
-   190
+   190,
+   "190"
   ],
   "153": [
    128
   ],
   "63": [
-   150
+   150,
+   "150"
   ],
   "147": [
    77
   ],
   "185": [
-   240
+   240,
+   "240"
   ],
   "263": [
    252
   ],
   "74": [
-   239
+   239,
+   "239"
   ],
   "303": [
    304
@@ -227,13 +254,15 @@
    305
   ],
   "150": [
-   13
+   13,
+   "13"
   ],
   "161": [
    230
   ],
   "282": [
-   283
+   283,
+   "283"
   ],
   "476": [
    449
@@ -260,7 +289,8 @@
    322
   ],
   "199": [
-   93
+   93,
+   "93"
   ],
   "135": [
    206
@@ -272,7 +302,8 @@
    558
   ],
   "205": [
-   84
+   84,
+   "84"
   ],
   "215": [
    211,
@@ -294,7 +325,8 @@
    177
   ],
   "85": [
-   175
+   175,
+   "175"
   ],
   "385": [
    365
@@ -309,7 +341,8 @@
    386
   ],
   "196": [
-   25
+   25,
+   "25"
   ],
   "254": [
    250
@@ -321,10 +354,12 @@
    262
   ],
   "65": [
-   355
+   355,
+   "355"
   ],
   "355": [
-   340
+   340,
+   "340"
   ],
   "182": [
    132
@@ -333,19 +368,23 @@
    433
   ],
   "71": [
-   169
+   169,
+   "169"
   ],
   "22": [
-   369
+   369,
+   "369"
   ],
   "189": [
-   168
+   168,
+   "168"
   ],
   "360": [
    397
   ],
   "155": [
-   100
+   100,
+   "100"
   ],
   "242": [
    228
@@ -360,13 +399,15 @@
    453
   ],
   "19": [
-   189
+   189,
+   "189"
   ],
   "181": [
    121
   ],
   "17": [
-   439
+   439,
+   "439"
   ],
   "201": [
    124
@@ -378,7 +419,8 @@
    330
   ],
   "213": [
-   214
+   214,
+   "214"
   ],
   "609": [
    594
@@ -405,23 +447,28 @@
    202
   ],
   "52": [
-   202
+   202,
+   "202"
   ],
   "557": [
    202
   ],
   "95": [
-   166
+   166,
+   "166"
   ],
   "500": [
    501
   ],
   "26": [
-   143
+   143,
+   "143"
   ],
   "143": [
    192,
-   210
+   210,
+   "192",
+   "210"
   ],
   "607": [
    593
@@ -433,7 +480,8 @@
    368
   ],
   "166": [
-   191
+   191,
+   "191"
   ],
   "325": [
    326
@@ -448,7 +496,8 @@
    258
   ],
   "149": [
-   142
+   142,
+   "142"
   ],
   "217": [
    215
@@ -457,10 +506,12 @@
    23
   ],
   "172": [
-   186
+   186,
+   "186"
   ],
   "86": [
-   172
+   172,
+   "172"
   ],
   "268": [
    203
@@ -478,16 +529,21 @@
    461
   ],
   "73": [
-   343
+   343,
+   "343",
+   "x-kleavor"
   ],
   "10": [
-   213
+   213,
+   "213"
   ],
   "156": [
-   70
+   70,
+   "70"
   ],
   "31": [
-   196
+   196,
+   "196"
   ],
   "251": [
    126
@@ -502,7 +558,8 @@
    238
   ],
   "239": [
-   98
+   98,
+   "98"
   ],
   "107": [
    225
@@ -518,7 +575,8 @@
    307
   ],
   "39": [
-   162
+   162,
+   "162"
   ],
   "604": [
    587
@@ -539,7 +597,8 @@
    120
   ],
   "87": [
-   285
+   285,
+   "285"
   ],
   "365": [
    348
@@ -551,7 +610,8 @@
    212
   ],
   "35": [
-   282
+   282,
+   "282"
   ],
   "614": [
    601
@@ -584,10 +644,12 @@
    463
   ],
   "162": [
-   101
+   101,
+   "101"
   ],
   "90": [
-   205
+   205,
+   "205"
   ],
   "376": [
    359
@@ -599,10 +661,263 @@
    437
   ],
   "41": [
-   185
+   185,
+   "185"
   ],
   "266": [
-   264
+   264,
+   "264"
+  ],
+  "28": [
+   "x-hitmonlee",
+   "x-hitmonchan",
+   "x-hitmontop"
+  ],
+  "27": [
+   "x-ursaring"
+  ],
+  "x-ursaring": [
+   "x-ursaluna"
+  ],
+  "76": [
+   "x-fearow"
+  ],
+  "8": [
+   "x-granbull"
+  ],
+  "75": [
+   "x-jynx"
+  ],
+  "49": [
+   "x-breloom"
+  ],
+  "12": [
+   "x-furret"
+  ],
+  "16": [
+   "x-sandslash"
+  ],
+  "47": [
+   "x-golduck"
+  ],
+  "81": [
+   "x-nidorino"
+  ],
+  "x-nidorino": [
+   "x-nidoking"
+  ],
+  "40": [
+   "x-persian"
+  ],
+  "88": [
+   "x-primeape"
+  ],
+  "x-primeape": [
+   "x-annihilape"
+  ],
+  "24": [
+   "x-machoke"
+  ],
+  "x-machoke": [
+   "45"
+  ],
+  "62": [
+   "x-kabutops"
+  ],
+  "83": [
+   "x-meowstic"
+  ],
+  "34": [
+   "x-dodrio"
+  ],
+  "15": [
+   "x-ambipom"
   ]
+ },
+ "invented": {
+  "x-ambipom": {
+   "species": "ambipom",
+   "from": "15",
+   "name": "Ambipom",
+   "type": "Normal",
+   "type2": null,
+   "sprite": "0424-ambipom.png"
+  },
+  "x-annihilape": {
+   "species": "annihilape",
+   "from": "x-primeape",
+   "name": "Annihilape",
+   "type": "Fighting",
+   "type2": "Ghost",
+   "sprite": "0979-annihilape.png"
+  },
+  "x-breloom": {
+   "species": "breloom",
+   "from": "49",
+   "name": "Breloom",
+   "type": "Grass",
+   "type2": "Fighting",
+   "sprite": "0286-breloom.png"
+  },
+  "x-dodrio": {
+   "species": "dodrio",
+   "from": "34",
+   "name": "Dodrio",
+   "type": "Normal",
+   "type2": "Flying",
+   "sprite": "0085-dodrio.png"
+  },
+  "x-fearow": {
+   "species": "fearow",
+   "from": "76",
+   "name": "Fearow",
+   "type": "Normal",
+   "type2": "Flying",
+   "sprite": "0022-fearow.png"
+  },
+  "x-furret": {
+   "species": "furret",
+   "from": "12",
+   "name": "Furret",
+   "type": "Normal",
+   "type2": null,
+   "sprite": "0162-furret.png"
+  },
+  "x-golduck": {
+   "species": "golduck",
+   "from": "47",
+   "name": "Golduck",
+   "type": "Water",
+   "type2": null,
+   "sprite": "0055-golduck.png"
+  },
+  "x-granbull": {
+   "species": "granbull",
+   "from": "8",
+   "name": "Granbull",
+   "type": "Fairy",
+   "type2": null,
+   "sprite": "0210-granbull.png"
+  },
+  "x-hitmonchan": {
+   "species": "hitmonchan",
+   "from": "28",
+   "name": "Hitmonchan",
+   "type": "Fighting",
+   "type2": null,
+   "sprite": "0107-hitmonchan.png"
+  },
+  "x-hitmonlee": {
+   "species": "hitmonlee",
+   "from": "28",
+   "name": "Hitmonlee",
+   "type": "Fighting",
+   "type2": null,
+   "sprite": "0106-hitmonlee.png"
+  },
+  "x-hitmontop": {
+   "species": "hitmontop",
+   "from": "28",
+   "name": "Hitmontop",
+   "type": "Fighting",
+   "type2": null,
+   "sprite": "0237-hitmontop.png"
+  },
+  "x-jynx": {
+   "species": "jynx",
+   "from": "75",
+   "name": "Jynx",
+   "type": "Ice",
+   "type2": "Psychic",
+   "sprite": "0124-jynx.png"
+  },
+  "x-kabutops": {
+   "species": "kabutops",
+   "from": "62",
+   "name": "Kabutops",
+   "type": "Rock",
+   "type2": "Water",
+   "sprite": "0141-kabutops.png"
+  },
+  "x-kleavor": {
+   "species": "kleavor",
+   "from": "73",
+   "name": "Kleavor",
+   "type": "Bug",
+   "type2": "Rock",
+   "sprite": "0900-kleavor.png"
+  },
+  "x-machoke": {
+   "species": "machoke",
+   "from": "24",
+   "name": "Machoke",
+   "type": "Fighting",
+   "type2": null,
+   "sprite": "0067-machoke.png"
+  },
+  "x-meowstic": {
+   "species": "meowstic",
+   "from": "83",
+   "name": "Meowstic",
+   "type": "Psychic",
+   "type2": null,
+   "sprite": "0678-meowstic-male.png"
+  },
+  "x-nidoking": {
+   "species": "nidoking",
+   "from": "x-nidorino",
+   "name": "Nidoking",
+   "type": "Poison",
+   "type2": "Ground",
+   "sprite": "0034-nidoking.png"
+  },
+  "x-nidorino": {
+   "species": "nidorino",
+   "from": "81",
+   "name": "Nidorino",
+   "type": "Poison",
+   "type2": null,
+   "sprite": "0033-nidorino.png"
+  },
+  "x-persian": {
+   "species": "persian",
+   "from": "40",
+   "name": "Persian",
+   "type": "Normal",
+   "type2": null,
+   "sprite": "0053-persian.png"
+  },
+  "x-primeape": {
+   "species": "primeape",
+   "from": "88",
+   "name": "Primeape",
+   "type": "Fighting",
+   "type2": null,
+   "sprite": "0057-primeape.png"
+  },
+  "x-sandslash": {
+   "species": "sandslash",
+   "from": "16",
+   "name": "Sandslash",
+   "type": "Ground",
+   "type2": null,
+   "sprite": "0028-sandslash.png"
+  },
+  "x-ursaluna": {
+   "species": "ursaluna",
+   "from": "x-ursaring",
+   "name": "Ursaluna",
+   "type": "Ground",
+   "type2": "Normal",
+   "sprite": "0901-ursaluna.png"
+  },
+  "x-ursaring": {
+   "species": "ursaring",
+   "from": "27",
+   "name": "Ursaring",
+   "type": "Normal",
+   "type2": null,
+   "sprite": "0217-ursaring.png"
+  }
  }
 }
