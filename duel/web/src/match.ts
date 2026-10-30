@@ -134,7 +134,16 @@ export class Match {
   showBattle(m: Figure, o: Figure, r: BattleResult) {
     const mine = m.owner === HUMAN;
     this.log(`${m.def.name} (${r.moverMove.color}${r.moverMove.damage ? ' ' + r.moverMove.damage : ''}) vs ${o.def.name} (${r.otherMove.color}${r.otherMove.damage ? ' ' + r.otherMove.damage : ''}) → ${r.ko.length ? r.ko.map((k) => k.def.name + ' al P.C.').join(', ') : 'nada'}${mine ? '' : ' [IA ataca]'}`);
-    const caps: [string, string] = [`${m.def.name}: ${r.moverMove.name}`, `${o.def.name}: ${r.otherMove.name}`];
+    const caps: [string, string] = [`${m.def.name}: ${moveText(r.moverMove)}`, `${o.def.name}: ${moveText(r.otherMove)}`];
+    const fates: [Fate, Fate] = [fate(m, r.otherMove, r), fate(o, r.moverMove, r)];
+    const reveal = (i: 0 | 1) => {
+      const cap = $(`c${i}`);
+      cap.textContent = caps[i];
+      const line = document.createElement('div');
+      line.className = `fate ${fates[i].kind}`;
+      line.textContent = fates[i].text;
+      cap.appendChild(line);
+    };
     $('c0').textContent = `${m.def.name}: …`;
     $('c1').textContent = `${o.def.name}: …`;
     $('wheels').classList.add('show');
@@ -149,13 +158,14 @@ export class Match {
       this.refresh();
     };
     const stops = [
-      spinWheel($<HTMLCanvasElement>('w0'), m.def, r.moverMove, spinMs, 0, () => { $('c0').textContent = caps[0]; }),
-      spinWheel($<HTMLCanvasElement>('w1'), o.def, r.otherMove, spinMs, SPIN_STAGGER, () => { $('c1').textContent = caps[1]; }),
+      spinWheel($<HTMLCanvasElement>('w0'), m.def, r.moverMove, spinMs, 0, () => reveal(0)),
+      spinWheel($<HTMLCanvasElement>('w1'), o.def, r.otherMove, spinMs, SPIN_STAGGER, () => reveal(1)),
     ];
     this.disksTimer = setTimeout(finish, this.disksUntil - performance.now());
     // A click on the disks jumps to the result, a second one closes them.
     this.skipDisks = () => {
-      if (stops.some((s) => s())) { this.disksUntil = performance.now() + holdMs; clearTimeout(this.disksTimer); this.disksTimer = setTimeout(finish, holdMs); return; }
+      // map, not some: stop both disks, not just the first one still spinning.
+      if (stops.map((s) => s()).some(Boolean)) { this.disksUntil = performance.now() + holdMs; clearTimeout(this.disksTimer); this.disksTimer = setTimeout(finish, holdMs); return; }
       clearTimeout(this.disksTimer);
       finish();
     };
@@ -164,6 +174,27 @@ export class Match {
   }
 }
 
+
+type Fate = { kind: 'hit' | 'stop' | 'none'; text: string };
+
+/** "Bite (20)", "Dodge", "Swagger ★★". */
+function moveText(mv: Move): string {
+  if (mv.damage) return `${mv.name} (${mv.damage})`;
+  if (mv.color === 'purple') return `${mv.name} ${'★'.repeat(mv.stars || 1)}`;
+  return mv.name;
+}
+
+/**
+ * What the opponent's spin did to `f`: the damage it received (knocked out to the P.C.), the damage it stopped
+ * (the opposing attack had damage but did not knock it out: dodged, out-damaged, beaten by colour or a tie),
+ * or no damage at all (the opponent spun a Miss, a status or a defensive move).
+ */
+function fate(f: Figure, opp: Move, r: BattleResult): Fate {
+  const damaging = (opp.color === 'white' || opp.color === 'gold') && opp.damage > 0;
+  if (r.ko.includes(f)) return { kind: 'hit', text: `Recibe ${opp.damage} de daño → al P.C.` };
+  if (damaging) return { kind: 'stop', text: `Para ${opp.damage} de daño` };
+  return { kind: 'none', text: 'Sin daño' };
+}
 
 const SPIN_MS = 1700;
 const SPIN_STAGGER = 180;

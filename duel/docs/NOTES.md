@@ -25,6 +25,8 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - Camera (2.5D): `CAMERA_ELEVATION` 36° (52° on portrait screens), moved in as close as possible while every node and
   figure stays in view (`fitCamera`). Data Disks spin ~1.7 s and stop on the spun segment under a fixed pointer; nobody
   acts and the AI waits until they close; a click jumps to the result, another closes them; no spin with reduced motion.
+  Under each disk: the move spun, then what the opposing spin did to that figure: "Recibe X de daño → al P.C." (red, it was
+  knocked out), "Para X de daño" (green, the opposing attack had damage but did not knock it out) or "Sin daño".
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
