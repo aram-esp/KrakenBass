@@ -107,7 +107,7 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 50 passing.
+- Tests: `npm test` -> 54 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.
@@ -135,6 +135,18 @@ timers, forfeit, choosing the battle target (the engine takes the first adjacent
    player (Fandom "Matches": league matches give 5 minutes each); it runs only during that player's turn, pauses during
    banners and spins, and running out = forfeit. Constants in `web/src/match.ts` (AI_STEP_MS, TURN_BANNER_MS, INTRO_MS,
    CLOCK_MS). Whether the original clock paused during spins is NOT sourced (assumed).
+
+6. Progression (2026-10-30, phase 2 of "todo lo del original"): `src/progress.ts` + Mazos → Fusión + Tienda (Vender,
+   Intercambio de Material) + Pokédex → Niveles y fusión. Levels 1-5 (+1 to a non-Miss piece per level, 96 -> 100),
+   Carmonite levels 6-10 (+1/-1 swap, piece > 4), Chain Level (+1 damage to a white/gold move; EX 1 / R 3 / UC 9 / C 30
+   copies or same-rarity Cubes), fusion with figures / Rare Metals / Cubes / Ingots, coins from selling, Material from
+   shop boosters, booster enhancements per Bulbapedia "Time Booster". Sourced numbers and INVENTED ones are listed at the
+   top of `src/progress.ts` (exp curve, fusion coin cost, duel exp, figure base exp, Chain cap 10, shop Material 100,
+   exchange prices except EX 4000, Carmonite for 20 Material). ASSUMED: all copies share one level (original: per copy);
+   points can be re-placed. The player's deck plays with `applyProgress`; the AI's figures are not upgraded.
+   Still to do from the original: in-duel evolution after winning a battle (only Metamorphosis does it now),
+   story mode (Training Center stages and decks are in `research/raw/pages_wikitext.json` "Training Center (Duel)"),
+   league ranks (Bulbapedia "League Match": Beginner 0-1299 ... Legend 3000+), Mega Evolution, Z-Moves.
 
 ## 4. Run, test, build, publish
 ```bash

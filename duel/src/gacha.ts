@@ -7,6 +7,8 @@
  * Everything marked INVENTED is not in those sources and was chosen for this game (2026-10-30).
  */
 
+import type { FigProgress, Wallet } from './progress.ts';
+
 export type Rarity = 'Common' | 'Uncommon' | 'Rare' | 'EX';
 export type BoosterKind = 'white' | 'blue' | 'purple' | 'gold' | 'rainbow' | 'shop' | 'welcome';
 
@@ -58,6 +60,9 @@ export interface GachaState {
   /** Figure id -> battles fought and duels played in the player's deck (for evolving). */
   battles?: Record<string, number>;
   duels?: Record<string, number>;
+  /** Levels, Chain Level and wheel changes per figure id; coins, Material, Carmonite and enhancements (src/progress.ts). */
+  prog?: Record<string, FigProgress>;
+  wallet?: Wallet;
 }
 
 /** The user's rule (2026-10-30): a figure can evolve after 5 battles or 10 duels in the deck. */

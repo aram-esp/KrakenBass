@@ -10,6 +10,11 @@ import {
   grantStarterPlates, recordBattle, recordDuel, rollPlate, buyBooster, gemsToOpenNow, loadState, openFromCase, openReady, rewardDuel,
   type BoosterKind, type GachaState,
 } from '../../src/gacha.ts';
+import {
+  CARMONITE_MATERIAL, CARMONITE_PER_LEVEL, CHAIN_COPIES, EXCHANGE_PRICE, INGOT_COINS, ITEM_ES, LEVEL_EXP, MAX_CHAIN, MAX_LEVEL,
+  MAX_LEVEL_CARMONITE, METAL_EXP, PLATE_COINS, RARS, RAR_SHORT, SELL_LV1, applyProgress, asRar, boosterItems, duelExp, freePoints,
+  fuse, fusionPreview, levelOf, placePoint, progOf, sellFigure, sellIngot, useCarmonite, wallet, type FusionInput, type ItemKind,
+} from '../../src/progress.ts';
 
 const GACHA_KEY = 'duel.gacha';
 
@@ -162,6 +167,28 @@ const CSS = `
 .dm .shop { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .dm .shop .box { width: 160px; min-height: 170px; cursor: default; }
 .dm .shop .box::before { width: 70px; height: 70px; top: 22px; }
+.dm .gems + .gems { margin-left: 6px; }
+.dm .coinI { width: 20px; height: 20px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff6b0, #f2b400 55%, #a87100); box-shadow: inset 0 0 0 2px #7a5200; }
+.dm .matI { width: 20px; height: 20px; border-radius: 4px; background: linear-gradient(135deg, #8ff0ff, #2a8fd6); transform: rotate(45deg) scale(.8); }
+.dm .rar + .lv:not(:empty), .dm .lv:not(:empty) { background: #0b3a92; color: #fff; border-radius: 6px; padding: 0 5px; font-size: 11px; font-weight: 900; }
+.dm .fu-top { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 14px; }
+.dm .fu-sel { display: flex; gap: 8px; align-items: center; font-weight: 800; flex-wrap: wrap; justify-content: center; }
+.dm select { font: 800 15px var(--dm-font); background: #0c1730; color: var(--dm-ink); border: 2px solid #4a5f8c; border-radius: 10px; padding: 6px 10px; max-width: 100%; }
+.dm .fu-main { display: flex; gap: 14px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.dm .fu-main .fig { width: 130px; }
+.dm .fu-stats { font-weight: 800; text-align: center; color: #dfe7f7; }
+.dm .fu-stats small { display: block; color: var(--dm-mute); }
+.dm .fu-bar { width: min(320px, 100%); height: 10px; border-radius: 6px; background: #0a1226; border: 2px solid #2b5fc4; overflow: hidden; }
+.dm .fu-bar i { display: block; height: 100%; background: linear-gradient(90deg, #4fd1ff, #2a74f0); }
+.dm .fu-pieces, .dm .fu-mats { width: 100%; display: flex; flex-direction: column; gap: 6px; padding: 10px 12px 14px; }
+.dm .fu-piece, .dm .fu-mat { display: flex; align-items: center; gap: 8px; background: #0e1830; border-radius: 10px; padding: 6px 8px; font-weight: 800; }
+.dm .fu-piece .sw { width: 16px; height: 16px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 2px #0006; }
+.dm .fu-piece .nm, .dm .fu-mat .nm { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.dm .fu-piece .nm small, .dm .fu-mat .nm small { color: var(--dm-mute); margin-left: 4px; }
+.dm .fu-piece .ghost, .dm .fu-mat .ghost { padding: 4px 9px; font-size: 13px; }
+.dm .fu-mat b { min-width: 2ch; text-align: center; font-variant-numeric: tabular-nums; }
+.dm .itemchips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.dm .itemchips span { background: #0b3a92; border: 2px solid #4f8cff; border-radius: 999px; padding: 3px 10px; font-weight: 800; font-size: 13px; animation: dm-pop .5s both; }
 .dm .price { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 20px; }
 .dm .fig.locked img { filter: brightness(0) opacity(.55); }
 .dm .fig.locked .name { color: #5b6886; }
@@ -205,7 +232,7 @@ export interface MenuHooks {
   canContinue(): boolean;
 }
 
-type Screen = 'home' | 'deck' | 'pick' | 'plates' | 'shop' | 'wiki';
+type Screen = 'home' | 'deck' | 'pick' | 'plates' | 'shop' | 'wiki' | 'fuse';
 
 /** Plate deck rules of the early versions (Fandom "Deck", Nintendo Life): up to 6 plates, total cost 6 or less. */
 export const PLATE_SLOTS = 6;
@@ -238,6 +265,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   }
 
   const rarity = new Map(records.map((r) => [String(r.id), r.rarity]));
+  const rarOf = (id: string) => asRar(rarity.get(id));
   const all = [...pool, ...extras];
   const extraIds = new Set(extras.map((d) => d.id));
   const byId = new Map(all.map((d) => [d.id, d]));
@@ -286,7 +314,9 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   root.setAttribute('aria-label', 'Menú');
   root.innerHTML = `
     <div class="bar"><span class="info">Versión 1.0.0 · ${pool.length} figuras</span>
-      <span class="gems" title="Gemas"><i class="gem"></i><span id="dmGems">0</span></span></div>
+      <span class="gems" title="Gemas"><i class="gem"></i><span id="dmGems">0</span></span>
+      <span class="gems" title="Monedas"><i class="coinI"></i><span id="dmCoins">0</span></span>
+      <span class="gems" title="Material"><i class="matI"></i><span id="dmMat">0</span></span></div>
     <div class="screen" id="dmHome">
       <div class="pill">Liga</div>
       <div class="hero">
@@ -314,6 +344,11 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         <div class="plates" id="dmDeckPlates"></div>
       </div>
       <div class="row"><button type="button" class="yellow" id="menuPlates">Editar plates</button></div>
+      <div class="panel">
+        <div class="panel-head"><h2>Mejorar figuras</h2></div>
+        <p class="note" style="padding:10px 14px">Sube de nivel (hasta 5, y hasta 10 con Carmonite) y de Chain Level fusionando figuras, Rare Metals y Cubos.</p>
+        <div class="row" style="padding-bottom:14px"><button type="button" class="yellow" id="menuFuse">Fusión</button></div>
+      </div>
       <div class="panel">
         <div class="panel-head"><h2>Evolución</h2></div>
         <p class="note" style="padding:10px 14px 0">Una figura puede evolucionar tras ${EVOLVE_BATTLES} combates o ${EVOLVE_DUELS} duelos en tu mazo. Una copia se convierte en su evolución.</p>
@@ -351,6 +386,42 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         <button type="button" class="yellow" id="shopBuy">Comprar</button>
         <p class="note" id="shopNote"></p>
       </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Intercambio de Material</h2><span class="usable" id="shMat"></span></div>
+        <div class="fu-top">
+          <label class="fu-sel">Figura <select id="shExFig"></select></label>
+          <button type="button" class="yellow" id="shExBuy">Cambiar</button>
+          <button type="button" class="ghost" id="shCarm">Carmonite ×1 por ${CARMONITE_MATERIAL} Material</button>
+          <p class="note" id="shExNote"></p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Vender</h2><span class="usable" id="shCoins"></span></div>
+        <div class="fu-mats" id="shSell"></div>
+      </div>
+    </div>
+    <div class="screen" id="dmFuse">
+      <div class="pill">Fusión</div>
+      <div class="panel">
+        <div class="panel-head"><h2>Figura</h2><span class="usable" id="fuLevel"></span></div>
+        <div class="fu-top">
+          <label class="fu-sel">Mejorar <select id="fuPick"></select></label>
+          <div class="fu-main"><div id="fuFig"></div><canvas id="fuWheel" width="170" height="170" aria-hidden="true"></canvas></div>
+          <div class="fu-stats" id="fuStats"></div>
+          <div class="fu-bar" aria-hidden="true"><i id="fuExpBar"></i></div>
+        </div>
+        <div class="fu-pieces" id="fuPieces"></div>
+        <div class="fu-top" style="padding-top:0">
+          <label class="fu-sel" id="fuShrinkWrap">Con Carmonite, el punto sale de <select id="fuShrink"></select></label>
+          <button type="button" class="ghost" id="fuCarm"></button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Material de fusión</h2><span class="usable" id="fuCost"></span></div>
+        <div class="fu-mats" id="fuMats"></div>
+      </div>
+      <div class="row"><button type="button" class="ghost" id="fuReset">Vaciar</button><button type="button" class="yellow" id="fuGo">Fusionar</button></div>
+      <p class="note" id="fuNote"></p>
     </div>
     <div class="screen" id="dmWiki"><div class="pill">Pokédex</div><div id="dmWikiBody" style="width:100%;display:flex;justify-content:center"></div></div>
     <div class="open" id="dmOpen" role="dialog" aria-modal="true" aria-label="Abrir booster">
@@ -392,7 +463,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     const badges = document.createElement('div');
     badges.className = 'badges';
     const r = rarity.get(d.id) ?? '';
-    badges.innerHTML = `<span class="rar ${r}" title="Rareza">${RARITY_BADGE[r] ?? r}</span><span class="mp" title="MP">${d.mp}</span>`;
+    badges.innerHTML = `<span class="rar ${r}" title="Rareza">${RARITY_BADGE[r] ?? r}</span><span class="lv" title="Nivel y Chain Level"></span><span class="mp" title="MP">${d.mp}</span>`;
+    badges.querySelector<HTMLElement>('.lv')!.dataset.lv = d.id;
     el.appendChild(badges);
     const name = document.createElement('span');
     name.className = 'name';
@@ -509,6 +581,12 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         : `Evoluciona: ${p.battles}/${EVOLVE_BATTLES} combates · ${p.duels}/${EVOLVE_DUELS} duelos`;
     }
     for (const b of $('deckFilters').querySelectorAll<HTMLElement>('button')) b.classList.toggle('on', b.dataset.key === filter);
+    for (const el of root.querySelectorAll<HTMLElement>('[data-lv]')) {
+      const id = el.dataset.lv!, p = gacha.prog?.[id], lv = levelOf(p, rarOf(id));
+      el.textContent = !owns(id) || (lv === 1 && !p?.clv) ? '' : `Nv${lv}${p?.clv ? ` C${p.clv}` : ''}`;
+    }
+    if (screen === 'fuse') renderFuse();
+    if (screen === 'shop') renderShop();
   };
 
   const history: Screen[] = [];
@@ -522,12 +600,13 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     $('dmPick').classList.toggle('on', s === 'pick');
     $('dmPlates').classList.toggle('on', s === 'plates');
     $('dmShop').classList.toggle('on', s === 'shop');
+    $('dmFuse').classList.toggle('on', s === 'fuse');
     $('tabShop').classList.toggle('on', s === 'shop');
     $('dmWiki').classList.toggle('on', s === 'wiki');
     $('tabWiki').classList.toggle('on', s === 'wiki');
     if (s === 'wiki') renderWiki($('dmWikiBody'), { pool, extras, records, evolves, owned: () => gacha.owned, plates, ownedPlates: () => gacha.plates ?? {} });
     $('tabLeague').classList.toggle('on', s === 'home');
-    $('tabDeck').classList.toggle('on', s === 'deck' || s === 'pick' || s === 'plates');
+    $('tabDeck').classList.toggle('on', s === 'deck' || s === 'pick' || s === 'plates' || s === 'fuse');
     $('menuContinue').hidden = !hooks.canContinue();
     $('tabBack').hidden = !hooks.canContinue() && history.length === 0;
     changed();
@@ -539,7 +618,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     for (let i = mine.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [mine[i], mine[j]] = [mine[j], mine[i]]; }
     history.length = 0;
     go(null);
-    hooks.play(deck.length === DECK_SIZE ? deck.map((id) => byId.get(id)!) : mine.slice(0, DECK_SIZE), plateDeck.map((id) => plateById.get(id)!));
+    const chosen = deck.length === DECK_SIZE ? deck.map((id) => byId.get(id)!) : mine.slice(0, DECK_SIZE);
+    hooks.play(chosen.map((d) => applyProgress(d, gacha.prog?.[d.id])), plateDeck.map((id) => plateById.get(id)!));
   };
 
   // ---------- boosters ----------
@@ -552,6 +632,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   let armed = -1;
   const renderGacha = () => {
     $('dmGems').textContent = String(gacha.gems);
+    $('dmCoins').textContent = wallet(gacha).coins.toLocaleString('es');
+    $('dmMat').textContent = wallet(gacha).material.toLocaleString('es');
     const now = Date.now();
     const caseEl = $('dmCase');
     caseEl.innerHTML = '';
@@ -574,8 +656,9 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         const got = openFromCase(gacha, i, Date.now(), pullable, Math.random);
         if (!got) { renderGacha(); return; }
         const pl = rollPlate(gacha, platePullable, Math.random);
+        const items = boosterItems(gacha, b.kind, Math.random);
         saveGacha();
-        reveal(b.kind, got, pl);
+        reveal(b.kind, got, pl, items);
       };
       caseEl.appendChild(el);
     }
@@ -587,7 +670,10 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       btn.className = 'yellow';
       const k = gacha.ready[0].kind;
       btn.textContent = `Abrir ${k === 'welcome' ? 'booster de bienvenida' : 'booster'} (${gacha.ready.length})`;
-      btn.onclick = () => { const r = openReady(gacha, pullable, Math.random); if (r) { const pl = rollPlate(gacha, platePullable, Math.random); saveGacha(); reveal(r.kind, r.got, pl); } };
+      btn.onclick = () => {
+        const r = openReady(gacha, pullable, Math.random);
+        if (r) { const pl = rollPlate(gacha, platePullable, Math.random); const items = boosterItems(gacha, r.kind, Math.random); saveGacha(); reveal(r.kind, r.got, pl, items); }
+      };
       w.appendChild(btn);
     }
     $<HTMLButtonElement>('shopBuy').disabled = gacha.gems < SHOP_PRICE;
@@ -693,7 +779,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   };
 
   /** Booster opening: the box shakes, then the figures pop out one by one. */
-  const reveal = (kind: BoosterKind, got: string[], plateId: string | null = null) => {
+  const reveal = (kind: BoosterKind, got: string[], plateId: string | null = null, items: string[] = []) => {
     renderGacha(); // gems and case update at once, under the opening overlay
     const box = $('dmOpenBox');
     box.className = `box k-${kind}`;
@@ -730,6 +816,12 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         wrap.append(card, n);
         out.appendChild(wrap);
       }
+      if (items.length) {
+        const chips = document.createElement('div');
+        chips.className = 'itemchips';
+        items.forEach((t, i) => { const c = document.createElement('span'); c.textContent = t; c.style.animationDelay = `${(got.length + 1 + i) * 0.35}s`; chips.appendChild(c); });
+        out.appendChild(chips);
+      }
       $('dmOpenOk').hidden = false;
       $('dmOpenOk').focus();
     }, reduce ? 0 : 1500);
@@ -739,14 +831,16 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     if (!buyBooster(gacha)) return;
     const r = openReady(gacha, pullable, Math.random);
     const pl = r ? rollPlate(gacha, platePullable, Math.random) : null;
+    const items = r ? boosterItems(gacha, r.kind, Math.random) : [];
     saveGacha();
-    if (r) reveal(r.kind, r.got, pl);
+    if (r) reveal(r.kind, r.got, pl, items);
   };
   // Timers on the case tick while the League screen is open.
   setInterval(() => { if (root.classList.contains('show') && screen === 'home' && !$('dmOpen').classList.contains('show')) renderGacha(); }, 15_000);
   $('menuContinue').onclick = () => { history.length = 0; go(null); };
   $('menuDeck').onclick = () => go('pick');
   $('menuPlates').onclick = () => go('plates');
+  $('menuFuse').onclick = () => go('fuse');
   $('plateDone').onclick = () => go('deck');
   $('plateClear').onclick = () => { plateDeck = []; changed(); };
   $('tabLeague').onclick = () => go('home');
@@ -767,6 +861,191 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     changed();
   };
 
+  // ---------- levels, fusion, selling, Material Exchange (src/progress.ts) ----------
+  const COLOR_HEX: Record<string, string> = { white: '#f4f4f4', gold: '#f2c200', purple: '#9b4dff', blue: '#3b82f6', red: '#e53935' };
+  let fuTarget: string | null = null;
+  let fuInput: FusionInput = { figures: {}, items: {} };
+  const fuNote = (t: string) => { $('fuNote').textContent = t; };
+  const btn = (label: string, on: () => void, disabled = false, aria?: string) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'ghost'; b.textContent = label; b.disabled = disabled; b.onclick = on;
+    if (aria) b.setAttribute('aria-label', aria);
+    return b;
+  };
+  const stepper = (label: string, sub: string, value: number, max: number, set: (n: number) => void) => {
+    const row = document.createElement('div');
+    row.className = 'fu-mat';
+    const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = label;
+    const sm = document.createElement('small'); sm.textContent = sub; nm.appendChild(sm);
+    const v = document.createElement('b'); v.textContent = String(value);
+    row.append(nm, btn('−', () => set(value - 1), value <= 0, `Quitar ${label}`), v, btn('+', () => set(value + 1), value >= max, `Añadir ${label}`),
+      btn('Todo', () => set(max), value >= max, `Todo ${label}`));
+    return row;
+  };
+  const renderFuse = () => {
+    const mine = all.filter((d) => owns(d.id)).sort((a, b) => a.name.localeCompare(b.name));
+    if (!fuTarget || !owns(fuTarget)) { fuTarget = mine[0]?.id ?? null; fuInput = { figures: {}, items: {} }; }
+    const sel = $<HTMLSelectElement>('fuPick');
+    sel.innerHTML = '';
+    for (const d of mine) {
+      const o = document.createElement('option');
+      const p = gacha.prog?.[d.id];
+      o.value = d.id; o.textContent = `${d.name} (${RAR_SHORT[rarOf(d.id)]}) · Nv ${levelOf(p, rarOf(d.id))}${p?.clv ? ` · CLv ${p.clv}` : ''}`;
+      sel.appendChild(o);
+    }
+    if (!fuTarget) { fuNote('No tienes figuras.'); return; }
+    sel.value = fuTarget;
+    const base = byId.get(fuTarget)!, r = rarOf(fuTarget), p = progOf(gacha, fuTarget, base.wheel.length), lv = levelOf(p, r);
+    const def = applyProgress(base, p), free = freePoints(p, r);
+    $('fuFig').innerHTML = '';
+    $('fuFig').appendChild(figure(def, 'div'));
+    drawWheel($<HTMLCanvasElement>('fuWheel'), def, null, 0, true);
+    $('fuLevel').textContent = `Nv ${lv} · CLv ${p.clv}`;
+    const nextExp = lv < MAX_LEVEL ? LEVEL_EXP[r][lv] : 0, prevExp = LEVEL_EXP[r][Math.min(lv, MAX_LEVEL) - 1];
+    $('fuStats').innerHTML = '';
+    const line = (t: string, small = false) => { const el = document.createElement(small ? 'small' : 'div'); el.textContent = t; $('fuStats').appendChild(el); };
+    line(lv < MAX_LEVEL ? `EXP ${p.exp.toLocaleString('es')} / ${nextExp.toLocaleString('es')} para el nivel ${lv + 1}` : lv < MAX_LEVEL_CARMONITE ? 'Nivel 5: sigue con Carmonite' : 'Nivel máximo');
+    line(p.clv >= MAX_CHAIN ? `Chain Level ${p.clv} (máximo)` : `Chain ${p.chain} / ${CHAIN_COPIES[r]} para el Chain Level ${p.clv + 1} (copias de ${base.name} o Cubos [${RAR_SHORT[r]}])`, true);
+    line(`Puntos por colocar: ${free.level} de nivel (+1 a una casilla) · ${free.carmonite} de Carmonite (+1 a una, −1 a otra mayor de 4) · ${free.chain} de Chain (+1 de daño)`, true);
+    $<HTMLElement>('fuExpBar').style.width = `${lv >= MAX_LEVEL ? 100 : Math.round(100 * (p.exp - prevExp) / Math.max(1, nextExp - prevExp))}%`;
+    // Carmonite: which piece gives up the point.
+    const shrink = $<HTMLSelectElement>('fuShrink');
+    const keep = shrink.value;
+    shrink.innerHTML = '';
+    def.wheel.forEach((s, i) => { if (s.weight > 4) { const o = document.createElement('option'); o.value = String(i); o.textContent = `${s.move.name} (${s.weight})`; shrink.appendChild(o); } });
+    if ([...shrink.options].some((o) => o.value === keep)) shrink.value = keep;
+    $('fuShrinkWrap').hidden = free.carmonite <= 0;
+    const carmCost = CARMONITE_PER_LEVEL[r];
+    $('fuCarm').textContent = lv < MAX_LEVEL ? `Carmonite: a partir del nivel 5 (tienes ${wallet(gacha).carmonite})`
+      : lv >= MAX_LEVEL_CARMONITE ? 'Nivel 10 alcanzado' : `Subir al nivel ${lv + 1} con ${carmCost} Carmonite (tienes ${wallet(gacha).carmonite})`;
+    $<HTMLButtonElement>('fuCarm').disabled = lv < MAX_LEVEL || lv >= MAX_LEVEL_CARMONITE || wallet(gacha).carmonite < carmCost;
+    const pieces = $('fuPieces');
+    pieces.innerHTML = '';
+    def.wheel.forEach((s, i) => {
+      const row = document.createElement('div');
+      row.className = 'fu-piece';
+      const sw = document.createElement('i'); sw.className = 'sw'; sw.style.background = COLOR_HEX[s.move.color] ?? '#888';
+      const nm = document.createElement('span'); nm.className = 'nm';
+      const dmg = s.move.damage ? ` ${s.move.damage}` : s.move.stars ? ` ${'★'.repeat(s.move.stars)}` : '';
+      nm.textContent = `${s.move.name}${dmg}`;
+      const sm = document.createElement('small');
+      sm.textContent = `tamaño ${s.weight}${p.size[i] ? ` (${p.size[i] > 0 ? '+' : ''}${p.size[i]})` : ''}${p.dmg[i] ? ` · daño +${p.dmg[i]}` : ''}`;
+      nm.appendChild(sm);
+      const useCarm = free.level <= 0 && free.carmonite > 0;
+      const act = (kind: 'grow' | 'dmg' | 'undo') => () => {
+        const from = kind === 'grow' && useCarm ? Number(shrink.value) : undefined;
+        if (!placePoint(base, p, r, i, kind, from)) { fuNote('Eso no se puede.'); return; }
+        fuNote(''); saveGacha(); changed();
+      };
+      const canGrow = s.move.color !== 'red' && (free.level > 0 || (free.carmonite > 0 && shrink.value !== '' && Number(shrink.value) !== i));
+      const damaging = (s.move.color === 'white' || s.move.color === 'gold') && s.move.damage > 0;
+      row.append(sw, nm);
+      if (s.move.color !== 'red') row.appendChild(btn('+ tamaño', act('grow'), !canGrow, `Agrandar ${s.move.name}`));
+      if (damaging) row.appendChild(btn('+ daño', act('dmg'), free.chain <= 0, `Más daño a ${s.move.name}`));
+      row.appendChild(btn('Deshacer', act('undo'), !p.size[i] && !p.dmg[i], `Deshacer cambios en ${s.move.name}`));
+      pieces.appendChild(row);
+    });
+    // Materials.
+    const mats = $('fuMats');
+    mats.innerHTML = '';
+    const items = wallet(gacha).items;
+    for (const k of ['metal', 'cube', 'ingot'] as ItemKind[]) for (const rr of RARS) {
+      const have = items[k][rr];
+      if (!have) continue;
+      const v = fuInput.items[k]?.[rr] ?? 0;
+      const what = k === 'metal' ? `${METAL_EXP[rr].toLocaleString('es')} EXP` : k === 'cube' ? (rr === r ? '1 punto de Chain' : 'solo para figuras ' + RAR_SHORT[rr]) : '1 EXP (mejor véndelo)';
+      mats.appendChild(stepper(`${ITEM_ES[k]} [${RAR_SHORT[rr]}]`, `tienes ${have} · ${what}`, v, k === 'cube' && rr !== r ? 0 : have,
+        (n) => { (fuInput.items[k] ??= {})[rr] = Math.max(0, n); changed(); }));
+    }
+    for (const d of mine) {
+      const have = gacha.owned[d.id] - (d.id === fuTarget ? 1 : 0) - (d.id !== fuTarget && deck.includes(d.id) ? 1 : 0);
+      if (have <= 0) continue;
+      const v = fuInput.figures[d.id] ?? 0;
+      const sub = d.id === fuTarget ? `copia · +1 Chain` : `${RAR_SHORT[rarOf(d.id)]} · Nv ${levelOf(gacha.prog?.[d.id], rarOf(d.id))}`;
+      mats.appendChild(stepper(d.name, `${sub} · puedes usar ${have}`, v, have, (n) => { fuInput.figures[d.id] = Math.max(0, n); changed(); }));
+    }
+    if (!mats.childElementCount) mats.innerHTML = '<p class="note">Nada que fusionar: consigue copias, Rare Metals o Cubos en los boosters. Las figuras de tu mazo guardan siempre una copia.</p>';
+    const pv = fusionPreview(fuTarget, r, fuInput, rarOf, gacha.prog ?? {});
+    $('fuCost').textContent = `${pv.coins.toLocaleString('es')} monedas`;
+    $('fuCost').classList.toggle('short', pv.coins > wallet(gacha).coins);
+    $<HTMLButtonElement>('fuGo').disabled = !(pv.exp || pv.chain) || pv.coins > wallet(gacha).coins;
+    $<HTMLButtonElement>('fuGo').textContent = pv.exp || pv.chain ? `Fusionar (+${pv.exp.toLocaleString('es')} EXP${pv.chain ? `, +${pv.chain} Chain` : ''})` : 'Fusionar';
+  };
+  $<HTMLSelectElement>('fuPick').onchange = (e) => { fuTarget = (e.target as HTMLSelectElement).value; fuInput = { figures: {}, items: {} }; fuNote(''); changed(); };
+  $<HTMLSelectElement>('fuShrink').onchange = () => changed();
+  $('fuReset').onclick = () => { fuInput = { figures: {}, items: {} }; fuNote(''); changed(); };
+  $('fuGo').onclick = () => {
+    if (!fuTarget) return;
+    const d = byId.get(fuTarget)!, before = levelOf(gacha.prog?.[fuTarget], rarOf(fuTarget)), cb = gacha.prog?.[fuTarget]?.clv ?? 0;
+    const err = fuse(gacha, d, rarOf(fuTarget), fuInput, rarOf);
+    if (err) { fuNote(err); return; }
+    deck = deck.filter((id) => owns(id));
+    fuInput = { figures: {}, items: {} };
+    saveGacha();
+    const p = gacha.prog![fuTarget], lv = levelOf(p, rarOf(fuTarget));
+    fuNote(`¡Fusión hecha!${lv > before ? ` ${d.name} sube al nivel ${lv}.` : ''}${p.clv > cb ? ` Chain Level ${p.clv}.` : ''}`);
+    changed();
+  };
+  $('fuCarm').onclick = () => {
+    if (!fuTarget) return;
+    const err = useCarmonite(gacha, byId.get(fuTarget)!, rarOf(fuTarget));
+    fuNote(err ?? '¡Sube de nivel con Carmonite! Coloca el punto: agranda una casilla y elige de cuál sale.');
+    saveGacha(); changed();
+  };
+
+  const renderShop = () => {
+    const w = wallet(gacha);
+    $('shMat').textContent = `${w.material.toLocaleString('es')} Material`;
+    $('shCoins').textContent = `${w.coins.toLocaleString('es')} monedas`;
+    const ex = $<HTMLSelectElement>('shExFig');
+    if (!ex.options.length) {
+      for (const d of [...pool].sort((a, b) => (RARITY_ORDER[rarity.get(a.id) ?? ''] ?? 9) - (RARITY_ORDER[rarity.get(b.id) ?? ''] ?? 9) || a.name.localeCompare(b.name))) {
+        const o = document.createElement('option');
+        o.value = d.id; o.textContent = `${d.name} (${RAR_SHORT[rarOf(d.id)]}) · ${EXCHANGE_PRICE[rarOf(d.id)].toLocaleString('es')} Material`;
+        ex.appendChild(o);
+      }
+    }
+    $<HTMLButtonElement>('shExBuy').disabled = w.material < EXCHANGE_PRICE[rarOf(ex.value)];
+    $<HTMLButtonElement>('shCarm').disabled = w.material < CARMONITE_MATERIAL;
+    const sell = $('shSell');
+    sell.innerHTML = '';
+    const row = (label: string, sub: string, price: number, on: () => void) => {
+      const r = document.createElement('div'); r.className = 'fu-mat';
+      const nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = label;
+      const sm = document.createElement('small'); sm.textContent = sub; nm.appendChild(sm);
+      r.append(nm, btn(`Vender (${price.toLocaleString('es')})`, () => { on(); saveGacha(); changed(); }, false, `Vender ${label}`));
+      sell.appendChild(r);
+    };
+    for (const rr of RARS) if (w.items.ingot[rr]) row(`Lingote [${RAR_SHORT[rr]}]`, `tienes ${w.items.ingot[rr]}`, INGOT_COINS[rr], () => sellIngot(gacha, rr));
+    for (const d of all.filter((x) => (gacha.owned[x.id] ?? 0) > 1).sort((a, b) => a.name.localeCompare(b.name)))
+      row(d.name, `${RAR_SHORT[rarOf(d.id)]} · tienes ${gacha.owned[d.id]} (se queda una)`, SELL_LV1[rarOf(d.id)], () => sellFigure(gacha, d.id, rarOf(d.id)));
+    for (const [id, n] of Object.entries(gacha.plates ?? {})) {
+      const pl = plateById.get(id), inDeck = plateDeck.filter((x) => x === id).length;
+      if (!pl || n - inDeck <= 0) continue;
+      const price = PLATE_COINS[asRar(pl.rarity)];
+      row(`Plate ${pl.name}`, `tienes ${n}${inDeck ? `, ${inDeck} en el mazo` : ''}`, price, () => { gacha.plates![id]--; if (!gacha.plates![id]) delete gacha.plates![id]; wallet(gacha).coins += price; });
+    }
+    if (!sell.childElementCount) sell.innerHTML = '<p class="note">Nada que vender: los lingotes y las figuras o plates repetidas aparecen aquí.</p>';
+  };
+  $<HTMLSelectElement>('shExFig').onchange = () => renderShop();
+  $('shExBuy').onclick = () => {
+    const id = $<HTMLSelectElement>('shExFig').value, w = wallet(gacha), price = EXCHANGE_PRICE[rarOf(id)];
+    if (w.material < price) return;
+    w.material -= price;
+    gacha.owned[id] = (gacha.owned[id] ?? 0) + 1;
+    saveGacha();
+    $('shExNote').textContent = `¡${byId.get(id)?.name} es tuya!`;
+    changed();
+  };
+  $('shCarm').onclick = () => {
+    const w = wallet(gacha);
+    if (w.material < CARMONITE_MATERIAL) return;
+    w.material -= CARMONITE_MATERIAL; w.carmonite++;
+    saveGacha();
+    $('shExNote').textContent = `Tienes ${w.carmonite} Carmonite.`;
+    changed();
+  };
+
   return {
     open: () => { history.length = 0; armed = -1; go('home', false); },
     battleFought: (id) => {
@@ -778,10 +1057,14 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       gacha = loadState(read(GACHA_KEY)); // another tab may have changed it
       recordDuel(gacha, deckIds);
       const b = rewardDuel(gacha, won, Date.now(), Math.random);
+      const before = new Map(deckIds.map((id) => [id, levelOf(gacha.prog?.[id], rarOf(id))]));
+      const e = duelExp(gacha, deckIds.map((id) => byId.get(id)).filter((d): d is FigureDef => !!d), won, rarOf);
+      const ups = deckIds.filter((id, i) => deckIds.indexOf(id) === i && levelOf(gacha.prog?.[id], rarOf(id)) > before.get(id)!);
       saveGacha();
       const g = won ? GEMS_WIN : GEMS_LOSS;
-      return b ? `+${g} gemas · ${boxLabel(b.kind)} (${BOOSTERS[b.kind].hours} h) en la vitrina`
-        : `+${g} gemas · la vitrina está llena: abre algún booster`;
+      const lvl = ups.length ? ` · ¡Sube de nivel: ${ups.map((id) => byId.get(id)?.name ?? id).join(', ')}!` : '';
+      return (b ? `+${g} gemas · ${boxLabel(b.kind)} (${BOOSTERS[b.kind].hours} h) en la vitrina`
+        : `+${g} gemas · la vitrina está llena: abre algún booster`) + ` · +${e} EXP a tu mazo${lvl}`;
     },
   };
 }

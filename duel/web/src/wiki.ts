@@ -6,6 +6,10 @@ import {
   BOOSTERS, CASE_SLOTS, EVOLVE_BATTLES, EVOLVE_DUELS, GEMS_LOSS, GEMS_WIN, PLATE_CHANCE, RARITY_WEIGHT, SHOP_PRICE, STARTER_PLATES, TIMED_WEIGHT, gemsToOpenNow,
 } from '../../src/gacha.ts';
 import { defaultRules } from '../../src/rules.config.ts';
+import {
+  CARMONITE_MATERIAL, CARMONITE_PER_LEVEL, CHAIN_COPIES, DUEL_EXP, EXCHANGE_PRICE, FIGURE_BASE_EXP, FUSION_COINS_PER_CHAIN, FUSION_COINS_PER_EXP,
+  INGOT_COINS, LEVEL_EXP, MAX_CHAIN, METAL_EXP, PLATE_COINS, RARS, RAR_SHORT, SELL_LV1, SHOP_MATERIAL,
+} from '../../src/progress.ts';
 import type { FigureDef } from '../../src/types.ts';
 import { MOVE_COLOR, spriteSrc } from './shared.ts';
 
@@ -75,6 +79,7 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
     ['plates', 'Plates', platesSection],
     ['boosters', 'Boosters', boosters],
     ['evolucion', 'Evolución', evolution],
+    ['mejora', 'Niveles y fusión', upgrade],
   ];
   root.innerHTML = `<div class="wiki"><div class="sections" id="wikiNav"></div><div id="wikiBody"></div></div>`;
   const nav = root.querySelector<HTMLElement>('#wikiNav')!, body = root.querySelector<HTMLElement>('#wikiBody')!;
@@ -275,5 +280,36 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
       <span class="tag inv">inventada</span>: la ruleta de su preevolución con +10 de daño y +1★, sus tipos reales y la habilidad de su preevolución, si la tenía.
       ${canEvo} de las ${d.pool.length} figuras de la 1.0.0 pueden evolucionar, y así se llega a ${d.extras.length} figuras más.</p>
       <p>Las cadenas de evolución vienen de PokeAPI. En el original las figuras evolucionaban durante la partida; eso aún no está.</p>`;
+  }
+
+  function upgrade(): string {
+    const per = (o: Record<string, number>) => RARS.map((r) => `${RAR_SHORT[r]} ${o[r].toLocaleString('es')}`).join(' · ');
+    return `<h3>Niveles (1 a 5)</h3>
+      <p>Cada nivel da un punto para agrandar 1 una casilla de la ruleta: a nivel 5 la ruleta pasa de 96 a 100 y las casillas
+      buenas pesan más que el Fallo. Se sube con experiencia: la dan los duelos (también si pierdes) y la fusión.
+      <span class="tag inv">Inventado</span> Experiencia para el nivel 5: ${per(Object.fromEntries(RARS.map((r) => [r, LEVEL_EXP[r][4]])))}
+      (en partes iguales por nivel); por duelo, ${DUEL_EXP.win} si ganas y ${DUEL_EXP.loss} si pierdes, a cada figura del mazo.
+      <span class="tag inv">Supuesto</span> Los puntos no van al Fallo y se pueden recolocar cuando quieras; todas las copias de una figura comparten nivel
+      (en el original cada copia tenía el suyo).</p>
+      <h3>Fusión</h3>
+      <p>Mazos → Fusión. Eliges una figura y le das otras figuras, Rare Metals, Cubos o lingotes; se gastan monedas y lo que fusionas se pierde.
+      La figura gana la experiencia de todo lo que fusionas. Rare Metal: ${per(METAL_EXP)} EXP. Un lingote da 1 EXP (es para venderlo).
+      <span class="tag inv">Inventado</span> Cada figura que fusionas da ${per(FIGURE_BASE_EXP)} EXP más la que tuviera; la fusión cuesta
+      ${FUSION_COINS_PER_EXP} monedas por EXP y ${FUSION_COINS_PER_CHAIN} por punto de Chain. Las figuras de tu mazo guardan siempre una copia.</p>
+      <h3>Chain Level</h3>
+      <p>Fusionando copias de la misma figura (o Cubos de su misma rareza) sube el Chain Level; cada nivel da +1 de daño a un ataque
+      blanco o dorado (40 → 41). Copias por nivel: ${per(CHAIN_COPIES)}. <span class="tag inv">Inventado</span> Un Cubo = una copia; máximo Chain Level ${MAX_CHAIN}.</p>
+      <h3>Carmonite (niveles 6 a 10)</h3>
+      <p>Desde el nivel 5. Cada nivel agranda una casilla 1 y encoge 1 otra que sea mayor de 4. Carmonite por nivel: ${per(CARMONITE_PER_LEVEL)}.
+      <span class="tag inv">Inventado</span> Se consigue en el Intercambio de Material (${CARMONITE_MATERIAL} Material cada una).</p>
+      <h3>Monedas, lingotes y Material</h3>
+      <p>Las monedas salen de vender: lingotes (${per(INGOT_COINS)}), figuras repetidas (a nivel 1: ${per(SELL_LV1)}) y plates
+      (${per(PLATE_COINS)}). Los boosters por tiempo traen un lingote, y del Azul en adelante también un Cubo o un Rare Metal.
+      Comprar boosters da Material, que se cambia por figuras en la Tienda (Dialga, EX: 4.000).
+      <span class="tag inv">Inventado</span> ${SHOP_MATERIAL} Material por booster de la Tienda; precios del Intercambio que no son EX
+      (${RARS.slice(0, 3).map((r) => `${RAR_SHORT[r]} ${EXCHANGE_PRICE[r]}`).join(' · ')}); la rareza de lingotes, Cubos y Rare Metals usa los mismos pesos que las figuras.
+      <span class="tag inv">Supuesto</span> El orden C, UC, R, EX de los precios de plates; las figuras repetidas se venden a nivel 1.</p>
+      <p>Fuentes: Serebii (Mechanics), Bulbapedia (Enhancement, Shop, Time Booster) y la wiki de Fandom (Items, Figures).
+      La IA juega con sus figuras sin mejorar.</p>`;
   }
 }
