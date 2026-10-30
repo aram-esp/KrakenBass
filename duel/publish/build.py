@@ -8,9 +8,11 @@ from pathlib import Path
 def trim(figs):
     out = []
     for f in figs:
-        w = list(f['wheels'].values())
-        first = [{k: t[k] for k in ('kind', 'color', 'name', 'power', 'prob', 'stars')} for t in (w[0] if w else []) if t['kind'] == 'duelattack']
-        out.append({'title': f['title'], 'id': f['id'], 'name': f['name'], 'type': f['type'], 'mp': f['mp'], 'rarity': f['rarity'], 'wheels': {'v': first}})
+        # Keep every wheel version: the page picks the one for its GAME_VERSION (src/data.ts).
+        wheels = {key: [{k: t[k] for k in ('kind', 'color', 'name', 'power', 'prob', 'stars')} for t in w if t['kind'] == 'duelattack']
+                  for key, w in f['wheels'].items()}
+        out.append({'title': f['title'], 'id': f['id'], 'name': f['name'], 'type': f['type'], 'mp': f['mp'], 'rarity': f['rarity'],
+                    'version': f['version'], 'wheels': wheels})
     return json.dumps(out, separators=(',', ':'), ensure_ascii=False)
 
 esc = lambda s: s.replace('</', '<\\/')

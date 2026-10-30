@@ -25,10 +25,14 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 19 passing.
+- Tests: `npm test` -> 20 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.
+- Game version: duels use only figures released up to 3.0.12, each with its wheel as of 3.0.12 (`GAME_VERSION` in
+  `src/data.ts`, `figurePool`). The user asked (2026-10-30) for the game as it was before the Mega update: the first Mega
+  figures and the UX rarity appear in 4.0.0 (Bulbapedia release versions). 265 figures, no Mega, no UX. `null` = all 562
+  figures with their newest wheels. The published page carries every wheel version and applies the same cut.
 - Spanish design summary of Duel: `docs/diseno-pokemon-duel.md` (shorter than `research/FINDINGS.md`, which wins on conflicts).
 
 Not done: plates, attack/ability effects, special conditions, evolution, Mega Evolution, Z-Moves, figure levels,

@@ -1,4 +1,4 @@
-import { toFigureDef, type FigureRecord } from '../../src/data.ts';
+import { figurePool, type FigureRecord } from '../../src/data.ts';
 import type { FigureDef } from '../../src/types.ts';
 import { $, readData, type Layout } from './shared.ts';
 import { Match } from './match.ts';
@@ -10,7 +10,7 @@ async function main() {
     readData<Layout>('data-board', '../data/board.json'),
     readData<FigureRecord[]>('data-figures', '../data/figures.json'),
   ]);
-  const pool: FigureDef[] = records.map(toFigureDef);
+  const pool: FigureDef[] = figurePool(records);
   const c2 = $<HTMLCanvasElement>('view2d'), c3 = $<HTMLCanvasElement>('view');
   const v2 = new View2D(board, c2), v3 = new View3D(board, c3);
   const match = new Match([v2, v3], board, pool);
