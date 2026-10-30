@@ -15,3 +15,7 @@ Para volver a descargar (se salta los que ya existen):
 ```bash
 python3 download_sprites.py all   # o: default / emerald / bw
 ```
+
+## Documentación
+
+- [`docs/diseno-pokemon-duel.md`](docs/diseno-pokemon-duel.md): referencia de las mecánicas de Pokémon Duel.
