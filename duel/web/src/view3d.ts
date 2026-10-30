@@ -50,7 +50,9 @@ export class View3D implements View {
   nodePos = new Map<NodeId, THREE.Vector3>();
   nodeMesh = new Map<NodeId, THREE.Mesh>();
   figureGroup = new Map<string, THREE.Group>();
-  tween = new Map<string, THREE.Vector3>();
+  tween = new Map<string, { from: THREE.Vector3; to: THREE.Vector3; t0: number; ms: number; hop: number; s0: number; s1: number }>();
+  /** The sprite of each figure (idle animation). */
+  private spriteOf = new Map<string, THREE.Sprite>();
   hilite: THREE.Mesh[] = [];
   ring: THREE.Mesh;
   /** Goal glows, pulsing in the render loop. */
@@ -192,11 +194,18 @@ export class View3D implements View {
         this.ring.visible = !!g?.visible;
         if (g) this.ring.position.copy(g.position).setY(0.06);
       }
-      for (const [uid, target] of this.tween) {
+      // Moves take a set time with a small hop (longer moves hop higher), like a figure being lifted and put down.
+      const now = performance.now();
+      for (const [uid, m] of this.tween) {
         const g = this.figureGroup.get(uid)!;
-        g.position.lerp(target, 0.25);
-        if (g.position.distanceTo(target) < 0.01) { g.position.copy(target); this.tween.delete(uid); }
+        const k = Math.min(1, (now - m.t0) / m.ms), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        g.position.lerpVectors(m.from, m.to, e);
+        g.position.y += Math.sin(Math.PI * e) * m.hop;
+        g.scale.setScalar(m.s0 + (m.s1 - m.s0) * e);
+        if (k >= 1) { g.position.copy(m.to); g.scale.setScalar(m.s1); this.tween.delete(uid); }
       }
+      // Idle: sprites breathe a little.
+      for (const [uid, s] of this.spriteOf) s.position.y = 0.15 + 0.022 * Math.sin(t * 2.2 + (uid.charCodeAt(uid.length - 1) % 7));
       this.renderer.render(this.scene, this.camera);
     };
   }
@@ -238,6 +247,7 @@ export class View3D implements View {
     this.tween.clear();
     this.actable.clear();
     this.owners.clear();
+    this.spriteOf.clear();
     this.selectedUid = null;
     for (const { s } of this.badgeSprites.values()) s.material.map?.dispose();
     this.badgeSprites.clear();
@@ -294,6 +304,7 @@ export class View3D implements View {
         body.geometry.dispose();
         (body.material as THREE.Material).dispose();
         g.add(shadow, s);
+        this.spriteOf.set(f.uid, s);
       };
       img.src = src;
     });
@@ -312,10 +323,11 @@ export class View3D implements View {
     const spot = node ? this.nodePos.get(node) : off ? this.slots.get(`${off.owner}:${off.area}:${off.index}`) : undefined;
     if (!spot) { g.visible = false; return; }
     const target = spot.clone().setY(0.02);
-    g.scale.setScalar(off?.area === 'pc' ? 0.7 : 1);
-    if (!g.visible) g.position.copy(target);
-    g.visible = true;
-    this.tween.set(uid, target);
+    const scale = off?.area === 'pc' ? 0.7 : 1;
+    if (!g.visible) { g.position.copy(target); g.scale.setScalar(scale); g.visible = true; return; }
+    if (g.position.distanceTo(target) < 0.01 && Math.abs(g.scale.x - scale) < 0.01) return;
+    const dist = g.position.distanceTo(target);
+    this.tween.set(uid, { from: g.position.clone(), to: target, t0: performance.now(), ms: 520 + 140 * Math.min(dist, 6), hop: Math.min(0.9, 0.25 + dist * 0.12), s0: g.scale.x, s1: scale });
   }
 
   /** Pulsing yellow rings under the figures that can act now (the original marks them with yellow arrows). */

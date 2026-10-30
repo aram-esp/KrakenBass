@@ -61,6 +61,10 @@ export class Match {
     this.selected = null;
     this.plateAim = null;
     this.reported = false;
+    this.clocks = { 0: CLOCK_MS, 1: CLOCK_MS };
+    this.shownTurn = 0;
+    clearInterval(this.clockTimer);
+    this.clockTimer = setInterval(() => this.tickClock(), 250) as unknown as number;
     $('log').innerHTML = '';
     $('banner').classList.remove('show');
     this.diskQueue = [];
@@ -103,7 +107,51 @@ export class Match {
     if (this.game.current !== HUMAN) this.runAi();
   }
 
-  canAct() { return !this.busy && !this.disksShowing() && this.game.winner === null && this.game.current === HUMAN; }
+  canAct() { return !this.busy && !this.disksShowing() && !this.bannerShowing() && this.game.winner === null && this.game.current === HUMAN; }
+
+  /** "TU TURNO" / "TURNO RIVAL" banner at the start of each turn; nobody acts while it shows. */
+  private bannerUntil = 0;
+  private shownTurn = 0;
+  bannerShowing() { return performance.now() < this.bannerUntil; }
+  private turnBanner() {
+    const g = this.game;
+    if (g.winner !== null || this.shownTurn === g.turn) return;
+    this.shownTurn = g.turn;
+    const el = $('turnBanner');
+    el.className = g.current === HUMAN ? 'you' : 'ai';
+    $('turnBannerText').textContent = g.current === HUMAN ? 'TU TURNO' : 'TURNO RIVAL';
+    void el.offsetWidth; // restart the animation
+    el.classList.add('show');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.bannerUntil = performance.now() + (reduce ? 300 : TURN_BANNER_MS);
+    setTimeout(() => { el.classList.remove('show'); this.refresh(); }, reduce ? 300 : TURN_BANNER_MS);
+  }
+
+  /** The original's 5-minute clock per player (League matches); runs during that player's turn. */
+  private clocks: Record<PlayerId, number> = { 0: CLOCK_MS, 1: CLOCK_MS };
+  private clockTimer = 0;
+  private tickClock() {
+    const g = this.game;
+    if (g.winner !== null || this.disksShowing() || this.bannerShowing()) return;
+    this.clocks[g.current] = Math.max(0, this.clocks[g.current] - 250);
+    if (this.clocks[g.current] === 0) {
+      const p = g.current;
+      g.forfeit(p);
+      this.log(p === HUMAN ? 'Se te acabó el tiempo.' : 'A la IA se le acabó el tiempo.');
+      this.refresh();
+      return;
+    }
+    this.showClocks();
+  }
+  private showClocks() {
+    const fmt = (ms: number) => `${Math.floor(ms / 60000)}:${String(Math.floor(ms / 1000) % 60).padStart(2, '0')}`;
+    for (const [p, id] of [[HUMAN, 'youClock'], [1, 'aiClock']] as const) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      el.textContent = `⏱ ${fmt(this.clocks[p])}`;
+      el.classList.toggle('low', this.clocks[p] < 60000);
+    }
+  }
 
   /** While Data Disks are on screen nobody acts. */
   disksShowing() { return this.playing; }
@@ -173,11 +221,16 @@ export class Match {
     const step = () => {
       if (this.disksShowing()) { setTimeout(step, 150); return; }
       if (this.game.winner !== null || this.game.current === HUMAN) { this.busy = false; this.refresh(); return; }
+      if (this.bannerShowing()) { setTimeout(step, 150); return; }
+      // The AI "thinks" a moment before each action (that time runs on its clock).
+      if (!thought) { thought = true; setTimeout(step, AI_STEP_MS); return; }
+      thought = false;
       aiTurn(this.game, seeded(this.seedBase++));
       this.refresh();
-      setTimeout(step, 700);
+      setTimeout(step, 300);
     };
-    setTimeout(step, 600);
+    let thought = false;
+    setTimeout(step, AI_FIRST_MS);
   }
 
   refresh() {
@@ -220,6 +273,10 @@ export class Match {
     $('turnNum').textContent = String(Math.min(g.turn, 300));
     $('plYou').classList.toggle('dim', g.current !== HUMAN);
     $('plAi').classList.toggle('dim', g.current === HUMAN);
+    $('plYou').classList.toggle('turn', g.current === HUMAN && g.winner === null);
+    $('plAi').classList.toggle('turn', g.current !== HUMAN && g.winner === null);
+    this.showClocks();
+    this.turnBanner();
     $<HTMLButtonElement>('aiBtn').disabled = !this.canAct();
     $('status').textContent = g.winner !== null ? 'Duelo terminado' : `Turno ${g.turn}/${300} · juega ${g.current === HUMAN ? 'el jugador' : 'la IA'}`;
 
@@ -404,12 +461,16 @@ export class Match {
     clearTimeout(this.disksTimer);
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const spinMs = reduce ? 0 : SPIN_MS, holdMs = HOLD_MS;
+    // A short "VS" entrance (the disks fly in) before the first spin of a battle.
+    const intro = reduce || info.tie ? 0 : INTRO_MS;
+    $('wheels').classList.toggle('intro', intro > 0);
+    if (intro) title.textContent = `${m.def.name}  VS  ${o.def.name}`;
     const finish = () => { this.log(logText); this.playNextDisks(); };
     const stops = [
-      spinWheel($<HTMLCanvasElement>('w0'), m.def, r.moverMove, spinMs, 0, () => reveal(0)),
-      spinWheel($<HTMLCanvasElement>('w1'), o.def, r.otherMove, spinMs, SPIN_STAGGER, () => reveal(1)),
+      spinWheel($<HTMLCanvasElement>('w0'), m.def, r.moverMove, spinMs, intro, () => reveal(0)),
+      spinWheel($<HTMLCanvasElement>('w1'), o.def, r.otherMove, spinMs, intro + SPIN_STAGGER, () => reveal(1)),
     ];
-    this.disksTimer = setTimeout(finish, spinMs + SPIN_STAGGER + holdMs);
+    this.disksTimer = setTimeout(finish, intro + spinMs + SPIN_STAGGER + holdMs);
     // A click on the disks jumps to the result, a second one goes on (next battle or back to the board).
     this.skipDisks = () => {
       // map, not some: stop both disks, not just the first one still spinning.
@@ -449,6 +510,13 @@ function fate(f: Figure, opp: Move, oppPower: number, r: BattleResult): Fate {
 }
 
 /** Disk timing: spin time, delay of the second disk, and how long the result stays on screen. */
+/** Pace of the duel (the user asked for slower turns, 2026-10-30). */
+const AI_STEP_MS = 1400;
+const AI_FIRST_MS = 900;
+const TURN_BANNER_MS = 1300;
+const INTRO_MS = 900;
+/** League matches: 5 minutes per player (Fandom "Matches"). */
+const CLOCK_MS = 5 * 60 * 1000;
 const SPIN_MS = 3000;
 const SPIN_STAGGER = 350;
 const HOLD_MS = 2300;

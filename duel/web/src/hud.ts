@@ -74,6 +74,23 @@ button:focus-visible, .chip:focus-visible { outline: 2px solid #fff; outline-off
 #wheelsTitle { flex-basis: 100%; text-align: center; font-size: 20px; font-weight: 900; }
 #wheels canvas { width: min(220px, 38vw); height: min(220px, 38vw); } #wheels figcaption { margin-top: 6px; font-weight: 800; }
 #wheels .fate { margin-top: 2px; font-weight: 900; } #wheels .fate.hit { color: #ff7a80; } #wheels .fate.stop { color: var(--go); } #wheels .fate.none { color: var(--mute); }
+#turnBanner { position: absolute; left: 0; right: 0; top: 38%; display: none; justify-content: center; pointer-events: none; }
+#turnBanner.show { display: flex; animation: tb-in 1.3s ease-in-out both; }
+#turnBanner b { font: 900 clamp(26px, 6vw, 46px)/1 var(--font); padding: 12px 60px; letter-spacing: .04em; color: #fff;
+  text-shadow: 0 3px 0 #0008; clip-path: polygon(4% 0, 100% 0, 96% 100%, 0 100%); }
+#turnBanner.you b { background: linear-gradient(90deg, transparent, #1f63e0 18%, #2a74f0 82%, transparent); }
+#turnBanner.ai b { background: linear-gradient(90deg, transparent, #d42f3a 18%, #e0434c 82%, transparent); }
+@keyframes tb-in { 0% { opacity: 0; transform: translateX(-30%); } 20%, 80% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateX(30%); } }
+#wheels.intro figure:first-of-type { animation: vs-left .8s cubic-bezier(.2,.9,.3,1.2) both; }
+#wheels.intro figure:last-of-type { animation: vs-right .8s cubic-bezier(.2,.9,.3,1.2) both; }
+#wheels.intro #wheelsTitle { animation: vs-pop .8s ease-out both; }
+@keyframes vs-left { from { transform: translateX(-60vw) rotate(-30deg); opacity: 0; } }
+@keyframes vs-right { from { transform: translateX(60vw) rotate(30deg); opacity: 0; } }
+@keyframes vs-pop { 0% { transform: scale(2.4); opacity: 0; } 60% { transform: scale(.9); opacity: 1; } }
+.pl.turn { box-shadow: inset 0 -4px 0 var(--yellow); }
+.clock { font-variant-numeric: tabular-nums; }
+.clock.low { color: #ffd21f; }
+@media (prefers-reduced-motion: reduce) { #turnBanner.show, #wheels.intro figure, #wheels.intro #wheelsTitle { animation: none; } }
 #banner { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
   background: #000b; font-size: 34px; font-weight: 900; text-align: center; }
 #banner.show { display: flex; }
@@ -92,9 +109,9 @@ export function buildHud(): void {
   app.innerHTML = `
   <div id="ticker" class="gut" role="status" aria-live="polite"></div>
   <div id="players">
-    <div class="pl you" id="plYou"><i class="av">TÚ</i><span>Tú<br><small id="youInfo"></small></span></div>
+    <div class="pl you" id="plYou"><i class="av">TÚ</i><span>Tú <small class="clock" id="youClock"></small><br><small id="youInfo"></small></span></div>
     <div id="turnBox" aria-label="Turno"><small>TURNO</small><b id="turnNum">1</b></div>
-    <div class="pl ai" id="plAi"><span style="text-align:right">IA<br><small id="aiInfo"></small></span><i class="av">IA</i></div>
+    <div class="pl ai" id="plAi"><span style="text-align:right"><small class="clock" id="aiClock"></small> IA<br><small id="aiInfo"></small></span><i class="av">IA</i></div>
   </div>
   <div id="stage">
     <canvas id="view2d"></canvas><canvas id="view" hidden></canvas>
@@ -103,6 +120,7 @@ export function buildHud(): void {
     <div id="bench" aria-label="Tus figuras"></div>
     <div id="wheels"><figure><canvas width="440" height="440" id="w0"></canvas><figcaption id="c0"></figcaption></figure><figure><canvas width="440" height="440" id="w1"></canvas><figcaption id="c1"></figcaption></figure></div>
     <div id="platePanel" aria-label="Tus plates"></div>
+    <div id="turnBanner" aria-hidden="true"><b id="turnBannerText"></b></div>
     <div id="banner"><div id="bannerText"></div><button id="again" type="button">Otra partida</button><button id="toMenu" type="button">Menú</button></div>
   </div>
   <div id="dock" class="gut">

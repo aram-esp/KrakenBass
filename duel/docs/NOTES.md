@@ -129,7 +129,12 @@ timers, forfeit, choosing the battle target (the engine takes the first adjacent
 3. Implement plates (data is ready in `data/plates.json`), then attack/ability effects, special conditions, Mega, Z-Moves.
 4. Review the 70 wheels that differ between Bulbapedia and Serebii (`data/wheel_crosscheck_diffs.json`; mostly patch drift)
    and 12 wheels whose pieces do not sum to 96, plus 14 attack rows with no colour in `data/figures.json`.
-5. The turn timer (5 min each) and forfeit are not modelled.
+5. Duel pace (2026-10-30, user asked for slower turns and more polish): "TU TURNO"/"TURNO RIVAL" banner (1.3 s, nobody
+   acts meanwhile), AI waits 1.4 s before each action, moves are timed tweens with a hop, idle bob of sprites, a "VS"
+   entrance (0.9 s) before the first spin of a battle, KO'd figures hop/shrink to the P.C. slot. 5-minute clock per
+   player (Fandom "Matches": league matches give 5 minutes each); it runs only during that player's turn, pauses during
+   banners and spins, and running out = forfeit. Constants in `web/src/match.ts` (AI_STEP_MS, TURN_BANNER_MS, INTRO_MS,
+   CLOCK_MS). Whether the original clock paused during spins is NOT sourced (assumed).
 
 ## 4. Run, test, build, publish
 ```bash
