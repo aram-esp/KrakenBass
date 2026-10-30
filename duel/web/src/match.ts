@@ -95,6 +95,8 @@ export class Match {
     const sel = this.selected ? g.figures.find((f) => f.uid === this.selected)! : null;
     const reach = sel ? [...g.reachable(sel)] : [];
     for (const v of this.views) v.setHighlights(reach, sel && sel.status === 'board' ? sel.at : null);
+    const badges = new Map(g.figures.filter((f) => f.status === 'board').map((f) => [f.uid, { mp: g.mp(f), wait: f.wait }]));
+    for (const v of this.views) v.setBadges(badges);
 
     const side = (p: PlayerId) => {
       const pc = g.pc[p].map((f) => f.def.name).join(', ') || '—';

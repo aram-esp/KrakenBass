@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import type { Figure, NodeId } from '../../src/types.ts';
-import { EMBEDDED, OWNER_COLOR, spriteSrc, TYPE_COLOR, type Layout, type View } from './shared.ts';
+import { badgeText, drawBadge, EMBEDDED, OWNER_COLOR, spriteSrc, type Badge, TYPE_COLOR, type Layout, type View } from './shared.ts';
 
 /** Screenshot pixel coordinates -> world units on the table. */
 function toWorld(p: [number, number]): THREE.Vector3 {
@@ -159,6 +159,8 @@ export class View3D implements View {
     }
     this.figureGroup.clear();
     this.tween.clear();
+    for (const { s } of this.badgeSprites.values()) s.material.map?.dispose();
+    this.badgeSprites.clear();
   }
 
   /**
@@ -227,6 +229,37 @@ export class View3D implements View {
     if (!g.visible) g.position.copy(target);
     g.visible = true;
     this.tween.set(uid, target);
+  }
+
+  /** One label per figure, floating at its feet on the camera side so the sprite never hides it. */
+  private badgeSprites = new Map<string, { s: THREE.Sprite; text: string }>();
+
+  setBadges(badges: Map<string, Badge>) {
+    for (const [uid, g] of this.figureGroup) {
+      const b = badges.get(uid);
+      let entry = this.badgeSprites.get(uid);
+      if (!b) { if (entry) entry.s.visible = false; continue; }
+      const text = badgeText(b);
+      if (!entry) {
+        const s = new THREE.Sprite(new THREE.SpriteMaterial({ depthTest: false, transparent: true }));
+        s.center.set(0.5, 0.5);
+        s.scale.set(0.9, 0.34, 1);
+        s.position.set(0, 0.22, 0.62);
+        s.renderOrder = 10;
+        g.add(s);
+        entry = { s, text: '' };
+        this.badgeSprites.set(uid, entry);
+      }
+      if (entry.text !== text) {
+        const tex = new THREE.CanvasTexture(drawBadge(text, b.wait > 0)!);
+        tex.colorSpace = THREE.SRGBColorSpace;
+        entry.s.material.map?.dispose();
+        entry.s.material.map = tex;
+        entry.s.material.needsUpdate = true;
+        entry.text = text;
+      }
+      entry.s.visible = true;
+    }
   }
 
   setHighlights(nodes: Iterable<NodeId>, selected: NodeId | null) {

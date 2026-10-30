@@ -1,5 +1,5 @@
 import type { Figure, NodeId } from '../../src/types.ts';
-import { OWNER_COLOR, spriteSrc, TYPE_COLOR, type Layout, type View } from './shared.ts';
+import { badgeText, drawBadge, OWNER_COLOR, spriteSrc, type Badge, TYPE_COLOR, type Layout, type View } from './shared.ts';
 
 const hex = (n: number) => '#' + n.toString(16).padStart(6, '0');
 
@@ -103,7 +103,10 @@ export class View2D implements View {
     return { x: p[0] * this.scale + this.ox, y: p[1] * this.scale + this.oy };
   }
 
-  clearFigures() { this.tokens.clear(); }
+  clearFigures() { this.tokens.clear(); this.badges.clear(); }
+
+  private badges = new Map<string, Badge>();
+  setBadges(badges: Map<string, Badge>) { this.badges = badges; }
 
   addFigure(f: Figure) {
     const t: Token = { f, x: 0, y: 0, tx: 0, ty: 0, show: false, sprite: makeSprite(f), img: null };
@@ -192,10 +195,8 @@ export class View2D implements View {
       c.fillStyle = '#e8ecf4'; c.font = `${Math.max(9, u * 0.13)}px system-ui, sans-serif`; c.textAlign = 'center';
       const label = t.f.def.name.length > 11 ? t.f.def.name.slice(0, 10) + '…' : t.f.def.name;
       c.fillText(label, x, y + R * 1.35);
-      if (t.f.wait > 0) {
-        c.fillStyle = '#ffc107'; c.beginPath(); c.arc(x + R * 0.85, y - R * 0.9, R * 0.3, 0, Math.PI * 2); c.fill();
-        c.fillStyle = '#222'; c.font = `bold ${Math.max(9, u * 0.14)}px system-ui, sans-serif`; c.fillText(String(t.f.wait), x + R * 0.85, y - R * 0.8);
-      }
+      const b = this.badges.get(t.f.uid);
+      if (b) drawBadge(badgeText(b), b.wait > 0, c, x, y - R * 1.5, Math.max(14, u * 0.2));
     }
   }
 }
