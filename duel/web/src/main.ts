@@ -2,11 +2,13 @@ import { evolutionPool, figurePool, type FigureRecord, type InventedFigure } fro
 import type { FigureDef } from '../../src/types.ts';
 import { $, readData, type Layout } from './shared.ts';
 import { Match } from './match.ts';
+import { buildHud } from './hud.ts';
 import { setupMenus } from './menus.ts';
 import { View2D } from './view2d.ts';
 import { View3D } from './view3d.ts';
 
 async function main() {
+  buildHud();
   const [board, records, evo] = await Promise.all([
     readData<Layout>('data-board', '../data/board.json'),
     readData<FigureRecord[]>('data-figures', '../data/figures.json'),

@@ -4,45 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Duel</title>
-<style>
-  :root { color-scheme: dark; --bg:#12151c; --panel:#1b2030; --ink:#e8ecf4; --mute:#8d97ad; --blue:#2a6df4; --red:#d8343c; }
-  * { box-sizing: border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.4 system-ui,sans-serif; overflow:hidden; }
-  #app { display:grid; grid-template-rows:auto 1fr auto; height:100vh; }
-  #top { display:flex; gap:16px; align-items:center; padding:8px 14px; background:var(--panel); }
-  #top b { font-size:15px; } #status { color:var(--mute); }
-  #stage { position:relative; min-height:0; }
-  #view, #view2d { width:100%; height:100%; display:block; }
-  #view[hidden], #view2d[hidden] { display:none; }
-  #log { position:absolute; right:10px; top:10px; width:260px; max-height:45%; overflow:auto; background:#0008; padding:8px 10px; border-radius:8px; font-size:12px; }
-  #log div { margin:2px 0; } 
-  #side { position:absolute; left:10px; top:10px; width:230px; background:#0008; padding:8px 10px; border-radius:8px; font-size:12px; }
-  #bottom { padding:8px 14px; background:var(--panel); display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
-  .chip { border:2px solid var(--mute); border-radius:8px; padding:4px 8px; background:#0003; cursor:pointer; user-select:none; }
-  .chip.sel { outline:2px solid #fff; } .chip[disabled], .chip.off { opacity:.45; cursor:default; }
-  button { background:#2f3a58; color:var(--ink); border:0; border-radius:8px; padding:8px 14px; cursor:pointer; font:inherit; }
-  button:hover { background:#3b4870; }
-  #wheels { position:absolute; inset:0; display:none; flex-wrap:wrap; align-content:center; align-items:center; justify-content:center; gap:16px 40px; background:#000a; }
-  #wheelsTitle { flex-basis:100%; text-align:center; font-size:18px; font-weight:700; }
-  #wheels.show { display:flex; } #wheels figure { margin:0; text-align:center; }
-  #wheels canvas { width:220px; height:220px; } #wheels figcaption { margin-top:6px; }
-  #wheels .fate { margin-top:2px; font-weight:600; } #wheels .fate.hit { color:#ff7a80; } #wheels .fate.stop { color:#4cd964; } #wheels .fate.none { color:var(--mute); }
-  #banner { position:absolute; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center; gap:14px; background:#000b; font-size:28px; }
-  #banner.show { display:flex; }
-  .legend span { display:inline-block; width:10px; height:10px; border-radius:50%; margin:0 4px 0 10px; vertical-align:middle; }
-</style>
+<style>:root { color-scheme: dark; } html, body { height: 100%; } body { margin: 0; background: #0e1424; color: #fff; overflow: hidden; }</style>
 </head>
 <body>
-<div id="app">
-  <div id="top"><b>Duel</b><span id="status"></span><span class="legend"><span style="background:#fff"></span>blanco<span style="background:#ffc107"></span>dorado<span style="background:#8e44ad"></span>morado<span style="background:#2f80ed"></span>azul<span style="background:#e74c3c"></span>fallo</span></div>
-  <div id="stage">
-    <canvas id="view2d"></canvas><canvas id="view" hidden></canvas>
-    <div id="side"></div><div id="log"></div>
-    <div id="wheels"><figure><canvas width="440" height="440" id="w0"></canvas><figcaption id="c0"></figcaption></figure><figure><canvas width="440" height="440" id="w1"></canvas><figcaption id="c1"></figcaption></figure></div>
-    <div id="banner"><div id="bannerText"></div><button id="again">Otra partida</button><button id="toMenu" type="button">Menú</button></div>
-  </div>
-  <div id="bottom"><span id="bench"></span><button id="end">Terminar turno</button><button id="viewToggle">Vista 2D</button><button id="menuBtn" type="button">Menú</button><span id="hint"></span></div>
-</div>
+<div id="app"></div>
 <script type="module" src="./dist/app.js"></script>
 </body>
 </html>

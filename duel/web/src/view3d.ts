@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import type { Figure, NodeId } from '../../src/types.ts';
-import { badgeText, drawBadge, EMBEDDED, OWNER_COLOR, spriteSrc, type Badge, TYPE_COLOR, type Layout, type View } from './shared.ts';
+import { badgeText, drawMpBadge, EMBEDDED, OWNER_COLOR, spriteSrc, type Badge, TYPE_COLOR, type Layout, type View } from './shared.ts';
 
 /** Screenshot pixel coordinates -> world units on the table. */
 function toWorld(p: [number, number]): THREE.Vector3 {
@@ -55,6 +55,12 @@ export class View3D implements View {
   ring: THREE.Mesh;
   /** Goal glows, pulsing in the render loop. */
   goalGlow: THREE.Mesh[] = [];
+  /** Off-board spots: "<owner>:bench:<i>" and "<owner>:pc:<i>". */
+  slots = new Map<string, THREE.Vector3>();
+  /** Yellow rings under the figures that can act (pulsing), and the selected figure. */
+  private actable = new Map<string, THREE.Mesh>();
+  private selectedUid: string | null = null;
+  private owners = new Map<string, number>();
   loader = new GLTFLoader();
   hasModel = new Map<string, Promise<boolean>>();
 
@@ -143,9 +149,29 @@ export class View3D implements View {
     this.ring.visible = false;
     this.scene.add(this.ring);
 
-    // Points that must stay on screen: every node, and the top of a figure standing on it.
+    // Benches and P.C. off the board, as in the original: the player's below the bottom bench line (P.C. slots on the
+    // right), the opponent's above the top one (P.C. slots on the left).
+    const bz = Math.max(...zs) + 1.65, tz = Math.min(...zs) - 1.65;
+    for (let i = 0; i < 6; i++) {
+      this.slots.set(`0:bench:${i}`, new THREE.Vector3(-4.2 + i * 1.12, 0.02, bz + (i % 2) * 0.55));
+      this.slots.set(`1:bench:${i}`, new THREE.Vector3(4.2 - i * 1.12, 0.02, tz - (i % 2) * 0.55));
+    }
+    for (let i = 0; i < 2; i++) {
+      this.slots.set(`0:pc:${i}`, new THREE.Vector3(3.6 + i * 1.2, 0.02, bz + 0.1));
+      this.slots.set(`1:pc:${i}`, new THREE.Vector3(-3.6 - i * 1.2, 0.02, tz - 0.1));
+    }
+    const plus = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    for (const key of ['0:pc:0', '0:pc:1', '1:pc:0', '1:pc:1']) {
+      const at = this.slots.get(key)!;
+      flat(new THREE.RingGeometry(0.4, 0.46, 36), white, at, 0.012);
+      const bar = (w: number, h: number) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), plus); m.rotation.x = -Math.PI / 2; m.position.copy(at).setY(0.014); this.scene.add(m); };
+      bar(0.26, 0.05); bar(0.05, 0.26);
+    }
+    // Points that must stay on screen: every node, the benches, and the top of a figure standing on them.
     const fitPoints: THREE.Vector3[] = [];
-    for (const p of this.nodePos.values()) fitPoints.push(p.clone(), p.clone().setY(1.3));
+    for (const p of [...this.nodePos.values(), ...this.slots.values()]) fitPoints.push(p.clone(), p.clone().setY(1.3));
+    // The MP badge sits in front of the base: keep the bench's front edge in view too.
+    for (const p of this.slots.values()) fitPoints.push(p.clone().setZ(p.z + (p.z > 0 ? 0.75 : -0.3)));
     const resize = () => {
       const el = canvas.parentElement!;
       if (!el.clientWidth || !el.clientHeight) return;
@@ -160,6 +186,12 @@ export class View3D implements View {
     this.loop = () => {
       const t = performance.now() / 1000;
       for (const m of this.goalGlow) (m.material as THREE.MeshBasicMaterial).opacity = 0.3 + 0.2 * Math.sin(t * 2.4);
+      for (const m of this.actable.values()) (m.material as THREE.MeshBasicMaterial).opacity = 0.45 + 0.4 * Math.abs(Math.sin(t * 3));
+      if (this.selectedUid) {
+        const g = this.figureGroup.get(this.selectedUid);
+        this.ring.visible = !!g?.visible;
+        if (g) this.ring.position.copy(g.position).setY(0.06);
+      }
       for (const [uid, target] of this.tween) {
         const g = this.figureGroup.get(uid)!;
         g.position.lerp(target, 0.25);
@@ -204,6 +236,9 @@ export class View3D implements View {
     }
     this.figureGroup.clear();
     this.tween.clear();
+    this.actable.clear();
+    this.owners.clear();
+    this.selectedUid = null;
     for (const { s } of this.badgeSprites.values()) s.material.map?.dispose();
     this.badgeSprites.clear();
   }
@@ -224,6 +259,7 @@ export class View3D implements View {
     body.position.y = 0.45;
     g.add(base, body);
     g.userData.uid = f.uid;
+    this.owners.set(f.uid, f.owner);
     g.visible = false;
     this.scene.add(g);
     this.figureGroup.set(f.uid, g);
@@ -271,13 +307,36 @@ export class View3D implements View {
     return this.hasModel.get(id)!;
   }
 
-  place(uid: string, node: NodeId | null) {
+  place(uid: string, node: NodeId | null, off?: { area: 'bench' | 'pc'; owner: number; index: number }) {
     const g = this.figureGroup.get(uid)!;
-    if (!node) { g.visible = false; return; }
-    const target = this.nodePos.get(node)!.clone().setY(0.02);
+    const spot = node ? this.nodePos.get(node) : off ? this.slots.get(`${off.owner}:${off.area}:${off.index}`) : undefined;
+    if (!spot) { g.visible = false; return; }
+    const target = spot.clone().setY(0.02);
+    g.scale.setScalar(off?.area === 'pc' ? 0.7 : 1);
     if (!g.visible) g.position.copy(target);
     g.visible = true;
     this.tween.set(uid, target);
+  }
+
+  /** Pulsing yellow rings under the figures that can act now (the original marks them with yellow arrows). */
+  setActable(uids: Iterable<string>) {
+    const want = new Set(uids);
+    for (const [uid, m] of this.actable) if (!want.has(uid)) { m.parent?.remove(m); m.geometry.dispose(); this.actable.delete(uid); }
+    for (const uid of want) {
+      if (this.actable.has(uid)) continue;
+      const g = this.figureGroup.get(uid);
+      if (!g) continue;
+      const m = new THREE.Mesh(new THREE.RingGeometry(0.46, 0.6, 32), new THREE.MeshBasicMaterial({ color: 0xffd21f, transparent: true, opacity: 0.8, side: THREE.DoubleSide }));
+      m.rotation.x = -Math.PI / 2;
+      m.position.y = 0.015;
+      g.add(m);
+      this.actable.set(uid, m);
+    }
+  }
+
+  setSelected(uid: string | null) {
+    this.selectedUid = uid;
+    if (!uid) this.ring.visible = false;
   }
 
   /** One label per figure, floating at its feet on the camera side so the sprite never hides it. */
@@ -292,15 +351,15 @@ export class View3D implements View {
       if (!entry) {
         const s = new THREE.Sprite(new THREE.SpriteMaterial({ depthTest: false, transparent: true }));
         s.center.set(0.5, 0.5);
-        s.scale.set(1.81, 0.34, 1); // canvas is 256 x 48
-        s.position.set(0, 0.22, 0.62);
+        s.scale.set(0.84, 0.42, 1); // canvas is 128 x 64
+        s.position.set(0.3, 0.2, 0.5);
         s.renderOrder = 10;
         g.add(s);
         entry = { s, text: '' };
         this.badgeSprites.set(uid, entry);
       }
       if (entry.text !== text) {
-        const tex = new THREE.CanvasTexture(drawBadge(text, b.wait > 0, undefined, 0, 0, 40, b.cond)!);
+        const tex = new THREE.CanvasTexture(drawMpBadge(b, this.owners.get(uid) ?? 0));
         tex.colorSpace = THREE.SRGBColorSpace;
         entry.s.material.map?.dispose();
         entry.s.material.map = tex;

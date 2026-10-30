@@ -56,6 +56,30 @@ export class Match {
     this.log(`Empieza ${first === HUMAN ? 'el jugador (azul)' : 'la IA (rojo)'}. Quien empieza tiene MP-1 en su primer turno.`);
     (window as unknown as { __duel: unknown }).__duel = { game: this.game, match: this, views: this.views };
     $('end').onclick = () => { if (this.canAct()) { this.game.endTurn(); this.afterHuman(); } };
+    // The original's AI button: the AI plays this turn for you.
+    $('aiBtn').onclick = () => { if (this.canAct()) { this.selected = null; aiTurn(this.game, seeded(this.seedBase++)); this.afterHuman(); } };
+    // Forfeit: a second press within 3 s confirms.
+    const ff = $<HTMLButtonElement>('forfeit');
+    ff.classList.remove('armed'); ff.textContent = 'Rendirse';
+    ff.onclick = () => {
+      if (this.game.winner !== null) return;
+      if (!ff.classList.contains('armed')) {
+        ff.classList.add('armed'); ff.textContent = '¿Rendirse? Pulsa otra vez';
+        setTimeout(() => { ff.classList.remove('armed'); ff.textContent = 'Rendirse'; }, 3000);
+        return;
+      }
+      ff.classList.remove('armed'); ff.textContent = 'Rendirse';
+      this.game.forfeit(HUMAN);
+      this.log('Te has rendido.');
+      this.refresh();
+    };
+    // The Data Disk button shows the selected figure's wheel.
+    $('disk').onclick = () => {
+      const f = this.selected ? this.game.figures.find((x) => x.uid === this.selected) : undefined;
+      if (!f || this.playing) return;
+      this.diskQueue.push({ m: f, o: f, r: { moverMove: f.def.wheel[0].move, otherMove: f.def.wheel[0].move, moverPower: 0, otherPower: 0, winner: null, ko: [], notes: [] }, info: { tie: false, peek: true }, logText: '' });
+      this.playNextDisks();
+    };
     $('again').onclick = () => this.start();
     $('toMenu').onclick = () => this.onMenu();
     $('menuBtn').onclick = () => this.onMenu();
@@ -102,6 +126,12 @@ export class Match {
       if (g.reachable(f).has(hit.node)) {
         g.move(f.uid, hit.node);
         if (g.winner !== null || g.current !== HUMAN) { this.afterHuman(); return; } // Diving Entry ends the turn
+        // As in the original, the turn ends by itself after a move unless that figure can battle or tag.
+        if (!(g.canAttack(f) && g.adjacentEnemies(f).length) && !g.specials(f).some((x) => x.kind === 'tag')) {
+          g.endTurn();
+          this.afterHuman();
+          return;
+        }
       }
       this.refresh();
     }
@@ -139,23 +169,36 @@ export class Match {
       $('hint').textContent = '';
       return;
     }
-    for (const f of g.figures) for (const v of this.views) v.place(f.uid, f.status === 'board' ? f.at : null);
+    // Board figures on their node; bench and P.C. figures on their off-board spot (drawn by the 2.5D view).
+    for (const p of [0, 1] as PlayerId[]) {
+      const bench = g.figures.filter((f) => f.owner === p && f.status === 'bench');
+      for (const f of g.figures.filter((x) => x.owner === p)) {
+        const off = f.status === 'bench' ? { area: 'bench' as const, owner: p, index: bench.indexOf(f) }
+          : f.status === 'pc' ? { area: 'pc' as const, owner: p, index: g.pc[p].indexOf(f) } : undefined;
+        for (const v of this.views) v.place(f.uid, f.status === 'board' ? f.at : null, off);
+      }
+    }
     const sel = this.selected ? g.figures.find((f) => f.uid === this.selected)! : null;
     const reach = sel ? [...g.reachable(sel)] : [];
     const specials = sel && this.canAct() ? g.specials(sel) : [];
     for (const v of this.views) v.setHighlights(reach, sel && sel.status === 'board' ? sel.at : null, specials.map((s) => s.to));
-    const badges = new Map(g.figures.filter((f) => f.status === 'board').map((f) => [f.uid, { mp: g.mp(f), wait: f.wait, cond: f.cond }]));
+    const badges = new Map(g.figures.filter((f) => f.status !== 'pc').map((f) => [f.uid, { mp: g.mp(f), wait: f.wait, cond: f.cond }]));
     for (const v of this.views) v.setBadges(badges);
+    // Figures that can act now get the original's yellow mark.
+    const actable = this.canAct() ? g.figures.filter((f) => f.owner === HUMAN && (g.reachable(f).size > 0 || (g.canAttack(f) && g.adjacentEnemies(f).length > 0) || g.specials(f).length > 0)).map((f) => f.uid) : [];
+    for (const v of this.views) { v.setActable?.(actable); v.setSelected?.(this.selected); }
+    drawWheel($<HTMLCanvasElement>('diskCanvas'), sel?.def ?? EMPTY_DISK, null, 0, true);
 
-    const side = (p: PlayerId) => {
-      const pc = g.pc[p].map((f) => f.def.name).join(', ') || '—';
-      const waits = g.figures.filter((f) => f.owner === p && f.wait > 0).map((f) => `${f.def.name} Wait ${f.wait}`).join(', ');
-      const conds = g.figures.filter((f) => f.owner === p && f.cond).map((f) => `${f.def.name}: ${COND_SHORT[f.cond!]}`).join(', ');
-      return `<b style="color:${p === 0 ? '#6fa0ff' : '#ff7a80'}">${p === HUMAN ? 'Tú (azul)' : 'IA (rojo)'}</b><br>P.C.: ${pc}${waits ? `<br>${waits}` : ''}${conds ? `<br>${conds}` : ''}`;
+    const info = (p: PlayerId) => {
+      const conds = g.figures.filter((f) => f.owner === p && f.cond).map((f) => `${f.def.name}: ${COND_SHORT[f.cond!]}`);
+      return [`P.C. ${g.pc[p].length}/2`, ...conds].join(' · ');
     };
-    $('side').innerHTML = `${side(1)}<hr style="border:0;border-top:1px solid #fff2">${side(0)}`;
-    const sidem = document.getElementById('sidem'); // only in publish/template.html
-    if (sidem) sidem.innerHTML = `<span>${side(1)}</span><span>${side(0)}</span>`;
+    $('youInfo').textContent = info(HUMAN);
+    $('aiInfo').textContent = info(1);
+    $('turnNum').textContent = String(Math.min(g.turn, 300));
+    $('plYou').classList.toggle('dim', g.current !== HUMAN);
+    $('plAi').classList.toggle('dim', g.current === HUMAN);
+    $<HTMLButtonElement>('aiBtn').disabled = !this.canAct();
     $('status').textContent = g.winner !== null ? 'Duelo terminado' : `Turno ${g.turn}/${300} · juega ${g.current === HUMAN ? 'el jugador' : 'la IA'}`;
 
     const bench = g.figures.filter((f) => f.owner === HUMAN);
@@ -170,6 +213,8 @@ export class Match {
       el.onclick = () => { if (this.canAct() && f.status !== 'pc') this.select(f.uid); };
       $('bench').appendChild(el);
     }
+    // The chips are only needed in the 2D view, which does not draw the benches.
+    $('bench').classList.toggle('show', $<HTMLCanvasElement>('view').hidden);
     $<HTMLButtonElement>('end').disabled = !this.canAct();
     const specialHint = specials.length ? ` Morado = ${[...new Set(specials.map((s) => s.label.split(':')[0]))].join(', ')}.` : '';
     $('hint').textContent = !this.canAct() ? '' : sel
@@ -192,7 +237,12 @@ export class Match {
     }
   }
 
-  log(t: string) { const d = document.createElement('div'); d.textContent = t; $('log').prepend(d); }
+  log(t: string) {
+    const d = document.createElement('div');
+    d.textContent = t;
+    $('log').prepend(d);
+    $('ticker').textContent = t;
+  }
 
   showBattle(m: Figure, o: Figure, r: BattleResult, info: BattleInfo = { tie: false }) {
     const mine = m.owner === HUMAN;
@@ -219,6 +269,20 @@ export class Match {
     }
     this.playing = true;
     const { m, o, r, info, logText } = next;
+    const second = $('w1').parentElement!;
+    second.hidden = !!info.peek;
+    if (info.peek) {
+      // Data Disk of the selected figure: the whole wheel, no spin; a click closes it.
+      let title = document.getElementById('wheelsTitle');
+      if (!title) { title = document.createElement('div'); title.id = 'wheelsTitle'; $('wheels').prepend(title); }
+      title.textContent = `Ruleta de ${m.def.name}`;
+      drawWheel($<HTMLCanvasElement>('w0'), m.def, null);
+      $('c0').textContent = m.def.wheel.map((x) => moveText(x.move)).join(' · ');
+      $('wheels').classList.add('show');
+      this.skipDisks = () => { second.hidden = false; this.playNextDisks(); };
+      $('wheels').onclick = () => this.skipDisks?.();
+      return;
+    }
     const caps: [string, string] = [`${m.def.name}: ${moveText(r.moverMove, r.moverPower)}`, `${o.def.name}: ${moveText(r.otherMove, r.otherPower)}`];
     const fates: [Fate, Fate] = info.tie
       ? [{ kind: 'none', text: 'Empate' }, { kind: 'none', text: 'Empate' }]
@@ -269,7 +333,10 @@ export class Match {
 }
 
 
-type BattleInfo = { tie: boolean };
+type BattleInfo = { tie: boolean; peek?: boolean };
+
+/** Grey disk shown on the Data Disk button when no figure is selected. */
+const EMPTY_DISK: FigureDef = { id: '', name: '', mp: 0, wheel: [{ move: { name: '', color: 'white', damage: 0 }, weight: 1 }] };
 
 type Fate = { kind: 'hit' | 'stop' | 'none'; text: string };
 

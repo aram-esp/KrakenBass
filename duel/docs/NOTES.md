@@ -84,6 +84,13 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - In-game Pokédex (`web/src/wiki.ts`, Pokédex tab; called Wiki until the user renamed it): how to play (MP, turn, colours, house rules), all 163 figures with wheel %,
   ability and status, evolutions; abilities table with the reason each pending one does nothing (`PENDING` in
   `src/abilities.ts`); boosters (invented values tagged); evolution rules. Built only from the game's data and rules.
+- Duel screen as in the original (2026-10-30, after research/img/field.png): `web/src/hud.ts` builds it for both the dev
+  and the published page (their HTML is now just a shell with #app). Black ticker (last event), blue/red player banners
+  with the turn counter, benches standing on the board beyond the bench lines and P.C. "+" slots (`View3D.slots`), MP as a
+  team-coloured circle (`drawMpBadge`, yellow W<n> for Wait, condition dot), pulsing yellow rings under figures that can
+  act, Data Disk button (selected figure's wheel), yellow "IA" button (the AI plays your turn, as the original's AI
+  button), Forfeit (press twice). As in the original the turn ends by itself after a move unless that figure can battle
+  or tag. The 2D view keeps chip buttons for the bench.
 - MP badges: every figure on the board shows the MP it has right now (`Game.mp`, so the first-turn MP-1 is included),
   or "Wait N" in yellow while it waits (`View.setBadges`, `drawBadge` in `web/src/shared.ts`).
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.

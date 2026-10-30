@@ -311,6 +311,11 @@ export class Game {
     if (this.legalActionCount(this.current) === 0) this.winner = (1 - this.current) as PlayerId;
   }
 
+  /** The player gives up: the opponent wins. */
+  forfeit(p: PlayerId): void {
+    if (this.winner === null) this.winner = (1 - p) as PlayerId;
+  }
+
   setWait(uid: string, turns: number): void {
     const f = this.figures.find((x) => x.uid === uid);
     if (!f) throw new Error('unknown figure');

@@ -53,6 +53,24 @@ export function drawBadge(text: string, wait: boolean, c?: CanvasRenderingContex
   return own;
 }
 
+/** The original's MP mark: a team-coloured circle with the MP, a yellow one with the Wait instead, and a small
+ * circle in the condition's colour beside it. 128 x 64 canvas. */
+export function drawMpBadge(b: Badge, owner: number): HTMLCanvasElement {
+  const cv = document.createElement('canvas');
+  cv.width = 128; cv.height = 64;
+  const c = cv.getContext('2d')!;
+  const circle = (x: number, r: number, fill: string, text: string, ink: string, size: number) => {
+    c.beginPath(); c.arc(x, 32, r, 0, Math.PI * 2);
+    c.fillStyle = fill; c.fill(); c.lineWidth = 4; c.strokeStyle = '#ffffff'; c.stroke();
+    c.fillStyle = ink; c.font = `900 ${size}px system-ui, sans-serif`; c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillText(text, x, 34);
+  };
+  if (b.wait > 0) circle(34, 27, '#ffc107', `W${b.wait}`, '#12151c', 24);
+  else circle(34, 27, owner === 0 ? '#1f63e0' : '#d42f3a', String(b.mp), '#ffffff', 34);
+  if (b.cond) circle(92, 20, COND_COLOR[b.cond] ?? '#888', (COND_SHORT[b.cond] ?? '?')[0], '#12151c', 22);
+  return cv;
+}
+
 export const badgeText = (b: Badge) => (b.wait > 0 ? `Wait ${b.wait}` : `${b.mp} MP`) + (b.cond ? ` · ${COND_SHORT[b.cond] ?? b.cond}` : '');
 
 /** A way of drawing the duel. Match drives every view; only the visible one is shown. */
@@ -60,9 +78,12 @@ export interface View {
   canvas: HTMLCanvasElement;
   clearFigures(): void;
   addFigure(f: Figure): void;
-  place(uid: string, node: string | null): void;
   /** Green: MP destinations; purple: ability moves (Game.specials). */
   setHighlights(nodes: Iterable<string>, selected: string | null, special?: Iterable<string>): void;
+  /** Off-board spots (bench and P.C.) for views that draw them; place(uid, null) hides the figure otherwise. */
+  place(uid: string, node: string | null, off?: { area: 'bench' | 'pc'; owner: number; index: number }): void;
+  setActable?(uids: Iterable<string>): void;
+  setSelected?(uid: string | null): void;
   /** MP each figure has right now (first-turn penalty included) and its Wait, shown next to it on the board. */
   setBadges(badges: Map<string, Badge>): void;
   pick(ev: MouseEvent): { uid?: string; node?: string };
