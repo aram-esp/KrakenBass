@@ -30,6 +30,8 @@ async function main() {
     canContinue: () => !!match.game && match.game.winner === null,
   }, extras, evolves);
   match.onMenu = menus.open;
+  const allDefs = new Map([...pool, ...extras].map((d) => [d.id, d]));
+  match.evolveInDuel = (d) => { const t = (evolves[d.id] ?? []).find((x) => allDefs.has(x)); return t ? allDefs.get(t)! : null; };
   match.onGameEnd = (won, deckIds) => menus.duelEnded(won, deckIds);
   match.onBattleFought = (id) => menus.battleFought(id);
 

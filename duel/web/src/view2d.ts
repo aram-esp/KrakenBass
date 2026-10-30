@@ -129,8 +129,11 @@ export class View2D implements View {
     t.show = true;
   }
 
-  setHighlights(nodes: Iterable<NodeId>, selected: NodeId | null) {
+  private special: NodeId[] = [];
+
+  setHighlights(nodes: Iterable<NodeId>, selected: NodeId | null, special: Iterable<NodeId> = []) {
     this.reach = [...nodes];
+    this.special = [...special];
     this.selected = selected;
   }
 
@@ -177,6 +180,11 @@ export class View2D implements View {
       c.fillStyle = 'rgba(76,217,100,.85)';
       c.beginPath(); c.arc(s.x, s.y, u * 0.16, 0, Math.PI * 2); c.fill();
     }
+    for (const n of this.special) {
+      const s = this.screenOf(n);
+      c.strokeStyle = 'rgba(178,107,255,.95)'; c.lineWidth = Math.max(3, u * 0.05);
+      c.beginPath(); c.arc(s.x, s.y, u * 0.3, 0, Math.PI * 2); c.stroke();
+    }
     if (this.selected) {
       const s = this.screenOf(this.selected);
       c.strokeStyle = '#fff'; c.lineWidth = 3;
@@ -196,7 +204,7 @@ export class View2D implements View {
       const label = t.f.def.name.length > 11 ? t.f.def.name.slice(0, 10) + '…' : t.f.def.name;
       c.fillText(label, x, y + R * 1.35);
       const b = this.badges.get(t.f.uid);
-      if (b) drawBadge(badgeText(b), b.wait > 0, c, x, y - R * 1.5, Math.max(14, u * 0.2));
+      if (b) drawBadge(badgeText(b), b.wait > 0, c, x, y - R * 1.5, Math.max(14, u * 0.2), b.cond);
     }
   }
 }

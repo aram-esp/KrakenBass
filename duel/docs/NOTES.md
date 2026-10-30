@@ -29,15 +29,24 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   (`Game.onBeforeBattle` draws the AI's move first; `refresh` is held while `playing`); a click jumps to the result, another closes them; no spin with reduced motion.
   Under each disk: the move spun, then what the opposing spin did to that figure: "Recibe X de daño → al P.C." / "Pierde → al P.C."
   (red), "Gana · para X de daño" / "Gana" (green); a tie shows "Empate: se vuelve a girar" and ability notes in yellow.
-- House rule (2026-10-30, replaces the earlier counter-attack rule): `rules.decisive` in `houseRules` (the web game;
-  `defaultRules` keeps the real rules). Every battle has one winner and the loser goes to the P.C., whatever the colours;
-  ties (same damage/stars, blue/blue, Miss/Miss) are spun again (each tie is shown as its own spin, 30 at most).
-  200 AI duels: all end, every battle ends in a KO.
-- Abilities as in 1.0.0 (`src/abilities.ts`; 21 of the 82 figures have one, read per version from `data/figures.json`).
-  Working: Spicy Scent, Gleam Eyes, Plus, Minus (damage), Battle Armor, Migraine (force one respin, used when losing),
-  Time/Space Distortion (cannot enter while others are on the bench), Bide (cannot battle). Shown but no effect yet:
-  Run Off, Swarm, Run Away, Sand Veil, Reckless Charge, Gooey, Guts, Insomnia, Own Tempo, Immunity (need player choices,
-  special conditions or unknown values).
+- Wheels as in the original again (user, 2026-10-30): `houseRules.decisive = false` (the decisive option still exists,
+  with tests). Only a winning white/gold attack with damage knocks out; purple wins apply their effect; blue dodges;
+  ties do nothing; * attacks apply their effect whatever the outcome (attacker first).
+- Special conditions (`Figure.cond`, rules from Bulbapedia "Special Condition (TFG)" in research/raw/wait.json): poison
+  −20, noxious −40, paralysis (smallest-total attack becomes Miss), burn (paralysis + −10), sleep (no move/attack, does not
+  block or surround, wakes when attacked or tagged by an adjacent ally: purple target, ends the turn), frozen (sleep + all
+  Miss, cleared after a battle, Serebii), confusion (wheel shifted one segment). One at a time; removed off the field.
+  Plain "Wait" = skip the owner's next turn (TFG Wait lasts one turn): `Game.gainWait`.
+- Attack effects (`src/effects.ts`, `resolveBattle`): the 98 effect texts of our figures, matched by text. Choices the
+  original left to a player are automatic. Not applied (shown with the reason): Taunt and Torment (ambiguous texts),
+  Crushing Squeeze (Cracked marker, unknown), Play Rough (plates). Simulation tool: 500 AI duels with all 163 figures,
+  0 errors.
+- Abilities: all of the game's 45 work (`src/abilities.ts`) except Big Chorus (plates), Electromagnetic Barrier (no
+  spin-forcing attacks), Slime Barrier (no white attack gives conditions without *), Steel Breaker (Cracked marker).
+  Ability moves are purple targets (`Game.specials`: Run Off, Swarm, Forest Leap, Cut Off, tag); Run Away and Sand Veil
+  are always used; Metamorphosis evolves in the duel (+10/+1★); figures obtained by evolving count as "evolved".
+  Interpretations are listed in `NOTES` (shown in the Pokédex).
+- Abilities as in 1.0.0 (21 of the 82 figures have one, read per version from `data/figures.json`); see below.
 - Secondary types (`type2`, 31 of 82): shown on cards (types line, base side colour). No type effectiveness (Duel has none).
 - 2.5D board restyled after research/img/field.png: pale mottled surface, thick white routes, ring points, concentric
   entry rings, pulsing goals with an arrow (blue = yours, orange = opponent's), bench lines, wooden bases with a team rim.
@@ -77,7 +86,7 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 36 passing.
+- Tests: `npm test` -> 45 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.

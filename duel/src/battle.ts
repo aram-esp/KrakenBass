@@ -2,15 +2,20 @@ import type { Figure, Move } from './types.ts';
 import type { Rng } from './rng.ts';
 import type { RulesConfig } from './rules.config.ts';
 
-export function spin(figure: Figure, rng: Rng): Move {
+/** Index of the wheel segment a spin lands on. */
+export function spinIndex(figure: Figure, rng: Rng): number {
   const wheel = figure.def.wheel;
   const total = wheel.reduce((s, seg) => s + seg.weight, 0);
   let r = rng() * total;
-  for (const seg of wheel) {
-    r -= seg.weight;
-    if (r < 0) return seg.move;
+  for (let i = 0; i < wheel.length; i++) {
+    r -= wheel[i].weight;
+    if (r < 0) return i;
   }
-  return wheel[wheel.length - 1].move;
+  return wheel.length - 1;
+}
+
+export function spin(figure: Figure, rng: Rng): Move {
+  return figure.def.wheel[spinIndex(figure, rng)].move;
 }
 
 export interface BattleResult {
@@ -33,6 +38,10 @@ export interface BattleHooks {
   power(f: Figure, m: Move): number;
   /** May `f`, losing with `own`, force the opponent to spin `opp` again? Returns the ability name, or null. */
   forceRespin(f: Figure, own: Move, opp: Move): string | null;
+  /** Segments to shift `f`'s spin by, because of `opp`'s ability (Spinning Pattern). */
+  spinShift?(f: Figure, opp: Figure): number;
+  /** The move `f` ends up using (e.g. a Dodge that becomes a Miss next to Blue Spark). */
+  transform?(f: Figure, m: Move, opp: Figure): Move;
 }
 
 export const NO_HOOKS: BattleHooks = { power: (_f, m) => m.damage, forceRespin: () => null };
@@ -40,7 +49,7 @@ export const NO_HOOKS: BattleHooks = { power: (_f, m) => m.damage, forceRespin: 
 const damaging = (m: Move) => m.color === 'white' || m.color === 'gold';
 
 /** >0: `a` wins, <0: `b` wins, 0: nothing happens. */
-function compare(a: Move, b: Move, pa: number, pb: number, rules: RulesConfig): number {
+export function compareMoves(a: Move, b: Move, pa: number, pb: number, rules: RulesConfig): number {
   const o = rules.outcome(a.color, b.color);
   if (o === 'a') return 1;
   if (o === 'b') return -1;
@@ -59,7 +68,7 @@ export function battle(mover: Figure, other: Figure, rules: RulesConfig, rng: Rn
   let om = spin(other, rng);
   const notes: string[] = [];
   const pw = (f: Figure, m: Move) => (damaging(m) ? Math.max(0, hooks.power(f, m)) : 0);
-  const outcome = () => compare(mm, om, pw(mover, mm), pw(other, om), rules);
+  const outcome = () => compareMoves(mm, om, pw(mover, mm), pw(other, om), rules);
   let c = outcome();
   // A losing side with a respin ability makes the opponent spin again (the defender is asked first).
   if (c > 0) {

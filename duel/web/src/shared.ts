@@ -22,14 +22,22 @@ export async function readData<T>(id: string, url: string): Promise<T> {
 /** True in the single-file published build, which has no assets folder to probe. */
 export const EMBEDDED = () => !!document.getElementById('data-board');
 
-export type Badge = { mp: number; wait: number };
+export type Badge = { mp: number; wait: number; cond?: string | null };
+
+/** Short Spanish names of the special conditions, for badges and the side panel. */
+export const COND_SHORT: Record<string, string> = {
+  poison: 'Veneno', noxious: 'Veneno+', paralysis: 'Parálisis', burn: 'Quemado', sleep: 'Dormido', frozen: 'Congelado', confusion: 'Confuso',
+};
+const COND_COLOR: Record<string, string> = {
+  poison: '#9b4dca', noxious: '#6a1b9a', paralysis: '#f2c230', burn: '#e8572a', sleep: '#5c7cfa', frozen: '#6fd3f2', confusion: '#ff7eb6',
+};
 
 /** Small rounded label drawn on a canvas: "2 MP" or "Wait 3". Returns the canvas (for 3D textures). */
-export function drawBadge(text: string, wait: boolean, c?: CanvasRenderingContext2D, x = 0, y = 0, h = 40): HTMLCanvasElement | null {
+export function drawBadge(text: string, wait: boolean, c?: CanvasRenderingContext2D, x = 0, y = 0, h = 40, cond?: string | null): HTMLCanvasElement | null {
   let own: HTMLCanvasElement | null = null;
   if (!c) {
     own = document.createElement('canvas');
-    own.width = 128; own.height = 48;
+    own.width = 256; own.height = 48;
     c = own.getContext('2d')!;
     h = 40; x = own.width / 2; y = own.height / 2;
   }
@@ -37,7 +45,7 @@ export function drawBadge(text: string, wait: boolean, c?: CanvasRenderingContex
   c.font = `bold ${Math.round(h * 0.62)}px system-ui, sans-serif`;
   const w = Math.max(h * 1.6, c.measureText(text).width + h * 0.7);
   c.beginPath(); c.roundRect(x - w / 2, y - h / 2, w, h, h / 2);
-  c.fillStyle = wait ? '#ffc107' : '#12151cdd'; c.fill();
+  c.fillStyle = wait ? '#ffc107' : cond ? COND_COLOR[cond] ?? '#12151cdd' : '#12151cdd'; c.fill();
   c.lineWidth = Math.max(1.5, h * 0.07); c.strokeStyle = wait ? '#12151c' : '#e8ecf4'; c.stroke();
   c.fillStyle = wait ? '#12151c' : '#e8ecf4'; c.textAlign = 'center'; c.textBaseline = 'middle';
   c.fillText(text, x, y + h * 0.04);
@@ -45,7 +53,7 @@ export function drawBadge(text: string, wait: boolean, c?: CanvasRenderingContex
   return own;
 }
 
-export const badgeText = (b: Badge) => (b.wait > 0 ? `Wait ${b.wait}` : `${b.mp} MP`);
+export const badgeText = (b: Badge) => (b.wait > 0 ? `Wait ${b.wait}` : `${b.mp} MP`) + (b.cond ? ` · ${COND_SHORT[b.cond] ?? b.cond}` : '');
 
 /** A way of drawing the duel. Match drives every view; only the visible one is shown. */
 export interface View {
@@ -53,7 +61,8 @@ export interface View {
   clearFigures(): void;
   addFigure(f: Figure): void;
   place(uid: string, node: string | null): void;
-  setHighlights(nodes: Iterable<string>, selected: string | null): void;
+  /** Green: MP destinations; purple: ability moves (Game.specials). */
+  setHighlights(nodes: Iterable<string>, selected: string | null, special?: Iterable<string>): void;
   /** MP each figure has right now (first-turn penalty included) and its Wait, shown next to it on the board. */
   setBadges(badges: Map<string, Badge>): void;
   pick(ev: MouseEvent): { uid?: string; node?: string };

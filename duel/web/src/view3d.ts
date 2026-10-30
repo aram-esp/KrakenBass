@@ -292,7 +292,7 @@ export class View3D implements View {
       if (!entry) {
         const s = new THREE.Sprite(new THREE.SpriteMaterial({ depthTest: false, transparent: true }));
         s.center.set(0.5, 0.5);
-        s.scale.set(0.9, 0.34, 1);
+        s.scale.set(1.81, 0.34, 1); // canvas is 256 x 48
         s.position.set(0, 0.22, 0.62);
         s.renderOrder = 10;
         g.add(s);
@@ -300,7 +300,7 @@ export class View3D implements View {
         this.badgeSprites.set(uid, entry);
       }
       if (entry.text !== text) {
-        const tex = new THREE.CanvasTexture(drawBadge(text, b.wait > 0)!);
+        const tex = new THREE.CanvasTexture(drawBadge(text, b.wait > 0, undefined, 0, 0, 40, b.cond)!);
         tex.colorSpace = THREE.SRGBColorSpace;
         entry.s.material.map?.dispose();
         entry.s.material.map = tex;
@@ -311,15 +311,19 @@ export class View3D implements View {
     }
   }
 
-  setHighlights(nodes: Iterable<NodeId>, selected: NodeId | null) {
-    for (const m of this.hilite) this.scene.remove(m);
+  setHighlights(nodes: Iterable<NodeId>, selected: NodeId | null, special: Iterable<NodeId> = []) {
+    for (const m of this.hilite) { this.scene.remove(m); m.geometry.dispose(); }
     this.hilite = [];
-    for (const n of nodes) {
-      const m = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.3, 0.06, 20), new THREE.MeshBasicMaterial({ color: 0x4cd964, transparent: true, opacity: 0.8 }));
-      m.position.copy(this.nodePos.get(n)!).setY(0.05);
+    const disc = (n: NodeId, color: number, geo: THREE.BufferGeometry, y: number) => {
+      const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.85 }));
+      m.position.copy(this.nodePos.get(n)!).setY(y);
       this.scene.add(m);
       this.hilite.push(m);
-    }
+      return m;
+    };
+    for (const n of nodes) disc(n, 0x4cd964, new THREE.CylinderGeometry(0.3, 0.3, 0.06, 20), 0.05);
+    // Ability moves: a purple ring (it may be under a figure, e.g. Run Off's partner).
+    for (const n of special) disc(n, 0xb26bff, new THREE.TorusGeometry(0.46, 0.06, 8, 32), 0.08).rotation.x = Math.PI / 2;
     this.ring.visible = !!selected;
     if (selected) this.ring.position.copy(this.nodePos.get(selected)!).setY(0.06);
   }

@@ -32,8 +32,9 @@ export function aiTurn(game: Game, rng: Rng): void {
     }
   }
   if (best && !game.winner) {
+    const me = game.current;
     game.move(best.uid, best.to);
-    if (game.winner !== null) return;
+    if (game.winner !== null || game.current !== me) return; // the move ended the turn (e.g. Diving Entry)
   }
   for (const f of mine) {
     const foe = game.adjacentEnemies(f)[0];

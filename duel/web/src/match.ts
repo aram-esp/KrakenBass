@@ -4,7 +4,7 @@ import { seeded } from '../../src/rng.ts';
 import type { BattleResult } from '../../src/battle.ts';
 import type { Figure, FigureDef, Move, NodeId, PlayerId } from '../../src/types.ts';
 import { houseRules } from '../../src/rules.config.ts';
-import { $, MOVE_COLOR, TYPE_COLOR, type Layout, type View } from './shared.ts';
+import { $, COND_SHORT, MOVE_COLOR, TYPE_COLOR, type Layout, type View } from './shared.ts';
 
 const HUMAN: PlayerId = 0;
 
@@ -20,6 +20,8 @@ export class Match {
 
   /** The player's chosen deck for the next duels; null = random. */
   humanDeck: FigureDef[] | null = null;
+  /** The figure a figure evolves into during a duel (Metamorphosis); set by main. */
+  evolveInDuel?: (def: FigureDef) => FigureDef | null;
   /** Called by the "Menú" buttons. */
   onMenu: () => void = () => {};
   /** Called once when a duel ends (won = the player won); may return a line for the end banner. */
@@ -40,6 +42,8 @@ export class Match {
     };
     // Draw the board as it is right before the battle (e.g. the AI's move); then it waits for the disks.
     this.game.onBeforeBattle = () => this.refresh();
+    this.game.onNote = (t) => this.log(t);
+    this.game.evolveInDuel = this.evolveInDuel;
     this.selected = null;
     this.reported = false;
     $('log').innerHTML = '';
@@ -68,6 +72,20 @@ export class Match {
   click(hit: { uid?: string; node?: NodeId }) {
     if (!this.canAct()) return;
     const g = this.game;
+    // Ability moves (purple): a click on its node, or on the figure standing there (Run Off, waking an ally).
+    const sel = this.selected ? g.figures.find((x) => x.uid === this.selected) : undefined;
+    if (sel) {
+      const at = hit.node ?? (hit.uid ? g.figures.find((x) => x.uid === hit.uid)?.at ?? undefined : undefined);
+      const sp = at ? g.specials(sel).find((s) => s.to === at) : undefined;
+      if (sp && !(hit.node && g.reachable(sel).has(hit.node))) {
+        const before = g.current;
+        try { g.doSpecial(sp); } catch (e) { this.log(String(e)); }
+        if (g.current !== before || g.winner !== null) { this.afterHuman(); return; }
+        this.selected = sp.kind === 'runoff' ? sel.uid : null;
+        this.refresh();
+        return;
+      }
+    }
     if (hit.uid) {
       const f = g.figures.find((x) => x.uid === hit.uid)!;
       if (f.owner === HUMAN) { this.select(f.uid); return; }
@@ -83,7 +101,7 @@ export class Match {
       const f = g.figures.find((x) => x.uid === this.selected)!;
       if (g.reachable(f).has(hit.node)) {
         g.move(f.uid, hit.node);
-        if (g.winner !== null) { this.afterHuman(); return; }
+        if (g.winner !== null || g.current !== HUMAN) { this.afterHuman(); return; } // Diving Entry ends the turn
       }
       this.refresh();
     }
@@ -124,14 +142,16 @@ export class Match {
     for (const f of g.figures) for (const v of this.views) v.place(f.uid, f.status === 'board' ? f.at : null);
     const sel = this.selected ? g.figures.find((f) => f.uid === this.selected)! : null;
     const reach = sel ? [...g.reachable(sel)] : [];
-    for (const v of this.views) v.setHighlights(reach, sel && sel.status === 'board' ? sel.at : null);
-    const badges = new Map(g.figures.filter((f) => f.status === 'board').map((f) => [f.uid, { mp: g.mp(f), wait: f.wait }]));
+    const specials = sel && this.canAct() ? g.specials(sel) : [];
+    for (const v of this.views) v.setHighlights(reach, sel && sel.status === 'board' ? sel.at : null, specials.map((s) => s.to));
+    const badges = new Map(g.figures.filter((f) => f.status === 'board').map((f) => [f.uid, { mp: g.mp(f), wait: f.wait, cond: f.cond }]));
     for (const v of this.views) v.setBadges(badges);
 
     const side = (p: PlayerId) => {
       const pc = g.pc[p].map((f) => f.def.name).join(', ') || '—';
       const waits = g.figures.filter((f) => f.owner === p && f.wait > 0).map((f) => `${f.def.name} Wait ${f.wait}`).join(', ');
-      return `<b style="color:${p === 0 ? '#6fa0ff' : '#ff7a80'}">${p === HUMAN ? 'Tú (azul)' : 'IA (rojo)'}</b><br>P.C.: ${pc}${waits ? `<br>${waits}` : ''}`;
+      const conds = g.figures.filter((f) => f.owner === p && f.cond).map((f) => `${f.def.name}: ${COND_SHORT[f.cond!]}`).join(', ');
+      return `<b style="color:${p === 0 ? '#6fa0ff' : '#ff7a80'}">${p === HUMAN ? 'Tú (azul)' : 'IA (rojo)'}</b><br>P.C.: ${pc}${waits ? `<br>${waits}` : ''}${conds ? `<br>${conds}` : ''}`;
     };
     $('side').innerHTML = `${side(1)}<hr style="border:0;border-top:1px solid #fff2">${side(0)}`;
     const sidem = document.getElementById('sidem'); // only in publish/template.html
@@ -151,8 +171,9 @@ export class Match {
       $('bench').appendChild(el);
     }
     $<HTMLButtonElement>('end').disabled = !this.canAct();
+    const specialHint = specials.length ? ` Morado = ${[...new Set(specials.map((s) => s.label.split(':')[0]))].join(', ')}.` : '';
     $('hint').textContent = !this.canAct() ? '' : sel
-      ? (sel.status === 'board' && g.adjacentEnemies(sel).length ? 'Verde = mover. Pulsa un enemigo adyacente para combatir (termina el turno).' : 'Verde = destinos posibles.')
+      ? (g.canAttack(sel) && g.adjacentEnemies(sel).length ? 'Verde = mover. Pulsa un enemigo adyacente para combatir (termina el turno).' : 'Verde = destinos posibles.') + specialHint
       : 'Elige una figura (en el tablero o en el banquillo).';
 
     if (g.winner !== null) {

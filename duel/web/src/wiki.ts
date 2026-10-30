@@ -1,4 +1,5 @@
-import { WORKING, pendingReason } from '../../src/abilities.ts';
+import { NOTES, WORKING, pendingReason } from '../../src/abilities.ts';
+import { UNSUPPORTED, effectStatus } from '../../src/effects.ts';
 import type { FigureRecord } from '../../src/data.ts';
 import {
   BOOSTERS, CASE_SLOTS, EVOLVE_BATTLES, EVOLVE_DUELS, GEMS_LOSS, GEMS_WIN, RARITY_WEIGHT, SHOP_PRICE, TIMED_WEIGHT, gemsToOpenNow,
@@ -114,20 +115,42 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
       <div class="tbl"><table><tr><th>Color</th><th>Qué hace</th></tr>
       ${colours.map(([c, t]) => `<tr><td><span class="dot" style="background:${MOVE_COLOR[c]}"></span>${COLOR_ES[c]}</td><td>${t}</td></tr>`).join('')}
       </table></div>
-      <p><span class="tag house">Regla de la casa</span> En cada choque gana uno y el otro va al <b>P.C.</b>, sea cual sea el
-      color con el que gane. Si empatan (mismo daño, mismas estrellas, azul contra azul o fallo contra fallo), se vuelve a girar.
-      En el juego original solo un ataque blanco o dorado dejaba fuera de combate.</p>
+      <p>Como en el original: solo un ataque <b>blanco o dorado</b> que gana deja fuera de combate al rival (va al <b>P.C.</b>).
+      Si gana un <b>morado</b>, aplica su efecto (veneno, sueño, empujar…) y nadie cae. Si gana un <b>azul</b>, esquiva.
+      Si empatan, no pasa nada. Los ataques con <b>*</b> aplican su efecto aunque pierdan (primero los del atacante).</p>
+      <h3>Estados alterados</h3>
+      <p>Solo uno a la vez (uno nuevo sustituye al anterior); se quitan al volver al banquillo o al P.C. Fuente: Bulbapedia.</p>
+      <div class="tbl"><table><tr><th>Estado</th><th>Efecto</th></tr>
+      <tr><td>Veneno</td><td>−20 de daño en ataques blancos y dorados.</td></tr>
+      <tr><td>Veneno grave</td><td>−40 de daño.</td></tr>
+      <tr><td>Parálisis</td><td>El ataque con menos casillas de su ruleta se convierte en fallo.</td></tr>
+      <tr><td>Quemadura</td><td>Como la parálisis, y además −10 de daño.</td></tr>
+      <tr><td>Sueño</td><td>No se mueve ni ataca, no bloquea el paso ni ayuda a rodear. Se despierta si le atacan o si un aliado de al lado lo toca (casilla morada; termina tu turno).</td></tr>
+      <tr><td>Congelación</td><td>Como el sueño, y todos sus ataques fallan. Se quita tras un combate.</td></tr>
+      <tr><td>Confusión</td><td>La ruleta se desplaza una casilla antes de leer el resultado.</td></tr>
+      </table></div>
+      <h3>Wait y marcadores</h3>
+      <p>Wait N: no puede moverse ni atacar durante N turnos (cuentan los de los dos jugadores). "Wait" sin número: se salta su
+      siguiente turno (en el juego de mesa duraba un turno). Los marcadores de MP (−1, −2) restan movimiento mientras siga en el tablero.</p>
+      <h3>Habilidades que eliges</h3>
+      <p>Al seleccionar una figura, las casillas con anillo <b>morado</b> son movimientos de habilidad (Run Off, Swarm, Forest Leap,
+      Cut Off) o despertar a un aliado. Las habilidades de defensa (Run Away, Sand Veil) se usan solas siempre que pueden.</p>
       <h3>El P.C.</h3>
       <p>Las figuras derrotadas van al P.C., que guarda ${defaultRules.pcSize}. Cuando entra una tercera, la más antigua vuelve al banquillo.</p>
       <h3>Lo que aún no está</h3>
-      <p>Plates, estados alterados (veneno, sueño…), Megaevolución y movimientos Z del original todavía no están en este juego.</p>`;
+      <p>Plates, Megaevolución y movimientos Z del original. Cuatro efectos de ataque se muestran pero no hacen nada (lo pone en su ficha).</p>`;
   }
 
   function wheelTable(f: FigureDef): string {
     const total = f.wheel.reduce((s, x) => s + x.weight, 0);
-    return `<div class="tbl"><table><tr><th>Ataque</th><th>Color</th><th>Daño / ★</th><th>Probabilidad</th></tr>${f.wheel.map((s) => `
+    return `<div class="tbl"><table><tr><th>Ataque</th><th>Color</th><th>Daño / ★</th><th>Probabilidad</th><th>Efecto</th></tr>${f.wheel.map((s) => {
+      const st = effectStatus(s.move);
+      const why = st === 'no' ? UNSUPPORTED.find(([re]) => re.test(s.move.effect ?? ''))?.[1] : '';
+      return `
       <tr><td>${esc(s.move.name)}</td><td><span class="dot" style="background:${MOVE_COLOR[s.move.color]}"></span>${COLOR_ES[s.move.color]}</td>
-      <td>${s.move.damage ? s.move.damage : s.move.color === 'purple' ? '★'.repeat(s.move.stars || 1) : '—'}</td><td>${pct(s.weight, total)}</td></tr>`).join('')}
+      <td>${s.move.damage ? s.move.damage : s.move.color === 'purple' ? '★'.repeat(s.move.stars || 1) : '—'}</td><td>${pct(s.weight, total)}</td>
+      <td>${s.move.effect ? esc(s.move.effect.replace(/\{\{mp\}\}/g, 'MP').replace(/<!--.*?-->/g, '')) : '—'}${st === 'no' ? ` <span class="tag no">Sin efecto</span><br><i>${esc(why ?? '')}</i>` : ''}</td></tr>`;
+    }).join('')}
       </table></div>`;
   }
 
@@ -135,7 +158,7 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
     if (!f.ability) return '<p>Sin habilidad.</p>';
     const ok = WORKING.has(f.ability.name);
     return `<p><b>★ ${esc(f.ability.name)}</b> <span class="tag ${ok ? 'ok' : 'no'}">${ok ? 'Funciona' : 'Aún sin efecto'}</span><br>
-      ${esc(f.ability.effect)}${ok ? '' : `<br><i>${esc(pendingReason(f.ability.name))}</i>`}</p>`;
+      ${esc(f.ability.effect)}${ok ? (NOTES[f.ability.name] ? `<br><i>${esc(NOTES[f.ability.name])}</i>` : '') : `<br><i>${esc(pendingReason(f.ability.name))}</i>`}</p>`;
   }
 
   function figures(): string {
@@ -190,7 +213,7 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
       <div class="tbl"><table><tr><th>Habilidad</th><th>Estado</th><th>Efecto</th><th>Figuras</th></tr>
       ${rows.map(([n, e]) => `<tr><td><b>${esc(n)}</b></td>
         <td><span class="tag ${WORKING.has(n) ? 'ok' : 'no'}">${WORKING.has(n) ? 'Funciona' : 'Aún sin efecto'}</span></td>
-        <td>${esc(e.effect)}${WORKING.has(n) ? '' : `<br><i>${esc(pendingReason(n))}</i>`}</td><td>${esc(e.who.join(', '))}</td></tr>`).join('')}
+        <td>${esc(e.effect)}${WORKING.has(n) ? (NOTES[n] ? `<br><i>${esc(NOTES[n])}</i>` : '') : `<br><i>${esc(pendingReason(n))}</i>`}</td><td>${esc(e.who.join(', '))}</td></tr>`).join('')}
       </table></div>`;
   }
 

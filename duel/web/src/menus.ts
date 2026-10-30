@@ -239,7 +239,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       <div class="row" id="dmWelcome"></div>
       <div class="case" id="dmCase"></div>
       <p class="note">Cada duelo te da gemas y, si hay hueco en la vitrina, un booster que se abre cuando pasa su tiempo (o antes con gemas).</p>
-      <p class="note">Contra la IA. Regla de la casa: en cada choque gana uno y el otro va al P.C.; si empatan, se vuelve a girar.</p>
+      <p class="note">Contra la IA, con las ruletas, estados alterados y efectos de ataque del original. Más en la Pokédex.</p>
     </div>
     <div class="screen" id="dmDeck">
       <div class="pill">Editar mazo</div>

@@ -55,6 +55,10 @@ export interface Figure {
   mpMarker?: number;
   /** Has not battled since it entered the field (Gale Wings). */
   fresh?: boolean;
+  /** Turn at which a Final Song marker knocks it out (Belly Drum). */
+  finalSong?: number;
+  /** Players whose Grass Pokémon deal +20 damage to it while it is on the field (Synthesis). */
+  synthesisBy?: PlayerId[];
 }
 
 export interface BoardDef {

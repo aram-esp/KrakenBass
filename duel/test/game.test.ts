@@ -259,3 +259,113 @@ test('real board: 28 nodes, 34 edges, 180-degree symmetric', () => {
   const edges = new Set(board.edges.map(([x, y]) => key(x, y)));
   for (const [x, y] of board.edges) assert.ok(edges.has(key(flip(x), flip(y))), `asymmetric ${x}-${y}`);
 });
+
+// ---- original wheels, special conditions, attack effects, abilities (2026-10-30) ----
+const eff = (color: Color, effect: string, damage = 0, stars = 1, name = 'X'): Move => ({ name, color, damage, stars, effect });
+const duel = (a: FigureDef[], b: FigureDef[]) => {
+  const g = game(a, b, houseRules);
+  put(g, '0:0', 'C3');
+  put(g, '1:0', 'B4');
+  return g;
+};
+
+test('original wheels: a purple win poisons and knocks nobody out; poison is -20 damage', () => {
+  const g = duel([fig('a', 2, eff('purple', 'The battle opponent becomes poisoned.'))], [fig('c', 2, mv('white', 50))]);
+  const r = g.battle('0:0', '1:0');
+  assert.equal(r.winner, 'mover');
+  assert.deepEqual(r.ko, []);
+  assert.equal(g.figures[1].cond, 'poison');
+  const g2 = duel([fig('a', 2, mv('white', 40))], [fig('c', 2, mv('white', 50))]);
+  g2.figures[1].cond = 'poison';
+  assert.equal(g2.battle('0:0', '1:0').otherPower, 30);
+});
+
+test('a * attack applies its effect even when it loses; Defense Curl-style * attacks survive weak hits', () => {
+  const g = duel([fig('a', 2, mv('white', 90))], [fig('c', 2, eff('white', '* If this Pokémon is knocked out, the battle opponent becomes paralyzed.', 20, 0, 'Nuzzle*'))]);
+  const r = g.battle('0:0', '1:0');
+  assert.deepEqual(r.ko.map((k) => k.uid), ['1:0']);
+  assert.equal(g.figures[0].cond, 'paralysis');
+  const curl = duel([fig('a', 2, mv('white', 40))], [fig('c', 2, eff('white', "* If the battle opponent's Attack is 50 or below, this Pokémon cannot be knocked out.", 10, 0, 'Defense Curl*'))]);
+  assert.deepEqual(curl.battle('0:0', '1:0').ko, []);
+});
+
+test('blue dodges and ties do nothing; plain Wait makes the figure skip its next turn', () => {
+  // Player 1 also has a bench figure, so a Wait on its only field figure does not lose the game (Wait win).
+  const g = duel([fig('a', 2, mv('white', 90))], [fig('c', 2, eff('blue', 'This Pokémon gains Wait.', 0, 0, 'Protect')), fig('d', 2)]);
+  const r = g.battle('0:0', '1:0');
+  assert.equal(r.winner, 'other');
+  assert.deepEqual(r.ko, []);
+  assert.equal(g.current, 1);
+  assert.equal(g.reachable(g.figures[1]).size, 0, 'Protect: it cannot move on its next turn');
+  g.endTurn();
+  g.endTurn();
+  assert.ok(g.reachable(g.figures[1]).size > 0, 'free again on the turn after');
+});
+
+test('asleep figures cannot move or attack, do not block the way and wake up when attacked; frozen ones always miss', () => {
+  const g = duel([fig('a', 2, mv('white', 90)), fig('b', 2)], [fig('c', 2, mv('white', 10))]);
+  g.figures[0].cond = 'sleep';
+  assert.equal(g.canAttack(g.figures[0]), false);
+  assert.equal(g.reachable(g.figures[0]).size, 0);
+  g.figures[0].cond = null;
+  g.figures[2].cond = 'frozen';
+  const r = g.battle('0:0', '1:0');
+  assert.equal(r.otherMove.color, 'red');
+  const wake = duel([fig('a', 2, mv('blue'))], [fig('c', 2, mv('white', 10))]);
+  wake.figures[1].cond = 'sleep';
+  wake.battle('0:0', '1:0');
+  assert.equal(wake.figures[1].cond, null);
+});
+
+test('immunities: Immunity blocks poison, Own Tempo blocks confusion', () => {
+  const g = duel([fig('a', 2, eff('purple', 'The battle opponent becomes poisoned.'))], [withAbility(fig('c', 2, mv('white', 50)), 'Immunity')]);
+  g.battle('0:0', '1:0');
+  assert.equal(g.figures[1].cond ?? null, null);
+});
+
+test('Run Away and Sand Veil avoid the battle', () => {
+  const run = duel([fig('a', 2, mv('white', 90))], [withAbility(fig('c', 2), 'Run Away')]);
+  const r = run.battle('0:0', '1:0');
+  assert.equal(r.winner, null);
+  assert.equal(run.figures[1].status, 'bench');
+  assert.ok(run.figures[1].wait > 0);
+  const veil = duel([fig('a', 2, mv('white', 90))], [withAbility(fig('c', 2), 'Sand Veil')]);
+  veil.battle('0:0', '1:0');
+  assert.equal(veil.figures[1].status, 'board');
+  assert.notEqual(veil.figures[1].at, 'B4');
+});
+
+test('special moves: Cut Off to your goal, Run Off swap, tagging wakes an ally', () => {
+  const cut = duel([withAbility(fig('s', 2), 'Cut Off')], [fig('c', 2)]);
+  const s1 = cut.specials(cut.figures[0]).find((x) => x.kind === 'cutoff')!;
+  assert.equal(s1.to, board.goals[0]);
+  cut.doSpecial(s1);
+  assert.equal(cut.figures[0].at, board.goals[0]);
+  assert.equal(cut.current, 1, 'Cut Off ends the turn');
+
+  const off = game([withAbility(fig('a', 2), 'Run Off'), fig('b', 2)], [fig('c', 2)], houseRules);
+  put(off, '0:0', 'C3');
+  put(off, '0:1', 'I3a');
+  const s2 = off.specials(off.figures[0]).find((x) => x.kind === 'runoff')!;
+  off.doSpecial(s2);
+  assert.deepEqual([off.figures[0].at, off.figures[1].at], ['I3a', 'C3']);
+  assert.equal(off.current, 0, 'Run Off does not end the turn');
+
+  const tag = game([fig('a', 2), fig('b', 2)], [fig('c', 2)], houseRules);
+  put(tag, '0:0', 'C3');
+  put(tag, '0:1', 'I3a');
+  tag.figures[1].cond = 'sleep';
+  tag.doSpecial(tag.specials(tag.figures[0]).find((x) => x.kind === 'tag')!);
+  assert.equal(tag.figures[1].cond, null);
+});
+
+test('MP: markers from attacks and Mud Coating', () => {
+  const g = duel([fig('a', 2, eff('purple', 'Attaches an {{mp}} -1 marker to the battle opponent.'))], [fig('c', 2, mv('white', 50))]);
+  g.battle('0:0', '1:0');
+  assert.equal(g.mp(g.figures[1]), 1);
+  const water = (id: string) => ({ ...fig(id, 2), type: 'Water' });
+  const mud = game([{ ...fig('g', 1), type: 'Ground' }, withAbility(water('m'), 'Mud Coating'), water('w1'), water('w2')], [fig('c', 2)], houseRules);
+  mud.endTurn(); mud.endTurn();
+  for (const [uid, n] of [['0:0', 'C3'], ['0:1', 'I3a'], ['0:2', 'I2a'], ['0:3', 'I2b']] as const) put(mud, uid, n);
+  assert.equal(mud.mp(mud.figures[0]), 2);
+});
