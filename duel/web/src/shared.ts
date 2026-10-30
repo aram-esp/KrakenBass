@@ -32,3 +32,22 @@ export interface View {
   pick(ev: MouseEvent): { uid?: string; node?: string };
   setActive(on: boolean): void;
 }
+
+const spriteCache = new Map<string, Promise<string | null>>();
+let embeddedSprites: Record<string, string> | null = null;
+
+/**
+ * Image URL for assets/sprites/<id>.png, or null when there is none. The published single-file build
+ * carries the sprites as data: URIs in #data-sprites; the dev server serves the files.
+ */
+export function spriteSrc(id: string): Promise<string | null> {
+  if (EMBEDDED()) {
+    embeddedSprites ??= JSON.parse(document.getElementById('data-sprites')?.textContent || '{}');
+    return Promise.resolve(embeddedSprites![id] ?? null);
+  }
+  if (!spriteCache.has(id)) {
+    const url = `../assets/sprites/${id}.png`;
+    spriteCache.set(id, fetch(url, { method: 'HEAD' }).then((r) => (r.ok ? url : null)).catch(() => null));
+  }
+  return spriteCache.get(id)!;
+}

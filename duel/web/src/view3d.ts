@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import type { Figure, NodeId } from '../../src/types.ts';
-import { EMBEDDED, OWNER_COLOR, TYPE_COLOR, type Layout, type View } from './shared.ts';
+import { EMBEDDED, OWNER_COLOR, spriteSrc, TYPE_COLOR, type Layout, type View } from './shared.ts';
 
 /** Screenshot pixel coordinates -> world units on the table. */
 function toWorld(p: [number, number]): THREE.Vector3 {
@@ -48,7 +48,6 @@ export class View3D implements View {
   ring: THREE.Mesh;
   loader = new GLTFLoader();
   hasModel = new Map<string, Promise<boolean>>();
-  hasSprite = new Map<string, Promise<boolean>>();
 
   canvas: HTMLCanvasElement;
   private resize: () => void = () => {};
@@ -140,8 +139,8 @@ export class View3D implements View {
   }
 
   /**
-   * Placeholder base + body. A model at assets/models/<id>.glb replaces the body; otherwise a sprite at
-   * assets/sprites/<id>.png stands on the base as a camera-facing billboard (2.5D).
+   * Placeholder base + body. A model at assets/models/<id>.glb replaces the body; otherwise the figure's sprite
+   * (see spriteSrc) stands on the base as a camera-facing billboard (2.5D).
    */
   addFigure(f: Figure) {
     const g = new THREE.Group();
@@ -168,8 +167,8 @@ export class View3D implements View {
   }
 
   private addSprite(f: Figure, g: THREE.Group, body: THREE.Mesh) {
-    this.trySprite(f.def.id).then((ok) => {
-      if (!ok) return;
+    spriteSrc(f.def.id).then((src) => {
+      if (!src) return;
       const img = new Image();
       img.onload = () => {
         if (!this.figureGroup.has(f.uid)) return; // duel restarted while loading
@@ -186,16 +185,8 @@ export class View3D implements View {
         (body.material as THREE.Material).dispose();
         g.add(shadow, s);
       };
-      img.src = `../assets/sprites/${f.def.id}.png`;
+      img.src = src;
     });
-  }
-
-  private trySprite(id: string): Promise<boolean> {
-    if (EMBEDDED()) return Promise.resolve(false);
-    if (!this.hasSprite.has(id)) {
-      this.hasSprite.set(id, fetch(`../assets/sprites/${id}.png`, { method: 'HEAD' }).then((r) => r.ok).catch(() => false));
-    }
-    return this.hasSprite.get(id)!;
   }
 
   private tryModel(id: string): Promise<boolean> {

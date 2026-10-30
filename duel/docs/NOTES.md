@@ -23,7 +23,8 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   opaque pixels, nearest-neighbour filtering, `SPRITE_UNIT` sets the size). Falls back to the sphere placeholder with no
   sprite (e.g. the published single-file page); a `.glb` model still wins over the sprite.
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
-- Published private page (3D only): https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`).
+- Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
+  (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
 - Tests: `npm test` -> 19 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
@@ -34,8 +35,7 @@ Not done: plates, attack/ability effects, special conditions, evolution, Mega Ev
 timers, forfeit, choosing the battle target (the engine takes the first adjacent enemy for AI; the UI lets the human pick).
 
 ## 3. Known issues / next steps (priority order)
-1. Update the published page to include the 2D view (it is still the 3D-only version `61639a5`). It cannot show the
-   sprites (no assets folder there) unless they are embedded or uploaded as artifact assets.
+1. Published page is current (2.5D + 2D, sprites embedded by `publish/build.py`). Rebuild and republish after changes.
    Fixed on 2026-10-30: `#sidem` crash on `web/index.html`, and the hidden canvas still showing (CSS `display:block`
    beat the `hidden` attribute, so the 3D canvas covered the buttons) in both `web/index.html` and `publish/template.html`.
 2. The AI wins in ~3 turns if the human does nothing (straight rush to the goal); expected with the current simple AI.
@@ -102,7 +102,8 @@ To use other art instead:
   python3 tools/import_sprites.py path/to/folder --dry-run
   ```
   Every figure with the same name gets the image (variants and duplicates share it).
-- The single-file published page cannot load these (no assets folder there); they work with `npm run serve`.
+- The single-file published page cannot load files: `publish/build.py` embeds `assets/sprites/*.png` as data: URIs
+  (`web/src/shared.ts` `spriteSrc`). Models (`.glb`) are not embedded and only work with `npm run serve`.
 - Mind the licence of whatever you add. Pokémon sprites belong to Nintendo / Game Freak / The Pokémon Company; the author
   said the project is private and non-commercial. An earlier session declined to download third-party art; the user later
   asked for the PokeAPI sprites explicitly.

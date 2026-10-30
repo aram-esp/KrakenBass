@@ -1,5 +1,5 @@
 import type { Figure, NodeId } from '../../src/types.ts';
-import { EMBEDDED, OWNER_COLOR, TYPE_COLOR, type Layout, type View } from './shared.ts';
+import { OWNER_COLOR, spriteSrc, TYPE_COLOR, type Layout, type View } from './shared.ts';
 
 const hex = (n: number) => '#' + n.toString(16).padStart(6, '0');
 
@@ -56,7 +56,6 @@ export class View2D implements View {
   private W = 0; private H = 0; private scale = 1; private ox = 0; private oy = 0;
   private raf = 0;
   private bbox: [number, number, number, number];
-  private hasSprite = new Map<string, Promise<boolean>>();
 
   constructor(board: Layout, canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -109,20 +108,12 @@ export class View2D implements View {
   addFigure(f: Figure) {
     const t: Token = { f, x: 0, y: 0, tx: 0, ty: 0, show: false, sprite: makeSprite(f), img: null };
     this.tokens.set(f.uid, t);
-    this.hasSpriteFile(f.def.id).then((ok) => {
-      if (!ok) return;
+    spriteSrc(f.def.id).then((src) => {
+      if (!src) return;
       const img = new Image();
       img.onload = () => { t.img = img; };
-      img.src = `../assets/sprites/${f.def.id}.png`;
+      img.src = src;
     });
-  }
-
-  private hasSpriteFile(id: string): Promise<boolean> {
-    if (EMBEDDED()) return Promise.resolve(false);
-    if (!this.hasSprite.has(id)) {
-      this.hasSprite.set(id, fetch(`../assets/sprites/${id}.png`, { method: 'HEAD' }).then((r) => r.ok).catch(() => false));
-    }
-    return this.hasSprite.get(id)!;
   }
 
   place(uid: string, node: NodeId | null) {
