@@ -46,7 +46,8 @@ export interface Figure {
   owner: PlayerId;
   /** null unless `status` is 'board'. */
   at: NodeId | null;
-  status: 'bench' | 'board' | 'pc';
+  /** 'removed': out of the duel for good (Force Remove). */
+  status: 'bench' | 'board' | 'pc' | 'removed';
   /** Turns of Wait left; counts down every turn of either player. */
   wait: number;
   /** Special condition, if any. */

@@ -3,6 +3,7 @@ import type { FigureDef } from '../../src/types.ts';
 import { $, readData, type Layout } from './shared.ts';
 import { Match } from './match.ts';
 import { buildHud } from './hud.ts';
+import { plateSpec, toPlateDef, type PlateRecord } from '../../src/plates.ts';
 import { setupMenus } from './menus.ts';
 import { View2D } from './view2d.ts';
 import { View3D } from './view3d.ts';
@@ -14,6 +15,7 @@ async function main() {
     readData<FigureRecord[]>('data-figures', '../data/figures.json'),
     readData<{ evolves: Record<string, (string | number)[]>; invented?: Record<string, InventedFigure> }>('data-evolutions', '../data/evolutions.json'),
   ]);
+  const plates = (await readData<PlateRecord[]>('data-plates', '../data/plates.json')).map(toPlateDef);
   const pool: FigureDef[] = figurePool(records);
   const evolves = Object.fromEntries(Object.entries(evo.evolves).map(([k, v]) => [k, [...new Set(v.map(String))]]));
   const invented = evo.invented ?? {};
@@ -28,9 +30,10 @@ async function main() {
   const v2 = new View2D(board, c2), v3 = new View3D(board, c3);
   const match = new Match([v2, v3], board, pool);
   const menus = setupMenus(pool, allRecords, {
-    play: (deck) => match.start(deck),
+    play: (deck, plateDeck) => match.start(deck, plateDeck),
     canContinue: () => !!match.game && match.game.winner === null,
-  }, extras, evolves);
+  }, extras, evolves, plates);
+  match.platePool = plates.filter((p) => plateSpec(p).status === 'ok');
   match.onMenu = menus.open;
   const allDefs = new Map([...pool, ...extras].map((d) => [d.id, d]));
   match.evolveInDuel = (d) => { const t = (evolves[d.id] ?? []).find((x) => allDefs.has(x)); return t ? allDefs.get(t)! : null; };

@@ -126,7 +126,7 @@ export function abilityHooks(game: Game): BattleHooks {
       if ((f.cond === 'poison' || f.cond === 'noxious') && onField(game).some((o) => hasAbility(o, 'Diffuse Poison'))) dmg -= 20;
       // Big Eggsplosion (Exeggutor): "If Barrage is spun, it deals +60 damage" with a friendly Exeggcute chosen.
       if (hasAbility(f, 'Big Eggsplosion') && m.name.startsWith('Barrage') && eggsplosionPartner(game, f)) dmg += 60;
-      return dmg;
+      return dmg + plateDamage(game, f, m);
     },
     forceRespin(f: Figure, _own: Move, opp: Move): string | null {
       if (usedRespin.has(f.uid)) return null;
@@ -145,6 +145,9 @@ export function abilityHooks(game: Game): BattleHooks {
       const miss: Move = { name: 'Miss', color: 'red', damage: 0 };
       // Gale Wings (Fletchinder, Talonflame): "In its first battle after moving to the field, all of this Pokémon's White Attacks become Gold Attacks."
       if (m.color === 'white' && f.fresh && hasAbility(f, 'Gale Wings')) return { ...m, color: 'gold' };
+      // Gold Sphere (plate): "all the White Attacks of your evolved Ground-type Pokémon become Gold Attacks in their first
+      // battles after moving to the field".
+      if (m.color === 'white' && f.fresh && f.def.evolved && isType(f, 'Ground') && game.sphereActive(f.owner, 'goldsphere')) return { ...m, color: 'gold' };
       if (m.color !== 'blue') return m;
       // Blue Spark (Luxio): "The Dodges of opposing Pokémon adjacent to this Pokémon become Misses."
       if (neighbours(game, f).some((o) => o.owner !== f.owner && hasAbility(o, 'Blue Spark'))) return miss;
@@ -187,4 +190,26 @@ export function afterBattle(game: Game, mover: Figure, other: Figure, r: BattleR
     }
   }
   return notes;
+}
+
+/** Damage from plates (src/plates.ts): turn buffs, held items, type powers and duel-long effects. */
+function plateDamage(game: Game, f: Figure, m: Move): number {
+  let d = 0;
+  const base = f.def.wheel.find((w) => w.move.name === m.name)?.move.damage ?? m.damage;
+  if (game.hasBuff(f, 'xattack')) d += 30; // X Attack
+  if (game.hasBuff(f, 'desperate') && base >= 10 && base <= 50) d += 50; // Desperate Times
+  if (game.hasBuff(f, 'fertilizer')) d += 20; // Concentrated Fertilizer
+  const held = game.held.get(f.uid);
+  if (held && isType(f, held)) d += 20; // Magnet, Charcoal...: +20 while on the field
+  for (const t of game.typePowers[f.owner]) if (isType(f, t)) d += 20; // Iron Power...: until an enemy falls to that type
+  const near = neighbours(game, f);
+  if (m.color === 'white' && isType(f, 'Steel') && base >= 10 && game.sphereActive(f.owner, 'metalsphere')) d += 10; // Metal Sphere
+  if (m.color === 'white' && isType(f, 'Steel') && game.duelEffects[f.owner].has('steelenergy')) {
+    // Steel Energy: one of each such Pokémon's most damaging White Attacks (10 or more) deals +10.
+    const top = Math.max(...f.def.wheel.filter((w) => w.move.color === 'white').map((w) => w.move.damage));
+    if (top >= 10 && base === top) d += 10;
+  }
+  if (isType(f, 'Electric') && game.sphereActive(f.owner, 'electrosphere')) d += 10 * near.filter((o) => isType(o, 'Electric')).length; // Electro Sphere
+  if (isType(f, 'Electric') && game.duelEffects[f.owner].has('electroenergy') && near.some((o) => isType(o, 'Electric'))) d += 10; // Electro Energy
+  return d;
 }

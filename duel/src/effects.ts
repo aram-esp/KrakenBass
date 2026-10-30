@@ -57,7 +57,10 @@ export function spinFigure(game: Game, f: Figure, opp: Figure, rng: Rng, hooks: 
   let add = 0, mul = 1;
   const t = text(move);
   let m: RegExpMatchArray | null;
-  if ((m = t.match(/^Spin again until (.+?) does not land/))) {
+  // Sticky Grass (plate on the opponent): "Spin-again effects are treated as single spins only."
+  const sticky = game.spheres.get(opp.uid) === 'stickygrass';
+  if (sticky && /^Spin again/.test(t)) notes.push(`Sticky Grass: ${move.name} gira una sola vez`);
+  else if ((m = t.match(/^Spin again until (.+?) does not land/))) {
     let n = 1;
     while (n < 20 && wheel[spinIndex(f, rng)].move.name === move.name) n++;
     mul = n;
@@ -74,7 +77,15 @@ export function spinFigure(game: Game, f: Figure, opp: Figure, rng: Rng, hooks: 
     if (damaging(move)) { if (m[3]) add = Number(m[3]); else mul = Number(m[4]); }
     notes.push(`${first}: gira otra vez y sale ${move.name}${damaging(move) ? ` (${m[2]})` : ''}`);
   }
+  // X Accuracy (plate): "If the Attack for that Pokémon is a miss that turn, it will shift to the adjacent Attack."
+  if (move.color === 'red' && index >= 0 && game.hasBuff(f, 'xaccuracy')) {
+    index = (index + 1) % wheel.length;
+    move = wheel[index].move;
+    notes.push(`X Accuracy: ${f.def.name} pasa a ${move.name}`);
+  }
   move = hooks.transform?.(f, move, opp) ?? move;
+  // X Speed (plate): the chosen White Attack is a Gold Attack this turn.
+  if (move.color === 'white' && game.xspeed.get(f.uid) === move.name) move = { ...move, color: 'gold' };
   return { move, index, add, mul, notes };
 }
 
@@ -117,22 +128,57 @@ export function resolveBattle(game: Game, mover: Figure, other: Figure, rng: Rng
   let a = spinFigure(game, mover, other, rng, hooks);
   let b = spinFigure(game, other, mover, rng, hooks);
   const notes = [...a.notes, ...b.notes];
-  const outcome = () => compareMoves(a.move, b.move, spunPower(game, hooks, mover, a, other), spunPower(game, hooks, other, b, mover), game.rules);
+  // X Sp. Atk (+2 stars), Concentrated Fertilizer (+1 star) and Twisted Spoon (+1 star while on the field) from plates.
+  const stars = (f: Figure) => (game.hasBuff(f, 'xspatk') ? 2 : 0) + (game.hasBuff(f, 'fertilizer') ? 1 : 0) + (game.spheres.get(f.uid) === 'twistedspoon' ? 1 : 0);
+  // Sticky Grass: "the battle opponents of that Pokémon cannot respin."
+  const canRespin = (f: Figure, opp: Figure) => game.spheres.get(opp.uid) !== 'stickygrass';
+  const outcome = () => compareMoves(a.move, b.move, spunPower(game, hooks, mover, a, other), spunPower(game, hooks, other, b, mover), game.rules, stars(mover), stars(other));
   let c = outcome();
+  // Power Battle (plate): "if this Pokémon or its opponent spins a Purple Attack in battle, they must both spin again once."
+  if ((game.hasBuff(mover, 'powerbattle') || game.hasBuff(other, 'powerbattle')) && (a.move.color === 'purple' || b.move.color === 'purple')) {
+    notes.push('Power Battle: los dos vuelven a girar');
+    a = spinFigure(game, mover, other, rng, hooks); b = spinFigure(game, other, mover, rng, hooks);
+    notes.push(...a.notes, ...b.notes);
+    c = outcome();
+  }
   // A losing side with a respin ability makes the opponent spin again (the defender is asked first).
-  if (c > 0) {
+  if (c > 0 && canRespin(mover, other)) {
     const ab = hooks.forceRespin(other, b.move, a.move);
     if (ab) { notes.push(`${other.def.name} usa ${ab}: ${mover.def.name} vuelve a girar`); a = spinFigure(game, mover, other, rng, hooks); notes.push(...a.notes); c = outcome(); }
   }
-  if (c < 0) {
+  if (c < 0 && canRespin(other, mover)) {
     const ab = hooks.forceRespin(mover, a.move, b.move);
     if (ab) { notes.push(`${mover.def.name} usa ${ab}: ${other.def.name} vuelve a girar`); b = spinFigure(game, other, mover, rng, hooks); notes.push(...b.notes); c = outcome(); }
+  }
+  // Plates that allow one respin this turn, used when losing: Double Chance (your spin), No Guard (your Blue spin),
+  // Bright Powder (the opponent's spin).
+  for (const [self, opp, sign] of [[mover, other, 1], [other, mover, -1]] as const) {
+    if (c * sign >= 0) continue;
+    const mine = self === mover ? a : b;
+    if ((game.hasBuff(self, 'doublechance') || (game.hasBuff(self, 'noguard') && mine.move.color === 'blue')) && canRespin(self, opp)) {
+      notes.push(`${game.hasBuff(self, 'doublechance') ? 'Double Chance' : 'No Guard'}: ${self.def.name} vuelve a girar`);
+      const again = spinFigure(game, self, opp, rng, hooks);
+      if (self === mover) a = again; else b = again;
+      notes.push(...again.notes);
+      c = outcome();
+    } else if (game.hasBuff(self, 'brightpowder') && canRespin(opp, self)) {
+      notes.push(`Bright Powder: ${opp.def.name} vuelve a girar`);
+      const again = spinFigure(game, opp, self, rng, hooks);
+      if (opp === mover) a = again; else b = again;
+      notes.push(...again.notes);
+      c = outcome();
+    }
   }
   const pa = spunPower(game, hooks, mover, a, other), pb = spunPower(game, hooks, other, b, mover);
   const winner = c > 0 ? 'mover' : c < 0 ? 'other' : null;
   const ko = new Set<Figure>();
   const knock = (loser: Figure, loserMove: Move, winPower: number) => {
     if (survives(loserMove, winPower)) { notes.push(`${loser.def.name} resiste gracias a ${loserMove.name}`); return; }
+    // Focus Band: cannot be knocked out this turn. X Defend: not knocked out by 10-100 damage.
+    if (game.hasBuff(loser, 'focusband') || (game.hasBuff(loser, 'xdefend') && winPower >= 10 && winPower <= 100)) {
+      notes.push(`${loser.def.name} resiste gracias a ${game.hasBuff(loser, 'focusband') ? 'Focus Band' : 'X Defend'}`);
+      return;
+    }
     ko.add(loser);
   };
   if (winner === 'mover' && (decisive || (damaging(a.move) && pa > 0))) knock(other, b.move, pa);
@@ -141,6 +187,10 @@ export function resolveBattle(game: Game, mover: Figure, other: Figure, rng: Rng
   for (const [self, own, opp, oppPower] of [[mover, a.move, other, pb], [other, b.move, mover, pa]] as const) {
     const m = isStar(own) ? text(own).match(/Attack is (\d+) or more, the opponent is knocked out instead/) : null;
     if (m && ko.has(self) && oppPower >= Number(m[1])) { ko.delete(self); ko.add(opp); notes.push(`${own.name}: ${opp.def.name} cae en su lugar`); }
+  }
+  // Rocky Helmet (plate): "If that Pokémon is knocked out by Attack damage on this turn, its battle opponent is also knocked out."
+  for (const [self, opp] of [[mover, other], [other, mover]] as const) {
+    if (ko.has(self) && game.hasBuff(self, 'rockyhelmet') && !ko.has(opp)) { ko.add(opp); notes.push(`Rocky Helmet: ${opp.def.name} también cae`); }
   }
   // Spacial Rend*: "If the battle is a tie, the opponent is knocked out."
   for (const [own, opp] of [[a.move, other], [b.move, mover]] as const) {
@@ -151,6 +201,10 @@ export function resolveBattle(game: Game, mover: Figure, other: Figure, rng: Rng
   const ctx: EffectCtx = { game, rng, result, ko, notes };
   for (const [self, own, opp, won] of [[mover, a.move, other, winner === 'mover'], [other, b.move, mover, winner === 'other']] as const) {
     if (own.effect && (won || isStar(own) || own.color === 'blue' && winner !== null)) applyEffect(ctx, self, own, opp, won);
+  }
+  // Poison Blade (plate): the White Attacks of that Steel-type Pokémon gain "The battle opponent becomes poisoned."
+  for (const [self, own, opp, won] of [[mover, a.move, other, winner === 'mover'], [other, b.move, mover, winner === 'other']] as const) {
+    if (won && own.color === 'white' && game.spheres.get(self.uid) === 'poisonblade' && !ko.has(opp) && game.setCondition(opp, 'poison')) notes.push(`Poison Blade: ${opp.def.name} queda envenenado`);
   }
   // Mirror Coat (purple): "The battle opponent is knocked out if they spin purple."
   for (const [own, opp, oppMove] of [[a.move, other, b.move], [b.move, mover, a.move]] as const) {
@@ -199,6 +253,7 @@ function applyEffect(ctx: EffectCtx, self: Figure, own: Move, opp: Figure, won: 
     return;
   }
   if (/^Benches your battle opponent \(except when opponent has Fainted\)/.test(t)) {
+    if (game.hasBuff(opp, 'ballast') || game.grassSphereHolds(opp)) { say(`${opp.def.name} no se mueve (${game.hasBuff(opp, 'ballast') ? 'Ballast' : 'Grass Sphere'})`); return; }
     if (!oppOut && opp.status === 'board') { game.toBench(opp); wait(opp); say(`${opp.def.name} vuelve al banquillo`); }
     return;
   }
@@ -253,6 +308,7 @@ function applyEffect(ctx: EffectCtx, self: Figure, own: Move, opp: Figure, won: 
   }
 
   // --- knock-outs ---
+  if (/^Moves the battle opponent to the P\.C\./.test(t) && game.grassSphereHolds(opp)) { say(`Grass Sphere: ${opp.def.name} no se mueve`); return; }
   if (/^The battle opponent is knocked out\.?$/.test(t) || /^Moves the battle opponent to the P\.C\./.test(t)) { ko.add(opp); say(`${opp.def.name} cae`); return; }
   if (/^This Pokémon and the battle opponent are knocked out/.test(t)) { ko.add(opp); ko.add(self); say('caen los dos'); return; }
   if (/^This Pokémon and all neighbor Pokémon faint/.test(t)) { ko.add(self); for (const f of game.neighbourFigures(self)) ko.add(f); say('caen esta figura y todas las de al lado'); return; }
@@ -271,6 +327,7 @@ function applyEffect(ctx: EffectCtx, self: Figure, own: Move, opp: Figure, won: 
 
   // --- bench and P.C. ---
   if (/^The battle opponent is moved to the bench and gains Wait/.test(t)) {
+    if (game.hasBuff(opp, 'ballast') || game.grassSphereHolds(opp)) { say(`${opp.def.name} no se mueve (${game.hasBuff(opp, 'ballast') ? 'Ballast' : 'Grass Sphere'})`); return; }
     if (!oppOut && opp.status === 'board') { game.toBench(opp); wait(opp); say(`${opp.def.name} vuelve al banquillo`); }
     return;
   }

@@ -2,6 +2,7 @@ import { Board } from './board.ts';
 import { abilityHooks, afterBattle, blockedFromEntering, canBattle, canHaveCondition, hasAbility, mpBonus } from './abilities.ts';
 import type { BattleResult } from './battle.ts';
 import { resolveBattle } from './effects.ts';
+import { duelEffectKey, healConds, heldType, plateSpec, plateTargets, plateUsable, turnBuffKey, typePowerType, type PlateDef } from './plates.ts';
 import type { BoardDef, Condition, Figure, FigureDef, NodeId, PlayerId } from './types.ts';
 import type { Rng } from './rng.ts';
 import { defaultRules, type RulesConfig } from './rules.config.ts';
@@ -44,6 +45,18 @@ export class Game {
   /** The figure a figure evolves into during the duel (Metamorphosis), if any. Set by the app. */
   evolveInDuel?: (def: FigureDef) => FigureDef | null;
   readonly rules: RulesConfig;
+  /** Each player's plates (deck order); a used plate stays used for the rest of the duel (Recycle aside). */
+  readonly plates: Record<PlayerId, { def: PlateDef; used: boolean }[]> = { 0: [], 1: [] };
+  /** Plate effects: for this turn on a figure (uid -> keys), and lasting ones. */
+  private buffs = new Map<string, Set<string>>();
+  readonly typePowers: Record<PlayerId, Set<string>> = { 0: new Set(), 1: new Set() };
+  /** Held items (+20 while on the field): uid -> type. Spheres and Poison Blade: uid -> key (while on the field). */
+  readonly held = new Map<string, string>();
+  readonly spheres = new Map<string, string>();
+  readonly duelEffects: Record<PlayerId, Set<string>> = { 0: new Set(), 1: new Set() };
+  /** X Speed: uid -> name of the White Attack that becomes Gold this turn. */
+  readonly xspeed = new Map<string, string>();
+  private plateThisTurn = false;
   private moved = false;
   private usedRunOff = new Set<string>();
   private firstPlayer: PlayerId;
@@ -56,6 +69,7 @@ export class Game {
     rng: Rng,
     rules: RulesConfig = defaultRules,
     first: PlayerId = 0,
+    plateDecks: [PlateDef[], PlateDef[]] = [[], []],
   ) {
     this.board = new Board(boardDef);
     this.rng = rng;
@@ -63,6 +77,7 @@ export class Game {
     this.firstPlayer = first;
     this.current = first;
     this.layout = ((boardDef as unknown as { layout?: Record<string, [number, number]> }).layout) ?? {};
+    for (const p of [0, 1] as PlayerId[]) this.plates[p] = plateDecks[p].map((def) => ({ def, used: false }));
     for (const p of [0, 1] as PlayerId[]) {
       decks[p].forEach((def, i) =>
         this.figures.push({ uid: `${p}:${i}`, def, owner: p, at: null, status: 'bench', wait: 0 }));
@@ -87,7 +102,17 @@ export class Game {
   mp(f: Figure): number {
     if (this.dozing(f)) return 0;
     const penalty = f.owner === this.firstPlayer && this.turn === 1 ? this.rules.firstTurnMpPenalty : 0;
-    return Math.max(0, f.def.mp + mpBonus(this, f) + (f.mpMarker ?? 0) - penalty);
+    let plate = this.hasBuff(f, 'counterattack') ? 1 : 0;
+    // Aqua Sphere: "your Water-type Pokémon that are next to Water-type Pokémon gain +1 MP (to a maximum of MP 3)".
+    const water = (o: Figure) => o.def.type === 'Water' || o.def.type2 === 'Water';
+    if (water(f) && f.status === 'board' && this.sphereActive(f.owner, 'aquasphere') && this.neighbourFigures(f).some(water)) plate += 1;
+    // Dragon Sphere: "your Dragon-type Pokémon with MP 1 or lower get +1 MP".
+    const dragon = f.def.type === 'Dragon' || f.def.type2 === 'Dragon';
+    if (dragon && f.def.mp <= 1 && this.sphereActive(f.owner, 'dragonsphere')) plate += 1;
+    let mp = f.def.mp + mpBonus(this, f) + (f.mpMarker ?? 0) + plate;
+    // Air Balloon: "Until the end of that Pokémon's next battle, its MP is 2".
+    if (this.spheres.get(f.uid) === 'airballoon') mp = 2;
+    return Math.max(0, (plate && water(f) ? Math.min(3, mp) : mp) - penalty);
   }
 
   /** Destinations for this figure's MP move. Occupied nodes block (dozing figures do not); bench figures pay 1 MP to enter. */
@@ -95,7 +120,11 @@ export class Game {
     const out = new Set<NodeId>();
     const mp = this.mp(f);
     if (f.wait > 0 || mp < 1 || this.moved || blockedFromEntering(this, f)) return out;
-    const blocks = (n: NodeId) => { const o = this.figureAt(n); return !!o && !this.dozing(o); };
+    // Invisibility Cape: "it can move through other Pokémon when making an MP move."
+    // Air Balloon, and Dragon Sphere for Dragon-types with no special condition: they can MP move over other Pokémon.
+    const over = this.hasBuff(f, 'cape') || this.spheres.get(f.uid) === 'airballoon'
+      || ((f.def.type === 'Dragon' || f.def.type2 === 'Dragon') && !f.cond && this.sphereActive(f.owner, 'dragonsphere'));
+    const blocks = (n: NodeId) => { const o = this.figureAt(n); return !!o && !this.dozing(o) && !over; };
     // Diving Entry: "When moving this Pokémon from the bench, it can only move to one space away from the entry point."
     if (f.status === 'bench' && hasAbility(f, 'Diving Entry')) {
       for (const s of this.board.def.spawns[f.owner]) {
@@ -267,9 +296,19 @@ export class Game {
       this.onBattle?.(f, target, result, { tie: true });
       result = resolveBattle(this, f, target, this.rng, hooks, this.rules.decisive);
     }
-    for (const k of result.ko) if (k.status !== 'pc') this.sendToPc(k);
+    for (const k of result.ko) {
+      if (k.status === 'pc' || k.status === 'removed') continue;
+      const by = k === f ? target : f;
+      if (by.owner !== k.owner && (by === f ? result.winner === 'mover' : result.winner === 'other')) {
+        this.typePowerKo(by);
+        // Force Remove: "If that Pokémon's attack knocks a Pokémon out that turn, it will be eliminated from the duel."
+        if (this.hasBuff(by, 'forceremove')) { this.removeFromDuel(k); result.notes.push(`Force Remove: ${k.def.name} queda fuera del duelo`); continue; }
+      }
+      this.sendToPc(k);
+    }
     result.notes.push(...afterBattle(this, f, target, result));
     for (const x of [f, target]) {
+      if (this.spheres.get(x.uid) === 'airballoon') this.spheres.delete(x.uid);
       x.fresh = false;
       if (x.cond === 'frozen' && x.status === 'board') x.cond = null; // cleared after a battle (Serebii)
     }
@@ -296,6 +335,9 @@ export class Game {
     this.turn += 1;
     this.moved = false;
     this.usedRunOff.clear();
+    this.buffs.clear();
+    this.xspeed.clear();
+    this.plateThisTurn = false;
     if (this.turn > this.rules.turnLimit) { this.winner = 'none'; return; }
     // Final Song marker (Belly Drum): knocked out 5 turns later.
     for (const f of this.figures) if (f.status === 'board' && f.finalSong !== undefined && this.turn >= f.finalSong) {
@@ -309,6 +351,134 @@ export class Game {
       && !(o.cond === 'sleep' && spellbind));
     if (shed) { shed.cond = null; this.note(`${shed.def.name} usa Shed Skin y se cura: termina el turno`); this.endTurn(); return; }
     if (this.legalActionCount(this.current) === 0) this.winner = (1 - this.current) as PlayerId;
+  }
+
+  hasBuff(f: Figure, key: string): boolean {
+    return this.buffs.get(f.uid)?.has(key) ?? false;
+  }
+
+  /** A sphere-type plate of player p is in force: its chosen figure is on the field. */
+  sphereActive(p: PlayerId, key: string): boolean {
+    return [...this.spheres].some(([uid, k]) => k === key && this.figures.find((x) => x.uid === uid)?.status === 'board' && this.figures.find((x) => x.uid === uid)?.owner === p);
+  }
+
+  /** Grass Sphere: your Grass-type Pokémon are not moved to the bench or P.C. by opposing Attacks. */
+  grassSphereHolds(f: Figure): boolean {
+    return (f.def.type === 'Grass' || f.def.type2 === 'Grass') && this.sphereActive(f.owner, 'grasssphere');
+  }
+
+  /** Can the current player use a plate now (start of the turn, before moving, one per turn)? */
+  canUsePlate(p: PlayerId, index: number): boolean {
+    const slot = this.plates[p][index];
+    return !!slot && !slot.used && this.current === p && this.winner === null && !this.moved && !this.plateThisTurn && plateUsable(this, p, slot.def);
+  }
+
+  /** Free spots one step from your entry points (Long Throw). */
+  longThrowSpots(p: PlayerId): NodeId[] {
+    const out = new Set<NodeId>();
+    for (const s of this.board.def.spawns[p]) for (const n of this.board.neighbors(s)) if (this.isFree(n)) out.add(n);
+    return [...out];
+  }
+
+  /** Hurdle Jump: over a connected Pokémon to a free spot beyond it (straight on if possible). */
+  hurdleSpots(f: Figure): NodeId[] {
+    if (!f.at) return [];
+    const out: NodeId[] = [];
+    const d = this.distances(f.at);
+    for (const n of this.board.neighbors(f.at)) {
+      if (!this.figureAt(n)) continue;
+      for (const m of this.freeNeighbours(n)) if (m !== f.at && (d.get(m) ?? 0) === 2) out.push(m);
+    }
+    return [...new Set(out)];
+  }
+
+  /**
+   * Use plate `index` of player p on `targets` (figure uids; two for Pokémon Switch). Choices of a spot (Long Throw,
+   * Hurdle Jump) take the free spot nearest the opponent's goal. Returns a note for the log.
+   */
+  usePlate(p: PlayerId, index: number, targets: string[] = []): string {
+    if (!this.canUsePlate(p, index)) throw new Error('plate not usable now');
+    const slot = this.plates[p][index];
+    const plate = slot.def, spec = plateSpec(plate);
+    const fig = (uid?: string) => this.figures.find((x) => x.uid === uid);
+    const t = fig(targets[0]);
+    if (spec.target !== 'none' && (!t || !plateTargets(this, p, plate).includes(t))) throw new Error('bad target');
+    const toGoal = this.distances(this.board.def.goals[(1 - p) as PlayerId]);
+    const nearest = (ns: NodeId[]) => [...ns].sort((a, b) => (toGoal.get(a) ?? 99) - (toGoal.get(b) ?? 99))[0];
+    let text = `${plate.name}`;
+    const buff = turnBuffKey(plate.name), power = typePowerType(plate.name), held = heldType(plate.name), heal = healConds(plate.name), duel = duelEffectKey(plate.name);
+    if (buff && t) {
+      if (!this.buffs.has(t.uid)) this.buffs.set(t.uid, new Set());
+      this.buffs.get(t.uid)!.add(buff);
+      if (buff === 'xspeed') {
+        // "one of this Pokémon's White Attacks will be changed to a Gold Attack": the biggest White piece.
+        const w = [...t.def.wheel].filter((s) => s.move.color === 'white').sort((a, b) => b.weight - a.weight)[0];
+        if (w) this.xspeed.set(t.uid, w.move.name);
+      }
+      text += ` en ${t.def.name}`;
+    } else if (power) {
+      this.typePowers[p].add(power);
+      text += `: tus Pokémon de tipo ${power} hacen +20`;
+    } else if (held && t) {
+      this.held.set(t.uid, held);
+      text += ` en ${t.def.name}: +20 mientras esté en el tablero`;
+    } else if (heal && t) {
+      t.cond = null;
+      text += `: ${t.def.name} se cura`;
+    } else if (duel) {
+      if (t) this.spheres.set(t.uid, duel); else this.duelEffects[p].add(duel);
+      if (duel === 'electroenergy') for (const f of this.figures) if (f.owner === p && f.cond === 'paralysis' && (f.def.type === 'Electric' || f.def.type2 === 'Electric')) f.cond = null;
+      text += t ? ` en ${t.def.name}` : '';
+    } else {
+      switch (plate.name) {
+        case 'Clear Wait': t!.wait = 0; text += `: ${t!.def.name} pierde el Wait`; break;
+        case 'Max Revive': this.toBench(t!); t!.wait = 0; text += `: ${t!.def.name} vuelve al banquillo`; break;
+        case 'Switcheroo': {
+          const out = this.pc[p][0];
+          this.toBench(out);
+          this.sendToPc(t!);
+          text += `: ${t!.def.name} va al P.C. y ${out.def.name} vuelve al banquillo`;
+          break;
+        }
+        case 'Priority Recovery': this.pc[p].reverse(); text += ': cambia el orden del P.C.'; break;
+        case 'Long Throw': { const to = nearest(this.longThrowSpots(p)); this.place(t!, to); text += `: ${t!.def.name} entra lejos`; break; }
+        case 'Scoop Up': this.toBench(t!); text += `: ${t!.def.name} vuelve al banquillo`; break;
+        case 'Swap Spot': { const o = this.neighbourFigures(t!).find((x) => x.owner === p)!; this.swapPlaces(t!, o); text += `: ${t!.def.name} cambia con ${o.def.name}`; break; }
+        case 'Quick Care': this.sendToPc(t!); text += `: ${t!.def.name} va al P.C.`; break;
+        case 'Hurdle Jump': { const to = nearest(this.hurdleSpots(t!)); this.relocate(t!, to); text += `: ${t!.def.name} salta`; break; }
+        case 'Goal Block': this.relocate(t!, this.board.def.goals[p]); text += `: ${t!.def.name} defiende la portería`; break;
+        case 'Pokémon Switch': {
+          const o = fig(targets[1]);
+          if (!o || o.owner !== p || o === t || (o.status === 'bench' && t!.status === 'bench') || o.status === 'pc') throw new Error('bad second target');
+          const [ta, ts, oa, os] = [t!.at, t!.status, o.at, o.status];
+          t!.at = oa; t!.status = os; o.at = ta; o.status = ts;
+          text += `: ${t!.def.name} y ${o.def.name} cambian`;
+          break;
+        }
+        case 'Recycle':
+          for (const q of [0, 1] as PlayerId[]) for (const x of this.plates[q]) if (x.def.name !== 'Recycle') x.used = false;
+          text += ': las plates vuelven a estar disponibles';
+          break;
+      }
+    }
+    slot.used = true;
+    this.plateThisTurn = true;
+    this.note(text);
+    this.settle();
+    if (spec.endsTurn && this.winner === null) this.endTurn();
+    return text;
+  }
+
+  /** Type powers end when an enemy is knocked out by an Attack of a Pokémon of that type of yours. */
+  typePowerKo(attacker: Figure): void {
+    for (const t of [...this.typePowers[attacker.owner]]) if (attacker.def.type === t || attacker.def.type2 === t) this.typePowers[attacker.owner].delete(t);
+  }
+
+  /** Force Remove: out of the duel for good. */
+  removeFromDuel(f: Figure): void {
+    this.pc[f.owner] = this.pc[f.owner].filter((x) => x !== f);
+    f.status = 'removed';
+    f.at = null;
   }
 
   /** The player gives up: the opponent wins. */
@@ -333,12 +503,18 @@ export class Game {
   /** Give a special condition (one at a time, the new one replaces the old). False if the figure is immune. */
   setCondition(f: Figure, c: Condition): boolean {
     if (f.status !== 'board' || !canHaveCondition(this, f, c)) return false;
+    const isT = (t: string) => f.def.type === t || f.def.type2 === t;
+    // Flame Energy / Flame Sphere: Fire-type not frozen or burned. Steel Energy / Metal Sphere: Steel-type not poisoned.
+    if (isT('Fire') && (c === 'frozen' || c === 'burn') && (this.duelEffects[f.owner].has('flameenergy') || this.sphereActive(f.owner, 'flamesphere'))) return false;
+    if (isT('Steel') && (c === 'poison' || c === 'noxious') && (this.duelEffects[f.owner].has('steelenergy') || this.sphereActive(f.owner, 'metalsphere'))) return false;
     f.cond = c;
     return true;
   }
 
   addMpMarker(f: Figure, delta: number): boolean {
     if (f.status !== 'board' || hasAbility(f, 'Leaf Guard')) return false; // Leaf Guard: no markers from attacks
+    // Mystic Sphere: your Fairy-type Pokémon cannot have markers attached from Attacks.
+    if ((f.def.type === 'Fairy' || f.def.type2 === 'Fairy') && this.sphereActive(f.owner, 'mysticsphere')) return false;
     f.mpMarker = (f.mpMarker ?? 0) + delta;
     return true;
   }
@@ -351,6 +527,8 @@ export class Game {
     f.fresh = false;
     f.finalSong = undefined;
     f.synthesisBy = undefined;
+    this.held.delete(f.uid);
+    this.spheres.delete(f.uid);
   }
 
   /** Send a figure to its owner's P.C.; a full P.C. pushes its oldest figure back to the bench. */
@@ -480,6 +658,7 @@ export class Game {
       if (this.canAttack(f)) n += this.adjacentEnemies(f).length;
       if (f.status === 'board') n += this.specials(f).length;
     }
+    n += this.plates[p].filter((x, i) => !x.used && this.current === p && plateUsable(this, p, x.def) && i >= 0).length;
     this.moved = wasMoved;
     this.current = wasCurrent;
     return n;

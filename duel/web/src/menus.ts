@@ -4,9 +4,10 @@ import { $, TYPE_COLOR, spriteSrc } from './shared.ts';
 import { drawWheel } from './match.ts';
 import { WORKING, pendingReason } from '../../src/abilities.ts';
 import { WIKI_CSS, renderWiki } from './wiki.ts';
+import { plateSpec, type PlateDef } from '../../src/plates.ts';
 import {
   BOOSTERS, CASE_SLOTS, EVOLVE_BATTLES, EVOLVE_DUELS, GEMS_LOSS, GEMS_WIN, SHOP_PRICE, evolve, evolveProgress,
-  recordBattle, recordDuel, buyBooster, gemsToOpenNow, loadState, openFromCase, openReady, rewardDuel,
+  grantStarterPlates, recordBattle, recordDuel, rollPlate, buyBooster, gemsToOpenNow, loadState, openFromCase, openReady, rewardDuel,
   type BoosterKind, type GachaState,
 } from '../../src/gacha.ts';
 
@@ -105,6 +106,28 @@ const CSS = `
 .dm .evorow .what small { display: block; font-weight: 700; color: var(--dm-mute); }
 .dm .evorow .arrow { font-weight: 900; color: var(--dm-yellow); }
 .dm .evorow .yellow { font-size: 15px; padding: 8px 14px; border-width: 3px; }
+.dm .plates { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; padding: 14px 12px 18px; }
+.dm .plategrid { width: 100%; max-width: 980px; display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+.dm .plate { appearance: none; position: relative; aspect-ratio: 3 / 4; border-radius: 10px; border: 2px solid #3a4356; color: #fff; font: inherit;
+  background: linear-gradient(160deg, #2a2f3c 0%, #101319 55%, #1b1f29 100%); padding: 8px 7px 16px; text-align: left; cursor: pointer;
+  display: flex; flex-direction: column; justify-content: center; overflow: hidden; clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%, 0 9%); }
+.dm .plate.empty { background: #141925; border-style: dashed; cursor: default; clip-path: none; }
+.dm .plate b { font: 900 14px/1.1 var(--dm-font); text-wrap: balance; }
+.dm .plate .pr { position: absolute; top: 4px; right: 7px; font-weight: 900; font-size: 13px; color: #e8ecf4; }
+.dm .plate .pc { position: absolute; left: 8px; right: 8px; bottom: 6px; display: flex; gap: 3px; }
+.dm .plate .pc i { flex: 1; height: 4px; border-radius: 2px; background: var(--cat, #aaa); } .dm .plate .pc i.o { background: #ffffff22; }
+.dm .plate .cnt { position: absolute; left: 6px; bottom: 14px; font-size: 10px; font-weight: 800; color: var(--dm-mute); }
+.dm .plate.c-battle { --cat: #ff5b5b; } .dm .plate.c-battle b { color: #ff7b6b; }
+.dm .plate.c-move { --cat: #c06bff; } .dm .plate.c-move b { color: #d49bff; }
+.dm .plate.c-heal { --cat: #4cd964; } .dm .plate.c-heal b { color: #7fe38f; }
+.dm .plate.c-spin { --cat: #3fa2ff; } .dm .plate.c-spin b { color: #7fc0ff; }
+.dm .plate.c-poke { --cat: #ffd21f; } .dm .plate.c-poke b { color: #ffe066; }
+.dm .plate.c-plates { --cat: #c9ced8; }
+.dm .plate.sel { border-color: var(--dm-yellow); box-shadow: 0 0 14px #ffd21f88; }
+.dm .plate.off { opacity: .45; }
+.dm .platewrap { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 120px; }
+.dm .plate.pop { animation: dm-pop .45s ease-out both; width: 120px; }
+@media (max-width: 560px) { .dm .plates { grid-template-columns: repeat(3, 1fr); } }
 .dm .name { font-weight: 800; font-size: 13px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #dfe7f5; }
 .dm .fig .order { position: absolute; top: 2px; left: 6px; background: var(--dm-blue); border: 2px solid #fff; border-radius: 999px;
   font-weight: 900; font-size: 12px; padding: 0 7px; }
@@ -177,12 +200,18 @@ const ICON = {
 
 export interface MenuHooks {
   /** Start a new duel with this deck for the player (null: random deck). */
-  play(deck: FigureDef[] | null): void;
+  play(deck: FigureDef[] | null, plates: PlateDef[]): void;
   /** A duel is in progress and can be resumed. */
   canContinue(): boolean;
 }
 
-type Screen = 'home' | 'deck' | 'pick' | 'shop' | 'wiki';
+type Screen = 'home' | 'deck' | 'pick' | 'plates' | 'shop' | 'wiki';
+
+/** Plate deck rules of the early versions (Fandom "Deck", Nintendo Life): up to 6 plates, total cost 6 or less. */
+export const PLATE_SLOTS = 6;
+export const PLATE_COST_MAX = 6;
+const PLATE_DECK_KEY = 'duel.plateDeck';
+const PLATE_CAT: Record<string, string> = { Battle: 'battle', Movement: 'move', Recovery: 'heal', Spin: 'spin', 'Pokémon': 'poke', Plates: 'plates' };
 
 export interface Menus {
   /** Show the League (home) screen. */
@@ -195,7 +224,7 @@ export interface Menus {
 
 /** League (home), Edit Deck, figure picker and Shop, in the style of the original app. */
 export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: MenuHooks,
-  extras: FigureDef[] = [], evolves: Record<string, string[]> = {}): Menus {
+  extras: FigureDef[] = [], evolves: Record<string, string[]> = {}, plates: PlateDef[] = []): Menus {
   // `pool`: figures of the game version (boosters give these); `extras`: figures only reached by evolving.
   const style = document.createElement('style');
   style.textContent = CSS + WIKI_CSS;
@@ -217,6 +246,37 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   let deck: string[] = loadDeck().filter((id) => byId.has(id) && owns(id)).slice(0, DECK_SIZE);
   const pullable = pool.map((d) => ({ id: d.id, rarity: rarity.get(d.id) ?? 'Common' }));
   const saveGacha = () => write(GACHA_KEY, JSON.stringify(gacha));
+  // ---------- plates ----------
+  const plateById = new Map(plates.map((p) => [p.id, p]));
+  const usablePlates = plates.filter((p) => plateSpec(p).status === 'ok');
+  grantStarterPlates(gacha, plates);
+  saveGacha();
+  const ownedPlate = (id: string) => gacha.plates?.[id] ?? 0;
+  const loadPlateDeck = (): string[] => {
+    try { const v = JSON.parse(read(PLATE_DECK_KEY) ?? 'null'); if (Array.isArray(v)) return v.map(String); } catch { /* none */ }
+    return Object.entries(gacha.plates ?? {}).flatMap(([id, n]) => Array(n).fill(id)).slice(0, PLATE_SLOTS);
+  };
+  let plateDeck = loadPlateDeck().filter((id) => plateById.has(id));
+  const plateCost = () => plateDeck.reduce((c, id) => c + (plateById.get(id)?.cost ?? 0), 0);
+  const fitPlateDeck = () => {
+    const left = new Map<string, number>();
+    plateDeck = plateDeck.filter((id) => { const n = (left.get(id) ?? ownedPlate(id)); left.set(id, n - 1); return n > 0; }).slice(0, PLATE_SLOTS);
+    while (plateCost() > PLATE_COST_MAX) plateDeck.pop();
+  };
+  fitPlateDeck();
+  /** A plate card in the style of the original (category colour, rarity, cost pips). */
+  const plateCard = (p: PlateDef | undefined, tag: 'button' | 'div') => {
+    const el = document.createElement(tag);
+    el.className = 'plate' + (p ? ` c-${PLATE_CAT[p.category] ?? 'plates'}` : ' empty');
+    if (tag === 'button') (el as HTMLButtonElement).type = 'button';
+    if (!p) return el;
+    el.innerHTML = `<span class="pr"></span><b></b><span class="pc"></span>`;
+    el.querySelector('.pr')!.textContent = RARITY_BADGE[p.rarity] ?? p.rarity;
+    el.querySelector('b')!.textContent = p.name;
+    el.querySelector('.pc')!.innerHTML = '<i></i>'.repeat(p.cost) + '<i class="o"></i>'.repeat(Math.max(0, 3 - p.cost));
+    el.title = `${p.name} (coste ${p.cost})\n${p.text}${plateSpec(p).status === 'ok' ? '' : `\nNo se puede usar aquí: ${plateSpec(p).reason}`}`;
+    return el;
+  };
   let screen: Screen = 'home';
   let filter = 'mine';
 
@@ -250,10 +310,25 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       <p class="note" id="dmDeckNote"></p>
       <div class="row"><button type="button" class="yellow" id="menuDeck">Editar figuras</button></div>
       <div class="panel">
+        <div class="panel-head"><h2>Plates</h2><span class="usable" id="dmPlateCost"></span></div>
+        <div class="plates" id="dmDeckPlates"></div>
+      </div>
+      <div class="row"><button type="button" class="yellow" id="menuPlates">Editar plates</button></div>
+      <div class="panel">
         <div class="panel-head"><h2>Evolución</h2></div>
         <p class="note" style="padding:10px 14px 0">Una figura puede evolucionar tras ${EVOLVE_BATTLES} combates o ${EVOLVE_DUELS} duelos en tu mazo. Una copia se convierte en su evolución.</p>
         <div class="evolist" id="dmEvo"></div>
       </div>
+    </div>
+    <div class="screen" id="dmPlates">
+      <div class="pill">Editar plates</div>
+      <div class="panel">
+        <div class="panel-head"><h2>Plates</h2><span class="usable" id="dmPlateCost2"></span></div>
+        <div class="plates" id="plateSlots"></div>
+      </div>
+      <div class="row"><button type="button" class="ghost" id="plateClear">Vaciar</button><button type="button" class="yellow" id="plateDone">Listo</button></div>
+      <p class="note">Hasta ${PLATE_SLOTS} plates con un coste total de ${PLATE_COST_MAX} como mucho. Cada una se usa una vez por duelo, al principio de tu turno. Pulsa una tuya para añadirla o quitarla; con el ratón encima ves su efecto.</p>
+      <div class="plategrid" id="plateCards"></div>
     </div>
     <div class="screen" id="dmPick">
       <div class="pill">Editar figuras</div>
@@ -414,6 +489,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     $('deckCount').textContent = `Tienes ${mine - evolvedMine} de ${pool.length} figuras${evolvedMine ? ` y ${evolvedMine} evolucionadas` : ''}. `
       + 'Pulsa una tuya para añadirla o quitarla; las oscuras aún no las tienes.';
     renderEvolutions();
+    renderPlates();
     renderGacha();
     $<HTMLButtonElement>('deckDone').disabled = deck.length !== 0 && !full;
     for (const [id, card] of cards) {
@@ -444,13 +520,14 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     $('dmHome').classList.toggle('on', s === 'home');
     $('dmDeck').classList.toggle('on', s === 'deck');
     $('dmPick').classList.toggle('on', s === 'pick');
+    $('dmPlates').classList.toggle('on', s === 'plates');
     $('dmShop').classList.toggle('on', s === 'shop');
     $('tabShop').classList.toggle('on', s === 'shop');
     $('dmWiki').classList.toggle('on', s === 'wiki');
     $('tabWiki').classList.toggle('on', s === 'wiki');
-    if (s === 'wiki') renderWiki($('dmWikiBody'), { pool, extras, records, evolves, owned: () => gacha.owned });
+    if (s === 'wiki') renderWiki($('dmWikiBody'), { pool, extras, records, evolves, owned: () => gacha.owned, plates, ownedPlates: () => gacha.plates ?? {} });
     $('tabLeague').classList.toggle('on', s === 'home');
-    $('tabDeck').classList.toggle('on', s === 'deck' || s === 'pick');
+    $('tabDeck').classList.toggle('on', s === 'deck' || s === 'pick' || s === 'plates');
     $('menuContinue').hidden = !hooks.canContinue();
     $('tabBack').hidden = !hooks.canContinue() && history.length === 0;
     changed();
@@ -462,7 +539,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     for (let i = mine.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [mine[i], mine[j]] = [mine[j], mine[i]]; }
     history.length = 0;
     go(null);
-    hooks.play(deck.length === DECK_SIZE ? deck.map((id) => byId.get(id)!) : mine.slice(0, DECK_SIZE));
+    hooks.play(deck.length === DECK_SIZE ? deck.map((id) => byId.get(id)!) : mine.slice(0, DECK_SIZE), plateDeck.map((id) => plateById.get(id)!));
   };
 
   // ---------- boosters ----------
@@ -496,8 +573,9 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         armed = -1;
         const got = openFromCase(gacha, i, Date.now(), pullable, Math.random);
         if (!got) { renderGacha(); return; }
+        const pl = rollPlate(gacha, platePullable, Math.random);
         saveGacha();
-        reveal(b.kind, got);
+        reveal(b.kind, got, pl);
       };
       caseEl.appendChild(el);
     }
@@ -509,7 +587,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       btn.className = 'yellow';
       const k = gacha.ready[0].kind;
       btn.textContent = `Abrir ${k === 'welcome' ? 'booster de bienvenida' : 'booster'} (${gacha.ready.length})`;
-      btn.onclick = () => { const r = openReady(gacha, pullable, Math.random); if (r) { saveGacha(); reveal(r.kind, r.got); } };
+      btn.onclick = () => { const r = openReady(gacha, pullable, Math.random); if (r) { const pl = rollPlate(gacha, platePullable, Math.random); saveGacha(); reveal(r.kind, r.got, pl); } };
       w.appendChild(btn);
     }
     $<HTMLButtonElement>('shopBuy').disabled = gacha.gems < SHOP_PRICE;
@@ -571,8 +649,51 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     $('dmOpenOk').focus();
   };
 
+  // Boosters can also hold one of the plates that work here (PLATE_CHANCE, invented).
+  const platePullable = usablePlates.map((p) => ({ id: p.id, rarity: p.rarity }));
+
+  const plateCards = new Map<string, HTMLElement>();
+  const renderPlates = () => {
+    fitPlateDeck();
+    write(PLATE_DECK_KEY, JSON.stringify(plateDeck));
+    const left = PLATE_COST_MAX - plateCost();
+    for (const id of ['dmPlateCost', 'dmPlateCost2']) $(id).textContent = `Coste restante: ${left}`;
+    for (const [el, removable] of [[$('dmDeckPlates'), false], [$('plateSlots'), true]] as const) {
+      el.innerHTML = '';
+      for (let i = 0; i < PLATE_SLOTS; i++) {
+        const p = plateById.get(plateDeck[i]);
+        const card = plateCard(p, removable && p ? 'button' : 'div');
+        if (removable && p) { card.setAttribute('aria-label', `Quitar ${p.name}`); card.onclick = () => { plateDeck.splice(i, 1); changed(); }; }
+        el.appendChild(card);
+      }
+    }
+    const grid = $('plateCards');
+    if (!plateCards.size) {
+      const sorted = [...plates].sort((a, b) => Number(plateSpec(b).status === 'ok') - Number(plateSpec(a).status === 'ok') || a.cost - b.cost || a.name.localeCompare(b.name));
+      for (const p of sorted) {
+        const card = plateCard(p, 'button');
+        const n = document.createElement('span'); n.className = 'cnt'; card.appendChild(n);
+        card.onclick = () => {
+          const inDeck = plateDeck.filter((x) => x === p.id).length;
+          if (inDeck < ownedPlate(p.id) && plateDeck.length < PLATE_SLOTS && plateCost() + p.cost <= PLATE_COST_MAX && plateSpec(p).status === 'ok') plateDeck.push(p.id);
+          else if (inDeck) plateDeck.splice(plateDeck.lastIndexOf(p.id), 1);
+          changed();
+        };
+        plateCards.set(p.id, card);
+        grid.appendChild(card);
+      }
+    }
+    for (const [id, card] of plateCards) {
+      const have = ownedPlate(id), inDeck = plateDeck.filter((x) => x === id).length;
+      card.hidden = !have;
+      card.classList.toggle('sel', inDeck > 0);
+      card.classList.toggle('off', plateSpec(plateById.get(id)!).status !== 'ok');
+      card.querySelector<HTMLElement>('.cnt')!.textContent = `${inDeck ? `${inDeck} en mazo · ` : ''}tienes ${have}`;
+    }
+  };
+
   /** Booster opening: the box shakes, then the figures pop out one by one. */
-  const reveal = (kind: BoosterKind, got: string[]) => {
+  const reveal = (kind: BoosterKind, got: string[], plateId: string | null = null) => {
     renderGacha(); // gems and case update at once, under the opening overlay
     const box = $('dmOpenBox');
     box.className = `box k-${kind}`;
@@ -597,6 +718,18 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         f.appendChild(n);
         out.appendChild(f);
       });
+      if (plateId) {
+        const card = plateCard(plateById.get(plateId), 'div');
+        card.style.animationDelay = `${got.length * 0.35}s`;
+        card.classList.add('pop');
+        const n = document.createElement('span');
+        n.className = 'new';
+        n.textContent = ownedPlate(plateId) === 1 ? '¡Plate nueva!' : `Plate repetida (x${ownedPlate(plateId)})`;
+        const wrap = document.createElement('div');
+        wrap.className = 'platewrap';
+        wrap.append(card, n);
+        out.appendChild(wrap);
+      }
       $('dmOpenOk').hidden = false;
       $('dmOpenOk').focus();
     }, reduce ? 0 : 1500);
@@ -605,13 +738,17 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   $('shopBuy').onclick = () => {
     if (!buyBooster(gacha)) return;
     const r = openReady(gacha, pullable, Math.random);
+    const pl = r ? rollPlate(gacha, platePullable, Math.random) : null;
     saveGacha();
-    if (r) reveal(r.kind, r.got);
+    if (r) reveal(r.kind, r.got, pl);
   };
   // Timers on the case tick while the League screen is open.
   setInterval(() => { if (root.classList.contains('show') && screen === 'home' && !$('dmOpen').classList.contains('show')) renderGacha(); }, 15_000);
   $('menuContinue').onclick = () => { history.length = 0; go(null); };
   $('menuDeck').onclick = () => go('pick');
+  $('menuPlates').onclick = () => go('plates');
+  $('plateDone').onclick = () => go('deck');
+  $('plateClear').onclick = () => { plateDeck = []; changed(); };
   $('tabLeague').onclick = () => go('home');
   $('tabDeck').onclick = () => go('deck');
   $('tabShop').onclick = () => go('shop');

@@ -22,7 +22,7 @@ Battles as in the original, with special conditions and attack effects (`src/eff
 Abilities as in 1.0.0 (`src/abilities.ts`); secondary types on the cards.
 Figures evolve outside battle after 5 battles or 10 duels in your deck (`data/evolutions.json`, from PokeAPI).
 Stages with no Duel figure are invented (previous wheel +10 / +1★). They inherit the previous stage's ability. In-game Pokédex: Pokédex tab (`web/src/wiki.ts`).
-Not yet: plates, Mega Evolution, Z-Moves, per-figure levels, timers.
+Not yet: Mega Evolution, Z-Moves, per-figure levels, timers. Plates: 78 of 165 work (`src/plates.ts`).
 
 Full project state, decisions, known issues and next steps: `docs/NOTES.md`. Rule sources and open questions: `research/FINDINGS.md`.
 The 2D view uses PokeAPI *black-white* sprites (`assets/sprites/`, made with `tools/download_sprites.py` and

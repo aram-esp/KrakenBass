@@ -47,6 +47,19 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 700 14px/1.35 
   background: linear-gradient(180deg, #ffe55a, #ffd21f 45%, #f2b300); box-shadow: 0 3px 0 #a87b00; cursor: pointer; }
 #aiBtn:disabled { filter: grayscale(.8) brightness(.6); cursor: default; }
 #platesBox { justify-self: end; min-width: 64px; }
+#platesBtn { position: relative; width: 62px; height: 78px; border-radius: 8px; border: 2px solid #3a4356; cursor: pointer; color: #fff;
+  background: linear-gradient(160deg, #2a2f3c, #101319 60%); font: 900 12px/1.1 var(--font); box-shadow: 4px 4px 0 #0a0d14, 8px 8px 0 #06080d; }
+#platesBtn b { display: block; font-size: 22px; color: var(--yellow); }
+#platesBtn:disabled { opacity: .5; cursor: default; }
+#platePanel { position: absolute; right: max(10px, env(safe-area-inset-right, 0px)); bottom: 10px; width: min(340px, 92vw); max-height: 75%;
+  overflow: auto; background: #0b0f1aee; border: 2px solid #3a4356; border-radius: 12px; padding: 10px; display: none; flex-direction: column; gap: 6px; }
+#platePanel.show { display: flex; }
+#platePanel h3 { margin: 0 0 4px; font: 900 16px var(--font); }
+.pl-item { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; text-align: left; border-radius: 8px; border: 2px solid #3a4356;
+  background: #141925; color: #fff; font: 800 13px/1.25 var(--font); padding: 6px 8px; cursor: pointer; }
+.pl-item small { grid-column: 1 / -1; color: var(--mute); font-weight: 700; font-size: 11px; }
+.pl-item:disabled { opacity: .45; cursor: default; } .pl-item.used { text-decoration: line-through; }
+.pl-item .cost { color: var(--yellow); }
 #bar { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; padding-block: 6px; background: #0b0f1a; }
 #bar button { background: linear-gradient(180deg, #24365e, #142342); color: #fff; border: 2px solid #4a6aa8; border-radius: 8px; padding: 6px 12px;
   font: 900 14px/1.1 var(--font); cursor: pointer; }
@@ -89,12 +102,13 @@ export function buildHud(): void {
     <div id="log" aria-label="Registro"></div>
     <div id="bench" aria-label="Tus figuras"></div>
     <div id="wheels"><figure><canvas width="440" height="440" id="w0"></canvas><figcaption id="c0"></figcaption></figure><figure><canvas width="440" height="440" id="w1"></canvas><figcaption id="c1"></figcaption></figure></div>
+    <div id="platePanel" aria-label="Tus plates"></div>
     <div id="banner"><div id="bannerText"></div><button id="again" type="button">Otra partida</button><button id="toMenu" type="button">Menú</button></div>
   </div>
   <div id="dock" class="gut">
     <button id="disk" type="button" title="Ruleta de la figura seleccionada"><canvas width="128" height="128" id="diskCanvas"></canvas></button>
     <button id="aiBtn" type="button" title="La IA juega este turno por ti">IA</button>
-    <div id="platesBox"></div>
+    <div id="platesBox"><button id="platesBtn" type="button" title="Tus plates">PLATES<b id="platesLeft">0</b></button></div>
   </div>
   <div id="bar" class="gut">
     <button id="forfeit" type="button">Rendirse</button>

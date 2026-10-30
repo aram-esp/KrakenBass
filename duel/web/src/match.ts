@@ -4,6 +4,7 @@ import { seeded } from '../../src/rng.ts';
 import type { BattleResult } from '../../src/battle.ts';
 import type { Figure, FigureDef, Move, NodeId, PlayerId } from '../../src/types.ts';
 import { houseRules } from '../../src/rules.config.ts';
+import { plateSpec, plateTargets, type PlateDef } from '../../src/plates.ts';
 import { $, COND_SHORT, MOVE_COLOR, TYPE_COLOR, type Layout, type View } from './shared.ts';
 
 const HUMAN: PlayerId = 0;
@@ -14,6 +15,8 @@ export class Match {
   busy = false;
   seedBase = Date.now();
   private disksTimer = 0;
+  /** Choosing the target(s) of a plate: its index and the figures picked so far. */
+  private plateAim: { index: number; picked: string[] } | null = null;
   private skipDisks: (() => void) | null = null;
 
   constructor(private views: View[], private board: Layout, private pool: FigureDef[]) {}
@@ -30,12 +33,23 @@ export class Match {
   onBattleFought: (id: string) => void = () => {};
   private reported = false;
 
-  start(humanDeck: FigureDef[] | null = this.humanDeck) {
+  /** Plates the AI can get (the ones that work), and the player's plate deck. */
+  platePool: PlateDef[] = [];
+  humanPlates: PlateDef[] = [];
+
+  start(humanDeck: FigureDef[] | null = this.humanDeck, plates: PlateDef[] = this.humanPlates) {
     this.humanDeck = humanDeck;
+    this.humanPlates = plates;
     const rng = seeded(this.seedBase++);
     const deck = () => Array.from({ length: 6 }, () => this.pool[Math.floor(rng() * this.pool.length)]);
     const first: PlayerId = rng() < 0.5 ? 0 : 1;
-    this.game = new Game(this.board, [humanDeck ?? deck(), deck()], seeded(this.seedBase++), houseRules, first);
+    // The AI takes random working plates up to a total cost of 6.
+    const aiPlates: PlateDef[] = [];
+    for (let tries = 0; tries < 40 && aiPlates.length < 6 && this.platePool.length; tries++) {
+      const p = this.platePool[Math.floor(rng() * this.platePool.length)];
+      if (aiPlates.reduce((c, x) => c + x.cost, 0) + p.cost <= 6) aiPlates.push(p);
+    }
+    this.game = new Game(this.board, [humanDeck ?? deck(), deck()], seeded(this.seedBase++), houseRules, first, [plates, aiPlates]);
     this.game.onBattle = (m, o, r, info) => {
       if (!info.tie) for (const f of [m, o]) if (f.owner === HUMAN) this.onBattleFought(f.def.id);
       this.showBattle(m, o, r, info);
@@ -45,6 +59,7 @@ export class Match {
     this.game.onNote = (t) => this.log(t);
     this.game.evolveInDuel = this.evolveInDuel;
     this.selected = null;
+    this.plateAim = null;
     this.reported = false;
     $('log').innerHTML = '';
     $('banner').classList.remove('show');
@@ -96,6 +111,11 @@ export class Match {
   click(hit: { uid?: string; node?: NodeId }) {
     if (!this.canAct()) return;
     const g = this.game;
+    if (this.plateAim) {
+      const uid = hit.uid ?? (hit.node ? g.figureAt(hit.node)?.uid : undefined);
+      if (uid) this.pickPlateTarget(uid);
+      return;
+    }
     // Ability moves (purple): a click on its node, or on the figure standing there (Run Off, waking an ally).
     const sel = this.selected ? g.figures.find((x) => x.uid === this.selected) : undefined;
     if (sel) {
@@ -185,7 +205,9 @@ export class Match {
     const badges = new Map(g.figures.filter((f) => f.status !== 'pc').map((f) => [f.uid, { mp: g.mp(f), wait: f.wait, cond: f.cond }]));
     for (const v of this.views) v.setBadges(badges);
     // Figures that can act now get the original's yellow mark.
-    const actable = this.canAct() ? g.figures.filter((f) => f.owner === HUMAN && (g.reachable(f).size > 0 || (g.canAttack(f) && g.adjacentEnemies(f).length > 0) || g.specials(f).length > 0)).map((f) => f.uid) : [];
+    const actable = !this.canAct() ? [] : this.plateAim ? this.plateTargetsNow().map((f) => f.uid)
+      : g.figures.filter((f) => f.owner === HUMAN && (g.reachable(f).size > 0 || (g.canAttack(f) && g.adjacentEnemies(f).length > 0) || g.specials(f).length > 0)).map((f) => f.uid);
+    this.renderPlates();
     for (const v of this.views) { v.setActable?.(actable); v.setSelected?.(this.selected); }
     drawWheel($<HTMLCanvasElement>('diskCanvas'), sel?.def ?? EMPTY_DISK, null, 0, true);
 
@@ -216,8 +238,12 @@ export class Match {
     // The chips are only needed in the 2D view, which does not draw the benches.
     $('bench').classList.toggle('show', $<HTMLCanvasElement>('view').hidden);
     $<HTMLButtonElement>('end').disabled = !this.canAct();
-    const specialHint = specials.length ? ` Morado = ${[...new Set(specials.map((s) => s.label.split(':')[0]))].join(', ')}.` : '';
-    $('hint').textContent = !this.canAct() ? '' : sel
+    if (this.plateAim) {
+      const p = g.plates[HUMAN][this.plateAim.index].def;
+      $('hint').textContent = `${p.name}: elige ${this.plateAim.picked.length ? 'la segunda figura' : 'una figura'} (anillo amarillo). Pulsa PLATES para cancelar.`;
+    }
+    const specialHint = this.plateAim ? '' : specials.length ? ` Morado = ${[...new Set(specials.map((s) => s.label.split(':')[0]))].join(', ')}.` : '';
+    if (!this.plateAim) $('hint').textContent = !this.canAct() ? '' : sel
       ? (g.canAttack(sel) && g.adjacentEnemies(sel).length ? 'Verde = mover. Pulsa un enemigo adyacente para combatir (termina el turno).' : 'Verde = destinos posibles.') + specialHint
       : 'Elige una figura (en el tablero o en el banquillo).';
 
@@ -234,6 +260,70 @@ export class Match {
         }
       }
       $('banner').classList.add('show');
+    }
+  }
+
+  /** Figures the plate being aimed can be used on now (for Pokémon Switch, the second pick excludes the first). */
+  private plateTargetsNow(): Figure[] {
+    if (!this.plateAim) return [];
+    const plate = this.game.plates[HUMAN][this.plateAim.index].def;
+    const first = this.plateAim.picked[0];
+    const all = plateTargets(this.game, HUMAN, plate).filter((f) => f.uid !== first);
+    if (first && this.game.figures.find((f) => f.uid === first)?.status === 'bench') return all.filter((f) => f.status === 'board');
+    return all;
+  }
+
+  private pickPlateTarget(uid: string) {
+    if (!this.plateAim || !this.plateTargetsNow().some((f) => f.uid === uid)) return;
+    this.plateAim.picked.push(uid);
+    const plate = this.game.plates[HUMAN][this.plateAim.index].def;
+    if (plateSpec(plate).target === 'two-own' && this.plateAim.picked.length < 2) { this.refresh(); return; }
+    this.usePlateNow(this.plateAim.index, this.plateAim.picked);
+  }
+
+  private usePlateNow(index: number, targets: string[]) {
+    this.plateAim = null;
+    $('platePanel').classList.remove('show');
+    try { this.game.usePlate(HUMAN, index, targets); } catch (e) { this.log(String(e)); }
+    this.selected = null;
+    if (this.game.current !== HUMAN || this.game.winner !== null) this.afterHuman(); else this.refresh();
+  }
+
+  /** The PLATES card stack and its list (original: the plate cards at the bottom right). */
+  private renderPlates() {
+    const g = this.game, mine = g.plates[HUMAN];
+    $('platesLeft').textContent = String(mine.filter((x) => !x.used).length);
+    $<HTMLButtonElement>('platesBtn').disabled = !mine.length;
+    $('platesBtn').onclick = () => {
+      if (this.plateAim) { this.plateAim = null; this.refresh(); return; }
+      $('platePanel').classList.toggle('show');
+      this.refresh();
+    };
+    const panel = $('platePanel');
+    if (!panel.classList.contains('show')) return;
+    panel.innerHTML = '<h3>Tus plates</h3>';
+    mine.forEach((slot, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pl-item' + (slot.used ? ' used' : '');
+      b.innerHTML = '<span></span><span class="cost"></span><small></small>';
+      b.children[0].textContent = slot.def.name;
+      b.children[1].textContent = `coste ${slot.def.cost}`;
+      b.children[2].textContent = slot.used ? 'Ya usada en este duelo.' : slot.def.text;
+      b.disabled = !this.canAct() || !g.canUsePlate(HUMAN, i);
+      b.onclick = () => {
+        if (plateSpec(slot.def).target === 'none') { this.usePlateNow(i, []); return; }
+        this.plateAim = { index: i, picked: [] };
+        panel.classList.remove('show');
+        this.refresh();
+      };
+      panel.appendChild(b);
+    });
+    if (this.canAct() && !mine.some((_, i) => g.canUsePlate(HUMAN, i))) {
+      const n = document.createElement('small');
+      n.style.color = '#a8b6d6';
+      n.textContent = 'Las plates se usan al principio de tu turno, antes de mover, y solo una por turno.';
+      panel.appendChild(n);
     }
   }
 

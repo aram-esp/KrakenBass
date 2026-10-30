@@ -369,3 +369,59 @@ test('MP: markers from attacks and Mud Coating', () => {
   for (const [uid, n] of [['0:0', 'C3'], ['0:1', 'I3a'], ['0:2', 'I2a'], ['0:3', 'I2b']] as const) put(mud, uid, n);
   assert.equal(mud.mp(mud.figures[0]), 2);
 });
+
+// ---- plates (2026-10-30) ----
+import { plateSpec, plateUsable, toPlateDef, type PlateRecord } from '../src/plates.ts';
+const plateRecords: PlateRecord[] = JSON.parse(readFileSync(new URL('../data/plates.json', import.meta.url), 'utf8'));
+const plate = (name: string) => toPlateDef(plateRecords.find((p) => p.name === name)!);
+
+test('plates: data and specs (165 plates, X Attack cost 1, Mega stones unusable here)', () => {
+  assert.equal(plateRecords.length, 165);
+  assert.equal(plate('X Attack').cost, 1);
+  assert.equal(plateSpec(plate('X Attack')).status, 'ok');
+  assert.equal(plateSpec(plate('Charizardite X')).status, 'no');
+});
+
+test('plates: X Attack +30 this turn, one plate per turn, before moving, each once per duel', () => {
+  const g = new Game(board, [[fig('a', 2, mv('white', 40))], [fig('c', 2, mv('white', 60))]], seeded(1), houseRules, 0, [[plate('X Attack'), plate('X Defend')], []]);
+  put(g, '0:0', 'C3');
+  put(g, '1:0', 'B4');
+  g.usePlate(0, 0, ['0:0']);
+  assert.equal(g.canUsePlate(0, 1), false, 'only one plate per turn');
+  const r = g.battle('0:0', '1:0');
+  assert.equal(r.moverPower, 70);
+  assert.equal(r.winner, 'mover');
+  assert.equal(g.plates[0][0].used, true);
+});
+
+test('plates: Focus Band keeps a figure, Goal Block defends the goal, Recycle restores used plates', () => {
+  const g = new Game(board, [[fig('a', 2, mv('white', 10)), fig('b', 2)], [fig('c', 2, mv('white', 90))]], seeded(1), houseRules, 0,
+    [[plate('Focus Band'), plate('Goal Block'), plate('Recycle')], []]);
+  put(g, '0:0', 'C3');
+  put(g, '0:1', 'I3a');
+  put(g, '1:0', 'B4');
+  g.usePlate(0, 0, ['0:0']);
+  assert.deepEqual(g.battle('0:0', '1:0').ko, [], 'Focus Band');
+  g.endTurn();
+  g.usePlate(0, 1, ['0:1']);
+  assert.equal(g.figures[1].at, board.goals[0]);
+  assert.equal(g.current, 1, 'Goal Block ends the turn');
+  g.endTurn();
+  assert.equal(plateUsable(g, 0, plate('Recycle')), true);
+  g.usePlate(0, 2);
+  assert.equal(g.plates[0][0].used, false);
+});
+
+test('plates: Rocky Helmet takes the winner down too; Hurdle Jump jumps over a figure', () => {
+  const g = new Game(board, [[fig('a', 2, mv('white', 10))], [fig('c', 2, mv('white', 90)), fig('d', 2)]], seeded(1), houseRules, 0, [[plate('Rocky Helmet')], []]);
+  put(g, '0:0', 'C3');
+  put(g, '1:0', 'B4');
+  g.usePlate(0, 0, ['0:0']);
+  assert.equal(g.battle('0:0', '1:0').ko.length, 2);
+  const h = new Game(board, [[fig('a', 2), fig('b', 2)], [fig('c', 2)]], seeded(1), houseRules, 0, [[plate('Hurdle Jump')], []]);
+  put(h, '0:0', 'C3');
+  put(h, '0:1', 'I3a');
+  h.usePlate(0, 0, ['0:0']);
+  assert.notEqual(h.figures[0].at, 'C3');
+  assert.equal(h.distances('C3').get(h.figures[0].at!), 2);
+});

@@ -1,8 +1,9 @@
 import { NOTES, WORKING, pendingReason } from '../../src/abilities.ts';
 import { UNSUPPORTED, effectStatus } from '../../src/effects.ts';
 import type { FigureRecord } from '../../src/data.ts';
+import { plateSpec, type PlateDef } from '../../src/plates.ts';
 import {
-  BOOSTERS, CASE_SLOTS, EVOLVE_BATTLES, EVOLVE_DUELS, GEMS_LOSS, GEMS_WIN, RARITY_WEIGHT, SHOP_PRICE, TIMED_WEIGHT, gemsToOpenNow,
+  BOOSTERS, CASE_SLOTS, EVOLVE_BATTLES, EVOLVE_DUELS, GEMS_LOSS, GEMS_WIN, PLATE_CHANCE, RARITY_WEIGHT, SHOP_PRICE, STARTER_PLATES, TIMED_WEIGHT, gemsToOpenNow,
 } from '../../src/gacha.ts';
 import { defaultRules } from '../../src/rules.config.ts';
 import type { FigureDef } from '../../src/types.ts';
@@ -52,6 +53,8 @@ export interface WikiData {
   records: FigureRecord[];
   evolves: Record<string, string[]>;
   owned: () => Record<string, number>;
+  plates?: PlateDef[];
+  ownedPlates?: () => Record<string, number>;
 }
 
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
@@ -69,6 +72,7 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
     ['jugar', 'Cómo jugar', howToPlay],
     ['figuras', 'Figuras', () => figures()],
     ['habilidades', 'Habilidades', abilities],
+    ['plates', 'Plates', platesSection],
     ['boosters', 'Boosters', boosters],
     ['evolucion', 'Evolución', evolution],
   ];
@@ -137,8 +141,11 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
       Cut Off) o despertar a un aliado. Las habilidades de defensa (Run Away, Sand Veil) se usan solas siempre que pueden.</p>
       <h3>El P.C.</h3>
       <p>Las figuras derrotadas van al P.C., que guarda ${defaultRules.pcSize}. Cuando entra una tercera, la más antigua vuelve al banquillo.</p>
+      <h3>Plates</h3>
+      <p>Hasta 6 por mazo con un coste total de 6 como mucho (en las primeras versiones). Cada una se usa una vez por duelo, al
+      principio de tu turno y antes de mover (la carta PLATES de abajo a la derecha). <span class="tag inv">Supuesto</span> Una por turno.</p>
       <h3>Lo que aún no está</h3>
-      <p>Plates, Megaevolución y movimientos Z del original. Cuatro efectos de ataque se muestran pero no hacen nada (lo pone en su ficha).</p>`;
+      <p>Megaevolución y movimientos Z del original (por eso sus plates no se pueden usar). Cuatro efectos de ataque se muestran pero no hacen nada (lo pone en su ficha).</p>`;
   }
 
   function wheelTable(f: FigureDef): string {
@@ -215,6 +222,21 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
         <td><span class="tag ${WORKING.has(n) ? 'ok' : 'no'}">${WORKING.has(n) ? 'Funciona' : 'Aún sin efecto'}</span></td>
         <td>${esc(e.effect)}${WORKING.has(n) ? (NOTES[n] ? `<br><i>${esc(NOTES[n])}</i>` : '') : `<br><i>${esc(pendingReason(n))}</i>`}</td><td>${esc(e.who.join(', '))}</td></tr>`).join('')}
       </table></div>`;
+  }
+
+  function platesSection(): string {
+    const list = [...(d.plates ?? [])].sort((a, b) => a.name.localeCompare(b.name));
+    const ok = list.filter((p) => plateSpec(p).status === 'ok').length;
+    const have = d.ownedPlates?.() ?? {};
+    return `<p>${list.length} plates con su texto y coste originales (de su primera versión). ${ok} funcionan en este juego y son las que
+      salen en los boosters (un ${Math.round(PLATE_CHANCE * 100)} % de los boosters trae una <span class="tag inv">inventado</span>). Al empezar
+      tienes las del mazo de la captura del original: ${STARTER_PLATES.join(', ')}.</p>
+      <div class="tbl"><table><tr><th>Plate</th><th>Coste</th><th>Rareza</th><th>Efecto</th><th>Estado</th></tr>
+      ${list.map((p) => {
+        const sp = plateSpec(p);
+        return `<tr><td><b>${esc(p.name)}</b>${have[p.id] ? `<br><small>tienes ${have[p.id]}</small>` : ''}</td><td>${p.cost}</td><td>${esc(RARITY_ES[p.rarity] ?? p.rarity)}</td>
+        <td>${esc(p.text)}</td><td>${sp.status === 'ok' ? '<span class="tag ok">Funciona</span>' : `<span class="tag no">No</span><br><i>${esc(sp.reason ?? '')}</i>`}</td></tr>`;
+      }).join('')}</table></div>`;
   }
 
   function boosters(): string {

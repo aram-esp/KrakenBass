@@ -49,12 +49,12 @@ export const NO_HOOKS: BattleHooks = { power: (_f, m) => m.damage, forceRespin: 
 const damaging = (m: Move) => m.color === 'white' || m.color === 'gold';
 
 /** >0: `a` wins, <0: `b` wins, 0: nothing happens. */
-export function compareMoves(a: Move, b: Move, pa: number, pb: number, rules: RulesConfig): number {
+export function compareMoves(a: Move, b: Move, pa: number, pb: number, rules: RulesConfig, starsA = 0, starsB = 0): number {
   const o = rules.outcome(a.color, b.color);
   if (o === 'a') return 1;
   if (o === 'b') return -1;
   if (o === 'none') return 0;
-  if (a.color === 'purple' && b.color === 'purple') return Math.sign((a.stars ?? 0) - (b.stars ?? 0));
+  if (a.color === 'purple' && b.color === 'purple') return Math.sign((a.stars ?? 0) + starsA - (b.stars ?? 0) - starsB);
   return Math.sign(pa - pb);
 }
 

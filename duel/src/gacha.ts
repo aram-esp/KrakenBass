@@ -53,6 +53,8 @@ export interface GachaState {
   case: Booster[];
   /** Unopened boosters that open at once (welcome, shop). */
   ready: Booster[];
+  /** Plate id -> copies owned. */
+  plates?: Record<string, number>;
   /** Figure id -> battles fought and duels played in the player's deck (for evolving). */
   battles?: Record<string, number>;
   duels?: Record<string, number>;
@@ -95,10 +97,16 @@ export function evolve(state: GachaState, id: string, to: string, evolutions: Re
 
 export interface Pullable { id: string; rarity: string }
 
+/** Starting plates: the ones in the original's deck screenshot (Fandom File:Deck.PNG): X Attack x2, Hurdle Jump, Goal Block. */
+export const STARTER_PLATES = ['X Attack', 'X Attack', 'Hurdle Jump', 'Goal Block'];
+/** INVENTED: chance that a booster also holds a plate (the original's plates came from other places; no rates known). */
+export const PLATE_CHANCE = 0.3;
+
 export function newState(): GachaState {
   return {
     version: 1,
     owned: {},
+    plates: {},
     gems: 0,
     case: [],
     ready: Array.from({ length: WELCOME_BOOSTERS }, () => ({ kind: 'welcome' as const, readyAt: 0 })),
@@ -118,6 +126,28 @@ export function rollRarity(min: Rarity, have: Set<string>, rng: () => number): R
   const pool = allowed.length ? allowed : ORDER.filter((r) => have.has(r));
   const w = Object.fromEntries(pool.map((r) => [r, RARITY_WEIGHT[r]])) as Record<Rarity, number>;
   return pickWeighted(w, rng);
+}
+
+/** Give the starting plates once (by name, from the plate list). */
+export function grantStarterPlates(state: GachaState, plates: { id: string; name: string }[]): void {
+  if (state.plates && Object.keys(state.plates).length) return;
+  state.plates ??= {};
+  for (const name of STARTER_PLATES) {
+    const p = plates.find((x) => x.name === name);
+    if (p) state.plates[p.id] = (state.plates[p.id] ?? 0) + 1;
+  }
+}
+
+/** Maybe add a plate to a booster's contents (PLATE_CHANCE; rarity weighted like figures). Returns its id or null. */
+export function rollPlate(state: GachaState, plates: Pullable[], rng: () => number): string | null {
+  if (!plates.length || rng() >= PLATE_CHANCE) return null;
+  const have = new Set(plates.map((p) => p.rarity));
+  const r = rollRarity('Common', have, rng);
+  const list = plates.filter((p) => p.rarity === r);
+  const p = list[Math.floor(rng() * list.length)];
+  state.plates ??= {};
+  state.plates[p.id] = (state.plates[p.id] ?? 0) + 1;
+  return p.id;
 }
 
 /** Open a booster: the figure ids pulled (added to `owned`). */

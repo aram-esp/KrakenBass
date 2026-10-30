@@ -91,12 +91,23 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   act, Data Disk button (selected figure's wheel), yellow "IA" button (the AI plays your turn, as the original's AI
   button), Forfeit (press twice). As in the original the turn ends by itself after a move unless that figure can battle
   or tag. The 2D view keeps chip buttons for the bench.
+- Plates (2026-10-30; `src/plates.ts`, all 165 from data/plates.json with the text and cost of their first version).
+  Deck: up to 6, total cost <= 6 (Fandom, Nintendo Life); used at the start of your turn before moving (pokemon.com),
+  once per duel (Fandom); ASSUMED one per turn. 78 work (turn buffs X Attack/X Defend/Focus Band/…, heals, moves Hurdle
+  Jump/Goal Block/Pokémon Switch/…, type powers, held items +20, Recycle, clear duel-long ones: Flame/Steel/Electro
+  Energy, Metal/Flame/Electro/Mystic/Aqua/Grass/Dragon/Gold Sphere, Poison Blade, Sticky Grass, Twisted Spoon, Rocky
+  Helmet, Air Balloon…). Not usable, with reason (`plateSpec`): Mega stones and orbs (no Mega/Primal), plates for figures
+  this game lacks, Z/Ultra Space ones, and ~19 with complex texts. Spots for Long Throw/Hurdle Jump are chosen as the
+  free one nearest the opponent's goal. Start with the plates of the original deck screenshot (X Attack x2, Hurdle Jump,
+  Goal Block: cost 6); boosters hold a working plate 30 % of the time (INVENTED). The AI gets random working plates
+  (cost <= 6) and uses battle boosts, Goal Block, heals and sometimes turn-ending ones (`aiPlate`). UI: PLATES card stack
+  at the bottom right; Pokédex section with all 165. 500 simulated duels with plates: 0 errors.
 - MP badges: every figure on the board shows the MP it has right now (`Game.mp`, so the first-turn MP-1 is included),
   or "Wait N" in yellow while it waits (`View.setBadges`, `drawBadge` in `web/src/shared.ts`).
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 46 passing.
+- Tests: `npm test` -> 50 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.
