@@ -18,7 +18,11 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   battles with the real colour table, P.C. (2 slots), Wait, encirclement KO, goal win, Wait win, 300-turn limit.
 - Data (`data/`): 567 figures with wheels, 165 plates, 364 abilities, board (28 nodes, 34 edges + layout), patch notes.
 - AI (`src/ai.ts`): heads for the goal, battles when adjacent. 200 simulated AI-vs-AI duels terminate legally.
-- 3D client (`web/src/view3d.ts`) and 2D client (`web/src/view2d.ts`) with placeholder pieces, Data Disk overlay.
+- 2.5D client (`web/src/view3d.ts`, default view since 2026-10-30): 3D board in perspective, each figure is its
+  `assets/sprites/<id>.png` standing on the team-coloured base as a camera-facing billboard (`THREE.Sprite`, cropped to its
+  opaque pixels, nearest-neighbour filtering, `SPRITE_UNIT` sets the size). Falls back to the sphere placeholder with no
+  sprite (e.g. the published single-file page); a `.glb` model still wins over the sprite.
+- Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page (3D only): https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`).
 - Tests: `npm test` -> 19 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`

@@ -8,6 +8,33 @@ function toWorld(p: [number, number]): THREE.Vector3 {
   return new THREE.Vector3((p[0] - 562) * 0.0125, 0, (p[1] - 981) * 0.0125);
 }
 
+/** World units per sprite pixel: a typical 60 px tall figure stands ~1.25 units. */
+const SPRITE_UNIT = 0.021;
+
+/** Pixel-art texture cropped to its opaque pixels, so the sprite's feet sit on the base. */
+function croppedSprite(img: HTMLImageElement): { tex: THREE.Texture; w: number; h: number } {
+  const c = document.createElement('canvas');
+  c.width = img.width; c.height = img.height;
+  const ctx = c.getContext('2d')!;
+  ctx.drawImage(img, 0, 0);
+  const a = ctx.getImageData(0, 0, c.width, c.height).data;
+  let x0 = c.width, y0 = c.height, x1 = -1, y1 = -1;
+  for (let y = 0; y < c.height; y++) for (let x = 0; x < c.width; x++) {
+    if (a[(y * c.width + x) * 4 + 3] > 16) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+  }
+  if (x1 < 0) { x0 = 0; y0 = 0; x1 = c.width - 1; y1 = c.height - 1; }
+  const w = x1 - x0 + 1, h = y1 - y0 + 1;
+  const out = document.createElement('canvas');
+  out.width = w; out.height = h;
+  out.getContext('2d')!.drawImage(c, x0, y0, w, h, 0, 0, w, h);
+  const tex = new THREE.CanvasTexture(out);
+  tex.magFilter = THREE.NearestFilter;
+  tex.minFilter = THREE.NearestFilter;
+  tex.generateMipmaps = false;
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return { tex, w, h };
+}
+
 export class View3D implements View {
   scene = new THREE.Scene();
   renderer: THREE.WebGLRenderer;
@@ -21,6 +48,7 @@ export class View3D implements View {
   ring: THREE.Mesh;
   loader = new GLTFLoader();
   hasModel = new Map<string, Promise<boolean>>();
+  hasSprite = new Map<string, Promise<boolean>>();
 
   canvas: HTMLCanvasElement;
   private resize: () => void = () => {};
@@ -111,7 +139,10 @@ export class View3D implements View {
     this.tween.clear();
   }
 
-  /** Placeholder base + body; a model at assets/models/<id>.glb replaces the body when it exists. */
+  /**
+   * Placeholder base + body. A model at assets/models/<id>.glb replaces the body; otherwise a sprite at
+   * assets/sprites/<id>.png stands on the base as a camera-facing billboard (2.5D).
+   */
   addFigure(f: Figure) {
     const g = new THREE.Group();
     const base = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.42, 0.14, 24), new THREE.MeshStandardMaterial({ color: OWNER_COLOR[f.owner] }));
@@ -124,7 +155,7 @@ export class View3D implements View {
     this.scene.add(g);
     this.figureGroup.set(f.uid, g);
     this.tryModel(f.def.id).then((ok) => {
-      if (!ok) return;
+      if (!ok) { this.addSprite(f, g, body); return; }
       this.loader.load(`../assets/models/${f.def.id}.glb`, (gltf) => {
         const box = new THREE.Box3().setFromObject(gltf.scene);
         const size = box.getSize(new THREE.Vector3());
@@ -134,6 +165,37 @@ export class View3D implements View {
         g.add(gltf.scene);
       });
     });
+  }
+
+  private addSprite(f: Figure, g: THREE.Group, body: THREE.Mesh) {
+    this.trySprite(f.def.id).then((ok) => {
+      if (!ok) return;
+      const img = new Image();
+      img.onload = () => {
+        if (!this.figureGroup.has(f.uid)) return; // duel restarted while loading
+        const { tex, w, h } = croppedSprite(img);
+        const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, alphaTest: 0.5 }));
+        s.center.set(0.5, 0);
+        s.scale.set(w * SPRITE_UNIT, h * SPRITE_UNIT, 1);
+        s.position.y = 0.14;
+        const shadow = new THREE.Mesh(new THREE.CircleGeometry(0.34, 24), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.35 }));
+        shadow.rotation.x = -Math.PI / 2;
+        shadow.position.y = 0.145;
+        g.remove(body);
+        body.geometry.dispose();
+        (body.material as THREE.Material).dispose();
+        g.add(shadow, s);
+      };
+      img.src = `../assets/sprites/${f.def.id}.png`;
+    });
+  }
+
+  private trySprite(id: string): Promise<boolean> {
+    if (EMBEDDED()) return Promise.resolve(false);
+    if (!this.hasSprite.has(id)) {
+      this.hasSprite.set(id, fetch(`../assets/sprites/${id}.png`, { method: 'HEAD' }).then((r) => r.ok).catch(() => false));
+    }
+    return this.hasSprite.get(id)!;
   }
 
   private tryModel(id: string): Promise<boolean> {

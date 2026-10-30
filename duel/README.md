@@ -1,7 +1,7 @@
 # Duel (from scratch)
 
 A board-game duel in the style of Pokémon Duel: rules engine (TypeScript, no runtime deps), real figure/plate/board data,
-a simple AI, and a 3D web client (Three.js) with placeholder figures.
+a simple AI, and a 2.5D web client (Three.js board, PokeAPI BW sprites as billboards) plus a top-down 2D view.
 
 ```bash
 npm install          # esbuild + three (dev only)

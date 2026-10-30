@@ -23,10 +23,10 @@ async function main() {
     c3.hidden = m !== '3d';
     v2.setActive(m === '2d');
     v3.setActive(m === '3d');
-    $('viewToggle').textContent = m === '2d' ? 'Vista 3D' : 'Vista 2D';
+    $('viewToggle').textContent = m === '2d' ? 'Vista 2.5D' : 'Vista 2D';
   };
   $('viewToggle').onclick = () => show(mode === '2d' ? '3d' : '2d');
-  show('2d');
+  show('3d'); // 2.5D: 3D board with sprite billboards (View3D)
 }
 
 main();
