@@ -27,12 +27,20 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   pointer and stay 2.3 s (`SPIN_MS`, `SPIN_STAGGER`, `HOLD_MS` in `web/src/match.ts`); nobody acts and the AI waits until
   they close. The board, panels, chips, banner and log keep the pre-battle position until the last disk closes
   (`Game.onBeforeBattle` draws the AI's move first; `refresh` is held while `playing`); a click jumps to the result, another closes them; no spin with reduced motion.
-  Under each disk: the move spun, then what the opposing spin did to that figure: "Recibe X de daño → al P.C." (red, it was
-  knocked out), "Para X de daño" (green, the opposing attack had damage but did not knock it out) or "Sin daño".
-- House rule (asked 2026-10-30), `rules.attackerLoss = 'counter'` in `houseRules` (used by the web game; `defaultRules`
-  keeps the real 'ko'): an attacker that loses is not knocked out; the defender counter-attacks at once with a new spin
-  of both wheels; if the defender wins, the attacker goes to the P.C., otherwise nothing. A defender in Wait cannot
-  counter. An attacker that spins a Miss falls at once (no counter), as in the real game. The UI shows both battles in turn ("Contraataque de X"). 200 AI duels with it: all end, 67 counters, 23 KOs.
+  Under each disk: the move spun, then what the opposing spin did to that figure: "Recibe X de daño → al P.C." / "Pierde → al P.C."
+  (red), "Gana · para X de daño" / "Gana" (green); a tie shows "Empate: se vuelve a girar" and ability notes in yellow.
+- House rule (2026-10-30, replaces the earlier counter-attack rule): `rules.decisive` in `houseRules` (the web game;
+  `defaultRules` keeps the real rules). Every battle has one winner and the loser goes to the P.C., whatever the colours;
+  ties (same damage/stars, blue/blue, Miss/Miss) are spun again (each tie is shown as its own spin, 30 at most).
+  200 AI duels: all end, every battle ends in a KO.
+- Abilities as in 1.0.0 (`src/abilities.ts`; 21 of the 82 figures have one, read per version from `data/figures.json`).
+  Working: Spicy Scent, Gleam Eyes, Plus, Minus (damage), Battle Armor, Migraine (force one respin, used when losing),
+  Time/Space Distortion (cannot enter while others are on the bench), Bide (cannot battle). Shown but no effect yet:
+  Run Off, Swarm, Run Away, Sand Veil, Reckless Charge, Gooey, Guts, Insomnia, Own Tempo, Immunity (need player choices,
+  special conditions or unknown values).
+- Secondary types (`type2`, 31 of 82): shown on cards (types line, base side colour). No type effectiveness (Duel has none).
+- 2.5D board restyled after research/img/field.png: pale mottled surface, thick white routes, ring points, concentric
+  entry rings, pulsing goals with an arrow (blue = yours, orange = opponent's), bench lines, wooden bases with a team rim.
 - Menus (`web/src/menus.ts`, built from JS with their own CSS), styled after two screenshots of the original app on the
   Fandom archive wiki (File:Deck.PNG "Edit Decks", File:Quest.PNG home with "Play"; looked at, not stored): dark blue top
   bar, black pill titles, big yellow buttons, blue bottom tabs (original: BACK, Leagues, Decks, Fusion, Shop, Menu; here
@@ -53,7 +61,7 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 32 passing.
+- Tests: `npm test` -> 33 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.

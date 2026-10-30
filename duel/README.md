@@ -18,7 +18,8 @@ Board (28 nodes), entry points, MP and the first-turn MP-1, bench entry for 1 MP
 the real colour table, P.C. (2 slots), Wait, encirclement KO, goal win, Wait win (no legal action), 300-turn limit.
 Figures and wheels as of the launch version 1.0.0: 82 figures (`GAME_VERSION` in `src/data.ts`).
 Figures are collected from boosters (gacha after the original's timed boosters, `src/gacha.ts`).
-House rule: a losing attacker is not knocked out, the defender counter-attacks instead (`houseRules` in `src/rules.config.ts`).
+House rule: every battle has one winner and the loser falls; ties are spun again (`houseRules` in `src/rules.config.ts`).
+Abilities as in 1.0.0 (`src/abilities.ts`); secondary types on the cards.
 Not yet: plates, abilities/attack effects, special conditions, evolution, Mega Evolution, Z-Moves, per-figure levels, timers.
 
 Full project state, decisions, known issues and next steps: `docs/NOTES.md`. Rule sources and open questions: `research/FINDINGS.md`.
