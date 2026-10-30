@@ -277,7 +277,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         <p class="note" id="shopNote"></p>
       </div>
     </div>
-    <div class="screen" id="dmWiki"><div class="pill">Wiki</div><div id="dmWikiBody" style="width:100%;display:flex;justify-content:center"></div></div>
+    <div class="screen" id="dmWiki"><div class="pill">Pokédex</div><div id="dmWikiBody" style="width:100%;display:flex;justify-content:center"></div></div>
     <div class="open" id="dmOpen" role="dialog" aria-modal="true" aria-label="Abrir booster">
       <h2 id="dmOpenTitle"></h2>
       <div class="box" id="dmOpenBox"></div>
@@ -289,7 +289,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       <button type="button" class="tab" id="tabLeague">${ICON.league}Liga</button>
       <button type="button" class="tab" id="tabDeck">${ICON.deck}Mazos</button>
       <button type="button" class="tab" id="tabShop">${ICON.shop}Tienda</button>
-      <button type="button" class="tab" id="tabWiki">${ICON.wiki}Wiki</button>
+      <button type="button" class="tab" id="tabWiki">${ICON.wiki}Pokédex</button>
     </nav>`;
   document.body.appendChild(root);
 

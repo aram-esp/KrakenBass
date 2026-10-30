@@ -8,7 +8,7 @@ import type { FigureDef } from '../../src/types.ts';
 import { MOVE_COLOR, spriteSrc } from './shared.ts';
 
 /*
- * In-game wiki. Every fact comes from the game's own data and rules (data/figures.json, src/*.ts) or from the
+ * In-game Pokédex (rules, figures, abilities, boosters, evolution). Every fact comes from the game's own data and rules (data/figures.json, src/*.ts) or from the
  * research notes; house rules and invented values are labelled as such.
  */
 
@@ -155,7 +155,7 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
         return `<details data-s="${esc(search)}" data-id="${f.id}"><summary><img alt="" data-sprite="${f.id}">
           <span>${esc(f.name)}<br><small>${types} · ${RARITY_ES[r?.rarity ?? ''] ?? r?.rarity ?? ''} · ${f.mp} MP${have ? ` · tienes ${have}` : ''}</small></span></summary>
           <div class="figbody">
-            <p>${f.id.startsWith('x-') ? '<span class="tag inv">Inventada</span> Este Pokémon no tuvo figura en Duel. Solo por evolución; ruleta de su preevolución con +10 de daño en blanco/dorado y +1★ en morado (lo que daba evolucionar en partida en el original), sus tipos reales y sin habilidad.'
+            <p>${f.id.startsWith('x-') ? '<span class="tag inv">Inventada</span> Este Pokémon no tuvo figura en Duel. Solo por evolución; ruleta de su preevolución con +10 de daño en blanco/dorado y +1★ en morado (lo que daba evolucionar en partida en el original), sus tipos reales y la habilidad de su preevolución, si la tenía.'
               : extraIds.has(f.id) ? `Solo por evolución · salió en la versión ${r?.version}` : 'Versión 1.0.0 · sale en los boosters'}</p>
             ${abilityLine(f)}
             ${wheelTable(f)}
@@ -185,7 +185,7 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
     }
     const rows = [...names.entries()].sort((a, b) => Number(WORKING.has(b[0])) - Number(WORKING.has(a[0])) || a[0].localeCompare(b[0]));
     return `<p>Las figuras tienen la habilidad que tenían en el original en su versión (la 1.0.0, o la de su salida si se
-      consiguen evolucionando). ${rows.filter((r) => WORKING.has(r[0])).length} de ${rows.length} funcionan; las demás se muestran
+      consiguen evolucionando). Las inventadas heredan la de su preevolución. ${rows.filter((r) => WORKING.has(r[0])).length} de ${rows.length} funcionan; las demás se muestran
       con su texto y el motivo por el que aún no hacen nada.</p>
       <div class="tbl"><table><tr><th>Habilidad</th><th>Estado</th><th>Efecto</th><th>Figuras</th></tr>
       ${rows.map(([n, e]) => `<tr><td><b>${esc(n)}</b></td>
@@ -227,7 +227,7 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
       Mazos → Evolución: una copia se convierte en su evolución y sus contadores empiezan de cero.</p>
       <p>Ninguna figura de la 1.0.0 evoluciona en otra de la 1.0.0, así que evolucionan en figuras de versiones posteriores,
       con su ruleta y habilidad de cuando salieron. Si el Pokémon nunca tuvo figura en Duel (Golduck, Fearow…), la figura es
-      <span class="tag inv">inventada</span>: la ruleta de su preevolución con +10 de daño y +1★, sus tipos reales y sin habilidad.
+      <span class="tag inv">inventada</span>: la ruleta de su preevolución con +10 de daño y +1★, sus tipos reales y la habilidad de su preevolución, si la tenía.
       ${canEvo} de las ${d.pool.length} figuras de la 1.0.0 pueden evolucionar, y así se llega a ${d.extras.length} figuras más.</p>
       <p>Las cadenas de evolución vienen de PokeAPI. En el original las figuras evolucionaban durante la partida; eso aún no está.</p>`;
   }

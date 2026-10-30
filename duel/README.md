@@ -21,7 +21,7 @@ Figures are collected from boosters (gacha after the original's timed boosters, 
 House rule: every battle has one winner and the loser falls; ties are spun again (`houseRules` in `src/rules.config.ts`).
 Abilities as in 1.0.0 (`src/abilities.ts`); secondary types on the cards.
 Figures evolve outside battle after 5 battles or 10 duels in your deck (`data/evolutions.json`, from PokeAPI).
-Stages with no Duel figure are invented (previous wheel +10 / +1★). In-game wiki: Wiki tab (`web/src/wiki.ts`).
+Stages with no Duel figure are invented (previous wheel +10 / +1★). They inherit the previous stage's ability. In-game Pokédex: Pokédex tab (`web/src/wiki.ts`).
 Not yet: plates, abilities/attack effects, special conditions, evolution, Mega Evolution, Z-Moves, per-figure levels, timers.
 
 Full project state, decisions, known issues and next steps: `docs/NOTES.md`. Rule sources and open questions: `research/FINDINGS.md`.

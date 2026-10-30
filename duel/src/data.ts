@@ -109,7 +109,7 @@ export function evolvedWheel(prev: FigureDef): Segment[] {
 /**
  * Figures reachable by evolving figures of `base` (following `evolves`, data/evolutions.json), that are not in `base`.
  * One released after game version `v` uses its wheel and ability from its own release version; an invented one
- * ("x-<species>") gets `evolvedWheel` of its previous stage, that stage's MP, its real types and no ability.
+ * ("x-<species>") gets `evolvedWheel` of its previous stage, that stage's MP and ability, and its real types.
  */
 export function evolutionPool(records: FigureRecord[], evolves: Record<string, (string | number)[]>, base: FigureDef[],
   v: string | null = GAME_VERSION, invented: Record<string, InventedFigure> = {}): FigureDef[] {
@@ -126,7 +126,11 @@ export function evolutionPool(records: FigureRecord[], evolves: Record<string, (
       if (rec) def = toFigureDef(rec, v !== null && compareVersions(rec.version, v) > 0 ? rec.version : v);
       else if (inv) {
         const prev = defs.get(cur)!;
-        def = { id: to, name: inv.name, type: inv.type, ...(inv.type2 ? { type2: inv.type2 } : {}), mp: prev.mp, wheel: evolvedWheel(prev) };
+        // It inherits the previous stage's ability, if any (user, 2026-10-30).
+        def = {
+          id: to, name: inv.name, type: inv.type, ...(inv.type2 ? { type2: inv.type2 } : {}), mp: prev.mp, wheel: evolvedWheel(prev),
+          ...(prev.ability ? { ability: prev.ability } : {}),
+        };
       } else continue;
       defs.set(to, def);
       out.push(def);

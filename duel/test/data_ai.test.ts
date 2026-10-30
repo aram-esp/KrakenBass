@@ -103,7 +103,7 @@ test('evolutions from the 1.0.0 pool use the evolved figure as released, with a 
   assert.ok(!extra.some((d) => d.name === 'Venusaur'), 'Ivysaur evolves into the 1.0.0 Venusaur already in the pool');
 });
 
-test('invented evolutions: Pokémon with no Duel figure get the previous wheel +10 damage / +1 star', () => {
+test('invented evolutions: Pokémon with no Duel figure get the previous wheel +10 damage / +1 star and its ability', () => {
   const evo = JSON.parse(readFileSync(new URL('../data/evolutions.json', import.meta.url), 'utf8'));
   const launch = figurePool(records);
   const extra = evolutionPool(records, evo.evolves, launch, undefined, evo.invented);
@@ -111,7 +111,9 @@ test('invented evolutions: Pokémon with no Duel figure get the previous wheel +
   const golduck = extra.find((d) => d.id === 'x-golduck')!;
   assert.equal(golduck.name, 'Golduck');
   assert.equal(golduck.type, 'Water');
-  assert.equal(golduck.ability, undefined);
+  assert.equal(golduck.ability?.name, 'Migraine', 'inherits Psyduck\'s ability');
+  assert.equal(extra.find((d) => d.id === 'x-kabutops')!.ability?.name, 'Battle Armor');
+  assert.equal(extra.find((d) => d.id === 'x-fearow')!.ability, undefined, 'Spearow has none');
   golduck.wheel.forEach((s, i) => {
     const p = psyduck.wheel[i].move;
     assert.equal(s.weight, psyduck.wheel[i].weight);
