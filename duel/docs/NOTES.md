@@ -33,10 +33,13 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   keeps the real 'ko'): an attacker that loses is not knocked out; the defender counter-attacks at once with a new spin
   of both wheels; if the defender wins, the attacker goes to the P.C., otherwise nothing. A defender in Wait cannot
   counter. An attacker that spins a Miss falls at once (no counter), as in the real game. The UI shows both battles in turn ("Contraataque de X"). 200 AI duels with it: all end, 67 counters, 23 KOs.
-- Menus (`web/src/menus.ts`, built from JS with their own CSS): start menu on load ("Jugar contra la IA", "Elegir mazo",
-  "Continuar duelo" while a duel is in progress; "Menú" buttons in the controls and the end banner) and a deck picker:
-  the figures of the current pool (82 at 1.0.0) as cards with sprite, MP, rarity and a mini wheel (attacks on hover),
-  rarity filters, 6 distinct figures, "Al azar"/"Vaciar". The deck is kept in localStorage (`duel.deck`, per browser);
+- Menus (`web/src/menus.ts`, built from JS with their own CSS), styled after two screenshots of the original app on the
+  Fandom archive wiki (File:Deck.PNG "Edit Decks", File:Quest.PNG home with "Play"; looked at, not stored): dark blue top
+  bar, black pill titles, big yellow buttons, blue bottom tabs (original: BACK, Leagues, Decks, Fusion, Shop, Menu; here
+  only Atrás, Liga, Mazos, because the rest does not exist), "Figuras" panel with "Usables n/6" and figures on bases with
+  rarity (C/UC/R/EX) and MP badges. Screens: Liga (your deck + "Jugar", "Continuar duelo"), Editar mazo, Editar figuras
+  (collection with mini wheels, attacks on hover, rarity filters, 6 distinct figures, "Al azar"/"Vaciar"). Not drawn:
+  energy/coins/gems, plates panel, Fusion, Shop (none exist). Font: Nunito (Google Fonts) with system fallback. The deck is kept in localStorage (`duel.deck`, per browser);
   without 6 chosen the player gets a random deck. The AI always gets a random deck. `Match.start(deck)`.
 - MP badges: every figure on the board shows the MP it has right now (`Game.mp`, so the first-turn MP-1 is included),
   or "Wait N" in yellow while it waits (`View.setBadges`, `drawBadge` in `web/src/shared.ts`).
