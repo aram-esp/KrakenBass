@@ -26,12 +26,11 @@ export interface RulesConfig {
   /** Which adjacent enemy is fought when several are adjacent. UNVERIFIED: the real game lets the player choose. */
   target: 'first' | 'none';
   /**
-   * When the attacker loses a battle it would be knocked out. 'ko': it is (the real game). 'counter': house rule asked by
-   * the user on 2026-10-30: the attacker is not knocked out; the defender counter-attacks at once with a new spin of both
-   * wheels and, if it wins, the attacker is knocked out; otherwise nothing happens. A defender with Wait cannot counter.
-   * If the attacker spun a Miss it is knocked out at once, as in the real game (user, 2026-10-30).
+   * true (house rule asked by the user on 2026-10-30): every battle has one winner and the loser is knocked out, whatever
+   * the colours (a purple or blue win also knocks out); a tie (same damage or stars, blue/blue, Miss/Miss) is spun again.
+   * false: the real game (only a white/gold win knocks out; ties and dodges do nothing).
    */
-  attackerLoss: 'ko' | 'counter';
+  decisive: boolean;
 }
 
 export const defaultRules: RulesConfig = {
@@ -40,8 +39,8 @@ export const defaultRules: RulesConfig = {
   pcSize: 2,
   outcome: (a, b) => T[a][b],
   target: 'first',
-  attackerLoss: 'ko',
+  decisive: false,
 };
 
 /** The rules the web game is played with: the real ones plus the user's house rules. */
-export const houseRules: RulesConfig = { ...defaultRules, attackerLoss: 'counter' };
+export const houseRules: RulesConfig = { ...defaultRules, decisive: true };

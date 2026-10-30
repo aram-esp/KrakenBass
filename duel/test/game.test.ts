@@ -92,48 +92,88 @@ test('real rules: an attacker that loses is knocked out', () => {
   assert.equal(r.counter, undefined);
 });
 
-test('house rule: a losing attacker is not knocked out, the defender counter-attacks and wins', () => {
-  assert.equal(houseRules.attackerLoss, 'counter');
-  const g = game([fig('a', 2, mv('white', 10))], [fig('c', 2, mv('white', 90))], houseRules);
-  put(g, '0:0', 'C3');
-  put(g, '1:0', 'B4');
-  const seen: string[] = [];
-  g.onBattle = (m, o, res, info) => seen.push(`${m.uid}>${o.uid} ko=${res.ko.map((k) => k.uid)} counter=${info.counter} saved=${info.saved}`);
-  const r = g.battle('0:0', '1:0');
-  assert.deepEqual(r.ko, []);
-  assert.deepEqual(r.counter!.ko.map((k) => k.uid), ['0:0']);
-  assert.equal(g.figures[0].status, 'pc');
-  assert.equal(g.figures[1].status, 'board');
-  assert.deepEqual(seen, ['0:0>1:0 ko= counter=false saved=true', '1:0>0:0 ko=0:0 counter=true saved=false']);
-  assert.equal(g.current, 1);
-});
+test('house rule (decisive): the loser always falls, even to a blue or purple win', () => {
+  assert.equal(houseRules.decisive, true);
+  const lose = game([fig('a', 2, mv('white', 10))], [fig('c', 2, mv('white', 90))], houseRules);
+  put(lose, '0:0', 'C3');
+  put(lose, '1:0', 'B4');
+  assert.deepEqual(lose.battle('0:0', '1:0').ko.map((k) => k.uid), ['0:0']);
 
-test('house rule: an attacker that spins a Miss falls at once, no counter-attack', () => {
-  const g = game([fig('a', 2, mv('red'))], [fig('c', 2, mv('white', 30))], houseRules);
-  put(g, '0:0', 'C3');
-  put(g, '1:0', 'B4');
-  const r = g.battle('0:0', '1:0');
+  const dodge = game([fig('a', 2, mv('white', 90))], [fig('c', 2, mv('blue'))], houseRules);
+  put(dodge, '0:0', 'C3');
+  put(dodge, '1:0', 'B4');
+  const r = dodge.battle('0:0', '1:0');
+  assert.equal(r.winner, 'other');
   assert.deepEqual(r.ko.map((k) => k.uid), ['0:0']);
-  assert.equal(r.counter, undefined);
-  assert.equal(g.figures[0].status, 'pc');
+
+  const purple = game([fig('a', 2, mv('purple', 0, 2))], [fig('c', 2, mv('white', 90))], houseRules);
+  put(purple, '0:0', 'C3');
+  put(purple, '1:0', 'B4');
+  assert.deepEqual(purple.battle('0:0', '1:0').ko.map((k) => k.uid), ['1:0']);
 });
 
-test('house rule: a winning attacker gets no counter-attack; a defender in Wait cannot counter', () => {
-  const win = game([fig('a', 2, mv('white', 90))], [fig('c', 2, mv('white', 10))], houseRules);
-  put(win, '0:0', 'C3');
-  put(win, '1:0', 'B4');
-  const r1 = win.battle('0:0', '1:0');
-  assert.deepEqual(r1.ko.map((k) => k.uid), ['1:0']);
-  assert.equal(r1.counter, undefined);
+test('house rule (decisive): a tie is spun again until someone wins', () => {
+  const tieOr90: FigureDef = { id: 'a', name: 'a', mp: 2, wheel: [{ move: mv('white', 50), weight: 1 }, { move: mv('white', 90), weight: 1 }] };
+  const g = game([tieOr90], [fig('c', 2, mv('white', 50))], houseRules);
+  put(g, '0:0', 'C3');
+  put(g, '1:0', 'B4');
+  const ties: boolean[] = [];
+  g.onBattle = (_m, _o, _r, info) => ties.push(info.tie);
+  const r = g.battle('0:0', '1:0');
+  assert.equal(r.winner, 'mover');
+  assert.deepEqual(r.ko.map((k) => k.uid), ['1:0']);
+  assert.equal(ties[ties.length - 1], false);
+  assert.ok(ties.slice(0, -1).every(Boolean));
+});
 
-  const waiting = game([fig('a', 2, mv('white', 10))], [fig('c', 2, mv('white', 90))], houseRules);
-  put(waiting, '0:0', 'C3');
-  put(waiting, '1:0', 'B4');
-  waiting.setWait('1:0', 2);
-  const r2 = waiting.battle('0:0', '1:0');
-  assert.deepEqual(r2.ko, []);
-  assert.equal(r2.counter, undefined);
-  assert.equal(waiting.figures[0].status, 'board');
+const withAbility = (d: FigureDef, name: string): FigureDef => ({ ...d, ability: { name, effect: '' } });
+
+test('abilities: Spicy Scent +20 on your turn, Gleam Eyes -10 next to it, Plus/Minus +30', () => {
+  const spicy = game([withAbility(fig('a', 2, mv('white', 40)), 'Spicy Scent')], [fig('c', 2, mv('white', 50))], houseRules);
+  put(spicy, '0:0', 'C3');
+  put(spicy, '1:0', 'B4');
+  const r1 = spicy.battle('0:0', '1:0');
+  assert.equal(r1.moverPower, 60);
+  assert.equal(r1.winner, 'mover');
+
+  const gleam = game([fig('a', 2, mv('white', 55))], [withAbility(fig('c', 2, mv('white', 50)), 'Gleam Eyes')], houseRules);
+  put(gleam, '0:0', 'C3');
+  put(gleam, '1:0', 'B4');
+  const r2 = gleam.battle('0:0', '1:0');
+  assert.equal(r2.moverPower, 45);
+  assert.equal(r2.winner, 'other');
+
+  const plus = game([{ ...withAbility(fig('p', 2, mv('white', 30)), 'Plus'), name: 'Plusle' }, { ...fig('m', 2), name: 'Minun' }],
+    [fig('c', 2, mv('white', 50))], houseRules);
+  put(plus, '0:0', 'C3');
+  put(plus, '0:1', 'I3a'); // next to C3
+  put(plus, '1:0', 'B4');
+  assert.equal(plus.battle('0:0', '1:0').moverPower, 60);
+});
+
+test('abilities: Battle Armor and Migraine force one respin; Bide cannot battle; Distortion blocks bench entry', () => {
+  const armor = game([fig('a', 2, mv('white', 90))], [withAbility(fig('c', 2, mv('white', 10)), 'Battle Armor')], houseRules);
+  put(armor, '0:0', 'C3');
+  put(armor, '1:0', 'B4');
+  const r = armor.battle('0:0', '1:0');
+  assert.equal(r.notes.length, 1);
+  assert.match(r.notes[0], /Battle Armor/);
+
+  const migraine = game([fig('a', 2, mv('purple', 0, 2))], [withAbility(fig('c', 2, mv('white', 30)), 'Migraine')], houseRules);
+  put(migraine, '0:0', 'C3');
+  put(migraine, '1:0', 'B4');
+  assert.match(migraine.battle('0:0', '1:0').notes[0], /Migraine/);
+
+  const bide = game([fig('a', 2)], [withAbility(fig('c', 2), 'Bide')], houseRules);
+  put(bide, '0:0', 'C3');
+  put(bide, '1:0', 'B4');
+  assert.deepEqual(bide.adjacentEnemies(bide.figures[0]), []);
+  assert.throws(() => bide.battle('0:0', '1:0'), /adjacent enemy/);
+
+  const dist = game([withAbility(fig('d', 2), 'Time Distortion'), fig('b', 2)], [fig('c', 1)], houseRules);
+  assert.equal(dist.reachable(dist.figures[0]).size, 0, 'blocked while another figure is on the bench');
+  put(dist, '0:1', 'C3');
+  assert.ok(dist.reachable(dist.figures[0]).size > 0, 'free once the bench is empty');
 });
 
 test('P.C. holds two: a third KO sends the oldest back to the bench', () => {

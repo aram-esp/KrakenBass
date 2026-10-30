@@ -8,6 +8,9 @@ export interface FigureRecord {
   type: string;
   mp: number;
   rarity: string;
+  type2?: string | null;
+  /** Abilities by version, keyed like `wheels`. */
+  abilities?: Record<string, { type?: string; name: string; effect: string | null }[] | { type?: string; name: string; effect: string | null }>;
   /** Game version in which the figure was released, e.g. "1.3.2". */
   version: string;
   wheels: Record<string, { kind: string; color: string | null; name: string; power: number | null; prob: number | null; stars: number | null }[]>;
@@ -70,7 +73,14 @@ export function toFigureDef(rec: FigureRecord, v: string | null = null): FigureD
     wheel.push({ move, weight: s.prob });
   }
   if (!wheel.length) wheel.push({ move: { name: 'Miss', color: 'red', damage: 0 }, weight: 1 });
-  return { id: String(rec.id), type: rec.type, name: rec.name, mp: rec.mp, wheel };
+  const abKey = rec.abilities ? wheelKeyAt({ ...rec, wheels: rec.abilities } as unknown as FigureRecord, v) : undefined;
+  const abs = abKey ? rec.abilities![abKey] : undefined;
+  const ab = (Array.isArray(abs) ? abs : abs ? [abs] : []).find((a) => a && a.name && a.name !== 'None');
+  return {
+    id: String(rec.id), type: rec.type, name: rec.name, mp: rec.mp, wheel,
+    ...(rec.type2 ? { type2: rec.type2 } : {}),
+    ...(ab ? { ability: { name: ab.name, effect: (ab.effect ?? '').replace(/\{\{mp\}\}/g, 'MP').trim() } } : {}),
+  };
 }
 
 /** The figures that can appear in a duel at game version `v`, each with its wheel at that version. */

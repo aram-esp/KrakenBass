@@ -53,6 +53,8 @@ export class View3D implements View {
   tween = new Map<string, THREE.Vector3>();
   hilite: THREE.Mesh[] = [];
   ring: THREE.Mesh;
+  /** Goal glows, pulsing in the render loop. */
+  goalGlow: THREE.Mesh[] = [];
   loader = new GLTFLoader();
   hasModel = new Map<string, Promise<boolean>>();
 
@@ -73,27 +75,68 @@ export class View3D implements View {
     sun.position.set(4, 10, 6);
     this.scene.add(sun);
 
-    const table = new THREE.Mesh(new THREE.PlaneGeometry(16, 11), new THREE.MeshStandardMaterial({ color: 0x232b3d }));
+    // Board in the style of the original field screenshot (research/img/field.png): a pale mottled surface,
+    // thick white routes, small white ring points, concentric rings on the entry points, glowing goals
+    // (blue for the player's, orange for the opponent's) and white lines setting the benches apart.
+    this.scene.background = new THREE.Color(0x0e1424);
+    const table = new THREE.Mesh(new THREE.PlaneGeometry(30, 22), new THREE.MeshStandardMaterial({ map: marbleTexture(), roughness: 0.9 }));
     table.rotation.x = -Math.PI / 2;
     table.position.y = -0.02;
     this.scene.add(table);
 
     for (const n of board.nodes) this.nodePos.set(n, toWorld(board.layout[n] as [number, number]));
-    const pts: THREE.Vector3[] = [];
-    for (const [a, b] of board.edges) pts.push(this.nodePos.get(a)!.clone().setY(0.01), this.nodePos.get(b)!.clone().setY(0.01));
-    this.scene.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0xcfd6e6 })));
+    const white = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 });
+    const strip = (a: THREE.Vector3, b: THREE.Vector3, width: number) => {
+      const len = a.distanceTo(b);
+      const m = new THREE.Mesh(new THREE.BoxGeometry(len, 0.02, width), white);
+      m.position.copy(a).lerp(b, 0.5).setY(0.005);
+      m.rotation.y = -Math.atan2(b.z - a.z, b.x - a.x);
+      this.scene.add(m);
+    };
+    for (const [a, b] of board.edges) strip(this.nodePos.get(a)!, this.nodePos.get(b)!, 0.08);
+    // Bench lines, beyond each back row.
+    const xs = [...this.nodePos.values()].map((v) => v.x), zs = [...this.nodePos.values()].map((v) => v.z);
+    const minX = Math.min(...xs) - 0.6, maxX = Math.max(...xs) + 0.6;
+    for (const z of [Math.min(...zs) - 0.85, Math.max(...zs) + 0.85]) strip(new THREE.Vector3(minX, 0, z), new THREE.Vector3(maxX, 0, z), 0.07);
 
+    const flat = (geo: THREE.BufferGeometry, mat: THREE.Material, at: THREE.Vector3, y: number) => {
+      const m = new THREE.Mesh(geo, mat);
+      m.rotation.x = -Math.PI / 2;
+      m.position.copy(at).setY(y);
+      this.scene.add(m);
+      return m;
+    };
     const goalOf = new Map<NodeId, number>([[board.goals[0], 0], [board.goals[1], 1]]);
     const entries = new Set<NodeId>([...board.spawns[0], ...board.spawns[1]]);
+    const pickMat = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false });
+    const hub = new THREE.MeshStandardMaterial({ color: 0xb9bfcc, roughness: 0.6 });
     for (const n of board.nodes) {
+      const at = this.nodePos.get(n)!;
       const g = goalOf.get(n);
-      const r = g !== undefined ? 0.5 : entries.has(n) ? 0.4 : 0.22;
-      const color = g === 0 ? 0x2a6df4 : g === 1 ? 0xff7a2e : entries.has(n) ? 0x9aa7c4 : 0xe9eefb;
-      const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.04, 28), new THREE.MeshStandardMaterial({ color, emissive: g !== undefined ? color : 0x000000, emissiveIntensity: 0.5 }));
-      m.position.copy(this.nodePos.get(n)!);
-      m.userData.node = n;
-      this.scene.add(m);
-      this.nodeMesh.set(n, m);
+      if (g !== undefined) {
+        const color = g === 0 ? 0x2f8cff : 0xff8a2e;
+        const glow = flat(new THREE.CircleGeometry(0.62, 40), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.45 }), at, 0.012);
+        this.goalGlow.push(glow);
+        flat(new THREE.CircleGeometry(0.44, 40), new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: color, emissiveIntensity: 0.35 }), at, 0.016);
+        flat(new THREE.RingGeometry(0.44, 0.52, 40), new THREE.MeshBasicMaterial({ color }), at, 0.018);
+        // Arrow pointing along the row, like the original's play-style goal mark.
+        const tri = new THREE.Shape();
+        tri.moveTo(-0.13, -0.17); tri.lineTo(0.2, 0); tri.lineTo(-0.13, 0.17); tri.closePath();
+        const arrow = flat(new THREE.ShapeGeometry(tri), new THREE.MeshBasicMaterial({ color }), at, 0.02);
+        if (g === 1) arrow.rotation.z = Math.PI;
+      } else if (entries.has(n)) {
+        for (const [r0, r1] of [[0.4, 0.46], [0.25, 0.3]]) flat(new THREE.RingGeometry(r0, r1, 36), white, at, 0.014);
+        flat(new THREE.CircleGeometry(0.12, 24), hub, at, 0.014);
+      } else {
+        flat(new THREE.CircleGeometry(0.16, 24), white, at, 0.014);
+        flat(new THREE.CircleGeometry(0.09, 24), hub, at, 0.016);
+      }
+      // Invisible disc for clicks, bigger than the drawn point.
+      const pick = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.04, 20), pickMat);
+      pick.position.copy(at);
+      pick.userData.node = n;
+      this.scene.add(pick);
+      this.nodeMesh.set(n, pick);
     }
     this.ring = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.05, 8, 32), new THREE.MeshBasicMaterial({ color: 0xffffff }));
     this.ring.rotation.x = Math.PI / 2;
@@ -115,6 +158,8 @@ export class View3D implements View {
     addEventListener('resize', resize);
     resize();
     this.loop = () => {
+      const t = performance.now() / 1000;
+      for (const m of this.goalGlow) (m.material as THREE.MeshBasicMaterial).opacity = 0.3 + 0.2 * Math.sin(t * 2.4);
       for (const [uid, target] of this.tween) {
         const g = this.figureGroup.get(uid)!;
         g.position.lerp(target, 0.25);
@@ -169,8 +214,12 @@ export class View3D implements View {
    */
   addFigure(f: Figure) {
     const g = new THREE.Group();
-    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.42, 0.14, 24), new THREE.MeshStandardMaterial({ color: OWNER_COLOR[f.owner] }));
-    base.position.y = 0.07;
+    // Wooden base with a rim in the team colour, as on the original figures.
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.44, 0.07, 28), new THREE.MeshStandardMaterial({ color: OWNER_COLOR[f.owner], emissive: OWNER_COLOR[f.owner], emissiveIntensity: 0.25 }));
+    base.position.y = 0.035;
+    const wood = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.41, 0.08, 28), new THREE.MeshStandardMaterial({ color: 0x6b3f22, roughness: 0.8 }));
+    wood.position.y = 0.105;
+    g.add(wood);
     const body = new THREE.Mesh(new THREE.SphereGeometry(0.28, 20, 16), new THREE.MeshStandardMaterial({ color: TYPE_COLOR[f.def.type ?? ''] ?? 0xcccccc }));
     body.position.y = 0.45;
     g.add(base, body);
@@ -201,10 +250,10 @@ export class View3D implements View {
         const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, alphaTest: 0.5 }));
         s.center.set(0.5, 0);
         s.scale.set(w * SPRITE_UNIT, h * SPRITE_UNIT, 1);
-        s.position.y = 0.14;
+        s.position.y = 0.15;
         const shadow = new THREE.Mesh(new THREE.CircleGeometry(0.34, 24), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.35 }));
         shadow.rotation.x = -Math.PI / 2;
-        shadow.position.y = 0.145;
+        shadow.position.y = 0.152;
         g.remove(body);
         body.geometry.dispose();
         (body.material as THREE.Material).dispose();
@@ -293,3 +342,28 @@ export class View3D implements View {
   }
 }
 
+
+/** Pale mottled surface like the original field: soft lilac, green and grey blotches on a light ground. */
+function marbleTexture(): THREE.Texture {
+  const c = document.createElement('canvas');
+  c.width = c.height = 512;
+  const x = c.getContext('2d')!;
+  x.fillStyle = '#cfcbd6';
+  x.fillRect(0, 0, 512, 512);
+  let seed = 7;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const tints = ['#b9b3c9', '#c4d1c0', '#dedae4', '#a9b4b8', '#d8cfe0', '#bcc8cf'];
+  for (let i = 0; i < 260; i++) {
+    const px = rnd() * 512, py = rnd() * 512, r = 20 + rnd() * 90;
+    const g = x.createRadialGradient(px, py, 0, px, py, r);
+    g.addColorStop(0, tints[Math.floor(rnd() * tints.length)] + 'aa');
+    g.addColorStop(1, tints[0] + '00');
+    x.fillStyle = g;
+    x.beginPath(); x.ellipse(px, py, r * 1.8, r * 0.6, rnd() * Math.PI, 0, Math.PI * 2); x.fill();
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(3, 2.2);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}

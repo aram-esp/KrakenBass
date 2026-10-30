@@ -37,7 +37,7 @@ export function aiTurn(game: Game, rng: Rng): void {
   }
   for (const f of mine) {
     const foe = game.adjacentEnemies(f)[0];
-    if (f.status === 'board' && f.wait === 0 && foe) { game.battle(f.uid, foe.uid); return; }
+    if (game.canAttack(f) && foe) { game.battle(f.uid, foe.uid); return; }
   }
   game.endTurn();
 }

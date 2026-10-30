@@ -34,6 +34,12 @@ test('launch pool (game version 1.0.0): 82 figures, only 3 EX', () => {
   const byId = new Map(records.map((r) => [String(r.id), r]));
   assert.deepEqual(launch.filter((d) => byId.get(d.id)!.rarity === 'EX').map((d) => d.name).sort(), ['Dialga', 'Palkia', 'Venusaur']);
   assert.ok(launch.every((d) => d.wheel.length > 1), 'every launch figure has a real wheel');
+  // Abilities and secondary types as in 1.0.0: 21 figures with an ability, 31 with a second type.
+  assert.equal(launch.filter((d) => d.ability).length, 21);
+  assert.equal(launch.filter((d) => d.type2).length, 31);
+  assert.equal(launch.find((d) => d.name === 'Bayleef')!.ability!.name, 'Spicy Scent');
+  assert.equal(launch.find((d) => d.name === 'Dialga')!.type2, 'Dragon');
+  assert.ok(!launch.some((d) => d.ability?.effect.includes('{{')));
 });
 
 test('pre-Mega pool (game version 3.0.12): 265 figures, no Mega, no UX, period wheels', () => {

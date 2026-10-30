@@ -2,6 +2,7 @@ import type { FigureRecord } from '../../src/data.ts';
 import type { FigureDef } from '../../src/types.ts';
 import { $, TYPE_COLOR, spriteSrc } from './shared.ts';
 import { drawWheel } from './match.ts';
+import { WORKING } from '../../src/abilities.ts';
 import {
   BOOSTERS, CASE_SLOTS, GEMS_LOSS, GEMS_WIN, SHOP_PRICE, buyBooster, gemsToOpenNow, loadState, openFromCase, openReady, rewardDuel,
   type BoosterKind, type GachaState,
@@ -11,6 +12,11 @@ const GACHA_KEY = 'duel.gacha';
 
 export const DECK_SIZE = 6;
 const DECK_KEY = 'duel.deck';
+const TYPE_ES: Record<string, string> = {
+  Normal: 'Normal', Fire: 'Fuego', Water: 'Agua', Electric: 'Eléctrico', Grass: 'Planta', Ice: 'Hielo', Fighting: 'Lucha',
+  Poison: 'Veneno', Ground: 'Tierra', Flying: 'Volador', Psychic: 'Psíquico', Bug: 'Bicho', Rock: 'Roca', Ghost: 'Fantasma',
+  Dragon: 'Dragón', Dark: 'Siniestro', Steel: 'Acero', Fairy: 'Hada',
+};
 /** Badge text and order, as on the original figure bases (C, UC, R, EX). */
 const RARITY_BADGE: Record<string, string> = { Common: 'C', Uncommon: 'UC', Rare: 'R', EX: 'EX', UX: 'UX' };
 const RARITY_ORDER: Record<string, number> = { UX: 0, EX: 1, Rare: 2, Uncommon: 3, Common: 4 };
@@ -36,6 +42,7 @@ const CSS = `
 .dm .screen { flex: 1; min-height: 0; overflow: auto; display: none; flex-direction: column; align-items: center; gap: 18px;
   padding-block: 18px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .dm .screen.on { display: flex; }
+.dm .screen > * { flex-shrink: 0; } /* long lists scroll the screen instead of squashing the panels */
 .dm .pill { background: #000; border: 3px solid #23314f; border-radius: 999px; padding: 6px 34px; font-weight: 900; font-size: clamp(20px, 4.5vw, 28px);
   box-shadow: 0 0 0 3px #000, 0 2px 0 4px #0d2a63; text-align: center; }
 .dm .yellow { appearance: none; border: 4px solid #fff2a8; border-radius: 14px; cursor: pointer; color: var(--dm-yellow-ink);
@@ -85,6 +92,9 @@ const CSS = `
 .dm .rar.Common { --rar: #c98a4b; } .dm .rar.Uncommon { --rar: #c7cfda; } .dm .rar.Rare { --rar: #f2c230; }
 .dm .rar.EX { --rar: #9fe7ff; background: conic-gradient(#ff9de2, #9fe7ff, #c6ff9d, #fff59d, #ff9de2); }
 .dm .mp { background: radial-gradient(circle at 35% 30%, #6fb2ff, #1557c9 60%); color: #fff; font-size: 15px; }
+.dm .types { font-weight: 700; font-size: 11px; color: var(--dm-mute); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dm .ability { font-weight: 800; font-size: 11px; color: var(--dm-yellow); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dm .ability.idle { color: #8a7a3a; }
 .dm .name { font-weight: 800; font-size: 13px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #dfe7f5; }
 .dm .fig .order { position: absolute; top: 2px; left: 6px; background: var(--dm-blue); border: 2px solid #fff; border-radius: 999px;
   font-weight: 900; font-size: 12px; padding: 0 7px; }
@@ -212,7 +222,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       <div class="row" id="dmWelcome"></div>
       <div class="case" id="dmCase"></div>
       <p class="note">Cada duelo te da gemas y, si hay hueco en la vitrina, un booster que se abre cuando pasa su tiempo (o antes con gemas).</p>
-      <p class="note">Contra la IA. Regla de la casa: el atacante que pierde no cae y el defensor contraataca; si saca fallo, cae.</p>
+      <p class="note">Contra la IA. Regla de la casa: en cada choque gana uno y el otro va al P.C.; si empatan, se vuelve a girar.</p>
     </div>
     <div class="screen" id="dmDeck">
       <div class="pill">Editar mazo</div>
@@ -277,7 +287,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     if (!d) return el;
     const type = TYPE_COLOR[d.type ?? ''] ?? 0x6fae4a;
     stand.style.setProperty('--base-top', hex(type));
-    stand.style.setProperty('--base-side', hex(shade(type, 0.55)));
+    // Secondary type: the side of the base takes its colour.
+    stand.style.setProperty('--base-side', hex(shade(d.type2 ? TYPE_COLOR[d.type2] ?? type : type, 0.7)));
     stand.appendChild(sprite(d));
     const badges = document.createElement('div');
     badges.className = 'badges';
@@ -288,7 +299,19 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     name.className = 'name';
     name.textContent = d.name;
     el.appendChild(name);
-    el.title = `${d.name} · ${d.mp} MP · ` + d.wheel.map((s) => `${s.move.name}${s.move.damage ? ' ' + s.move.damage : ''} (${s.move.color})`).join(' · ');
+    const types = document.createElement('span');
+    types.className = 'types';
+    types.textContent = [d.type, d.type2].filter(Boolean).map((t) => TYPE_ES[t!] ?? t).join(' / ');
+    el.appendChild(types);
+    if (d.ability) {
+      const ab = document.createElement('span');
+      ab.className = 'ability' + (WORKING.has(d.ability.name) ? '' : ' idle');
+      ab.textContent = `★ ${d.ability.name}`;
+      el.appendChild(ab);
+    }
+    el.title = `${d.name} · ${[d.type, d.type2].filter(Boolean).map((t) => TYPE_ES[t!] ?? t).join(' / ')} · ${d.mp} MP`
+      + (d.ability ? `\nHabilidad ${d.ability.name}: ${d.ability.effect}${WORKING.has(d.ability.name) ? '' : ' (aún sin efecto en este juego)'}` : '')
+      + '\n' + d.wheel.map((s) => `${s.move.name}${s.move.damage ? ' ' + s.move.damage : ''} (${s.move.color})`).join(' · ');
     return el;
   };
 

@@ -22,8 +22,11 @@ export interface Segment {
 export interface FigureDef {
   /** Matches assets/models/<id>.glb when a model is provided. */
   id: string;
-  /** Pokémon-style type used only for placeholder colours. */
+  /** Pokémon type (placeholder colours, type badges) and the secondary type, if any. */
   type?: string;
+  type2?: string;
+  /** The figure's ability at the game version, if it has one (see src/abilities.ts). */
+  ability?: { name: string; effect: string };
   name: string;
   /** Movement points available per turn. */
   mp: number;

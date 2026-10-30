@@ -1,4 +1,5 @@
 import { Board } from './board.ts';
+import { abilityHooks, blockedFromEntering, canBattle } from './abilities.ts';
 import { battle, type BattleResult } from './battle.ts';
 import type { BoardDef, Figure, FigureDef, NodeId, PlayerId } from './types.ts';
 import type { Rng } from './rng.ts';
@@ -19,10 +20,10 @@ export class Game {
   current: PlayerId;
   winner: Winner | null = null;
   /**
-   * Called after every battle, e.g. so a UI can show the wheels. `counter`: this is the defender's counter-attack;
-   * `saved`: the mover lost but was not knocked out because a counter-attack follows (rules.attackerLoss 'counter').
+   * Called after every spin of a battle, e.g. so a UI can show the wheels. `tie`: nobody won this spin and, with
+   * rules.decisive, both figures spin again (another call follows).
    */
-  onBattle?: (mover: Figure, other: Figure, result: BattleResult, info: { counter: boolean; saved: boolean }) => void;
+  onBattle?: (mover: Figure, other: Figure, result: BattleResult, info: { tie: boolean }) => void;
   /** Called just before a battle changes anything, e.g. so a UI can draw the board as it stands. */
   onBeforeBattle?: () => void;
   private moved = false;
@@ -62,7 +63,7 @@ export class Game {
   reachable(f: Figure): Set<NodeId> {
     const out = new Set<NodeId>();
     const mp = this.mp(f);
-    if (f.wait > 0 || mp < 1 || this.moved) return out;
+    if (f.wait > 0 || mp < 1 || this.moved || blockedFromEntering(this, f)) return out;
     const dist = new Map<NodeId, number>();
     const queue: NodeId[] = [];
     if (f.status === 'bench') {
@@ -93,7 +94,12 @@ export class Game {
     if (f.status !== 'board') return [];
     return this.board.neighbors(f.at!)
       .map((n) => this.figureAt(n))
-      .filter((o): o is Figure => !!o && o.owner !== f.owner);
+      .filter((o): o is Figure => !!o && o.owner !== f.owner && canBattle(o));
+  }
+
+  /** Can this figure start a battle now (on the board, no Wait, no Bide)? */
+  canAttack(f: Figure): boolean {
+    return f.status === 'board' && f.wait === 0 && canBattle(f);
   }
 
   move(uid: string, to: NodeId): void {
@@ -109,27 +115,21 @@ export class Game {
     this.settle();
   }
 
-  /** Battle an adjacent enemy. Allowed before or after moving; ends the turn. */
-  /** Battle an adjacent enemy. With rules.attackerLoss 'counter', `counter` holds the defender's counter-attack. */
-  battle(uid: string, targetUid: string): BattleResult & { counter?: BattleResult } {
+  /** Battle an adjacent enemy. With rules.decisive a tie is spun again until someone wins (30 spins at most). */
+  battle(uid: string, targetUid: string): BattleResult {
     const f = this.mine(uid);
-    if (f.status !== 'board' || f.wait > 0) throw new Error('figure cannot attack');
+    if (!this.canAttack(f)) throw new Error('figure cannot attack');
     const target = this.adjacentEnemies(f).find((e) => e.uid === targetUid);
     if (!target) throw new Error('target is not an adjacent enemy');
     this.onBeforeBattle?.();
-    const first = battle(f, target, this.rules, this.rng);
-    // A Miss is a real miss: the attacker falls as in the real game, no counter-attack.
-    const saved = this.rules.attackerLoss === 'counter' && first.ko.includes(f) && first.moverMove.color !== 'red';
-    const result: BattleResult & { counter?: BattleResult } = { ...first, ko: first.ko.filter((k) => !saved || k !== f) };
-    for (const k of result.ko) this.sendToPc(k);
-    this.onBattle?.(f, target, result, { counter: false, saved });
-    if (saved && target.wait === 0) {
-      // The defender spins against the attacker; only the attacker can fall in a counter-attack.
-      const c = battle(target, f, this.rules, this.rng);
-      result.counter = { ...c, ko: c.ko.filter((k) => k === f) };
-      for (const k of result.counter.ko) this.sendToPc(k);
-      this.onBattle?.(target, f, result.counter, { counter: true, saved: false });
+    const hooks = abilityHooks(this);
+    let result = battle(f, target, this.rules, this.rng, hooks);
+    for (let spins = 1; this.rules.decisive && result.winner === null && spins < 30; spins++) {
+      this.onBattle?.(f, target, result, { tie: true });
+      result = battle(f, target, this.rules, this.rng, hooks);
     }
+    for (const k of result.ko) this.sendToPc(k);
+    this.onBattle?.(f, target, result, { tie: false });
     this.settle();
     this.endTurn();
     return result;
@@ -178,7 +178,7 @@ export class Game {
     for (const f of this.figures) {
       if (f.owner !== p) continue;
       n += this.reachable(f).size;
-      if (f.status === 'board' && f.wait === 0) n += this.adjacentEnemies(f).length;
+      if (this.canAttack(f)) n += this.adjacentEnemies(f).length;
     }
     this.moved = wasMoved;
     return n;

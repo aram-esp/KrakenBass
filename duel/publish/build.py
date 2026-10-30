@@ -12,7 +12,9 @@ def trim(figs):
         wheels = {key: [{k: t[k] for k in ('kind', 'color', 'name', 'power', 'prob', 'stars')} for t in w if t['kind'] == 'duelattack']
                   for key, w in f['wheels'].items()}
         out.append({'title': f['title'], 'id': f['id'], 'name': f['name'], 'type': f['type'], 'mp': f['mp'], 'rarity': f['rarity'],
-                    'version': f['version'], 'wheels': wheels})
+                    'version': f['version'], 'wheels': wheels, 'type2': f.get('type2'),
+                    'abilities': {k: [{'name': x['name'], 'effect': x.get('effect')} for x in (v if isinstance(v, list) else [v]) if x]
+                                  for k, v in (f.get('abilities') or {}).items()}})
     return json.dumps(out, separators=(',', ':'), ensure_ascii=False)
 
 esc = lambda s: s.replace('</', '<\\/')

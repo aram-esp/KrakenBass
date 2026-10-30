@@ -168,15 +168,17 @@ export class Match {
 
   log(t: string) { const d = document.createElement('div'); d.textContent = t; $('log').prepend(d); }
 
-  showBattle(m: Figure, o: Figure, r: BattleResult, info: BattleInfo = { counter: false, saved: false }) {
+  showBattle(m: Figure, o: Figure, r: BattleResult, info: BattleInfo = { tie: false }) {
     const mine = m.owner === HUMAN;
-    const tag = info.counter ? 'Contraataque: ' : '';
-    const logText = (`${tag}${m.def.name} (${r.moverMove.color}${r.moverMove.damage ? ' ' + r.moverMove.damage : ''}) vs ${o.def.name} (${r.otherMove.color}${r.otherMove.damage ? ' ' + r.otherMove.damage : ''}) → ${r.ko.length ? r.ko.map((k) => k.def.name + ' al P.C.').join(', ') : info.saved ? `${m.def.name} pierde pero no cae` : 'nada'}${mine ? '' : info.counter ? ' [IA contraataca]' : ' [IA ataca]'}`);
+    const side = (f: Figure, mv: Move, p: number) => `${f.def.name} (${mv.color}${p ? ' ' + p : ''})`;
+    const logText = `${side(m, r.moverMove, r.moverPower)} vs ${side(o, r.otherMove, r.otherPower)} → `
+      + (info.tie ? 'empate, se vuelve a girar' : r.ko.length ? r.ko.map((k) => k.def.name + ' al P.C.').join(', ') : 'nada')
+      + (r.notes.length ? ` (${r.notes.join('; ')})` : '') + (mine ? '' : ' [IA ataca]');
     this.diskQueue.push({ m, o, r, info, logText });
     if (!this.playing) this.playNextDisks();
   }
 
-  /** Battles are shown one after another (an attack, then its counter-attack). */
+  /** Spins are shown one after another (a tie, then the spin again). */
   private diskQueue: { m: Figure; o: Figure; r: BattleResult; info: BattleInfo; logText: string }[] = [];
   private playing = false;
 
@@ -191,11 +193,10 @@ export class Match {
     }
     this.playing = true;
     const { m, o, r, info, logText } = next;
-    const caps: [string, string] = [`${m.def.name}: ${moveText(r.moverMove)}`, `${o.def.name}: ${moveText(r.otherMove)}`];
-    const fates: [Fate, Fate] = [
-      info.saved ? { kind: 'stop', text: 'Pierde, pero no cae' } : fate(m, r.otherMove, r),
-      fate(o, r.moverMove, r),
-    ];
+    const caps: [string, string] = [`${m.def.name}: ${moveText(r.moverMove, r.moverPower)}`, `${o.def.name}: ${moveText(r.otherMove, r.otherPower)}`];
+    const fates: [Fate, Fate] = info.tie
+      ? [{ kind: 'none', text: 'Empate' }, { kind: 'none', text: 'Empate' }]
+      : [fate(m, r.otherMove, r.otherPower, r), fate(o, r.moverMove, r.moverPower, r)];
     const reveal = (i: 0 | 1) => {
       const cap = $(`c${i}`);
       cap.textContent = caps[i];
@@ -210,7 +211,13 @@ export class Match {
       title.id = 'wheelsTitle';
       $('wheels').prepend(title);
     }
-    title.textContent = info.counter ? `Contraataque de ${m.def.name}` : `${m.def.name} ataca a ${o.def.name}`;
+    title.textContent = info.tie ? 'Empate: se vuelve a girar' : `${m.def.name} ataca a ${o.def.name}`;
+    if (r.notes.length) {
+      const n = document.createElement('div');
+      n.style.cssText = 'font-size:14px;font-weight:600;color:#ffd21f;margin-top:4px';
+      n.textContent = r.notes.join(' · ');
+      title.appendChild(n);
+    }
     $('c0').textContent = `${m.def.name}: …`;
     $('c1').textContent = `${o.def.name}: …`;
     $('wheels').classList.add('show');
@@ -236,27 +243,26 @@ export class Match {
 }
 
 
-type BattleInfo = { counter: boolean; saved: boolean };
+type BattleInfo = { tie: boolean };
 
 type Fate = { kind: 'hit' | 'stop' | 'none'; text: string };
 
-/** "Bite (20)", "Dodge", "Swagger ★★". */
-function moveText(mv: Move): string {
-  if (mv.damage) return `${mv.name} (${mv.damage})`;
+/** "Bite (20)", "Bite (20 → 40)" when an ability changed it, "Dodge", "Swagger ★★". */
+function moveText(mv: Move, power = mv.damage): string {
+  if (mv.damage) return power !== mv.damage ? `${mv.name} (${mv.damage} → ${power})` : `${mv.name} (${mv.damage})`;
   if (mv.color === 'purple') return `${mv.name} ${'★'.repeat(mv.stars || 1)}`;
   return mv.name;
 }
 
 /**
- * What the opponent's spin did to `f`: the damage it received (knocked out to the P.C.), the damage it stopped
- * (the opposing attack had damage but did not knock it out: dodged, out-damaged, beaten by colour or a tie),
- * or no damage at all (the opponent spun a Miss, a status or a defensive move).
+ * How the battle ended for `f`: knocked out (with the damage received, if the winning move had damage), or the
+ * winner (with the damage it stopped, if the opposing move had damage).
  */
-function fate(f: Figure, opp: Move, r: BattleResult): Fate {
-  const damaging = (opp.color === 'white' || opp.color === 'gold') && opp.damage > 0;
-  if (r.ko.includes(f)) return { kind: 'hit', text: `Recibe ${opp.damage} de daño → al P.C.` };
-  if (damaging) return { kind: 'stop', text: `Para ${opp.damage} de daño` };
-  return { kind: 'none', text: 'Sin daño' };
+function fate(f: Figure, opp: Move, oppPower: number, r: BattleResult): Fate {
+  const damaging = (opp.color === 'white' || opp.color === 'gold') && oppPower > 0;
+  if (r.ko.includes(f)) return { kind: 'hit', text: damaging ? `Recibe ${oppPower} de daño → al P.C.` : 'Pierde → al P.C.' };
+  if (r.ko.length) return { kind: 'stop', text: damaging ? `Gana · para ${oppPower} de daño` : 'Gana' };
+  return { kind: 'none', text: damaging ? `Para ${oppPower} de daño` : 'Sin daño' };
 }
 
 /** Disk timing: spin time, delay of the second disk, and how long the result stays on screen. */
