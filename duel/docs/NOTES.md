@@ -23,8 +23,10 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   opaque pixels, nearest-neighbour filtering, `SPRITE_UNIT` sets the size). Falls back to the sphere placeholder with no
   sprite (e.g. the published single-file page); a `.glb` model still wins over the sprite.
 - Camera (2.5D): `CAMERA_ELEVATION` 36° (52° on portrait screens), moved in as close as possible while every node and
-  figure stays in view (`fitCamera`). Data Disks spin ~1.7 s and stop on the spun segment under a fixed pointer; nobody
-  acts and the AI waits until they close; a click jumps to the result, another closes them; no spin with reduced motion.
+  figure stays in view (`fitCamera`). Data Disks spin ~3 s (second one 0.35 s later), stop on the spun segment under a fixed
+  pointer and stay 2.3 s (`SPIN_MS`, `SPIN_STAGGER`, `HOLD_MS` in `web/src/match.ts`); nobody acts and the AI waits until
+  they close. The board, panels, chips, banner and log keep the pre-battle position until the last disk closes
+  (`Game.onBeforeBattle` draws the AI's move first; `refresh` is held while `playing`); a click jumps to the result, another closes them; no spin with reduced motion.
   Under each disk: the move spun, then what the opposing spin did to that figure: "Recibe X de daño → al P.C." (red, it was
   knocked out), "Para X de daño" (green, the opposing attack had damage but did not knock it out) or "Sin daño".
 - House rule (asked 2026-10-30), `rules.attackerLoss = 'counter'` in `houseRules` (used by the web game; `defaultRules`

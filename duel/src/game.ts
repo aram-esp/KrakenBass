@@ -23,6 +23,8 @@ export class Game {
    * `saved`: the mover lost but was not knocked out because a counter-attack follows (rules.attackerLoss 'counter').
    */
   onBattle?: (mover: Figure, other: Figure, result: BattleResult, info: { counter: boolean; saved: boolean }) => void;
+  /** Called just before a battle changes anything, e.g. so a UI can draw the board as it stands. */
+  onBeforeBattle?: () => void;
   private moved = false;
   private firstPlayer: PlayerId;
   private rng: Rng;
@@ -114,6 +116,7 @@ export class Game {
     if (f.status !== 'board' || f.wait > 0) throw new Error('figure cannot attack');
     const target = this.adjacentEnemies(f).find((e) => e.uid === targetUid);
     if (!target) throw new Error('target is not an adjacent enemy');
+    this.onBeforeBattle?.();
     const first = battle(f, target, this.rules, this.rng);
     const saved = this.rules.attackerLoss === 'counter' && first.ko.includes(f);
     const result: BattleResult & { counter?: BattleResult } = { ...first, ko: first.ko.filter((k) => !saved || k !== f) };

@@ -24,6 +24,8 @@ export class Match {
     const first: PlayerId = rng() < 0.5 ? 0 : 1;
     this.game = new Game(this.board, [deck(), deck()], seeded(this.seedBase++), houseRules, first);
     this.game.onBattle = (m, o, r, info) => this.showBattle(m, o, r, info);
+    // Draw the board as it is right before the battle (e.g. the AI's move); then it waits for the disks.
+    this.game.onBeforeBattle = () => this.refresh();
     this.selected = null;
     $('log').innerHTML = '';
     $('banner').classList.remove('show');
@@ -95,6 +97,13 @@ export class Match {
 
   refresh() {
     const g = this.game;
+    // While the Data Disks spin the board keeps showing the position from before the battle; the result
+    // (knock-outs, P.C., win banner, log) appears when the last disk closes (playNextDisks calls refresh).
+    if (this.playing) {
+      $<HTMLButtonElement>('end').disabled = true;
+      $('hint').textContent = '';
+      return;
+    }
     for (const f of g.figures) for (const v of this.views) v.place(f.uid, f.status === 'board' ? f.at : null);
     const sel = this.selected ? g.figures.find((f) => f.uid === this.selected)! : null;
     const reach = sel ? [...g.reachable(sel)] : [];
@@ -140,13 +149,13 @@ export class Match {
   showBattle(m: Figure, o: Figure, r: BattleResult, info: BattleInfo = { counter: false, saved: false }) {
     const mine = m.owner === HUMAN;
     const tag = info.counter ? 'Contraataque: ' : '';
-    this.log(`${tag}${m.def.name} (${r.moverMove.color}${r.moverMove.damage ? ' ' + r.moverMove.damage : ''}) vs ${o.def.name} (${r.otherMove.color}${r.otherMove.damage ? ' ' + r.otherMove.damage : ''}) → ${r.ko.length ? r.ko.map((k) => k.def.name + ' al P.C.').join(', ') : info.saved ? `${m.def.name} pierde pero no cae` : 'nada'}${mine ? '' : info.counter ? ' [IA contraataca]' : ' [IA ataca]'}`);
-    this.diskQueue.push({ m, o, r, info });
+    const logText = (`${tag}${m.def.name} (${r.moverMove.color}${r.moverMove.damage ? ' ' + r.moverMove.damage : ''}) vs ${o.def.name} (${r.otherMove.color}${r.otherMove.damage ? ' ' + r.otherMove.damage : ''}) → ${r.ko.length ? r.ko.map((k) => k.def.name + ' al P.C.').join(', ') : info.saved ? `${m.def.name} pierde pero no cae` : 'nada'}${mine ? '' : info.counter ? ' [IA contraataca]' : ' [IA ataca]'}`);
+    this.diskQueue.push({ m, o, r, info, logText });
     if (!this.playing) this.playNextDisks();
   }
 
   /** Battles are shown one after another (an attack, then its counter-attack). */
-  private diskQueue: { m: Figure; o: Figure; r: BattleResult; info: BattleInfo }[] = [];
+  private diskQueue: { m: Figure; o: Figure; r: BattleResult; info: BattleInfo; logText: string }[] = [];
   private playing = false;
 
   private playNextDisks() {
@@ -159,7 +168,7 @@ export class Match {
       return;
     }
     this.playing = true;
-    const { m, o, r, info } = next;
+    const { m, o, r, info, logText } = next;
     const caps: [string, string] = [`${m.def.name}: ${moveText(r.moverMove)}`, `${o.def.name}: ${moveText(r.otherMove)}`];
     const fates: [Fate, Fate] = [
       info.saved ? { kind: 'stop', text: 'Pierde, pero no cae' } : fate(m, r.otherMove, r),
@@ -185,8 +194,8 @@ export class Match {
     $('wheels').classList.add('show');
     clearTimeout(this.disksTimer);
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const spinMs = reduce ? 0 : SPIN_MS, holdMs = 1500;
-    const finish = () => this.playNextDisks();
+    const spinMs = reduce ? 0 : SPIN_MS, holdMs = HOLD_MS;
+    const finish = () => { this.log(logText); this.playNextDisks(); };
     const stops = [
       spinWheel($<HTMLCanvasElement>('w0'), m.def, r.moverMove, spinMs, 0, () => reveal(0)),
       spinWheel($<HTMLCanvasElement>('w1'), o.def, r.otherMove, spinMs, SPIN_STAGGER, () => reveal(1)),
@@ -228,8 +237,10 @@ function fate(f: Figure, opp: Move, r: BattleResult): Fate {
   return { kind: 'none', text: 'Sin daño' };
 }
 
-const SPIN_MS = 1700;
-const SPIN_STAGGER = 180;
+/** Disk timing: spin time, delay of the second disk, and how long the result stays on screen. */
+const SPIN_MS = 3000;
+const SPIN_STAGGER = 350;
+const HOLD_MS = 2300;
 
 /**
  * Spin a Data Disk and stop it with the spun segment under the pointer at the top.
@@ -242,7 +253,7 @@ function spinWheel(cv: HTMLCanvasElement, def: FigureDef, hit: Move, ms: number,
   for (let i = 0; i < idx; i++) start += def.wheel[i].weight;
   // Where in the segment the pointer lands (not always the centre), as an angle from the top.
   const landAt = ((start + def.wheel[idx].weight * (0.2 + Math.random() * 0.6)) / total) * Math.PI * 2;
-  const end = Math.PI * 2 * 5 - landAt;
+  const end = Math.PI * 2 * 6 - landAt;
   const t0 = performance.now() + delay;
   let done = false, raf = 0;
   const frame = (now: number) => {
