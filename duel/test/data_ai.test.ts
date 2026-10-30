@@ -124,3 +124,8 @@ test('invented evolutions: Pokémon with no Duel figure get the previous wheel +
   assert.deepEqual(evo.evolves['x-machoke'].map(String), [String(launch.find((d) => d.name === 'Machamp')!.id)]);
   assert.ok(!JSON.stringify(evo).includes('perrserker'), 'regional-only evolutions are left out');
 });
+
+test('no evolution is listed twice', () => {
+  const evolves: Record<string, unknown[]> = JSON.parse(readFileSync(new URL('../data/evolutions.json', import.meta.url), 'utf8')).evolves;
+  for (const [id, tos] of Object.entries(evolves)) assert.equal(new Set(tos.map(String)).size, tos.length, `figure ${id}`);
+});

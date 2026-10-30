@@ -13,7 +13,7 @@ export interface FigureRecord {
   abilities?: Record<string, { type?: string; name: string; effect: string | null }[] | { type?: string; name: string; effect: string | null }>;
   /** Game version in which the figure was released, e.g. "1.3.2". */
   version: string;
-  wheels: Record<string, { kind: string; color: string | null; name: string; power: number | null; prob: number | null; stars: number | null }[]>;
+  wheels: Record<string, { kind: string; color: string | null; name: string; power: number | null; prob: number | null; stars: number | null; effect?: string | null }[]>;
 }
 
 const COLORS = new Set<string>(['white', 'gold', 'purple', 'blue', 'red']);
@@ -69,7 +69,7 @@ export function toFigureDef(rec: FigureRecord, v: string | null = null): FigureD
   const segments = (key && rec.wheels[key]) || [];
   for (const s of segments) {
     if (s.kind !== 'duelattack' || !s.color || !COLORS.has(s.color) || !s.prob) continue;
-    const move: Move = { name: s.name, color: s.color as Color, damage: s.power ?? 0, stars: s.stars ?? 0 };
+    const move: Move = { name: s.name, color: s.color as Color, damage: s.power ?? 0, stars: s.stars ?? 0, ...(s.effect ? { effect: s.effect } : {}) };
     wheel.push({ move, weight: s.prob });
   }
   if (!wheel.length) wheel.push({ move: { name: 'Miss', color: 'red', damage: 0 }, weight: 1 });
@@ -123,12 +123,12 @@ export function evolutionPool(records: FigureRecord[], evolves: Record<string, (
       if (defs.has(to)) continue;
       const rec = byId.get(to), inv = invented[to];
       let def: FigureDef;
-      if (rec) def = toFigureDef(rec, v !== null && compareVersions(rec.version, v) > 0 ? rec.version : v);
+      if (rec) def = { ...toFigureDef(rec, v !== null && compareVersions(rec.version, v) > 0 ? rec.version : v), evolved: true };
       else if (inv) {
         const prev = defs.get(cur)!;
         // It inherits the previous stage's ability, if any (user, 2026-10-30).
         def = {
-          id: to, name: inv.name, type: inv.type, ...(inv.type2 ? { type2: inv.type2 } : {}), mp: prev.mp, wheel: evolvedWheel(prev),
+          id: to, name: inv.name, type: inv.type, ...(inv.type2 ? { type2: inv.type2 } : {}), mp: prev.mp, wheel: evolvedWheel(prev), evolved: true,
           ...(prev.ability ? { ability: prev.ability } : {}),
         };
       } else continue;

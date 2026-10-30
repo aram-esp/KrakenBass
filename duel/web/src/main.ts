@@ -13,7 +13,7 @@ async function main() {
     readData<{ evolves: Record<string, (string | number)[]>; invented?: Record<string, InventedFigure> }>('data-evolutions', '../data/evolutions.json'),
   ]);
   const pool: FigureDef[] = figurePool(records);
-  const evolves = Object.fromEntries(Object.entries(evo.evolves).map(([k, v]) => [k, v.map(String)]));
+  const evolves = Object.fromEntries(Object.entries(evo.evolves).map(([k, v]) => [k, [...new Set(v.map(String))]]));
   const invented = evo.invented ?? {};
   const extras = evolutionPool(records, evolves, pool, undefined, invented);
   // Invented evolutions take the rarity of the stage they come from; listed as records for the menus and the wiki.

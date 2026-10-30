@@ -92,29 +92,31 @@ test('real rules: an attacker that loses is knocked out', () => {
   assert.equal(r.counter, undefined);
 });
 
-test('house rule (decisive): the loser always falls, even to a blue or purple win', () => {
-  assert.equal(houseRules.decisive, true);
-  const lose = game([fig('a', 2, mv('white', 10))], [fig('c', 2, mv('white', 90))], houseRules);
+const decisiveRules = { ...defaultRules, decisive: true };
+
+test('decisive option: the loser always falls, even to a blue or purple win', () => {
+  assert.equal(houseRules.decisive, false, 'the web game plays the wheels as in the original');
+  const lose = game([fig('a', 2, mv('white', 10))], [fig('c', 2, mv('white', 90))], decisiveRules);
   put(lose, '0:0', 'C3');
   put(lose, '1:0', 'B4');
   assert.deepEqual(lose.battle('0:0', '1:0').ko.map((k) => k.uid), ['0:0']);
 
-  const dodge = game([fig('a', 2, mv('white', 90))], [fig('c', 2, mv('blue'))], houseRules);
+  const dodge = game([fig('a', 2, mv('white', 90))], [fig('c', 2, mv('blue'))], decisiveRules);
   put(dodge, '0:0', 'C3');
   put(dodge, '1:0', 'B4');
   const r = dodge.battle('0:0', '1:0');
   assert.equal(r.winner, 'other');
   assert.deepEqual(r.ko.map((k) => k.uid), ['0:0']);
 
-  const purple = game([fig('a', 2, mv('purple', 0, 2))], [fig('c', 2, mv('white', 90))], houseRules);
+  const purple = game([fig('a', 2, mv('purple', 0, 2))], [fig('c', 2, mv('white', 90))], decisiveRules);
   put(purple, '0:0', 'C3');
   put(purple, '1:0', 'B4');
   assert.deepEqual(purple.battle('0:0', '1:0').ko.map((k) => k.uid), ['1:0']);
 });
 
-test('house rule (decisive): a tie is spun again until someone wins', () => {
+test('decisive option: a tie is spun again until someone wins', () => {
   const tieOr90: FigureDef = { id: 'a', name: 'a', mp: 2, wheel: [{ move: mv('white', 50), weight: 1 }, { move: mv('white', 90), weight: 1 }] };
-  const g = game([tieOr90], [fig('c', 2, mv('white', 50))], houseRules);
+  const g = game([tieOr90], [fig('c', 2, mv('white', 50))], decisiveRules);
   put(g, '0:0', 'C3');
   put(g, '1:0', 'B4');
   const ties: boolean[] = [];

@@ -43,4 +43,5 @@ export const defaultRules: RulesConfig = {
 };
 
 /** The rules the web game is played with: the real ones plus the user's house rules. */
-export const houseRules: RulesConfig = { ...defaultRules, decisive: true };
+// The user asked (2026-10-30) for the wheels as in the original again: the decisive house rule is off.
+export const houseRules: RulesConfig = { ...defaultRules, decisive: false };

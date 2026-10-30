@@ -9,7 +9,7 @@ def trim(figs):
     out = []
     for f in figs:
         # Keep every wheel version: the page picks the one for its GAME_VERSION (src/data.ts).
-        wheels = {key: [{k: t[k] for k in ('kind', 'color', 'name', 'power', 'prob', 'stars')} for t in w if t['kind'] == 'duelattack']
+        wheels = {key: [{k: t[k] for k in ('kind', 'color', 'name', 'power', 'prob', 'stars', 'effect') if k in t} for t in w if t['kind'] == 'duelattack']
                   for key, w in f['wheels'].items()}
         out.append({'title': f['title'], 'id': f['id'], 'name': f['name'], 'type': f['type'], 'mp': f['mp'], 'rarity': f['rarity'],
                     'version': f['version'], 'wheels': wheels, 'type2': f.get('type2'),

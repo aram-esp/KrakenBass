@@ -57,7 +57,8 @@ def main():
         first_figure.setdefault(slug(f["name"]), f["id"])
     out = {}
     for f in figs:
-        targets = [first_figure[s] for s in nxt.get(slug(f["name"]), []) if s in first_figure]
+        # Ids as strings everywhere: mixing 633 and "633" listed the same evolution twice.
+        targets = [str(first_figure[s]) for s in nxt.get(slug(f["name"]), []) if s in first_figure]
         if targets:
             out[str(f["id"])] = targets
 

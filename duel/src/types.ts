@@ -11,7 +11,12 @@ export interface Move {
   damage: number;
   /** Purple moves compare stars when both sides spin purple. */
   stars?: number;
+  /** Effect text from the data (src/effects.ts gives it meaning); attacks whose name ends in * apply it whatever the outcome. */
+  effect?: string;
 }
+
+/** Special conditions (one at a time; removed when the figure leaves the field). Bulbapedia "Special Condition (TFG)". */
+export type Condition = 'poison' | 'noxious' | 'paralysis' | 'burn' | 'sleep' | 'frozen' | 'confusion';
 
 /** One wheel slice; `weight` is its relative size on the roulette. */
 export interface Segment {
@@ -27,6 +32,8 @@ export interface FigureDef {
   type2?: string;
   /** The figure's ability at the game version, if it has one (see src/abilities.ts). */
   ability?: { name: string; effect: string };
+  /** Reached by evolving (out of battle or during the duel): "has evolved" for abilities like Speed Booster. */
+  evolved?: boolean;
   name: string;
   /** Movement points available per turn. */
   mp: number;
@@ -42,6 +49,12 @@ export interface Figure {
   status: 'bench' | 'board' | 'pc';
   /** Turns of Wait left; counts down every turn of either player. */
   wait: number;
+  /** Special condition, if any. */
+  cond?: Condition | null;
+  /** MP markers attached by attacks (e.g. −1); removed when the figure leaves the field. */
+  mpMarker?: number;
+  /** Has not battled since it entered the field (Gale Wings). */
+  fresh?: boolean;
 }
 
 export interface BoardDef {
