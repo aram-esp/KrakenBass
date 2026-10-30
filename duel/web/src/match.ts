@@ -12,6 +12,10 @@ export class Match {
   selected: string | null = null;
   busy = false;
   seedBase = Date.now();
+  /** Until this time (performance.now) the Data Disks are on screen: nobody acts. */
+  private disksUntil = 0;
+  private disksTimer = 0;
+  private skipDisks: (() => void) | null = null;
 
   constructor(private views: View[], private board: Layout, private pool: FigureDef[]) {}
 
@@ -34,7 +38,9 @@ export class Match {
     if (this.game.current !== HUMAN) this.runAi();
   }
 
-  canAct() { return !this.busy && this.game.winner === null && this.game.current === HUMAN; }
+  canAct() { return !this.busy && !this.disksShowing() && this.game.winner === null && this.game.current === HUMAN; }
+
+  disksShowing() { return performance.now() < this.disksUntil; }
 
   click(hit: { uid?: string; node?: NodeId }) {
     if (!this.canAct()) return;
@@ -74,6 +80,7 @@ export class Match {
   runAi() {
     this.busy = true;
     const step = () => {
+      if (this.disksShowing()) { setTimeout(step, this.disksUntil - performance.now() + 50); return; }
       if (this.game.winner !== null || this.game.current === HUMAN) { this.busy = false; this.refresh(); return; }
       aiTurn(this.game, seeded(this.seedBase++));
       this.refresh();
@@ -127,34 +134,92 @@ export class Match {
   showBattle(m: Figure, o: Figure, r: BattleResult) {
     const mine = m.owner === HUMAN;
     this.log(`${m.def.name} (${r.moverMove.color}${r.moverMove.damage ? ' ' + r.moverMove.damage : ''}) vs ${o.def.name} (${r.otherMove.color}${r.otherMove.damage ? ' ' + r.otherMove.damage : ''}) → ${r.ko.length ? r.ko.map((k) => k.def.name + ' al P.C.').join(', ') : 'nada'}${mine ? '' : ' [IA ataca]'}`);
-    drawWheel($<HTMLCanvasElement>('w0'), m.def, r.moverMove);
-    drawWheel($<HTMLCanvasElement>('w1'), o.def, r.otherMove);
-    $('c0').textContent = `${m.def.name}: ${r.moverMove.name}`;
-    $('c1').textContent = `${o.def.name}: ${r.otherMove.name}`;
+    const caps: [string, string] = [`${m.def.name}: ${r.moverMove.name}`, `${o.def.name}: ${r.otherMove.name}`];
+    $('c0').textContent = `${m.def.name}: …`;
+    $('c1').textContent = `${o.def.name}: …`;
     $('wheels').classList.add('show');
-    setTimeout(() => $('wheels').classList.remove('show'), 2200);
+    clearTimeout(this.disksTimer);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const spinMs = reduce ? 0 : SPIN_MS, holdMs = 1500;
+    this.disksUntil = performance.now() + spinMs + SPIN_STAGGER + holdMs;
+    const finish = () => {
+      $('wheels').classList.remove('show');
+      this.disksUntil = 0;
+      this.skipDisks = null;
+      this.refresh();
+    };
+    const stops = [
+      spinWheel($<HTMLCanvasElement>('w0'), m.def, r.moverMove, spinMs, 0, () => { $('c0').textContent = caps[0]; }),
+      spinWheel($<HTMLCanvasElement>('w1'), o.def, r.otherMove, spinMs, SPIN_STAGGER, () => { $('c1').textContent = caps[1]; }),
+    ];
+    this.disksTimer = setTimeout(finish, this.disksUntil - performance.now());
+    // A click on the disks jumps to the result, a second one closes them.
+    this.skipDisks = () => {
+      if (stops.some((s) => s())) { this.disksUntil = performance.now() + holdMs; clearTimeout(this.disksTimer); this.disksTimer = setTimeout(finish, holdMs); return; }
+      clearTimeout(this.disksTimer);
+      finish();
+    };
+    $('wheels').onclick = () => this.skipDisks?.();
+    this.refresh();
   }
 }
 
 
-/** Pie chart of a figure's Data Disk; the spun segment is outlined. */
-function drawWheel(cv: HTMLCanvasElement, def: FigureDef, hit: Move) {
-  const c = cv.getContext('2d')!, R = cv.width / 2 - 8;
+const SPIN_MS = 1700;
+const SPIN_STAGGER = 180;
+
+/**
+ * Spin a Data Disk and stop it with the spun segment under the pointer at the top.
+ * Returns a function that jumps to the end; it returns true if the disk was still spinning.
+ */
+function spinWheel(cv: HTMLCanvasElement, def: FigureDef, hit: Move, ms: number, delay: number, onStop: () => void): () => boolean {
+  const total = def.wheel.reduce((s, x) => s + x.weight, 0);
+  let start = 0, idx = def.wheel.findIndex((x) => x.move === hit);
+  if (idx < 0) idx = 0;
+  for (let i = 0; i < idx; i++) start += def.wheel[i].weight;
+  // Where in the segment the pointer lands (not always the centre), as an angle from the top.
+  const landAt = ((start + def.wheel[idx].weight * (0.2 + Math.random() * 0.6)) / total) * Math.PI * 2;
+  const end = Math.PI * 2 * 5 - landAt;
+  const t0 = performance.now() + delay;
+  let done = false, raf = 0;
+  const frame = (now: number) => {
+    const t = ms <= 0 ? 1 : Math.min(1, Math.max(0, (now - t0) / ms));
+    const eased = 1 - Math.pow(1 - t, 4);
+    drawWheel(cv, def, t >= 1 ? hit : null, end * eased);
+    if (t < 1) { raf = requestAnimationFrame(frame); return; }
+    done = true;
+    onStop();
+  };
+  frame(performance.now());
+  return () => {
+    if (done) return false;
+    cancelAnimationFrame(raf);
+    frame(Number.POSITIVE_INFINITY);
+    return true;
+  };
+}
+
+/** Pie chart of a figure's Data Disk turned by `rot` radians, with a fixed pointer at the top; `hit` is outlined. */
+function drawWheel(cv: HTMLCanvasElement, def: FigureDef, hit: Move | null, rot = 0) {
+  const c = cv.getContext('2d')!, R = cv.width / 2 - 22, C = cv.width / 2;
   c.clearRect(0, 0, cv.width, cv.height);
   const total = def.wheel.reduce((s, x) => s + x.weight, 0);
-  let a = -Math.PI / 2;
+  let a = -Math.PI / 2 + rot;
   def.wheel.forEach((seg) => {
     const span = (seg.weight / total) * Math.PI * 2;
-    c.beginPath(); c.moveTo(R + 8, R + 8); c.arc(R + 8, R + 8, R, a, a + span); c.closePath();
+    c.beginPath(); c.moveTo(C, C); c.arc(C, C, R, a, a + span); c.closePath();
     c.fillStyle = MOVE_COLOR[seg.move.color]; c.fill();
     c.lineWidth = seg.move === hit ? 6 : 1; c.strokeStyle = seg.move === hit ? '#4cd964' : '#0006'; c.stroke();
     if (span > 0.35) {
       const mid = a + span / 2;
       c.fillStyle = seg.move.color === 'white' || seg.move.color === 'gold' ? '#222' : '#fff';
-      c.font = '15px system-ui'; c.textAlign = 'center';
-      c.fillText(seg.move.damage ? String(seg.move.damage) : seg.move.color === 'purple' ? '★'.repeat(seg.move.stars || 1) : '', R + 8 + Math.cos(mid) * R * 0.65, R + 13 + Math.sin(mid) * R * 0.65);
+      c.font = 'bold 24px system-ui'; c.textAlign = 'center';
+      c.fillText(seg.move.damage ? String(seg.move.damage) : seg.move.color === 'purple' ? '★'.repeat(seg.move.stars || 1) : '', C + Math.cos(mid) * R * 0.65, C + 5 + Math.sin(mid) * R * 0.65);
     }
     a += span;
   });
+  // Pointer at the top: the segment under it is the result.
+  c.beginPath(); c.moveTo(C - 16, 2); c.lineTo(C + 16, 2); c.lineTo(C, 34); c.closePath();
+  c.fillStyle = '#ffffff'; c.fill(); c.lineWidth = 3; c.strokeStyle = '#12151c'; c.stroke();
 }
 

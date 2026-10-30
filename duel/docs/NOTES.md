@@ -22,6 +22,9 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   `assets/sprites/<id>.png` standing on the team-coloured base as a camera-facing billboard (`THREE.Sprite`, cropped to its
   opaque pixels, nearest-neighbour filtering, `SPRITE_UNIT` sets the size). Falls back to the sphere placeholder with no
   sprite (e.g. the published single-file page); a `.glb` model still wins over the sprite.
+- Camera (2.5D): `CAMERA_ELEVATION` 36° (52° on portrait screens), moved in as close as possible while every node and
+  figure stays in view (`fitCamera`). Data Disks spin ~1.7 s and stop on the spun segment under a fixed pointer; nobody
+  acts and the AI waits until they close; a click jumps to the result, another closes them; no spin with reduced motion.
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).

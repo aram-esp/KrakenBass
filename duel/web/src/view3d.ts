@@ -8,6 +8,13 @@ function toWorld(p: [number, number]): THREE.Vector3 {
   return new THREE.Vector3((p[0] - 562) * 0.0125, 0, (p[1] - 981) * 0.0125);
 }
 
+/**
+ * Camera elevation above the table (degrees). Lower = more tilted, figures seen more from the front.
+ * Portrait screens get a higher camera: tilted, the wide board would be a thin strip there.
+ */
+const CAMERA_ELEVATION = 36;
+const CAMERA_ELEVATION_PORTRAIT = 52;
+
 /** World units per sprite pixel: a typical 60 px tall figure stands ~1.25 units. */
 const SPRITE_UNIT = 0.021;
 
@@ -93,17 +100,16 @@ export class View3D implements View {
     this.ring.visible = false;
     this.scene.add(this.ring);
 
+    // Points that must stay on screen: every node, and the top of a figure standing on it.
+    const fitPoints: THREE.Vector3[] = [];
+    for (const p of this.nodePos.values()) fitPoints.push(p.clone(), p.clone().setY(1.3));
     const resize = () => {
       const el = canvas.parentElement!;
       if (!el.clientWidth || !el.clientHeight) return;
       this.renderer.setSize(el.clientWidth, el.clientHeight, false);
       this.camera.aspect = el.clientWidth / el.clientHeight;
-      // Pull the camera back on narrow screens so the whole 7-node-wide board stays in view.
-      const k = Math.max(1, 1.3 / this.camera.aspect);
-      const target = new THREE.Vector3(0, 0, 0.4);
-      this.camera.position.copy(target).add(new THREE.Vector3(0, 12.5, 9.1).multiplyScalar(k));
-      this.camera.lookAt(target);
       this.camera.updateProjectionMatrix();
+      this.fitCamera(fitPoints);
     };
     this.resize = resize;
     addEventListener('resize', resize);
@@ -116,6 +122,23 @@ export class View3D implements View {
       }
       this.renderer.render(this.scene, this.camera);
     };
+  }
+
+  /** Tilted camera, moved in as close as it can while every fit point stays inside the view. */
+  private fitCamera(points: THREE.Vector3[]) {
+    const e = ((this.camera.aspect < 1 ? CAMERA_ELEVATION_PORTRAIT : CAMERA_ELEVATION) * Math.PI) / 180;
+    const dir = new THREE.Vector3(0, Math.sin(e), Math.cos(e));
+    const target = new THREE.Vector3(0, 0.3, 0);
+    const v = new THREE.Vector3();
+    const fits = (d: number) => {
+      this.camera.position.copy(target).addScaledVector(dir, d);
+      this.camera.lookAt(target);
+      this.camera.updateMatrixWorld();
+      return points.every((p) => { v.copy(p).project(this.camera); return Math.abs(v.x) < 0.94 && Math.abs(v.y) < 0.9 && v.z < 1; });
+    };
+    let lo = 3, hi = 80;
+    for (let i = 0; i < 30; i++) { const mid = (lo + hi) / 2; if (fits(mid)) hi = mid; else lo = mid; }
+    fits(hi);
   }
 
   setActive(on: boolean) {
