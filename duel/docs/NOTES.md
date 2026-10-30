@@ -21,15 +21,20 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - 3D client (`web/src/view3d.ts`) and 2D client (`web/src/view2d.ts`) with placeholder pieces, Data Disk overlay.
 - Published private page (3D only): https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`).
 - Tests: `npm test` -> 19 passing.
+- 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
+  (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
+  this branch in on 2026-10-30 and carries all of this.
+- Spanish design summary of Duel: `docs/diseno-pokemon-duel.md` (shorter than `research/FINDINGS.md`, which wins on conflicts).
 
 Not done: plates, attack/ability effects, special conditions, evolution, Mega Evolution, Z-Moves, figure levels,
 timers, forfeit, choosing the battle target (the engine takes the first adjacent enemy for AI; the UI lets the human pick).
 
 ## 3. Known issues / next steps (priority order)
-1. **Dev page bug:** `web/src/match.ts` sets `#sidem` unconditionally. That element only exists in `publish/template.html`,
-   so `web/index.html` throws on load. Fix: `const sm = document.getElementById('sidem'); if (sm) sm.innerHTML = ...`.
-   Then rebuild (`npm run build`), test the 2D view, rebuild `publish/` and republish the artifact.
-2. Update the published page to include the 2D view (it is still the 3D-only version `61639a5`).
+1. Update the published page to include the 2D view (it is still the 3D-only version `61639a5`). It cannot show the
+   sprites (no assets folder there) unless they are embedded or uploaded as artifact assets.
+   Fixed on 2026-10-30: `#sidem` crash on `web/index.html`, and the hidden canvas still showing (CSS `display:block`
+   beat the `hidden` attribute, so the 3D canvas covered the buttons) in both `web/index.html` and `publish/template.html`.
+2. The AI wins in ~3 turns if the human does nothing (straight rush to the goal); expected with the current simple AI.
 3. Implement plates (data is ready in `data/plates.json`), then attack/ability effects, special conditions, Mega, Z-Moves.
 4. Review the 70 wheels that differ between Bulbapedia and Serebii (`data/wheel_crosscheck_diffs.json`; mostly patch drift)
    and 12 wheels whose pieces do not sum to 96, plus 14 attack rows with no colour in `data/figures.json`.
@@ -56,8 +61,9 @@ file path to keep the URL.
 - `web/` `src/{main,match,shared,view2d,view3d}.ts`, `index.html` (dev page). `Match` drives a list of `View`s.
 - `publish/` `template.html`, `build.py`, generated `index.html`.
 - `data/` see section 6. `research/` parsers (`parse_*.py`), raw dumps (`raw/`), screenshots (`img/`), `FINDINGS.md`.
-- `tools/import_sprites.py` copies sprites you already have to `assets/sprites/<figure id>.png`.
-- `assets/` git-ignored except `assets/models/README.md`.
+- `tools/download_sprites.py` downloads PokeAPI sprites to `assets/pokeapi/<set>/`; `tools/import_sprites.py` copies
+  them (or any sprites) to `assets/sprites/<figure id>.png`.
+- `assets/models/` git-ignored except its README; `assets/sprites/` and `assets/pokeapi/` are committed.
 
 ## 6. Data files
 - `figures.json` (from Bulbapedia): `title`, `id` (figure id), `name`, `type`, `mp`, `rarity`, `evostage`, `abilities`
@@ -68,10 +74,20 @@ file path to keep the URL.
 - `board.json`: nodes, edges, `goals`, `spawns`, `layout` (pixel coords from a gameplay screenshot). Player 0 is the bottom side.
 - `figures_serebii.json`, `figures_serebii_index.json`, `plates_serebii.json`, `patches_serebii.json`,
   `version_history_rule_lines.json`, `wheel_crosscheck_diffs.json`: cross-check material.
-- Names are the real species names. No third-party images or models are stored anywhere in the repo.
+- Names are the real species names. Third-party images in the repo: the PokeAPI sprites in `assets/` (see section 7).
 
-## 7. Adding your own art (models or sprites)
-Nothing third-party is included. If you bring your own files:
+## 7. Sprites and models
+The user asked (2026-10-30) to use the PokeAPI *black-white* sprites, so they are committed:
+```bash
+python3 tools/download_sprites.py bw                       # -> assets/pokeapi/bw/ (1-1025 + forms 10001+), skips existing
+python3 tools/import_sprites.py assets/pokeapi/bw --pokeapi  # -> assets/sprites/<figure id>.png, 566 ids = all 567 entries
+```
+`--pokeapi` strips the `NNNN-` prefix and maps form names (Mega X -> x-mega, Alolan X -> x-alola, Heat Rotom -> rotom-heat,
+Black Kyurem -> kyurem-black, Dusk Mane Necrozma -> necrozma-dusk, Primal X -> x-primal, Nidoran♂ -> nidoran-m).
+In PokeAPI's black-white folder, 1012 of species 1-1025 are byte-identical to its default sprites (13 differ, ids 59-696).
+`assets/pokeapi/default` and `assets/pokeapi/emerald` (Gen III, only 1-386) are also there but unused.
+
+To use other art instead:
 - **3D models:** `assets/models/<figure id>.glb` (see `assets/models/README.md`). The 3D view scales it to ~0.85 board units.
 - **2D sprites:** `assets/sprites/<figure id>.png` (the 2D view draws it instead of the placeholder creature).
 - `<figure id>` is the `id` in `data/figures.json`. It is **not** the National Dex number, and files are usually named
@@ -81,10 +97,11 @@ Nothing third-party is included. If you bring your own files:
   python3 tools/import_sprites.py path/to/folder --map m.csv   # m.csv columns: file,name (e.g. 25.png,Pikachu)
   python3 tools/import_sprites.py path/to/folder --dry-run
   ```
-  Every figure with the same name gets the image (variants and duplicates share it). The folders are git-ignored on purpose.
+  Every figure with the same name gets the image (variants and duplicates share it).
 - The single-file published page cannot load these (no assets folder there); they work with `npm run serve`.
-- Mind the licence of whatever you add. In the session the assistant declined to download or extract third-party art
-  (game rips, PokeAPI's sprite repo, fan sprites), and the user chose to source them by hand.
+- Mind the licence of whatever you add. Pokémon sprites belong to Nintendo / Game Freak / The Pokémon Company; the author
+  said the project is private and non-commercial. An earlier session declined to download third-party art; the user later
+  asked for the PokeAPI sprites explicitly.
 
 ## 8. Decisions and findings worth remembering
 - Colour table (row beats column): blue beats all; purple beats white and fewer-star purple; gold beats purple; white and

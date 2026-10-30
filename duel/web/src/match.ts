@@ -95,7 +95,8 @@ export class Match {
       return `<b style="color:${p === 0 ? '#6fa0ff' : '#ff7a80'}">${p === HUMAN ? 'Tú (azul)' : 'IA (rojo)'}</b><br>P.C.: ${pc}${waits ? `<br>${waits}` : ''}`;
     };
     $('side').innerHTML = `${side(1)}<hr style="border:0;border-top:1px solid #fff2">${side(0)}`;
-    $('sidem').innerHTML = `<span>${side(1)}</span><span>${side(0)}</span>`;
+    const sidem = document.getElementById('sidem'); // only in publish/template.html
+    if (sidem) sidem.innerHTML = `<span>${side(1)}</span><span>${side(0)}</span>`;
     $('status').textContent = g.winner !== null ? 'Duelo terminado' : `Turno ${g.turn}/${300} · juega ${g.current === HUMAN ? 'el jugador' : 'la IA'}`;
 
     const bench = g.figures.filter((f) => f.owner === HUMAN);

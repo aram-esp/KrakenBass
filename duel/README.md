@@ -19,5 +19,7 @@ the real colour table, P.C. (2 slots), Wait, encirclement KO, goal win, Wait win
 Not yet: plates, abilities/attack effects, special conditions, evolution, Mega Evolution, Z-Moves, per-figure levels, timers.
 
 Full project state, decisions, known issues and next steps: `docs/NOTES.md`. Rule sources and open questions: `research/FINDINGS.md`.
-To use your own sprites or models: `tools/import_sprites.py` and `assets/models/README.md`. The browser console shows harmless 404s while it checks for
+The 2D view uses PokeAPI *black-white* sprites (`assets/sprites/`, made with `tools/download_sprites.py` and
+`tools/import_sprites.py --pokeapi`; see `docs/NOTES.md` section 7). Other models: `assets/models/README.md`.
+Spanish design summary: `docs/diseno-pokemon-duel.md`. The browser console shows harmless 404s while it checks for
 optional models in `assets/models/`.
