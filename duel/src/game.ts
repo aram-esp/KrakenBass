@@ -18,8 +18,11 @@ export class Game {
   turn = 1;
   current: PlayerId;
   winner: Winner | null = null;
-  /** Called after every battle, e.g. so a UI can show the wheels. */
-  onBattle?: (mover: Figure, other: Figure, result: BattleResult) => void;
+  /**
+   * Called after every battle, e.g. so a UI can show the wheels. `counter`: this is the defender's counter-attack;
+   * `saved`: the mover lost but was not knocked out because a counter-attack follows (rules.attackerLoss 'counter').
+   */
+  onBattle?: (mover: Figure, other: Figure, result: BattleResult, info: { counter: boolean; saved: boolean }) => void;
   private moved = false;
   private firstPlayer: PlayerId;
   private rng: Rng;
@@ -105,14 +108,24 @@ export class Game {
   }
 
   /** Battle an adjacent enemy. Allowed before or after moving; ends the turn. */
-  battle(uid: string, targetUid: string): BattleResult {
+  /** Battle an adjacent enemy. With rules.attackerLoss 'counter', `counter` holds the defender's counter-attack. */
+  battle(uid: string, targetUid: string): BattleResult & { counter?: BattleResult } {
     const f = this.mine(uid);
     if (f.status !== 'board' || f.wait > 0) throw new Error('figure cannot attack');
     const target = this.adjacentEnemies(f).find((e) => e.uid === targetUid);
     if (!target) throw new Error('target is not an adjacent enemy');
-    const result = battle(f, target, this.rules, this.rng);
+    const first = battle(f, target, this.rules, this.rng);
+    const saved = this.rules.attackerLoss === 'counter' && first.ko.includes(f);
+    const result: BattleResult & { counter?: BattleResult } = { ...first, ko: first.ko.filter((k) => !saved || k !== f) };
     for (const k of result.ko) this.sendToPc(k);
-    this.onBattle?.(f, target, result);
+    this.onBattle?.(f, target, result, { counter: false, saved });
+    if (saved && target.wait === 0) {
+      // The defender spins against the attacker; only the attacker can fall in a counter-attack.
+      const c = battle(target, f, this.rules, this.rng);
+      result.counter = { ...c, ko: c.ko.filter((k) => k === f) };
+      for (const k of result.counter.ko) this.sendToPc(k);
+      this.onBattle?.(target, f, result.counter, { counter: true, saved: false });
+    }
     this.settle();
     this.endTurn();
     return result;

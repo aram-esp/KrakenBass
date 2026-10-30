@@ -3,6 +3,7 @@ import { aiTurn } from '../../src/ai.ts';
 import { seeded } from '../../src/rng.ts';
 import type { BattleResult } from '../../src/battle.ts';
 import type { Figure, FigureDef, Move, NodeId, PlayerId } from '../../src/types.ts';
+import { houseRules } from '../../src/rules.config.ts';
 import { $, MOVE_COLOR, TYPE_COLOR, type Layout, type View } from './shared.ts';
 
 const HUMAN: PlayerId = 0;
@@ -12,8 +13,6 @@ export class Match {
   selected: string | null = null;
   busy = false;
   seedBase = Date.now();
-  /** Until this time (performance.now) the Data Disks are on screen: nobody acts. */
-  private disksUntil = 0;
   private disksTimer = 0;
   private skipDisks: (() => void) | null = null;
 
@@ -23,11 +22,15 @@ export class Match {
     const rng = seeded(this.seedBase++);
     const deck = () => Array.from({ length: 6 }, () => this.pool[Math.floor(rng() * this.pool.length)]);
     const first: PlayerId = rng() < 0.5 ? 0 : 1;
-    this.game = new Game(this.board, [deck(), deck()], seeded(this.seedBase++), undefined, first);
-    this.game.onBattle = (m, o, r) => this.showBattle(m, o, r);
+    this.game = new Game(this.board, [deck(), deck()], seeded(this.seedBase++), houseRules, first);
+    this.game.onBattle = (m, o, r, info) => this.showBattle(m, o, r, info);
     this.selected = null;
     $('log').innerHTML = '';
     $('banner').classList.remove('show');
+    this.diskQueue = [];
+    this.playing = false;
+    clearTimeout(this.disksTimer);
+    $('wheels').classList.remove('show');
     for (const v of this.views) { v.clearFigures(); for (const f of this.game.figures) v.addFigure(f); }
     this.log(`Empieza ${first === HUMAN ? 'el jugador (azul)' : 'la IA (rojo)'}. Quien empieza tiene MP-1 en su primer turno.`);
     (window as unknown as { __duel: unknown }).__duel = { game: this.game, match: this, views: this.views };
@@ -40,7 +43,8 @@ export class Match {
 
   canAct() { return !this.busy && !this.disksShowing() && this.game.winner === null && this.game.current === HUMAN; }
 
-  disksShowing() { return performance.now() < this.disksUntil; }
+  /** While Data Disks are on screen nobody acts. */
+  disksShowing() { return this.playing; }
 
   click(hit: { uid?: string; node?: NodeId }) {
     if (!this.canAct()) return;
@@ -80,7 +84,7 @@ export class Match {
   runAi() {
     this.busy = true;
     const step = () => {
-      if (this.disksShowing()) { setTimeout(step, this.disksUntil - performance.now() + 50); return; }
+      if (this.disksShowing()) { setTimeout(step, 150); return; }
       if (this.game.winner !== null || this.game.current === HUMAN) { this.busy = false; this.refresh(); return; }
       aiTurn(this.game, seeded(this.seedBase++));
       this.refresh();
@@ -133,11 +137,34 @@ export class Match {
 
   log(t: string) { const d = document.createElement('div'); d.textContent = t; $('log').prepend(d); }
 
-  showBattle(m: Figure, o: Figure, r: BattleResult) {
+  showBattle(m: Figure, o: Figure, r: BattleResult, info: BattleInfo = { counter: false, saved: false }) {
     const mine = m.owner === HUMAN;
-    this.log(`${m.def.name} (${r.moverMove.color}${r.moverMove.damage ? ' ' + r.moverMove.damage : ''}) vs ${o.def.name} (${r.otherMove.color}${r.otherMove.damage ? ' ' + r.otherMove.damage : ''}) → ${r.ko.length ? r.ko.map((k) => k.def.name + ' al P.C.').join(', ') : 'nada'}${mine ? '' : ' [IA ataca]'}`);
+    const tag = info.counter ? 'Contraataque: ' : '';
+    this.log(`${tag}${m.def.name} (${r.moverMove.color}${r.moverMove.damage ? ' ' + r.moverMove.damage : ''}) vs ${o.def.name} (${r.otherMove.color}${r.otherMove.damage ? ' ' + r.otherMove.damage : ''}) → ${r.ko.length ? r.ko.map((k) => k.def.name + ' al P.C.').join(', ') : info.saved ? `${m.def.name} pierde pero no cae` : 'nada'}${mine ? '' : info.counter ? ' [IA contraataca]' : ' [IA ataca]'}`);
+    this.diskQueue.push({ m, o, r, info });
+    if (!this.playing) this.playNextDisks();
+  }
+
+  /** Battles are shown one after another (an attack, then its counter-attack). */
+  private diskQueue: { m: Figure; o: Figure; r: BattleResult; info: BattleInfo }[] = [];
+  private playing = false;
+
+  private playNextDisks() {
+    const next = this.diskQueue.shift();
+    if (!next) {
+      $('wheels').classList.remove('show');
+      this.playing = false;
+      this.skipDisks = null;
+      this.refresh();
+      return;
+    }
+    this.playing = true;
+    const { m, o, r, info } = next;
     const caps: [string, string] = [`${m.def.name}: ${moveText(r.moverMove)}`, `${o.def.name}: ${moveText(r.otherMove)}`];
-    const fates: [Fate, Fate] = [fate(m, r.otherMove, r), fate(o, r.moverMove, r)];
+    const fates: [Fate, Fate] = [
+      info.saved ? { kind: 'stop', text: 'Pierde, pero no cae' } : fate(m, r.otherMove, r),
+      fate(o, r.moverMove, r),
+    ];
     const reveal = (i: 0 | 1) => {
       const cap = $(`c${i}`);
       cap.textContent = caps[i];
@@ -146,28 +173,29 @@ export class Match {
       line.textContent = fates[i].text;
       cap.appendChild(line);
     };
+    let title = document.getElementById('wheelsTitle');
+    if (!title) {
+      title = document.createElement('div');
+      title.id = 'wheelsTitle';
+      $('wheels').prepend(title);
+    }
+    title.textContent = info.counter ? `Contraataque de ${m.def.name}` : `${m.def.name} ataca a ${o.def.name}`;
     $('c0').textContent = `${m.def.name}: …`;
     $('c1').textContent = `${o.def.name}: …`;
     $('wheels').classList.add('show');
     clearTimeout(this.disksTimer);
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const spinMs = reduce ? 0 : SPIN_MS, holdMs = 1500;
-    this.disksUntil = performance.now() + spinMs + SPIN_STAGGER + holdMs;
-    const finish = () => {
-      $('wheels').classList.remove('show');
-      this.disksUntil = 0;
-      this.skipDisks = null;
-      this.refresh();
-    };
+    const finish = () => this.playNextDisks();
     const stops = [
       spinWheel($<HTMLCanvasElement>('w0'), m.def, r.moverMove, spinMs, 0, () => reveal(0)),
       spinWheel($<HTMLCanvasElement>('w1'), o.def, r.otherMove, spinMs, SPIN_STAGGER, () => reveal(1)),
     ];
-    this.disksTimer = setTimeout(finish, this.disksUntil - performance.now());
-    // A click on the disks jumps to the result, a second one closes them.
+    this.disksTimer = setTimeout(finish, spinMs + SPIN_STAGGER + holdMs);
+    // A click on the disks jumps to the result, a second one goes on (next battle or back to the board).
     this.skipDisks = () => {
       // map, not some: stop both disks, not just the first one still spinning.
-      if (stops.map((s) => s()).some(Boolean)) { this.disksUntil = performance.now() + holdMs; clearTimeout(this.disksTimer); this.disksTimer = setTimeout(finish, holdMs); return; }
+      if (stops.map((s) => s()).some(Boolean)) { clearTimeout(this.disksTimer); this.disksTimer = setTimeout(finish, holdMs); return; }
       clearTimeout(this.disksTimer);
       finish();
     };
@@ -176,6 +204,8 @@ export class Match {
   }
 }
 
+
+type BattleInfo = { counter: boolean; saved: boolean };
 
 type Fate = { kind: 'hit' | 'stop' | 'none'; text: string };
 

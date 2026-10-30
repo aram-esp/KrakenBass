@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { Game } from '../src/game.ts';
 import { battle } from '../src/battle.ts';
 import { seeded } from '../src/rng.ts';
-import { defaultRules } from '../src/rules.config.ts';
+import { defaultRules, houseRules } from '../src/rules.config.ts';
 import type { BoardDef, Color, Figure, FigureDef, Move } from '../src/types.ts';
 
 const board: BoardDef = JSON.parse(readFileSync(new URL('../data/board.json', import.meta.url), 'utf8'));
@@ -81,6 +81,49 @@ test('battle needs an adjacent enemy, ends the turn, KO goes to the P.C.', () =>
   assert.equal(g.figures[1].status, 'pc');
   assert.equal(g.pc[1].length, 1);
   assert.equal(g.current, 1);
+});
+
+test('real rules: an attacker that loses is knocked out', () => {
+  const g = game([fig('a', 2, mv('white', 10))], [fig('c', 2, mv('white', 90))]);
+  put(g, '0:0', 'C3');
+  put(g, '1:0', 'B4');
+  const r = g.battle('0:0', '1:0');
+  assert.deepEqual(r.ko.map((k) => k.uid), ['0:0']);
+  assert.equal(r.counter, undefined);
+});
+
+test('house rule: a losing attacker is not knocked out, the defender counter-attacks and wins', () => {
+  assert.equal(houseRules.attackerLoss, 'counter');
+  const g = game([fig('a', 2, mv('white', 10))], [fig('c', 2, mv('white', 90))], houseRules);
+  put(g, '0:0', 'C3');
+  put(g, '1:0', 'B4');
+  const seen: string[] = [];
+  g.onBattle = (m, o, res, info) => seen.push(`${m.uid}>${o.uid} ko=${res.ko.map((k) => k.uid)} counter=${info.counter} saved=${info.saved}`);
+  const r = g.battle('0:0', '1:0');
+  assert.deepEqual(r.ko, []);
+  assert.deepEqual(r.counter!.ko.map((k) => k.uid), ['0:0']);
+  assert.equal(g.figures[0].status, 'pc');
+  assert.equal(g.figures[1].status, 'board');
+  assert.deepEqual(seen, ['0:0>1:0 ko= counter=false saved=true', '1:0>0:0 ko=0:0 counter=true saved=false']);
+  assert.equal(g.current, 1);
+});
+
+test('house rule: a winning attacker gets no counter-attack; a defender in Wait cannot counter', () => {
+  const win = game([fig('a', 2, mv('white', 90))], [fig('c', 2, mv('white', 10))], houseRules);
+  put(win, '0:0', 'C3');
+  put(win, '1:0', 'B4');
+  const r1 = win.battle('0:0', '1:0');
+  assert.deepEqual(r1.ko.map((k) => k.uid), ['1:0']);
+  assert.equal(r1.counter, undefined);
+
+  const waiting = game([fig('a', 2, mv('white', 10))], [fig('c', 2, mv('white', 90))], houseRules);
+  put(waiting, '0:0', 'C3');
+  put(waiting, '1:0', 'B4');
+  waiting.setWait('1:0', 2);
+  const r2 = waiting.battle('0:0', '1:0');
+  assert.deepEqual(r2.ko, []);
+  assert.equal(r2.counter, undefined);
+  assert.equal(waiting.figures[0].status, 'board');
 });
 
 test('P.C. holds two: a third KO sends the oldest back to the bench', () => {

@@ -25,6 +25,12 @@ export interface RulesConfig {
   outcome: (a: Color, b: Color) => Outcome;
   /** Which adjacent enemy is fought when several are adjacent. UNVERIFIED: the real game lets the player choose. */
   target: 'first' | 'none';
+  /**
+   * When the attacker loses a battle it would be knocked out. 'ko': it is (the real game). 'counter': house rule asked by
+   * the user on 2026-10-30: the attacker is not knocked out; the defender counter-attacks at once with a new spin of both
+   * wheels and, if it wins, the attacker is knocked out; otherwise nothing happens. A defender with Wait cannot counter.
+   */
+  attackerLoss: 'ko' | 'counter';
 }
 
 export const defaultRules: RulesConfig = {
@@ -33,4 +39,8 @@ export const defaultRules: RulesConfig = {
   pcSize: 2,
   outcome: (a, b) => T[a][b],
   target: 'first',
+  attackerLoss: 'ko',
 };
+
+/** The rules the web game is played with: the real ones plus the user's house rules. */
+export const houseRules: RulesConfig = { ...defaultRules, attackerLoss: 'counter' };

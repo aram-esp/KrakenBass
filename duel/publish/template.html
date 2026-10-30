@@ -35,6 +35,7 @@
   #hint { color: var(--mute); min-width: 0; } #note { color: var(--mute); font-size: 11px; padding-block: 6px; background: var(--panel); }
   #wheels { position: absolute; inset: 0; display: none; flex-wrap: wrap; align-items: center; justify-content: center; gap: 24px 40px; background: #000a; }
   #wheels.show { display: flex; } #wheels figure { margin: 0; text-align: center; }
+  #wheels { align-content: center; } #wheelsTitle { flex-basis: 100%; text-align: center; font-size: 18px; font-weight: 700; }
   #wheels canvas { width: min(220px, 38vw); height: min(220px, 38vw); } #wheels figcaption { margin-top: 6px; }
   #wheels .fate { margin-top: 2px; font-weight: 600; } #wheels .fate.hit { color: #ff7a80; } #wheels .fate.stop { color: var(--go); } #wheels .fate.none { color: var(--mute); }
   #banner { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: #000b; font-size: 28px; text-align: center; }
