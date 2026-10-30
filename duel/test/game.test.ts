@@ -108,6 +108,16 @@ test('house rule: a losing attacker is not knocked out, the defender counter-att
   assert.equal(g.current, 1);
 });
 
+test('house rule: an attacker that spins a Miss falls at once, no counter-attack', () => {
+  const g = game([fig('a', 2, mv('red'))], [fig('c', 2, mv('white', 30))], houseRules);
+  put(g, '0:0', 'C3');
+  put(g, '1:0', 'B4');
+  const r = g.battle('0:0', '1:0');
+  assert.deepEqual(r.ko.map((k) => k.uid), ['0:0']);
+  assert.equal(r.counter, undefined);
+  assert.equal(g.figures[0].status, 'pc');
+});
+
 test('house rule: a winning attacker gets no counter-attack; a defender in Wait cannot counter', () => {
   const win = game([fig('a', 2, mv('white', 90))], [fig('c', 2, mv('white', 10))], houseRules);
   put(win, '0:0', 'C3');

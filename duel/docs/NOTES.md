@@ -32,13 +32,13 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - House rule (asked 2026-10-30), `rules.attackerLoss = 'counter'` in `houseRules` (used by the web game; `defaultRules`
   keeps the real 'ko'): an attacker that loses is not knocked out; the defender counter-attacks at once with a new spin
   of both wheels; if the defender wins, the attacker goes to the P.C., otherwise nothing. A defender in Wait cannot
-  counter. The UI shows both battles in turn ("Contraataque de X"). 200 AI duels with it: all end, 67 counters, 23 KOs.
+  counter. An attacker that spins a Miss falls at once (no counter), as in the real game. The UI shows both battles in turn ("Contraataque de X"). 200 AI duels with it: all end, 67 counters, 23 KOs.
 - MP badges: every figure on the board shows the MP it has right now (`Game.mp`, so the first-turn MP-1 is included),
   or "Wait N" in yellow while it waits (`View.setBadges`, `drawBadge` in `web/src/shared.ts`).
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 24 passing.
+- Tests: `npm test` -> 25 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.

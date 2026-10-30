@@ -118,7 +118,8 @@ export class Game {
     if (!target) throw new Error('target is not an adjacent enemy');
     this.onBeforeBattle?.();
     const first = battle(f, target, this.rules, this.rng);
-    const saved = this.rules.attackerLoss === 'counter' && first.ko.includes(f);
+    // A Miss is a real miss: the attacker falls as in the real game, no counter-attack.
+    const saved = this.rules.attackerLoss === 'counter' && first.ko.includes(f) && first.moverMove.color !== 'red';
     const result: BattleResult & { counter?: BattleResult } = { ...first, ko: first.ko.filter((k) => !saved || k !== f) };
     for (const k of result.ko) this.sendToPc(k);
     this.onBattle?.(f, target, result, { counter: false, saved });
