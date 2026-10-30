@@ -23,7 +23,9 @@ export class Match {
   /** Called by the "Menú" buttons. */
   onMenu: () => void = () => {};
   /** Called once when a duel ends (won = the player won); may return a line for the end banner. */
-  onGameEnd: (won: boolean) => string | void = () => {};
+  onGameEnd: (won: boolean, deckIds: string[]) => string | void = () => {};
+  /** Called when one of the player's figures has fought a battle. */
+  onBattleFought: (id: string) => void = () => {};
   private reported = false;
 
   start(humanDeck: FigureDef[] | null = this.humanDeck) {
@@ -32,7 +34,10 @@ export class Match {
     const deck = () => Array.from({ length: 6 }, () => this.pool[Math.floor(rng() * this.pool.length)]);
     const first: PlayerId = rng() < 0.5 ? 0 : 1;
     this.game = new Game(this.board, [humanDeck ?? deck(), deck()], seeded(this.seedBase++), houseRules, first);
-    this.game.onBattle = (m, o, r, info) => this.showBattle(m, o, r, info);
+    this.game.onBattle = (m, o, r, info) => {
+      if (!info.tie) for (const f of [m, o]) if (f.owner === HUMAN) this.onBattleFought(f.def.id);
+      this.showBattle(m, o, r, info);
+    };
     // Draw the board as it is right before the battle (e.g. the AI's move); then it waits for the disks.
     this.game.onBeforeBattle = () => this.refresh();
     this.selected = null;
@@ -153,7 +158,7 @@ export class Match {
     if (g.winner !== null) {
       if (!this.reported) {
         this.reported = true;
-        const line = this.onGameEnd(g.winner === HUMAN);
+        const line = this.onGameEnd(g.winner === HUMAN, g.figures.filter((f) => f.owner === HUMAN).map((f) => f.def.id));
         $('bannerText').textContent = g.winner === 'none' ? 'Límite de turnos: pierden ambos' : g.winner === HUMAN ? '¡Victoria!' : 'Derrota';
         if (line) {
           const sub = document.createElement('div');

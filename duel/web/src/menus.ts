@@ -4,7 +4,8 @@ import { $, TYPE_COLOR, spriteSrc } from './shared.ts';
 import { drawWheel } from './match.ts';
 import { WORKING } from '../../src/abilities.ts';
 import {
-  BOOSTERS, CASE_SLOTS, GEMS_LOSS, GEMS_WIN, SHOP_PRICE, buyBooster, gemsToOpenNow, loadState, openFromCase, openReady, rewardDuel,
+  BOOSTERS, CASE_SLOTS, EVOLVE_BATTLES, EVOLVE_DUELS, GEMS_LOSS, GEMS_WIN, SHOP_PRICE, evolve, evolveProgress,
+  recordBattle, recordDuel, buyBooster, gemsToOpenNow, loadState, openFromCase, openReady, rewardDuel,
   type BoosterKind, type GachaState,
 } from '../../src/gacha.ts';
 
@@ -95,6 +96,14 @@ const CSS = `
 .dm .types { font-weight: 700; font-size: 11px; color: var(--dm-mute); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dm .ability { font-weight: 800; font-size: 11px; color: var(--dm-yellow); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .dm .ability.idle { color: #8a7a3a; }
+.dm .fig .evo { font-weight: 800; font-size: 10px; color: #7fd4ff; max-width: 100%; text-align: center; }
+.dm .evolist { display: flex; flex-direction: column; gap: 8px; padding: 12px; }
+.dm .evorow { display: flex; align-items: center; gap: 10px; background: #0003; border-radius: 12px; padding: 6px 10px; min-width: 0; }
+.dm .evorow img { width: 48px; height: 48px; image-rendering: pixelated; object-fit: contain; flex-shrink: 0; }
+.dm .evorow .what { flex: 1; min-width: 0; font-weight: 800; }
+.dm .evorow .what small { display: block; font-weight: 700; color: var(--dm-mute); }
+.dm .evorow .arrow { font-weight: 900; color: var(--dm-yellow); }
+.dm .evorow .yellow { font-size: 15px; padding: 8px 14px; border-width: 3px; }
 .dm .name { font-weight: 800; font-size: 13px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #dfe7f5; }
 .dm .fig .order { position: absolute; top: 2px; left: 6px; background: var(--dm-blue); border: 2px solid #fff; border-radius: 999px;
   font-weight: 900; font-size: 12px; padding: 0 7px; }
@@ -176,12 +185,16 @@ type Screen = 'home' | 'deck' | 'pick' | 'shop';
 export interface Menus {
   /** Show the League (home) screen. */
   open(): void;
-  /** Reward the end of a duel; returns a line for the end banner. */
-  duelEnded(won: boolean): string;
+  /** Reward the end of a duel and count it for the deck's figures; returns a line for the end banner. */
+  duelEnded(won: boolean, deckIds: string[]): string;
+  /** One of the player's figures fought a battle (counts toward evolving). */
+  battleFought(id: string): void;
 }
 
 /** League (home), Edit Deck, figure picker and Shop, in the style of the original app. */
-export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: MenuHooks): Menus {
+export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: MenuHooks,
+  extras: FigureDef[] = [], evolves: Record<string, string[]> = {}): Menus {
+  // `pool`: figures of the game version (boosters give these); `extras`: figures only reached by evolving.
   const style = document.createElement('style');
   style.textContent = CSS;
   document.head.appendChild(style);
@@ -194,7 +207,9 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   }
 
   const rarity = new Map(records.map((r) => [String(r.id), r.rarity]));
-  const byId = new Map(pool.map((d) => [d.id, d]));
+  const all = [...pool, ...extras];
+  const extraIds = new Set(extras.map((d) => d.id));
+  const byId = new Map(all.map((d) => [d.id, d]));
   let gacha: GachaState = loadState(read(GACHA_KEY));
   const owns = (id: string) => (gacha.owned[id] ?? 0) > 0;
   let deck: string[] = loadDeck().filter((id) => byId.has(id) && owns(id)).slice(0, DECK_SIZE);
@@ -232,6 +247,11 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       </div>
       <p class="note" id="dmDeckNote"></p>
       <div class="row"><button type="button" class="yellow" id="menuDeck">Editar figuras</button></div>
+      <div class="panel">
+        <div class="panel-head"><h2>Evolución</h2></div>
+        <p class="note" style="padding:10px 14px 0">Una figura puede evolucionar tras ${EVOLVE_BATTLES} combates o ${EVOLVE_DUELS} duelos en tu mazo. Una copia se convierte en su evolución.</p>
+        <div class="evolist" id="dmEvo"></div>
+      </div>
     </div>
     <div class="screen" id="dmPick">
       <div class="pill">Editar figuras</div>
@@ -330,11 +350,14 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
 
   // Collection: built once, selection only toggles classes.
   const cards = new Map<string, HTMLElement>();
-  const sorted = [...pool].sort((a, b) =>
+  const sorted = [...all].sort((a, b) =>
     (RARITY_ORDER[rarity.get(a.id) ?? ''] ?? 9) - (RARITY_ORDER[rarity.get(b.id) ?? ''] ?? 9) || a.name.localeCompare(b.name));
   for (const d of sorted) {
     const card = figure(d, 'button');
     card.dataset.rarity = rarity.get(d.id) ?? '';
+    const prog = document.createElement('span');
+    prog.className = 'evo';
+    card.appendChild(prog);
     const wheel = document.createElement('canvas');
     wheel.className = 'wheel';
     wheel.width = wheel.height = 96;
@@ -376,14 +399,17 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       $(id).textContent = `Usables ${deck.length}/${DECK_SIZE}`;
       $(id).classList.toggle('short', !full);
     }
-    const mine = pool.filter((d) => owns(d.id)).length;
+    const mine = all.filter((d) => owns(d.id)).length;
+    const evolvedMine = extras.filter((d) => owns(d.id)).length;
     $('dmDeckNote').textContent = full ? 'Juegas con estas 6 figuras. La IA lleva un mazo al azar.'
       : mine >= DECK_SIZE ? 'Mientras no elijas 6 figuras juegas con 6 de las tuyas al azar. La IA siempre lleva un mazo al azar.'
       : 'Necesitas 6 figuras distintas para jugar: abre boosters en Liga o compra en la Tienda.';
     $('dmHomeDeck').textContent = full ? 'Tu mazo' : mine >= DECK_SIZE ? 'Mazo al azar con tus figuras · elígelo en Mazos'
       : `Tienes ${mine} figuras: abre tus boosters para llegar a 6`;
     $<HTMLButtonElement>('menuPlay').disabled = mine < DECK_SIZE;
-    $('deckCount').textContent = `Tienes ${mine} de ${pool.length} figuras. Pulsa una tuya para añadirla o quitarla; las oscuras aún no las tienes.`;
+    $('deckCount').textContent = `Tienes ${mine - evolvedMine} de ${pool.length} figuras${evolvedMine ? ` y ${evolvedMine} evolucionadas` : ''}. `
+      + 'Pulsa una tuya para añadirla o quitarla; las oscuras aún no las tienes.';
+    renderEvolutions();
     renderGacha();
     $<HTMLButtonElement>('deckDone').disabled = deck.length !== 0 && !full;
     for (const [id, card] of cards) {
@@ -396,7 +422,11 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       const order = card.querySelector<HTMLElement>('.order')!;
       order.hidden = at < 0;
       order.textContent = String(at + 1);
-      card.hidden = filter === 'mine' ? !have : filter !== 'all' && card.dataset.rarity !== filter;
+      // Evolution-only figures appear once you have them.
+      card.hidden = filter === 'mine' || extraIds.has(id) ? !have : filter !== 'all' && card.dataset.rarity !== filter;
+      const p = evolveProgress(gacha, id), canEvo = have > 0 && (evolves[id] ?? []).some((t) => byId.has(t));
+      card.querySelector<HTMLElement>('.evo')!.textContent = !canEvo ? '' : p.ready ? '¡Puede evolucionar!'
+        : `Evoluciona: ${p.battles}/${EVOLVE_BATTLES} combates · ${p.duels}/${EVOLVE_DUELS} duelos`;
     }
     for (const b of $('deckFilters').querySelectorAll<HTMLElement>('button')) b.classList.toggle('on', b.dataset.key === filter);
   };
@@ -420,7 +450,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   };
 
   $('menuPlay').onclick = () => {
-    const mine = pool.filter((d) => owns(d.id));
+    const mine = all.filter((d) => owns(d.id));
     if (mine.length < DECK_SIZE) return;
     for (let i = mine.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [mine[i], mine[j]] = [mine[j], mine[i]]; }
     history.length = 0;
@@ -479,6 +509,61 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     $('shopNote').textContent = gacha.gems < SHOP_PRICE ? `Tienes ${gacha.gems} gemas. Ganas gemas en cada duelo.` : `Tienes ${gacha.gems} gemas.`;
   };
 
+  const renderEvolutions = () => {
+    const list = $('dmEvo');
+    list.innerHTML = '';
+    const candidates = all.filter((d) => owns(d.id) && (evolves[d.id] ?? []).some((t) => byId.has(t)));
+    if (!candidates.length) { list.innerHTML = '<p class="note">Ninguna de tus figuras tiene evolución.</p>'; return; }
+    candidates.sort((a, b) => Number(evolveProgress(gacha, b.id).ready) - Number(evolveProgress(gacha, a.id).ready));
+    for (const d of candidates) {
+      const p = evolveProgress(gacha, d.id);
+      for (const to of (evolves[d.id] ?? []).filter((t) => byId.has(t))) {
+        const t = byId.get(to)!;
+        const row = document.createElement('div');
+        row.className = 'evorow';
+        const what = document.createElement('span');
+        what.className = 'what';
+        what.innerHTML = `<span></span> <span class="arrow">→</span> <span></span><small></small>`;
+        const parts = what.querySelectorAll('span');
+        parts[0].textContent = d.name;
+        parts[2].textContent = t.name;
+        what.querySelector('small')!.textContent = p.ready ? 'Lista para evolucionar'
+          : `${p.battles}/${EVOLVE_BATTLES} combates · ${p.duels}/${EVOLVE_DUELS} duelos en el mazo`;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'yellow';
+        btn.textContent = 'Evolucionar';
+        btn.disabled = !p.ready;
+        btn.onclick = () => {
+          if (!evolve(gacha, d.id, to, evolves)) return;
+          // The evolved figure takes the place of the one that evolved in the deck, if that copy was the last one.
+          const at = deck.indexOf(d.id);
+          if (at >= 0 && !owns(d.id)) {
+            if (deck.includes(to)) deck.splice(at, 1); else deck[at] = to;
+          }
+          saveGacha();
+          showEvolution(d, t);
+        };
+        row.append(sprite(d), what, sprite(t), btn);
+        list.appendChild(row);
+      }
+    }
+  };
+
+  const showEvolution = (from: FigureDef, to: FigureDef) => {
+    renderGacha();
+    $('dmOpenTitle').textContent = `¡${from.name} evoluciona en ${to.name}!`;
+    $('dmOpenBox').hidden = true;
+    const out = $('dmOpenGot');
+    out.innerHTML = '';
+    const f = figure(to, 'div');
+    f.classList.add(rarity.get(to.id) ?? '');
+    out.appendChild(f);
+    $('dmOpenOk').hidden = false;
+    $('dmOpen').classList.add('show');
+    $('dmOpenOk').focus();
+  };
+
   /** Booster opening: the box shakes, then the figures pop out one by one. */
   const reveal = (kind: BoosterKind, got: string[]) => {
     renderGacha(); // gems and case update at once, under the opening overlay
@@ -531,7 +616,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   $('deckDone').onclick = () => go('deck');
   $('deckClear').onclick = () => { deck = []; changed(); };
   $('deckRandom').onclick = () => {
-    const ids = pool.filter((d) => owns(d.id)).map((d) => d.id);
+    const ids = all.filter((d) => owns(d.id)).map((d) => d.id);
     for (let i = ids.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [ids[i], ids[j]] = [ids[j], ids[i]]; }
     deck = ids.slice(0, DECK_SIZE);
     changed();
@@ -539,8 +624,14 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
 
   return {
     open: () => { history.length = 0; armed = -1; go('home', false); },
-    duelEnded: (won) => {
+    battleFought: (id) => {
+      gacha = loadState(read(GACHA_KEY));
+      recordBattle(gacha, id);
+      saveGacha();
+    },
+    duelEnded: (won, deckIds) => {
       gacha = loadState(read(GACHA_KEY)); // another tab may have changed it
+      recordDuel(gacha, deckIds);
       const b = rewardDuel(gacha, won, Date.now(), Math.random);
       saveGacha();
       const g = won ? GEMS_WIN : GEMS_LOSS;

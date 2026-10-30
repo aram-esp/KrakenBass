@@ -1,4 +1,4 @@
-import { figurePool, type FigureRecord } from '../../src/data.ts';
+import { evolutionPool, figurePool, type FigureRecord } from '../../src/data.ts';
 import type { FigureDef } from '../../src/types.ts';
 import { $, readData, type Layout } from './shared.ts';
 import { Match } from './match.ts';
@@ -7,20 +7,24 @@ import { View2D } from './view2d.ts';
 import { View3D } from './view3d.ts';
 
 async function main() {
-  const [board, records] = await Promise.all([
+  const [board, records, evo] = await Promise.all([
     readData<Layout>('data-board', '../data/board.json'),
     readData<FigureRecord[]>('data-figures', '../data/figures.json'),
+    readData<{ evolves: Record<string, (string | number)[]> }>('data-evolutions', '../data/evolutions.json'),
   ]);
   const pool: FigureDef[] = figurePool(records);
+  const evolves = Object.fromEntries(Object.entries(evo.evolves).map(([k, v]) => [k, v.map(String)]));
+  const extras = evolutionPool(records, evolves, pool);
   const c2 = $<HTMLCanvasElement>('view2d'), c3 = $<HTMLCanvasElement>('view');
   const v2 = new View2D(board, c2), v3 = new View3D(board, c3);
   const match = new Match([v2, v3], board, pool);
   const menus = setupMenus(pool, records, {
     play: (deck) => match.start(deck),
     canContinue: () => !!match.game && match.game.winner === null,
-  });
+  }, extras, evolves);
   match.onMenu = menus.open;
-  match.onGameEnd = (won) => menus.duelEnded(won);
+  match.onGameEnd = (won, deckIds) => menus.duelEnded(won, deckIds);
+  match.onBattleFought = (id) => menus.battleFought(id);
 
   let mode: '2d' | '3d' = '2d';
   const show = (m: '2d' | '3d') => {

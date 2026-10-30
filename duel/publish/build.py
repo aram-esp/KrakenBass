@@ -27,6 +27,6 @@ ids = {str(f['id']) for f in json.load(open('data/figures.json'))}
 sprites = {p.stem: 'data:image/png;base64,' + base64.b64encode(p.read_bytes()).decode()
            for p in sorted(Path('assets/sprites').glob('*.png')) if p.stem in ids}
 sprites_json = json.dumps(sprites, separators=(',', ':'))
-out = t.replace('__BOARD__', esc(board)).replace('__FIGURES__', esc(figs)).replace('__SPRITES__', esc(sprites_json)).replace('<script>__APP__</script>', '<script>' + esc(app) + '</script>')
+out = t.replace('__BOARD__', esc(board)).replace('__FIGURES__', esc(figs)).replace('__SPRITES__', esc(sprites_json)).replace('__EVOLUTIONS__', esc(json.dumps({'evolves': json.load(open('data/evolutions.json'))['evolves']}, separators=(',', ':')))).replace('<script>__APP__</script>', '<script>' + esc(app) + '</script>')
 open('publish/index.html', 'w').write(out)
 print(f'publish/index.html {len(out) // 1024} KB, {len(sprites)} sprites')

@@ -20,6 +20,7 @@ Figures and wheels as of the launch version 1.0.0: 82 figures (`GAME_VERSION` in
 Figures are collected from boosters (gacha after the original's timed boosters, `src/gacha.ts`).
 House rule: every battle has one winner and the loser falls; ties are spun again (`houseRules` in `src/rules.config.ts`).
 Abilities as in 1.0.0 (`src/abilities.ts`); secondary types on the cards.
+Figures evolve outside battle after 5 battles or 10 duels in your deck (`data/evolutions.json`, from PokeAPI).
 Not yet: plates, abilities/attack effects, special conditions, evolution, Mega Evolution, Z-Moves, per-figure levels, timers.
 
 Full project state, decisions, known issues and next steps: `docs/NOTES.md`. Rule sources and open questions: `research/FINDINGS.md`.

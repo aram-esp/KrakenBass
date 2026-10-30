@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { figurePool, type FigureRecord } from '../src/data.ts';
 import { seeded } from '../src/rng.ts';
 import {
-  BOOSTERS, CASE_SLOTS, GEMS_LOSS, GEMS_WIN, SHOP_PRICE, buyBooster, gemsToOpenNow, loadState, newState, openBooster,
+  BOOSTERS, CASE_SLOTS, EVOLVE_BATTLES, EVOLVE_DUELS, evolve, evolveProgress, recordBattle, recordDuel, GEMS_LOSS, GEMS_WIN, SHOP_PRICE, buyBooster, gemsToOpenNow, loadState, newState, openBooster,
   openFromCase, openReady, rewardDuel, rollRarity,
 } from '../src/gacha.ts';
 
@@ -82,4 +82,25 @@ test('shop booster costs 50 gems; saved state round-trips; bad saves start fresh
   assert.deepEqual(loadState(JSON.stringify(s)), s);
   assert.equal(loadState('nope').ready.length, 4);
   assert.equal(loadState(null).gems, 0);
+});
+
+test('evolving: after 5 battles or 10 duels in the deck, one copy turns into its evolution', () => {
+  const evo = { '64': ['900'] };
+  const s = newState();
+  s.owned['64'] = 2;
+  assert.equal(evolve(s, '64', '900', evo), false, 'not used enough');
+  for (let i = 0; i < EVOLVE_BATTLES - 1; i++) recordBattle(s, '64');
+  assert.equal(evolveProgress(s, '64').ready, false);
+  recordBattle(s, '64');
+  assert.equal(evolveProgress(s, '64').ready, true);
+  assert.equal(evolve(s, '64', '123', evo), false, 'not one of its evolutions');
+  assert.equal(evolve(s, '64', '900', evo), true);
+  assert.deepEqual([s.owned['64'], s.owned['900']], [1, 1]);
+  assert.equal(evolveProgress(s, '64').battles, 0, 'counters start again');
+
+  for (let i = 0; i < EVOLVE_DUELS; i++) recordDuel(s, ['64', '64', '7']);
+  assert.equal(evolveProgress(s, '64').duels, EVOLVE_DUELS, 'a duel counts once per figure');
+  assert.equal(evolve(s, '64', '900', evo), true);
+  assert.equal(s.owned['64'], undefined);
+  assert.equal(s.owned['900'], 2);
 });

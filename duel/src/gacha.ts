@@ -53,6 +53,44 @@ export interface GachaState {
   case: Booster[];
   /** Unopened boosters that open at once (welcome, shop). */
   ready: Booster[];
+  /** Figure id -> battles fought and duels played in the player's deck (for evolving). */
+  battles?: Record<string, number>;
+  duels?: Record<string, number>;
+}
+
+/** The user's rule (2026-10-30): a figure can evolve after 5 battles or 10 duels in the deck. */
+export const EVOLVE_BATTLES = 5;
+export const EVOLVE_DUELS = 10;
+
+/** Count one finished duel for each figure of the player's deck (each id once). */
+export function recordDuel(state: GachaState, deckIds: string[]): void {
+  state.duels ??= {};
+  for (const id of new Set(deckIds)) state.duels[id] = (state.duels[id] ?? 0) + 1;
+}
+
+/** Count one battle for a figure of the player's. */
+export function recordBattle(state: GachaState, id: string): void {
+  state.battles ??= {};
+  state.battles[id] = (state.battles[id] ?? 0) + 1;
+}
+
+export function evolveProgress(state: GachaState, id: string): { battles: number; duels: number; ready: boolean } {
+  const battles = state.battles?.[id] ?? 0, duels = state.duels?.[id] ?? 0;
+  return { battles, duels, ready: battles >= EVOLVE_BATTLES || duels >= EVOLVE_DUELS };
+}
+
+/**
+ * Evolve one owned copy of `id` into `to` (one of its evolutions). Its counters start again; the evolved figure
+ * starts from zero for its own next evolution. False if not owned, not ready or `to` is not an evolution of it.
+ */
+export function evolve(state: GachaState, id: string, to: string, evolutions: Record<string, string[]>): boolean {
+  if (!(state.owned[id] > 0) || !evolveProgress(state, id).ready || !(evolutions[id] ?? []).includes(to)) return false;
+  state.owned[id] -= 1;
+  if (state.owned[id] === 0) delete state.owned[id];
+  state.owned[to] = (state.owned[to] ?? 0) + 1;
+  if (state.battles) delete state.battles[id];
+  if (state.duels) delete state.duels[id];
+  return true;
 }
 
 export interface Pullable { id: string; rarity: string }

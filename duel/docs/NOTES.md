@@ -56,12 +56,20 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   40/25/20/10/5, case of 4, 20 gems per win and 5 per loss, 1 gem per 10 min left to open early, shop booster = 2 figures
   (one UC+), 4 welcome boosters with 8 different figures. Ingots/metals/cubes left out (no fusion). Only owned figures go in
   the deck; with no deck chosen you play 6 of yours at random. Save in localStorage `duel.gacha` (per browser).
+- Evolution outside battle (user, 2026-10-30): a figure can evolve after 5 battles fought or 10 finished duels in the
+  player's deck (`EVOLVE_BATTLES`/`EVOLVE_DUELS`, counters in the gacha save). In "Editar mazo" > Evolución one owned
+  copy turns into its evolution; it takes its place in the deck if that was the last copy. Chains: `data/evolutions.json`
+  (PokeAPI evolution chains, built by `tools/build_evolutions.py`; next species -> its earliest Duel figure). No 1.0.0
+  figure evolves into another 1.0.0 figure, so evolutions are figures of later versions (user's choice), with the wheel
+  and ability of their own release version (`evolutionPool` in `src/data.ts`): 37 of the 82 can evolve, 58 more figures
+  are reachable (e.g. Squirtle > Wartortle > Blastoise). They are only obtained by evolving, never from boosters or by
+  the AI. The other 45 have no evolution with a Duel figure (e.g. Psyduck: Golduck never had one).
 - MP badges: every figure on the board shows the MP it has right now (`Game.mp`, so the first-turn MP-1 is included),
   or "Wait N" in yellow while it waits (`View.setBadges`, `drawBadge` in `web/src/shared.ts`).
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 33 passing.
+- Tests: `npm test` -> 35 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.

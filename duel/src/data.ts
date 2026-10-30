@@ -87,3 +87,24 @@ export function toFigureDef(rec: FigureRecord, v: string | null = null): FigureD
 export function figurePool(records: FigureRecord[], v: string | null = GAME_VERSION): FigureDef[] {
   return records.filter((r) => releasedBy(r, v)).map((r) => toFigureDef(r, v));
 }
+
+/**
+ * Figures reachable by evolving figures of `base` (following `evolves`, data/evolutions.json), that are not in `base`.
+ * One released after game version `v` uses its wheel and ability from its own release version.
+ */
+export function evolutionPool(records: FigureRecord[], evolves: Record<string, (string | number)[]>, base: FigureDef[], v: string | null = GAME_VERSION): FigureDef[] {
+  const byId = new Map(records.map((r) => [String(r.id), r]));
+  const have = new Set(base.map((d) => d.id));
+  const out: FigureDef[] = [];
+  const queue = [...have];
+  while (queue.length) {
+    for (const to of (evolves[queue.shift()!] ?? []).map(String)) {
+      const rec = byId.get(String(to));
+      if (!rec || have.has(String(to))) continue;
+      have.add(String(to));
+      out.push(toFigureDef(rec, v !== null && compareVersions(rec.version, v) > 0 ? rec.version : v));
+      queue.push(String(to));
+    }
+  }
+  return out;
+}

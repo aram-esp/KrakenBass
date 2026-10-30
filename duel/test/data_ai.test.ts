@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { Game } from '../src/game.ts';
 import { aiTurn } from '../src/ai.ts';
-import { figurePool, GAME_VERSION, toFigureDef, wheelKeyAt, type FigureRecord } from '../src/data.ts';
+import { evolutionPool, figurePool, GAME_VERSION, toFigureDef, wheelKeyAt, type FigureRecord } from '../src/data.ts';
 import { seeded } from '../src/rng.ts';
 import type { BoardDef, FigureDef } from '../src/types.ts';
 
@@ -90,4 +90,15 @@ test('an unblocked 3-MP runner that moves first reaches the goal on its third tu
   }
   assert.equal(g.winner, 1);
   assert.equal(g.turn, 5); // AI turns are 1, 3 and 5: MP 2 + 3 + 3 covers the 7 MP needed (1 to enter + 6 steps)
+});
+
+test('evolutions from the 1.0.0 pool use the evolved figure as released, with a real wheel', () => {
+  const evolves = JSON.parse(readFileSync(new URL('../data/evolutions.json', import.meta.url), 'utf8')).evolves;
+  const launch = figurePool(records);
+  const extra = evolutionPool(records, evolves, launch);
+  const ivysaur = extra.find((d) => d.name === 'Ivysaur')!;
+  assert.ok(ivysaur, 'Bulbasaur evolves into Ivysaur');
+  assert.ok(ivysaur.wheel.length > 1 && ivysaur.wheel.every((s) => s.weight > 0));
+  assert.ok(!extra.some((d) => launch.some((l) => l.id === d.id)), 'no figure of the pool is repeated');
+  assert.ok(!extra.some((d) => d.name === 'Venusaur'), 'Ivysaur evolves into the 1.0.0 Venusaur already in the pool');
 });
