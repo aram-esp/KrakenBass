@@ -22,6 +22,9 @@ export class Match {
   humanDeck: FigureDef[] | null = null;
   /** Called by the "Menú" buttons. */
   onMenu: () => void = () => {};
+  /** Called once when a duel ends (won = the player won); may return a line for the end banner. */
+  onGameEnd: (won: boolean) => string | void = () => {};
+  private reported = false;
 
   start(humanDeck: FigureDef[] | null = this.humanDeck) {
     this.humanDeck = humanDeck;
@@ -33,6 +36,7 @@ export class Match {
     // Draw the board as it is right before the battle (e.g. the AI's move); then it waits for the disks.
     this.game.onBeforeBattle = () => this.refresh();
     this.selected = null;
+    this.reported = false;
     $('log').innerHTML = '';
     $('banner').classList.remove('show');
     this.diskQueue = [];
@@ -147,7 +151,17 @@ export class Match {
       : 'Elige una figura (en el tablero o en el banquillo).';
 
     if (g.winner !== null) {
-      $('bannerText').textContent = g.winner === 'none' ? 'Límite de turnos: pierden ambos' : g.winner === HUMAN ? '¡Victoria!' : 'Derrota';
+      if (!this.reported) {
+        this.reported = true;
+        const line = this.onGameEnd(g.winner === HUMAN);
+        $('bannerText').textContent = g.winner === 'none' ? 'Límite de turnos: pierden ambos' : g.winner === HUMAN ? '¡Victoria!' : 'Derrota';
+        if (line) {
+          const sub = document.createElement('div');
+          sub.style.cssText = 'font-size:16px;margin-top:8px;color:#ffd21f';
+          sub.textContent = line;
+          $('bannerText').appendChild(sub);
+        }
+      }
       $('banner').classList.add('show');
     }
   }

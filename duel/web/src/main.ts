@@ -15,11 +15,12 @@ async function main() {
   const c2 = $<HTMLCanvasElement>('view2d'), c3 = $<HTMLCanvasElement>('view');
   const v2 = new View2D(board, c2), v3 = new View3D(board, c3);
   const match = new Match([v2, v3], board, pool);
-  const openMenu = setupMenus(pool, records, {
+  const menus = setupMenus(pool, records, {
     play: (deck) => match.start(deck),
     canContinue: () => !!match.game && match.game.winner === null,
   });
-  match.onMenu = openMenu;
+  match.onMenu = menus.open;
+  match.onGameEnd = (won) => menus.duelEnded(won);
 
   let mode: '2d' | '3d' = '2d';
   const show = (m: '2d' | '3d') => {
@@ -32,7 +33,7 @@ async function main() {
   };
   $('viewToggle').onclick = () => show(mode === '2d' ? '3d' : '2d');
   show('3d'); // 2.5D: 3D board with sprite billboards (View3D)
-  openMenu();
+  menus.open();
 }
 
 main();

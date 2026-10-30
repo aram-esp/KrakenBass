@@ -2,6 +2,12 @@ import type { FigureRecord } from '../../src/data.ts';
 import type { FigureDef } from '../../src/types.ts';
 import { $, TYPE_COLOR, spriteSrc } from './shared.ts';
 import { drawWheel } from './match.ts';
+import {
+  BOOSTERS, CASE_SLOTS, GEMS_LOSS, GEMS_WIN, SHOP_PRICE, buyBooster, gemsToOpenNow, loadState, openFromCase, openReady, rewardDuel,
+  type BoosterKind, type GachaState,
+} from '../../src/gacha.ts';
+
+const GACHA_KEY = 'duel.gacha';
 
 export const DECK_SIZE = 6;
 const DECK_KEY = 'duel.deck';
@@ -22,6 +28,7 @@ const CSS = `
   background: linear-gradient(180deg, #0d1a33 0%, #0a1222 100%);
   padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 .dm.show { display: flex; }
+.dm [hidden] { display: none !important; }
 .dm .bar { background: linear-gradient(180deg, #123a86, var(--dm-navy)); border-bottom: 2px solid var(--dm-edge);
   padding-block: 8px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
   display: flex; align-items: center; gap: 12px; }
@@ -89,6 +96,47 @@ const CSS = `
 .dm .filters { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .dm .filters .ghost.on { background: var(--dm-blue); border-color: #fff; }
 .dm .collection { width: 100%; max-width: 980px; display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 12px 6px; }
+.dm .gems { margin-left: auto; display: flex; align-items: center; gap: 8px; background: #061028; border: 2px solid #2b5fc4;
+  border-radius: 999px; padding: 3px 14px 3px 6px; font-weight: 900; font-size: 18px; font-variant-numeric: tabular-nums; }
+.dm .gem { width: 22px; height: 22px; background: linear-gradient(135deg, #ff6b6b, #c2185b); clip-path: polygon(50% 0, 100% 38%, 50% 100%, 0 38%); }
+.dm .case { width: 100%; max-width: 720px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.dm .box { appearance: none; border: 3px solid #ffffff55; border-radius: 14px; min-height: 104px; cursor: pointer; color: #fff; font: 800 13px/1.2 var(--dm-font);
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; padding: 8px 4px; position: relative;
+  background: var(--box, #2a3550); box-shadow: inset 0 -10px 0 #0003, 0 4px 0 #0006; text-shadow: 0 2px 0 #0007; }
+.dm .box::before { content: ""; position: absolute; top: 10px; left: 50%; width: 38px; height: 38px; transform: translateX(-50%);
+  border-radius: 8px; background: #ffffff33; box-shadow: inset 0 0 0 3px #ffffff88; }
+.dm .box.empty { background: #0d1424; border-style: dashed; border-color: #2c3a5c; cursor: default; color: var(--dm-mute); text-shadow: none; }
+.dm .box.empty::before { display: none; }
+.dm .box.ready { border-color: #fff; animation: dm-pulse 1.4s ease-in-out infinite; }
+.dm .box b { font-size: 15px; }
+.dm .k-white { --box: linear-gradient(180deg, #f4f6fb, #aab3c5); color: #1d2433; text-shadow: none; }
+.dm .k-blue { --box: linear-gradient(180deg, #4f9bff, #1450b8); }
+.dm .k-purple { --box: linear-gradient(180deg, #b26bff, #5b1fa8); }
+.dm .k-gold { --box: linear-gradient(180deg, #ffe06a, #c98a00); color: #3a2a00; text-shadow: none; }
+.dm .k-rainbow { --box: linear-gradient(135deg, #ff7eb6, #ffd36e, #8dff9c, #7ec8ff, #c38bff); color: #1d2433; text-shadow: none; }
+.dm .k-shop, .dm .k-welcome { --box: linear-gradient(180deg, #ff6b6b, #b0173a); }
+@keyframes dm-pulse { 50% { transform: translateY(-3px); box-shadow: inset 0 -10px 0 #0003, 0 7px 0 #0006, 0 0 18px #fff8; } }
+.dm .shop { width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.dm .shop .box { width: 160px; min-height: 170px; cursor: default; }
+.dm .shop .box::before { width: 70px; height: 70px; top: 22px; }
+.dm .price { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 20px; }
+.dm .fig.locked img { filter: brightness(0) opacity(.55); }
+.dm .fig.locked .name { color: #5b6886; }
+.dm .fig .copies { position: absolute; bottom: 34px; right: 10px; font-weight: 900; font-size: 12px; background: #000a; border-radius: 6px; padding: 0 5px; }
+.dm .open { position: fixed; inset: 0; z-index: 30; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+  background: radial-gradient(circle at 50% 40%, #1b3f8a, #050b1a 70%); padding: 16px; }
+.dm .open.show { display: flex; }
+.dm .open .box { width: 150px; min-height: 160px; cursor: default; animation: dm-shake .5s ease-in-out 3; }
+.dm .open .box::before { width: 64px; height: 64px; top: 22px; }
+.dm .open .got { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.dm .open .got .fig { width: 140px; animation: dm-pop .45s ease-out both; }
+.dm .open .got .fig.EX .stand, .dm .open .got .fig.Rare .stand { filter: drop-shadow(0 0 14px #ffd21f); }
+.dm .open .new { font-weight: 900; color: var(--dm-yellow); font-size: 13px; }
+.dm .open h2 { margin: 0; font: 900 26px/1.2 var(--dm-font); text-align: center; }
+@keyframes dm-shake { 25% { transform: rotate(-6deg); } 75% { transform: rotate(6deg); } }
+@keyframes dm-pop { from { transform: scale(.4); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .dm .box.ready, .dm .open .box, .dm .open .got .fig { animation: none; } }
+@media (max-width: 560px) { .dm .case { grid-template-columns: repeat(2, 1fr); } }
 .dm .tabs { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: linear-gradient(180deg, #1f6be0, #0b3a92);
   border-top: 3px solid var(--dm-edge); padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
 .dm .tab { appearance: none; border: 0; border-right: 2px solid #0a2e75; background: none; color: #fff; cursor: pointer; padding: 8px 4px 10px;
@@ -102,6 +150,7 @@ const CSS = `
 const ICON = {
   back: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M18 8 4 20l14 12v-7c9 0 14 3 18 9-1-10-6-17-18-18z" fill="#fff" stroke="#0b3a92" stroke-width="2" stroke-linejoin="round"/></svg>',
   league: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M11 6h18v6a9 9 0 0 1-18 0zM6 8h5v4a5 5 0 0 1-5-4zM29 8h5a5 5 0 0 1-5 4zM17 21h6v6h4v5H13v-5h4z" fill="#ffd21f" stroke="#7a5600" stroke-width="2" stroke-linejoin="round"/></svg>',
+  shop: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 14h24l-2 20H10z" fill="#fff" stroke="#0b3a92" stroke-width="2" stroke-linejoin="round"/><path d="M14 14a6 6 0 0 1 12 0" fill="none" stroke="#0b3a92" stroke-width="2.5"/><circle cx="20" cy="24" r="5" fill="#e53935" stroke="#0b3a92" stroke-width="2"/><path d="M15 24h10" stroke="#0b3a92" stroke-width="2"/></svg>',
   deck: '<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="9" width="18" height="24" rx="3" fill="#cfe2ff" stroke="#0b3a92" stroke-width="2" transform="rotate(-10 14 21)"/><rect x="16" y="7" width="18" height="24" rx="3" fill="#fff" stroke="#0b3a92" stroke-width="2"/><circle cx="25" cy="19" r="5" fill="#e53935" stroke="#0b3a92" stroke-width="2"/><path d="M20 19h10" stroke="#0b3a92" stroke-width="2"/></svg>',
 };
 
@@ -112,10 +161,17 @@ export interface MenuHooks {
   canContinue(): boolean;
 }
 
-type Screen = 'home' | 'deck' | 'pick';
+type Screen = 'home' | 'deck' | 'pick' | 'shop';
 
-/** League (home), Edit Deck and figure picker, in the style of the original app. Returns a function that opens home. */
-export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: MenuHooks): () => void {
+export interface Menus {
+  /** Show the League (home) screen. */
+  open(): void;
+  /** Reward the end of a duel; returns a line for the end banner. */
+  duelEnded(won: boolean): string;
+}
+
+/** League (home), Edit Deck, figure picker and Shop, in the style of the original app. */
+export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: MenuHooks): Menus {
   const style = document.createElement('style');
   style.textContent = CSS;
   document.head.appendChild(style);
@@ -129,16 +185,21 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
 
   const rarity = new Map(records.map((r) => [String(r.id), r.rarity]));
   const byId = new Map(pool.map((d) => [d.id, d]));
-  let deck: string[] = loadDeck().filter((id) => byId.has(id)).slice(0, DECK_SIZE);
+  let gacha: GachaState = loadState(read(GACHA_KEY));
+  const owns = (id: string) => (gacha.owned[id] ?? 0) > 0;
+  let deck: string[] = loadDeck().filter((id) => byId.has(id) && owns(id)).slice(0, DECK_SIZE);
+  const pullable = pool.map((d) => ({ id: d.id, rarity: rarity.get(d.id) ?? 'Common' }));
+  const saveGacha = () => write(GACHA_KEY, JSON.stringify(gacha));
   let screen: Screen = 'home';
-  let filter = 'all';
+  let filter = 'mine';
 
   const root = document.createElement('section');
   root.className = 'dm';
   root.id = 'mainMenu';
   root.setAttribute('aria-label', 'Menú');
   root.innerHTML = `
-    <div class="bar"><span class="info">Versión 1.0.0 · ${pool.length} figuras</span></div>
+    <div class="bar"><span class="info">Versión 1.0.0 · ${pool.length} figuras</span>
+      <span class="gems" title="Gemas"><i class="gem"></i><span id="dmGems">0</span></span></div>
     <div class="screen" id="dmHome">
       <div class="pill">Liga</div>
       <div class="hero">
@@ -148,6 +209,9 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         <button type="button" class="yellow big" id="menuPlay">Jugar</button>
         <button type="button" class="ghost" id="menuContinue">Continuar duelo</button>
       </div>
+      <div class="row" id="dmWelcome"></div>
+      <div class="case" id="dmCase"></div>
+      <p class="note">Cada duelo te da gemas y, si hay hueco en la vitrina, un booster que se abre cuando pasa su tiempo (o antes con gemas).</p>
       <p class="note">Contra la IA. Regla de la casa: el atacante que pierde no cae y el defensor contraataca; si saca fallo, cae.</p>
     </div>
     <div class="screen" id="dmDeck">
@@ -171,10 +235,27 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       <div class="filters" id="deckFilters"></div>
       <div class="collection" id="deckCards"></div>
     </div>
+    <div class="screen" id="dmShop">
+      <div class="pill">Tienda</div>
+      <div class="shop">
+        <div class="box k-shop"><b>Booster</b></div>
+        <div class="price"><i class="gem"></i>${SHOP_PRICE}</div>
+        <p class="note">${BOOSTERS.shop.slots.length} figuras, una de ellas poco común (UC) o mejor.</p>
+        <button type="button" class="yellow" id="shopBuy">Comprar</button>
+        <p class="note" id="shopNote"></p>
+      </div>
+    </div>
+    <div class="open" id="dmOpen" role="dialog" aria-modal="true" aria-label="Abrir booster">
+      <h2 id="dmOpenTitle"></h2>
+      <div class="box" id="dmOpenBox"></div>
+      <div class="got" id="dmOpenGot"></div>
+      <button type="button" class="yellow" id="dmOpenOk" hidden>Seguir</button>
+    </div>
     <nav class="tabs" aria-label="Secciones">
       <button type="button" class="tab" id="tabBack">${ICON.back}Atrás</button>
       <button type="button" class="tab" id="tabLeague">${ICON.league}Liga</button>
       <button type="button" class="tab" id="tabDeck">${ICON.deck}Mazos</button>
+      <button type="button" class="tab" id="tabShop">${ICON.shop}Tienda</button>
     </nav>`;
   document.body.appendChild(root);
 
@@ -240,7 +321,11 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     order.className = 'order';
     order.hidden = true;
     card.append(wheel, order);
+    const copies = document.createElement('span');
+    copies.className = 'copies';
+    card.appendChild(copies);
     card.onclick = () => {
+      if (!owns(d.id)) return;
       const at = deck.indexOf(d.id);
       if (at >= 0) deck.splice(at, 1);
       else if (deck.length < DECK_SIZE) deck.push(d.id);
@@ -250,7 +335,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     $('deckCards').appendChild(card);
   }
 
-  const filters: [string, string][] = [['all', 'Todas'], ['EX', 'EX'], ['Rare', 'R'], ['Uncommon', 'UC'], ['Common', 'C']];
+  const filters: [string, string][] = [['mine', 'Mías'], ['all', 'Todas'], ['EX', 'EX'], ['Rare', 'R'], ['Uncommon', 'UC'], ['Common', 'C']];
   for (const [key, label] of filters) {
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'ghost'; b.textContent = label; b.dataset.key = key;
@@ -268,19 +353,27 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       $(id).textContent = `Usables ${deck.length}/${DECK_SIZE}`;
       $(id).classList.toggle('short', !full);
     }
+    const mine = pool.filter((d) => owns(d.id)).length;
     $('dmDeckNote').textContent = full ? 'Juegas con estas 6 figuras. La IA lleva un mazo al azar.'
-      : 'Mientras no elijas 6 figuras juegas con un mazo al azar. La IA siempre lleva un mazo al azar.';
-    $('dmHomeDeck').textContent = full ? 'Tu mazo' : 'Mazo al azar · elígelo en Mazos';
-    $('deckCount').textContent = `Pulsa una figura para añadirla o quitarla. La ruleta pequeña muestra sus colores; con el ratón encima ves sus ataques.`;
+      : mine >= DECK_SIZE ? 'Mientras no elijas 6 figuras juegas con 6 de las tuyas al azar. La IA siempre lleva un mazo al azar.'
+      : 'Necesitas 6 figuras distintas para jugar: abre boosters en Liga o compra en la Tienda.';
+    $('dmHomeDeck').textContent = full ? 'Tu mazo' : mine >= DECK_SIZE ? 'Mazo al azar con tus figuras · elígelo en Mazos'
+      : `Tienes ${mine} figuras: abre tus boosters para llegar a 6`;
+    $<HTMLButtonElement>('menuPlay').disabled = mine < DECK_SIZE;
+    $('deckCount').textContent = `Tienes ${mine} de ${pool.length} figuras. Pulsa una tuya para añadirla o quitarla; las oscuras aún no las tienes.`;
+    renderGacha();
     $<HTMLButtonElement>('deckDone').disabled = deck.length !== 0 && !full;
     for (const [id, card] of cards) {
       const at = deck.indexOf(id);
       card.classList.toggle('sel', at >= 0);
-      card.classList.toggle('off', at < 0 && full);
+      const have = gacha.owned[id] ?? 0;
+      card.classList.toggle('locked', !have);
+      card.classList.toggle('off', at < 0 && (full || !have));
+      card.querySelector<HTMLElement>('.copies')!.textContent = have > 1 ? `x${have}` : '';
       const order = card.querySelector<HTMLElement>('.order')!;
       order.hidden = at < 0;
       order.textContent = String(at + 1);
-      card.hidden = filter !== 'all' && card.dataset.rarity !== filter;
+      card.hidden = filter === 'mine' ? !have : filter !== 'all' && card.dataset.rarity !== filter;
     }
     for (const b of $('deckFilters').querySelectorAll<HTMLElement>('button')) b.classList.toggle('on', b.dataset.key === filter);
   };
@@ -294,6 +387,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     $('dmHome').classList.toggle('on', s === 'home');
     $('dmDeck').classList.toggle('on', s === 'deck');
     $('dmPick').classList.toggle('on', s === 'pick');
+    $('dmShop').classList.toggle('on', s === 'shop');
+    $('tabShop').classList.toggle('on', s === 'shop');
     $('tabLeague').classList.toggle('on', s === 'home');
     $('tabDeck').classList.toggle('on', s === 'deck' || s === 'pick');
     $('menuContinue').hidden = !hooks.canContinue();
@@ -301,11 +396,110 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     changed();
   };
 
-  $('menuPlay').onclick = () => { history.length = 0; go(null); hooks.play(deck.length === DECK_SIZE ? deck.map((id) => byId.get(id)!) : null); };
+  $('menuPlay').onclick = () => {
+    const mine = pool.filter((d) => owns(d.id));
+    if (mine.length < DECK_SIZE) return;
+    for (let i = mine.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [mine[i], mine[j]] = [mine[j], mine[i]]; }
+    history.length = 0;
+    go(null);
+    hooks.play(deck.length === DECK_SIZE ? deck.map((id) => byId.get(id)!) : mine.slice(0, DECK_SIZE));
+  };
+
+  // ---------- boosters ----------
+  const boxLabel = (kind: BoosterKind) => `Booster ${BOOSTERS[kind].name}`;
+  const timeLeft = (ms: number) => {
+    const m = Math.ceil(ms / 60_000);
+    return m >= 60 ? `${Math.floor(m / 60)} h ${m % 60} min` : `${m} min`;
+  };
+  /** Case slot armed for a gem purchase: a first tap shows the price, a second one pays. */
+  let armed = -1;
+  const renderGacha = () => {
+    $('dmGems').textContent = String(gacha.gems);
+    const now = Date.now();
+    const caseEl = $('dmCase');
+    caseEl.innerHTML = '';
+    for (let i = 0; i < CASE_SLOTS; i++) {
+      const b = gacha.case[i];
+      const el = document.createElement('button');
+      el.type = 'button';
+      if (!b) { el.className = 'box empty'; el.disabled = true; el.textContent = 'Hueco libre'; caseEl.appendChild(el); continue; }
+      const left = b.readyAt - now, ready = left <= 0, cost = gemsToOpenNow(left);
+      el.className = `box k-${b.kind}` + (ready ? ' ready' : '');
+      const sub = ready ? '¡Abrir!' : armed === i ? (cost <= gacha.gems ? `Abrir ya: ${cost} gemas` : `Faltan gemas (${cost})`) : timeLeft(left);
+      el.innerHTML = `<b></b><span></span>`;
+      el.querySelector('b')!.textContent = BOOSTERS[b.kind].name;
+      el.querySelector('span')!.textContent = sub;
+      el.setAttribute('aria-label', `${boxLabel(b.kind)}: ${sub}`);
+      el.onclick = () => {
+        const left2 = b.readyAt - Date.now();
+        if (left2 > 0 && armed !== i) { armed = i; renderGacha(); return; }
+        armed = -1;
+        const got = openFromCase(gacha, i, Date.now(), pullable, Math.random);
+        if (!got) { renderGacha(); return; }
+        saveGacha();
+        reveal(b.kind, got);
+      };
+      caseEl.appendChild(el);
+    }
+    const w = $('dmWelcome');
+    w.innerHTML = '';
+    if (gacha.ready.length) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'yellow';
+      const k = gacha.ready[0].kind;
+      btn.textContent = `Abrir ${k === 'welcome' ? 'booster de bienvenida' : 'booster'} (${gacha.ready.length})`;
+      btn.onclick = () => { const r = openReady(gacha, pullable, Math.random); if (r) { saveGacha(); reveal(r.kind, r.got); } };
+      w.appendChild(btn);
+    }
+    $<HTMLButtonElement>('shopBuy').disabled = gacha.gems < SHOP_PRICE;
+    $('shopNote').textContent = gacha.gems < SHOP_PRICE ? `Tienes ${gacha.gems} gemas. Ganas gemas en cada duelo.` : `Tienes ${gacha.gems} gemas.`;
+  };
+
+  /** Booster opening: the box shakes, then the figures pop out one by one. */
+  const reveal = (kind: BoosterKind, got: string[]) => {
+    renderGacha(); // gems and case update at once, under the opening overlay
+    const box = $('dmOpenBox');
+    box.className = `box k-${kind}`;
+    box.innerHTML = `<b>${BOOSTERS[kind].name}</b>`;
+    box.hidden = false;
+    $('dmOpenTitle').textContent = boxLabel(kind);
+    const out = $('dmOpenGot');
+    out.innerHTML = '';
+    $('dmOpenOk').hidden = true;
+    $('dmOpen').classList.add('show');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setTimeout(() => {
+      box.hidden = true;
+      got.forEach((id, i) => {
+        const d = byId.get(id)!;
+        const f = figure(d, 'div');
+        f.classList.add(rarity.get(id) ?? '');
+        f.style.animationDelay = `${i * 0.35}s`;
+        const n = document.createElement('span');
+        n.className = 'new';
+        n.textContent = gacha.owned[id] === 1 ? '¡Nueva!' : `Repetida (x${gacha.owned[id]})`;
+        f.appendChild(n);
+        out.appendChild(f);
+      });
+      $('dmOpenOk').hidden = false;
+      $('dmOpenOk').focus();
+    }, reduce ? 0 : 1500);
+  };
+  $('dmOpenOk').onclick = () => { $('dmOpen').classList.remove('show'); changed(); };
+  $('shopBuy').onclick = () => {
+    if (!buyBooster(gacha)) return;
+    const r = openReady(gacha, pullable, Math.random);
+    saveGacha();
+    if (r) reveal(r.kind, r.got);
+  };
+  // Timers on the case tick while the League screen is open.
+  setInterval(() => { if (root.classList.contains('show') && screen === 'home' && !$('dmOpen').classList.contains('show')) renderGacha(); }, 15_000);
   $('menuContinue').onclick = () => { history.length = 0; go(null); };
   $('menuDeck').onclick = () => go('pick');
   $('tabLeague').onclick = () => go('home');
   $('tabDeck').onclick = () => go('deck');
+  $('tabShop').onclick = () => go('shop');
   $('tabBack').onclick = () => {
     const prev = history.pop();
     if (prev) go(prev, false);
@@ -314,13 +508,31 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   $('deckDone').onclick = () => go('deck');
   $('deckClear').onclick = () => { deck = []; changed(); };
   $('deckRandom').onclick = () => {
-    const ids = pool.map((d) => d.id);
+    const ids = pool.filter((d) => owns(d.id)).map((d) => d.id);
     for (let i = ids.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [ids[i], ids[j]] = [ids[j], ids[i]]; }
     deck = ids.slice(0, DECK_SIZE);
     changed();
   };
 
-  return () => { history.length = 0; go('home', false); };
+  return {
+    open: () => { history.length = 0; armed = -1; go('home', false); },
+    duelEnded: (won) => {
+      gacha = loadState(read(GACHA_KEY)); // another tab may have changed it
+      const b = rewardDuel(gacha, won, Date.now(), Math.random);
+      saveGacha();
+      const g = won ? GEMS_WIN : GEMS_LOSS;
+      return b ? `+${g} gemas · ${boxLabel(b.kind)} (${BOOSTERS[b.kind].hours} h) en la vitrina`
+        : `+${g} gemas · la vitrina está llena: abre algún booster`;
+    },
+  };
+}
+
+function read(key: string): string | null {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+
+function write(key: string, value: string) {
+  try { localStorage.setItem(key, value); } catch { /* storage unavailable: progress lasts this visit */ }
 }
 
 const hex = (n: number) => '#' + n.toString(16).padStart(6, '0');

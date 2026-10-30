@@ -41,12 +41,19 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
   (collection with mini wheels, attacks on hover, rarity filters, 6 distinct figures, "Al azar"/"Vaciar"). Not drawn:
   energy/coins/gems, plates panel, Fusion, Shop (none exist). Font: Nunito (Google Fonts) with system fallback. The deck is kept in localStorage (`duel.deck`, per browser);
   without 6 chosen the player gets a random deck. The AI always gets a random deck. `Match.start(deck)`.
+- Gacha (2026-10-30; logic in `src/gacha.ts` + `test/gacha.test.ts`, UI in `web/src/menus.ts`). From the sources: timed
+  booster types White 1 h (1 figure), Blue 3 h (1, UC+), Purple 6 h (1, UC+), Gold 12 h (R+ and 1), Rainbow 24 h (EX+ and 2)
+  (Fandom "Booster"); 50-gem shop booster (Nintendo Life); boosters in a case on the home screen, openable early with gems
+  (Serebii "League"). INVENTED (marked in the code): rarity weights C 60 / UC 28 / R 10 / EX 2, timed type weights
+  40/25/20/10/5, case of 4, 20 gems per win and 5 per loss, 1 gem per 10 min left to open early, shop booster = 2 figures
+  (one UC+), 4 welcome boosters with 8 different figures. Ingots/metals/cubes left out (no fusion). Only owned figures go in
+  the deck; with no deck chosen you play 6 of yours at random. Save in localStorage `duel.gacha` (per browser).
 - MP badges: every figure on the board shows the MP it has right now (`Game.mp`, so the first-turn MP-1 is included),
   or "Wait N" in yellow while it waits (`View.setBadges`, `drawBadge` in `web/src/shared.ts`).
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 25 passing.
+- Tests: `npm test` -> 32 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.
