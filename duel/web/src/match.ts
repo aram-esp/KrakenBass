@@ -18,11 +18,17 @@ export class Match {
 
   constructor(private views: View[], private board: Layout, private pool: FigureDef[]) {}
 
-  start() {
+  /** The player's chosen deck for the next duels; null = random. */
+  humanDeck: FigureDef[] | null = null;
+  /** Called by the "Menú" buttons. */
+  onMenu: () => void = () => {};
+
+  start(humanDeck: FigureDef[] | null = this.humanDeck) {
+    this.humanDeck = humanDeck;
     const rng = seeded(this.seedBase++);
     const deck = () => Array.from({ length: 6 }, () => this.pool[Math.floor(rng() * this.pool.length)]);
     const first: PlayerId = rng() < 0.5 ? 0 : 1;
-    this.game = new Game(this.board, [deck(), deck()], seeded(this.seedBase++), houseRules, first);
+    this.game = new Game(this.board, [humanDeck ?? deck(), deck()], seeded(this.seedBase++), houseRules, first);
     this.game.onBattle = (m, o, r, info) => this.showBattle(m, o, r, info);
     // Draw the board as it is right before the battle (e.g. the AI's move); then it waits for the disks.
     this.game.onBeforeBattle = () => this.refresh();
@@ -38,6 +44,8 @@ export class Match {
     (window as unknown as { __duel: unknown }).__duel = { game: this.game, match: this, views: this.views };
     $('end').onclick = () => { if (this.canAct()) { this.game.endTurn(); this.afterHuman(); } };
     $('again').onclick = () => this.start();
+    $('toMenu').onclick = () => this.onMenu();
+    $('menuBtn').onclick = () => this.onMenu();
     for (const v of this.views) v.canvas.onclick = (ev) => this.click(v.pick(ev));
     this.refresh();
     if (this.game.current !== HUMAN) this.runAi();
@@ -273,9 +281,12 @@ function spinWheel(cv: HTMLCanvasElement, def: FigureDef, hit: Move, ms: number,
   };
 }
 
-/** Pie chart of a figure's Data Disk turned by `rot` radians, with a fixed pointer at the top; `hit` is outlined. */
-function drawWheel(cv: HTMLCanvasElement, def: FigureDef, hit: Move | null, rot = 0) {
-  const c = cv.getContext('2d')!, R = cv.width / 2 - 22, C = cv.width / 2;
+/**
+ * Pie chart of a figure's Data Disk turned by `rot` radians, with a fixed pointer at the top; `hit` is outlined.
+ * `mini`: a small icon (deck picker) with no labels and no pointer.
+ */
+export function drawWheel(cv: HTMLCanvasElement, def: FigureDef, hit: Move | null, rot = 0, mini = false) {
+  const c = cv.getContext('2d')!, R = cv.width / 2 - (mini ? 2 : 22), C = cv.width / 2;
   c.clearRect(0, 0, cv.width, cv.height);
   const total = def.wheel.reduce((s, x) => s + x.weight, 0);
   let a = -Math.PI / 2 + rot;
@@ -284,7 +295,7 @@ function drawWheel(cv: HTMLCanvasElement, def: FigureDef, hit: Move | null, rot 
     c.beginPath(); c.moveTo(C, C); c.arc(C, C, R, a, a + span); c.closePath();
     c.fillStyle = MOVE_COLOR[seg.move.color]; c.fill();
     c.lineWidth = seg.move === hit ? 6 : 1; c.strokeStyle = seg.move === hit ? '#4cd964' : '#0006'; c.stroke();
-    if (span > 0.35) {
+    if (!mini && span > 0.35) {
       const mid = a + span / 2;
       c.fillStyle = seg.move.color === 'white' || seg.move.color === 'gold' ? '#222' : '#fff';
       c.font = 'bold 24px system-ui'; c.textAlign = 'center';
@@ -292,6 +303,7 @@ function drawWheel(cv: HTMLCanvasElement, def: FigureDef, hit: Move | null, rot 
     }
     a += span;
   });
+  if (mini) return;
   // Pointer at the top: the segment under it is the result.
   c.beginPath(); c.moveTo(C - 16, 2); c.lineTo(C + 16, 2); c.lineTo(C, 34); c.closePath();
   c.fillStyle = '#ffffff'; c.fill(); c.lineWidth = 3; c.strokeStyle = '#12151c'; c.stroke();
