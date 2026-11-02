@@ -1,6 +1,6 @@
 import { Game } from '../../src/game.ts';
 import { newStats, noteBattle, observe, type DuelStats } from '../../src/story.ts';
-import { aiTurn } from '../../src/ai.ts';
+import { aiTurn, type AiWeights } from '../../src/ai.ts';
 import { seeded } from '../../src/rng.ts';
 import type { BattleResult } from '../../src/battle.ts';
 import type { Figure, FigureDef, Move, NodeId, PlayerId } from '../../src/types.ts';
@@ -11,7 +11,17 @@ import { $, COND_SHORT, MOVE_COLOR, TYPE_COLOR, type Layout, type View } from '.
 const HUMAN: PlayerId = 0;
 
 /** A set opponent: its deck and plates. */
-export interface Opponent { deck: FigureDef[]; plates: PlateDef[]; name?: string }
+export interface Opponent {
+  deck: FigureDef[];
+  plates: PlateDef[];
+  name?: string;
+  /** A random deck and plates instead of `deck` / `plates` (League rivals). */
+  random?: boolean;
+  /** Its AI's weights (a style, or the hotel worker); default: the normal AI. */
+  weights?: AiWeights;
+  /** Watches the player's turns: `start` before the player acts, `end` with the move the player made ("stay": none). */
+  watch?: { start(g: Game): void; end(g: Game, key: string): void };
+}
 
 export class Match {
   game!: Game;
@@ -37,6 +47,12 @@ export class Match {
   stats: DuelStats = newStats();
   /** A set opponent (Training Center, hotels); null: a random deck (League). */
   opp: Opponent | null = null;
+  /** Weights for the AI button (the player's hotel worker plays for them); default: the normal AI. */
+  helperWeights: AiWeights | undefined;
+  private watchTurn = 0;
+  private watchKey: string | null = null;
+  private watchOpen = false;
+  private watchSkip = false;
   /** Called when one of the player's figures has fought a battle. */
   onBattleFought: (id: string) => void = () => {};
   private reported = false;
@@ -59,8 +75,13 @@ export class Match {
       const p = this.platePool[Math.floor(rng() * this.platePool.length)];
       if (aiPlates.reduce((c, x) => c + x.cost, 0) + p.cost <= 6) aiPlates.push(p);
     }
-    this.game = new Game(this.board, [humanDeck ?? deck(), opp?.deck ?? deck()], seeded(this.seedBase++), houseRules, first, [plates, opp?.plates ?? aiPlates]);
+    const fixed = opp && !opp.random ? opp : null;
+    this.game = new Game(this.board, [humanDeck ?? deck(), fixed?.deck ?? deck()], seeded(this.seedBase++), houseRules, first, [plates, fixed?.plates ?? aiPlates]);
     this.game.onSurround = (f) => { if (f.owner !== HUMAN) this.stats.surrounds++; };
+    this.game.onMove = (uid, to, kind) => {
+      if (this.game.current === HUMAN && this.watchKey === null) this.watchKey = kind ? `${kind}:${uid}>${to}` : `${uid}>${to}`;
+    };
+    this.watchTurn = 0; this.watchOpen = false;
     this.game.onBattle = (m, o, r, info) => {
       if (!info.tie) noteBattle(this.stats, m, o, r, HUMAN);
       if (!info.tie) for (const f of [m, o]) if (f.owner === HUMAN) this.onBattleFought(f.def.id);
@@ -89,7 +110,7 @@ export class Match {
     (window as unknown as { __duel: unknown }).__duel = { game: this.game, match: this, views: this.views };
     $('end').onclick = () => { if (this.canAct()) { this.game.endTurn(); this.afterHuman(); } };
     // The original's AI button: the AI plays this turn for you.
-    $('aiBtn').onclick = () => { if (this.canAct()) { this.selected = null; aiTurn(this.game, seeded(this.seedBase++)); this.afterHuman(); } };
+    $('aiBtn').onclick = () => { if (this.canAct()) { this.selected = null; this.watchSkip = true; aiTurn(this.game, seeded(this.seedBase++), this.helperWeights); this.afterHuman(); } };
     // Forfeit: a second press within 3 s confirms.
     const ff = $<HTMLButtonElement>('forfeit');
     ff.classList.remove('armed'); ff.textContent = 'Rendirse';
@@ -121,6 +142,20 @@ export class Match {
   }
 
   canAct() { return !this.busy && !this.disksShowing() && !this.bannerShowing() && this.game.winner === null && this.game.current === HUMAN; }
+
+  /** Tell the opponent's watcher (the hotel worker learning) when the player's turn starts and what they did in it. */
+  private watch() {
+    const g = this.game, w = this.opp?.watch;
+    if (!w) return;
+    if (this.watchOpen && (g.current !== HUMAN || g.winner !== null || g.turn !== this.watchTurn)) {
+      this.watchOpen = false;
+      if (!this.watchSkip) w.end(g, this.watchKey ?? 'stay');
+    }
+    if (!this.watchOpen && g.winner === null && g.current === HUMAN && g.turn !== this.watchTurn) {
+      this.watchTurn = g.turn; this.watchKey = null; this.watchSkip = false; this.watchOpen = true;
+      w.start(g);
+    }
+  }
 
   /** "TU TURNO" / "TURNO RIVAL" banner at the start of each turn; nobody acts while it shows. */
   private bannerUntil = 0;
@@ -238,7 +273,7 @@ export class Match {
       // The AI "thinks" a moment before each action (that time runs on its clock).
       if (!thought) { thought = true; setTimeout(step, AI_STEP_MS); return; }
       thought = false;
-      aiTurn(this.game, seeded(this.seedBase++));
+      aiTurn(this.game, seeded(this.seedBase++), this.opp?.weights);
       this.refresh();
       setTimeout(step, 300);
     };
@@ -290,6 +325,7 @@ export class Match {
     $('plAi').classList.toggle('turn', g.current !== HUMAN && g.winner === null);
     this.showClocks();
     this.turnBanner();
+    this.watch();
     $<HTMLButtonElement>('aiBtn').disabled = !this.canAct();
     $('status').textContent = g.winner !== null ? 'Duelo terminado' : `Turno ${g.turn}/${300} · juega ${g.current === HUMAN ? 'el jugador' : 'la IA'}`;
 

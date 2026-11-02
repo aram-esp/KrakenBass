@@ -37,6 +37,8 @@ export class Game {
    * Called after every spin of a battle, e.g. so a UI can show the wheels. `tie`: nobody won this spin and, with
    * rules.decisive, both figures spin again (another call follows).
    */
+  /** A figure is moved by its player (MP move, or an ability move with its kind): to learn from the player's choices. */
+  onMove?: (uid: string, to: NodeId, kind?: string) => void;
   /** A figure is surrounded and knocked out (for challenges). */
   onSurround?: (f: Figure) => void;
   onBattle?: (mover: Figure, other: Figure, result: BattleResult, info: { tie: boolean }) => void;
@@ -202,6 +204,7 @@ export class Game {
   move(uid: string, to: NodeId): void {
     const f = this.mine(uid);
     if (!this.reachable(f).has(to)) throw new Error('unreachable node');
+    this.onMove?.(uid, to);
     const fromBench = f.status === 'bench';
     this.place(f, to);
     if (fromBench) f.fresh = true;
@@ -262,6 +265,7 @@ export class Game {
   doSpecial(s: Special): void {
     const f = this.figures.find((x) => x.uid === (s.kind === 'swarm' ? s.other : s.uid));
     if (!f) throw new Error('unknown figure');
+    this.onMove?.(s.uid, s.to, s.kind);
     this.mine(f.uid);
     if (!this.specials(f).some((x) => x.kind === s.kind && x.to === s.to && x.uid === s.uid)) throw new Error('not available');
     const mover = this.figures.find((x) => x.uid === s.uid)!;

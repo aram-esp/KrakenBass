@@ -107,7 +107,7 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 58 passing.
+- Tests: `npm test` -> 62 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.
@@ -160,7 +160,18 @@ timers, forfeit, choosing the battle target (the engine takes the first adjacent
    progress, surrounds, exposure to battles it would lose, guarding the goal; battles weighed by the wheels' odds
    (`battleOdds`). Weights in `AiWeights` / `DEFAULT_WEIGHTS`. The old AI stays as `aiTurnBasic`. Measured: 241-59 vs the
    old AI over 300 simulated duels (random 1.0.0 decks, plates), ~1.4 ms a turn; tried weight tweaks were not better.
-   Pending: an "amiibo"-style trainable AI (user's request). Research and design in `docs/amiibo.md`: a per-figure
+   Done (2026-11-02): the player's hotel with an amiibo-style worker (`src/amiibo.ts`, Hoteles tab). The AI scores
+   moves as dot(weights, features) (`moveOptions`); training duels (Match `Opponent.watch`, Game `onMove`) compare the
+   player's move with the worker's choice and move its weights (`learnFrom`). Level 1-50 lowers `noise`; personality
+   from weight ratios; guests every 30 min played headless (`playHeadless`). All numbers INVENTED. The Carmonte hotels
+   moved to the Hoteles screen; Training Center keeps its own screen.
+   AI styles (user's request: rivals should differ): `AI_STYLES` / `styleWeights` in `src/ai.ts` (Equilibrada,
+   Defensiva, Agresiva, Cazadora, Táctica, Novata). Measured vs `aiTurnBasic` over 200 duels each: 180, 149, 159, 172,
+   174, 118 wins; defensive duels last ~10 turns, aggressive ~7. League: random style (Novata only below 1300); Training
+   Center: Novata; hotels: `hotelStyle` (Ulex 1-4 Novata, leaders fixed style with noise 2). The worker is fully
+   customisable (name, figure, hotel name, every weight ×0.2-×5 on a log slider, mistakes by hand or by level, start
+   from a style).
+   Earlier design notes: an "amiibo"-style trainable AI (user's request). Research and design in `docs/amiibo.md`: a per-figure
    `AiWeights` set that imitates the player's choices, level 1-50 lowering `noise`, learning on/off, a personality read
    from the weights.
 

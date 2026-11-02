@@ -327,6 +327,16 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
       <p>Los 6 hoteles del original con su líder y su número de fases: Ulex (Yuji, 12), Chateau de Rosa (Nadya, 15), Atlantis (Joe, 18),
       Olivia Palace (Brenda, 20), The Volcano (Don Roger, 25) y Elysium (NO7, 30). Completar uno da su emblema y abre el siguiente.
       <span class="tag inv">Inventado</span> Los mazos rivales (más raros cuanto más avanzas), sus plates, los retos y los premios
-      (monedas por fase y gemas por el líder). No hay energía.</p>`;
+      (monedas por fase y gemas por el líder). No hay energía.</p>
+      <h3>Tu hotel y tu trabajador (amiibo)</h3>
+      <p><span class="tag inv">Inventado</span> En Hoteles creas tu hotel y eliges a su trabajador, una de tus figuras con IA propia, como los amiibo de Smash:
+      la IA normal del juego más sus propios pesos. Cuando entrenas con él mira qué podías hacer y qué hiciste, y copia tu estilo (si «Aprender» está activado).
+      Sube de nivel hasta 50: a más nivel, menos errores. Su personalidad sale de sus pesos, con ramas y umbrales como en Smash Ultimate.
+      Cada 30 minutos llega una visita (hasta 8): al atenderlas juega contra ellas solo y cada victoria da monedas. Con hotel, el botón IA del duelo juega como él.
+      En «Personalizar» le cambias el nombre, la figura y cada rasgo a mano, los errores, o lo haces partir de un estilo. Más en docs/amiibo.md.</p>
+      <h3>Estilos de las IA rivales</h3>
+      <p><span class="tag inv">Inventado</span> Los rivales no juegan todos igual: Equilibrada, Defensiva, Agresiva, Cazadora (busca combates),
+      Táctica (rodea) y Novata (comete errores). En Liga te toca uno al azar (la Novata solo en Beginner), el Training Center es Novata,
+      y en los hoteles cada fase tiene su estilo y cada líder el suyo, casi sin errores.</p>`;
   }
 }

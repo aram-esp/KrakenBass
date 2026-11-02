@@ -228,56 +228,60 @@ function canReach(game: Game, o: Figure, occ: Occ, goal: NodeId, extraMp = 0): b
   return reachFrom(game, o, occ, game.mp(o) + extraMp, at).has(goal);
 }
 
-/** Score of a position for `me` (higher is better). `battleWith` optionally adds the best battle after the move. */
-function evaluate(game: Game, me: PlayerId, occ: Occ, w: AiWeights, onBench: Set<string>): { score: number; dangers: Figure[] } {
+export type Features = Record<keyof AiWeights, number>;
+const zero = (): Features => ({ danger: 0, danger2: 0, threat: 0, progress: 0, progressAll: 0, onBoard: 0, surround: 0, guardGoal: 0, koValue: 0, exposure: 0, noise: 0 });
+/** KO value used to scale exposure, so that exposure stays a linear feature. */
+const EXPOSURE_KO = 260;
+export const dot = (w: AiWeights, f: Features) => (Object.keys(f) as (keyof AiWeights)[]).reduce((t, k) => t + w[k] * f[k], 0);
+
+/**
+ * A position seen by `me`, as features: the score is dot(weights, features). Learning (the amiibo) changes the weights.
+ */
+function features(game: Game, me: PlayerId, occ: Occ, onBench: Set<string>): { f: Features; dangers: Figure[] } {
   const opp = (1 - me) as PlayerId;
   const myGoal = game.board.def.goals[me], theirGoal = game.board.def.goals[opp];
   const where = new Map<string, NodeId>();
-  for (const [n, f] of occ) where.set(f.uid, n);
-  const live = (f: Figure) => f.status !== 'pc' && f.status !== 'removed';
-  const enemies = game.figures.filter((f) => f.owner === opp && live(f) && (where.has(f.uid) || f.status === 'bench'));
-  const mine = game.figures.filter((f) => f.owner === me && (where.has(f.uid) || onBench.has(f.uid)));
-  let score = 0;
+  for (const [n, fig] of occ) where.set(fig.uid, n);
+  const live = (x: Figure) => x.status !== 'pc' && x.status !== 'removed';
+  const enemies = game.figures.filter((x) => x.owner === opp && live(x) && (where.has(x.uid) || x.status === 'bench'));
+  const mine = game.figures.filter((x) => x.owner === me && (where.has(x.uid) || onBench.has(x.uid)));
+  const f = zero();
   const dangers: Figure[] = [];
-  // Their threats on our goal.
   const toMine = pathDist(game, myGoal, occ);
   const guard = occ.get(myGoal);
   const guarded = !!guard && guard.owner === me && !game.dozing(guard);
   for (const o of enemies) {
     const at = where.get(o.uid) ?? null;
     const fig = { ...o, status: at ? 'board' : 'bench', at } as Figure;
-    if (canReach(game, fig, occ, myGoal)) { score -= w.danger; dangers.push(o); continue; }
+    if (canReach(game, fig, occ, myGoal)) { f.danger -= 1; dangers.push(o); continue; }
     const mp = Math.max(1, game.mp(o));
-    const d = at ? toMine.get(at) ?? 99 : 1 + Math.min(...game.board.def.spawns[opp].map((s) => toMine.get(s) ?? 99));
+    const d = at ? toMine.get(at) ?? 99 : 1 + Math.min(...game.board.def.spawns[opp].map((x) => toMine.get(x) ?? 99));
     // With our own figure on the goal they have to battle it off first: much less pressing.
-    if (d <= 2 * mp) score -= guarded ? w.danger2 / 4 : w.danger2;
+    if (d <= 2 * mp) f.danger2 -= guarded ? 0.25 : 1;
   }
-  // Our threats and progress.
   const toTheirs = pathDist(game, theirGoal, occ);
   let nearest = 99, sum = 0;
-  for (const f of mine) {
-    const at = where.get(f.uid) ?? null;
+  for (const x of mine) {
+    const at = where.get(x.uid) ?? null;
     if (!at) continue;
-    score += w.onBoard;
+    f.onBoard += 1;
     const d = toTheirs.get(at) ?? 12;
     nearest = Math.min(nearest, d);
     sum += d;
-    if (canReach(game, { ...f, at, status: 'board' } as Figure, occ, theirGoal)) score += w.threat;
-    // Guard: standing on our goal is worth it only with enemies near.
-    if (at === myGoal) score += enemies.some((o) => { const oa = where.get(o.uid); return oa && (toMine.get(oa) ?? 99) <= 3; }) ? w.guardGoal : -w.guardGoal / 3;
-    // Exposure: enemies next to it that would beat it in their battle.
+    if (canReach(game, { ...x, at, status: 'board' } as Figure, occ, theirGoal)) f.threat += 1;
+    if (at === myGoal) f.guardGoal += enemies.some((o) => { const oa = where.get(o.uid); return oa && (toMine.get(oa) ?? 99) <= 3; }) ? 1 : -1 / 3;
     for (const n of game.board.neighbors(at)) {
       const o = occ.get(n);
-      if (o && o.owner === opp && !game.dozing(o)) score -= w.exposure * w.koValue * battleOdds(game, o, f).win;
+      if (o && o.owner === opp && !game.dozing(o)) f.exposure -= EXPOSURE_KO * battleOdds(game, o, x).win;
     }
   }
-  score -= w.progress * (nearest === 99 ? 12 : nearest) + w.progressAll * sum;
-  // Surrounds (the game knocks out a figure whose every neighbour is an awake enemy).
-  for (const [n, f] of occ) {
+  f.progress -= nearest === 99 ? 12 : nearest;
+  f.progressAll -= sum;
+  for (const [n, x] of occ) {
     const nbs = game.board.neighbors(n);
-    if (nbs.length && nbs.every((m) => { const o = occ.get(m); return !!o && o.owner !== f.owner && !game.dozing(o); })) score += f.owner === me ? -w.surround : w.surround;
+    if (nbs.length && nbs.every((m) => { const o = occ.get(m); return !!o && o.owner !== x.owner && !game.dozing(o); })) f.surround += x.owner === me ? -1 : 1;
   }
-  return { score, dangers };
+  return { f, dangers };
 }
 
 /** Best battle now for the current player, with its value (or null). */
@@ -297,6 +301,71 @@ function bestBattle(game: Game, me: PlayerId, w: AiWeights, dangers: Set<string>
   return best;
 }
 
+/** One possible MP move (or ability move, or not moving) with the features of the position it leaves. */
+export interface MoveOption { key: string; f: Features; score: number; run: () => void; ends: boolean }
+
+/**
+ * Every move the current player can make now, scored with `w`. Keys: "stay", "<uid>><node>" for MP moves,
+ * "<kind>:<uid>><node>" for ability moves. Used by the AI and to learn from the player's choices (amiibo).
+ */
+export function moveOptions(game: Game, w: AiWeights = DEFAULT_WEIGHTS): MoveOption[] {
+  const me = game.current as PlayerId;
+  const theirGoal = game.board.def.goals[(1 - me) as PlayerId];
+  const mine = game.figures.filter((x) => x.owner === me);
+  const baseOcc = (): Occ => {
+    const occ: Occ = new Map();
+    for (const x of game.figures) if (x.status === 'board' && x.at) occ.set(x.at, x);
+    return occ;
+  };
+  const benchIds = () => new Set(game.figures.filter((x) => x.owner === me && x.status === 'bench').map((x) => x.uid));
+  const out: MoveOption[] = [];
+  const add = (key: string, occ: Occ, bench: Set<string>, battleAfter: boolean, run: () => void, ends: boolean, extra = 0) => {
+    const e = features(game, me, occ, bench);
+    const f = e.f;
+    if (battleAfter) {
+      // The best battle we could fight from there (figures next to enemies in `occ`), as features.
+      const dangers = new Set(e.dangers.map((d) => d.uid));
+      let best: { v: number; win: number; lose: number; threat: boolean } | null = null;
+      for (const [n, a] of occ) {
+        if (a.owner !== me || a.wait > 0 || game.dozing(a)) continue;
+        for (const m of game.board.neighbors(n)) {
+          const b = occ.get(m);
+          if (!b || b.owner === me) continue;
+          const o = battleOdds(game, a, b), threat = dangers.has(b.uid);
+          const v = o.win * (w.koValue + (threat ? w.danger : 0)) - o.lose * w.koValue;
+          if (v > 0 && (!best || v > best.v)) best = { v, win: o.win, lose: o.lose, threat };
+        }
+      }
+      if (best) { f.koValue += best.win - best.lose; if (best.threat) f.danger += best.win; }
+    }
+    out.push({ key, f, score: dot(w, f) + extra, run, ends });
+  };
+  add('stay', baseOcc(), benchIds(), true, () => {}, false);
+  for (const x of mine) {
+    for (const to of game.reachable(x)) {
+      if (to === theirGoal) { out.push({ key: `${x.uid}>${to}`, f: zero(), score: 1e9, run: () => game.move(x.uid, to), ends: true }); continue; }
+      const occ = baseOcc();
+      if (x.at) occ.delete(x.at);
+      occ.set(to, x);
+      const bench = benchIds(); bench.delete(x.uid);
+      add(`${x.uid}>${to}`, occ, bench, true, () => game.move(x.uid, to), false);
+    }
+    for (const sp of game.specials(x)) {
+      if (sp.kind === 'forestleap' || sp.kind === 'swarm' || sp.kind === 'cutoff') {
+        const mover = sp.kind === 'swarm' ? game.figures.find((y) => y.uid === sp.uid)! : x;
+        const occ = baseOcc();
+        if (mover.at) occ.delete(mover.at);
+        occ.set(sp.to, mover);
+        const bench = benchIds(); bench.delete(mover.uid);
+        const ends = sp.kind !== 'forestleap'; // Swarm and Cut Off end the turn (no battle after)
+        add(`${sp.kind}:${mover.uid}>${sp.to}`, occ, bench, !ends, () => game.doSpecial(sp), ends);
+      }
+      if (sp.kind === 'tag') add(`tag:${x.uid}>${sp.to}`, baseOcc(), benchIds(), false, () => game.doSpecial(sp), true, w.koValue * 0.5);
+    }
+  }
+  return out;
+}
+
 /**
  * Plays one full turn for the current player. Every possible move (and not moving) is scored by the position it leaves:
  * can the enemy reach our goal next turn (block it, or battle the figure that can), can we reach theirs, progress,
@@ -306,78 +375,44 @@ export function aiTurn(game: Game, rng: Rng, w: AiWeights = DEFAULT_WEIGHTS): vo
   if (aiPlate(game, rng)) return;
   const me = game.current as PlayerId;
   const theirGoal = game.board.def.goals[(1 - me) as PlayerId];
-  const mine = () => game.figures.filter((f) => f.owner === me);
-  const baseOcc = (): Occ => {
-    const occ: Occ = new Map();
-    for (const f of game.figures) if (f.status === 'board' && f.at) occ.set(f.at, f);
-    return occ;
-  };
-  const benchIds = () => new Set(game.figures.filter((f) => f.owner === me && f.status === 'bench').map((f) => f.uid));
-
   // Run Off: swap with an adjacent ally when that moves the figure nearer their goal (does not end the turn).
   const gd = game.distances(theirGoal);
-  for (const f of mine()) {
-    const s = game.specials(f).find((x) => x.kind === 'runoff' && (gd.get(x.to) ?? 99) < (gd.get(f.at!) ?? 99));
+  for (const x of game.figures.filter((y) => y.owner === me)) {
+    const s = game.specials(x).find((y) => y.kind === 'runoff' && (gd.get(y.to) ?? 99) < (gd.get(x.at!) ?? 99));
     if (s) { game.doSpecial(s); break; }
   }
-
-  type Choice = { score: number; run: () => void; ends: boolean };
-  const choices: Choice[] = [];
-  const scorePos = (occ: Occ, bench: Set<string>, battleAfter: boolean) => {
-    const e = evaluate(game, me, occ, w, bench);
-    let s = e.score + (rng() - 0.5) * w.noise;
-    if (battleAfter) {
-      // Rough look at the battle we could fight from there: only figures next to enemies in `occ`.
-      const dangers = new Set(e.dangers.map((d) => d.uid));
-      let bestV = 0;
-      for (const [n, a] of occ) {
-        if (a.owner !== me || a.wait > 0 || game.dozing(a)) continue;
-        for (const m of game.board.neighbors(n)) {
-          const b = occ.get(m);
-          if (!b || b.owner === me) continue;
-          const o = battleOdds(game, a, b);
-          const v = o.win * (w.koValue + (dangers.has(b.uid) ? w.danger : 0)) - o.lose * w.koValue;
-          bestV = Math.max(bestV, v);
-        }
-      }
-      s += bestV;
-    }
-    return s;
-  };
-
-  // Not moving.
-  choices.push({ score: scorePos(baseOcc(), benchIds(), true), run: () => {}, ends: false });
-  for (const f of mine()) {
-    for (const to of game.reachable(f)) {
-      if (to === theirGoal) { choices.push({ score: 1e9, run: () => game.move(f.uid, to), ends: true }); continue; }
-      const occ = baseOcc();
-      if (f.at) occ.delete(f.at);
-      occ.set(to, f);
-      const bench = benchIds(); bench.delete(f.uid);
-      choices.push({ score: scorePos(occ, bench, true), run: () => game.move(f.uid, to), ends: false });
-    }
-    for (const sp of game.specials(f)) {
-      if (sp.kind === 'forestleap' || sp.kind === 'swarm' || sp.kind === 'cutoff') {
-        const mover = sp.kind === 'swarm' ? game.figures.find((x) => x.uid === sp.uid)! : f;
-        const occ = baseOcc();
-        if (mover.at) occ.delete(mover.at);
-        occ.set(sp.to, mover);
-        const bench = benchIds(); bench.delete(mover.uid);
-        // Swarm and Cut Off end the turn (no battle after).
-        const ends = sp.kind !== 'forestleap';
-        choices.push({ score: scorePos(occ, bench, !ends), run: () => game.doSpecial(sp), ends });
-      }
-      if (sp.kind === 'tag') choices.push({ score: scorePos(baseOcc(), benchIds(), false) + w.koValue * 0.5, run: () => game.doSpecial(sp), ends: true });
-    }
-  }
-  choices.sort((a, b) => b.score - a.score);
-  const pick = choices[0];
-  pick.run();
+  const opts = moveOptions(game, w);
+  for (const o of opts) o.score += (rng() - 0.5) * w.noise;
+  opts.sort((a, b) => b.score - a.score);
+  opts[0].run();
   if (game.winner !== null || game.current !== me) return; // the move won or ended the turn
 
-  const dangers = new Set(evaluate(game, me, baseOcc(), w, benchIds()).dangers.map((d) => d.uid));
+  const occ: Occ = new Map();
+  for (const x of game.figures) if (x.status === 'board' && x.at) occ.set(x.at, x);
+  const bench = new Set(game.figures.filter((x) => x.owner === me && x.status === 'bench').map((x) => x.uid));
+  const dangers = new Set(features(game, me, occ, bench).dangers.map((d) => d.uid));
   const b = bestBattle(game, me, w, dangers);
   if (b && b.value > 0) { game.battle(b.a.uid, b.b.uid); return; }
   if (game.winner === null && game.current === me) game.endTurn();
 }
 
+/**
+ * Styles for the ordinary AIs, so rivals do not all play alike. Each is the default weights with some traits pushed up
+ * or down (factors × DEFAULT_WEIGHTS), plus its noise. INVENTED for this game (2026-11-02).
+ */
+export const AI_STYLES: { key: string; name: string; text: string; mul: Partial<Record<keyof AiWeights, number>>; noise: number }[] = [
+  { key: 'balanced', name: 'Equilibrada', text: 'Ataca y defiende por igual.', mul: {}, noise: 6 },
+  { key: 'defensive', name: 'Defensiva', text: 'Protege su portería antes que nada.', mul: { danger2: 2.2, guardGoal: 2.5, progress: 0.6, exposure: 1.6 }, noise: 8 },
+  { key: 'aggressive', name: 'Agresiva', text: 'Corre hacia tu portería.', mul: { threat: 2, progress: 1.8, danger2: 0.5, guardGoal: 0.4, exposure: 0.5 }, noise: 8 },
+  { key: 'hunter', name: 'Cazadora', text: 'Busca combates para noquear.', mul: { koValue: 2.2, exposure: 0.4, progress: 0.8 }, noise: 8 },
+  { key: 'tactician', name: 'Táctica', text: 'Intenta rodear tus figuras.', mul: { surround: 2.5, onBoard: 2, progressAll: 1.5 }, noise: 6 },
+  { key: 'rookie', name: 'Novata', text: 'Comete bastantes errores y a veces no ve venir el peligro.', mul: { danger: 0.04, danger2: 0.3, koValue: 0.5 }, noise: 250 },
+];
+
+export function styleWeights(key: string): AiWeights {
+  const s = AI_STYLES.find((x) => x.key === key) ?? AI_STYLES[0];
+  const w = { ...DEFAULT_WEIGHTS };
+  for (const [k, m] of Object.entries(s.mul) as [keyof AiWeights, number][]) w[k] = DEFAULT_WEIGHTS[k] * m;
+  w.noise = s.noise;
+  return w;
+}

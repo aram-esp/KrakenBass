@@ -33,9 +33,11 @@ async function main() {
   const match = new Match([v2, v3], board, pool);
   const menus = setupMenus(pool, allRecords, {
     play: (deck, plateDeck, opp) => match.start(deck, plateDeck, opp),
+    setHelper: (w) => { match.helperWeights = w; },
     canContinue: () => !!match.game && match.game.winner === null,
   }, extras, evolves, plates, {
     training,
+    board,
     // Training Center figures: their wheel at 5.0.9 (the last version of that stage set), or the first one they had
     // if released later (ASSUMED: the page does not say which wheel each stage used).
     defOf: (id) => { const r = records.find((x) => String(x.id) === id); return r ? toFigureDef(r, releasedBy(r, '5.0.9') ? '5.0.9' : r.version) : null; },

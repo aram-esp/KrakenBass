@@ -199,3 +199,15 @@ export interface StoryState {
 export const newStory = (): StoryState => ({ rating: START_RATING, training: {}, hotels: {} });
 export const hotelUnlocked = (s: StoryState, h: number) => h === 0 || (s.hotels[h - 1]?.cleared ?? 0) >= HOTELS[h - 1].stages;
 export const emblems = (s: StoryState) => HOTELS.filter((x, h) => (s.hotels[h]?.cleared ?? 0) >= x.stages).length;
+
+/**
+ * INVENTED: the AI style of a hotel stage. The first stages of Ulex play like rookies, the rest take a style by stage,
+ * and each leader always plays its own style with few mistakes.
+ */
+export const LEADER_STYLE = ['balanced', 'tactician', 'defensive', 'hunter', 'aggressive', 'balanced'];
+export function hotelStyle(h: number, stage: number): { key: string; leader: boolean } {
+  if (stage === HOTELS[h].stages - 1) return { key: LEADER_STYLE[h], leader: true };
+  if (h === 0 && stage < 4) return { key: 'rookie', leader: false };
+  const keys = ['balanced', 'defensive', 'aggressive', 'hunter', 'tactician'];
+  return { key: keys[(h * 7 + stage * 3) % keys.length], leader: false };
+}

@@ -5,10 +5,16 @@ import { drawWheel } from './match.ts';
 import { WORKING, pendingReason } from '../../src/abilities.ts';
 import { WIKI_CSS, renderWiki } from './wiki.ts';
 import type { Opponent } from './match.ts';
+import { AI_STYLES, DEFAULT_WEIGHTS, moveOptions, styleWeights, type AiWeights } from '../../src/ai.ts';
+import {
+  BRANCHES, GUEST_COINS, GUEST_EVERY_MS, GUEST_EXP, MAX_GUESTS, TRAIN_EXP, EXP_PER_LEVEL, MAX_LEVEL, branchScores, guestsWaiting, learnFrom,
+  levelOf as workerLevel, newWorker, noiseAt, personality, playHeadless, workerWeights, TRAIT_ES, W_MAX, W_MIN, type MyHotel,
+} from '../../src/amiibo.ts';
+import type { BoardDef } from '../../src/types.ts';
 import { seeded } from '../../src/rng.ts';
 import {
   HOTELS, HOTEL_CHALLENGES, LEADER_GEMS, LEAGUES, challengeEs, challengeMet, emblems, hotelCoins, hotelDeck, hotelUnlocked,
-  leagueOf, newStats, newStory, parseReward, ratingChange, type DuelStats, type StoryState, type TrainingStage,
+  hotelStyle, leagueOf, newStats, newStory, parseReward, ratingChange, type DuelStats, type StoryState, type TrainingStage,
 } from '../../src/story.ts';
 import { plateSpec, type PlateDef } from '../../src/plates.ts';
 import {
@@ -205,6 +211,18 @@ const CSS = `
 .dm .stage li.na { color: var(--dm-mute); }
 .dm .stage small { color: var(--dm-mute); }
 .dm .stage .yellow { padding: 6px 18px; font-size: 16px; border-width: 3px; }
+.dm .traits { width: min(420px, 100%); display: grid; gap: 4px; }
+.dm .trait { display: grid; grid-template-columns: 90px 1fr 42px; gap: 8px; align-items: center; font-weight: 800; font-size: 13px; }
+.dm .trait i { display: block; height: 8px; border-radius: 4px; background: #0a1226; border: 1px solid #2b5fc4; position: relative; overflow: hidden; }
+.dm .trait i b { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, #4fd1ff, #ffd21f); }
+.dm .trait i::after { content: ""; position: absolute; left: 20%; top: 0; bottom: 0; width: 2px; background: #fff8; }
+.dm input:not([type=checkbox]) { font: 800 15px var(--dm-font); background: #0c1730; color: var(--dm-ink); border: 2px solid #4a5f8c; border-radius: 10px; padding: 6px 10px; }
+.dm input[type=checkbox] { width: 20px; height: 20px; accent-color: #ffd21f; }
+.dm details.custom { width: min(520px, 100%); background: #0e1830; border-radius: 12px; padding: 8px 10px; }
+.dm details.custom select, .dm details.custom input:not([type]) { max-width: 220px; }
+.dm details.custom summary { cursor: pointer; font-weight: 900; color: var(--dm-yellow); }
+.dm .slider { display: grid; grid-template-columns: minmax(120px, 1.2fr) 1fr 48px; gap: 8px; align-items: center; font-weight: 800; font-size: 13px; }
+.dm .slider input { width: 100%; accent-color: #ffd21f; }
 .dm .emblem { display: inline-block; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff6b0, #f2b400 60%, #8a5d00); vertical-align: middle; box-shadow: 0 0 8px #ffd21f; }
 .dm .price { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 20px; }
 .dm .fig.locked img { filter: brightness(0) opacity(.55); }
@@ -236,6 +254,7 @@ const CSS = `
 
 const ICON = {
   back: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M18 8 4 20l14 12v-7c9 0 14 3 18 9-1-10-6-17-18-18z" fill="#fff" stroke="#0b3a92" stroke-width="2" stroke-linejoin="round"/></svg>',
+  hotel: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 34V12l12-6 12 6v22z" fill="#fff" stroke="#0b3a92" stroke-width="2" stroke-linejoin="round"/><path d="M13 16h4v4h-4zM23 16h4v4h-4zM13 24h4v4h-4zM23 24h4v4h-4z" fill="#4f9bff"/><path d="M17 34v-5h6v5" fill="#e53935" stroke="#0b3a92" stroke-width="2"/></svg>',
   league: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M11 6h18v6a9 9 0 0 1-18 0zM6 8h5v4a5 5 0 0 1-5-4zM29 8h5a5 5 0 0 1-5 4zM17 21h6v6h4v5H13v-5h4z" fill="#ffd21f" stroke="#7a5600" stroke-width="2" stroke-linejoin="round"/></svg>',
   wiki: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 9c5-2 10-2 14 1v23c-4-3-9-3-14-1z" fill="#fff" stroke="#0b3a92" stroke-width="2" stroke-linejoin="round"/><path d="M34 9c-5-2-10-2-14 1v23c4-3 9-3 14-1z" fill="#cfe2ff" stroke="#0b3a92" stroke-width="2" stroke-linejoin="round"/></svg>',
   shop: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 14h24l-2 20H10z" fill="#fff" stroke="#0b3a92" stroke-width="2" stroke-linejoin="round"/><path d="M14 14a6 6 0 0 1 12 0" fill="none" stroke="#0b3a92" stroke-width="2.5"/><circle cx="20" cy="24" r="5" fill="#e53935" stroke="#0b3a92" stroke-width="2"/><path d="M15 24h10" stroke="#0b3a92" stroke-width="2"/></svg>',
@@ -245,11 +264,13 @@ const ICON = {
 export interface MenuHooks {
   /** Start a new duel with this deck for the player (null: random deck). */
   play(deck: FigureDef[] | null, plates: PlateDef[], opp: Opponent | null): void;
+  /** Weights for the duel's AI button (the hotel worker plays for the player). */
+  setHelper?(w: AiWeights | undefined): void;
   /** A duel is in progress and can be resumed. */
   canContinue(): boolean;
 }
 
-type Screen = 'home' | 'deck' | 'pick' | 'plates' | 'shop' | 'wiki' | 'fuse' | 'story';
+type Screen = 'home' | 'deck' | 'pick' | 'plates' | 'shop' | 'wiki' | 'fuse' | 'story' | 'hotels';
 
 /** Plate deck rules of the early versions (Fandom "Deck", Nintendo Life): up to 6 plates, total cost 6 or less. */
 export const PLATE_SLOTS = 6;
@@ -269,7 +290,7 @@ export interface Menus {
 /** League (home), Edit Deck, figure picker and Shop, in the style of the original app. */
 export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: MenuHooks,
   extras: FigureDef[] = [], evolves: Record<string, string[]> = {}, plates: PlateDef[] = [],
-  story0: { training: TrainingStage[]; defOf: (id: string) => FigureDef | null } = { training: [], defOf: () => null }): Menus {
+  story0: { training: TrainingStage[]; defOf: (id: string) => FigureDef | null; board?: BoardDef } = { training: [], defOf: () => null }): Menus {
   // `pool`: figures of the game version (boosters give these); `extras`: figures only reached by evolving.
   const style = document.createElement('style');
   style.textContent = CSS + WIKI_CSS;
@@ -345,7 +366,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         <button type="button" class="yellow big" id="menuPlay">Jugar</button>
         <button type="button" class="ghost" id="menuContinue">Continuar duelo</button>
       </div>
-      <div class="row"><button type="button" class="yellow" id="menuIsland">Isla Carmonte</button><button type="button" class="yellow" id="menuTraining">Training Center</button></div>
+      <div class="row"><button type="button" class="yellow" id="menuIsland">Hoteles</button><button type="button" class="yellow" id="menuTraining">Training Center</button></div>
       <div class="row" id="dmWelcome"></div>
       <div class="case" id="dmCase"></div>
       <p class="note">Cada duelo te da gemas y, si hay hueco en la vitrina, un booster que se abre cuando pasa su tiempo (o antes con gemas).</p>
@@ -443,14 +464,56 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       <div class="row"><button type="button" class="ghost" id="fuReset">Vaciar</button><button type="button" class="yellow" id="fuGo">Fusionar</button></div>
       <p class="note" id="fuNote"></p>
     </div>
-    <div class="screen" id="dmStory">
-      <div class="pill">Isla Carmonte</div>
+    <div class="screen" id="dmHotelsScreen">
+      <div class="pill">Hoteles</div>
+      <div class="panel" id="dmMyHotelPanel">
+        <div class="panel-head"><h2 id="mhTitle">Tu hotel</h2><span class="usable" id="mhCoins"></span></div>
+        <div class="fu-top" id="mhCreate">
+          <p class="note">Crea tu propio hotel y elige a su trabajador: una de tus figuras con IA propia, como un amiibo. Aprende copiando cómo juegas cuando entrenas con él,
+            sube de nivel (1–50) y atiende a los entrenadores que visitan tu hotel.</p>
+          <label class="fu-sel">Nombre del hotel <input id="mhName" maxlength="24" placeholder="Hotel Pikachu"></label>
+          <label class="fu-sel">Trabajador <select id="mhFig"></select></label>
+          <button type="button" class="yellow" id="mhMake">Crear hotel</button>
+        </div>
+        <div class="fu-top" id="mhView">
+          <div class="fu-main"><div id="mhWorkerFig"></div><div class="fu-stats" id="mhStats"></div></div>
+          <div class="fu-bar" aria-hidden="true"><i id="mhExpBar"></i></div>
+          <div class="traits" id="mhTraits"></div>
+          <label class="fu-sel"><input type="checkbox" id="mhLearn"> Aprender de mis jugadas</label>
+          <div class="row">
+            <button type="button" class="yellow" id="mhTrain">Entrenar</button>
+            <button type="button" class="yellow" id="mhGuests">Atender visitas</button>
+          </div>
+          <div class="row">
+            <button type="button" class="ghost" id="mhDeck">Darle mi mazo actual</button>
+            <button type="button" class="ghost" id="mhReset">Olvidar lo aprendido</button>
+          </div>
+          <details class="custom" id="mhCustom">
+            <summary>Personalizar a tu trabajador</summary>
+            <div class="fu-top">
+              <label class="fu-sel">Nombre <input id="mhWName" maxlength="20"></label>
+              <label class="fu-sel">Figura <select id="mhWFig"></select></label>
+              <label class="fu-sel">Nombre del hotel <input id="mhHName" maxlength="24"></label>
+              <label class="fu-sel">Empezar desde un estilo <select id="mhStyle"><option value="">—</option></select></label>
+              <div class="traits" id="mhSliders"></div>
+              <label class="fu-sel"><input type="checkbox" id="mhNoiseAuto"> Errores según su nivel</label>
+              <label class="fu-sel" id="mhNoiseWrap">Errores <input type="range" id="mhNoise" min="0" max="300" step="1"> <span id="mhNoiseV"></span></label>
+              <p class="note">Cada control va de ×${W_MIN} a ×${W_MAX} del valor de la IA de serie (en el centro, ×1). Si «Aprender» está activado, entrenar con él los seguirá moviendo.</p>
+            </div>
+          </details>
+          <p class="note" id="mhNote"></p>
+          <p class="note">Mazo del trabajador: <span id="mhDeckNames"></span>. Con hotel, el botón IA del duelo juega como tu trabajador.</p>
+        </div>
+      </div>
       <div class="panel" id="dmHotelsPanel">
         <div class="panel-head"><h2>Hoteles</h2><span class="usable" id="dmEmblems"></span></div>
         <p class="note" style="padding:10px 14px 0">Gana cada fase con tu mazo; la última es contra el líder. Al vencerlo consigues su emblema y se abre el siguiente hotel.
           Los rivales y premios de los hoteles son inventados (no hay fuentes); los hoteles, líderes y número de fases son los del original.</p>
         <div class="fu-mats" id="dmHotels"></div>
       </div>
+    </div>
+    <div class="screen" id="dmStory">
+      <div class="pill">Training Center</div>
       <div class="panel" id="dmTrainPanel">
         <div class="panel-head"><h2>Training Center</h2></div>
         <p class="note" style="padding:10px 14px 0">Las 10 fases del original (versiones 2.0.0 a 5.0.9, Bulbapedia): mazos de los dos lados, plates, retos y premio reales.
@@ -468,6 +531,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     <nav class="tabs" aria-label="Secciones">
       <button type="button" class="tab" id="tabBack">${ICON.back}Atrás</button>
       <button type="button" class="tab" id="tabLeague">${ICON.league}Liga</button>
+      <button type="button" class="tab" id="tabHotels">${ICON.hotel}Hoteles</button>
       <button type="button" class="tab" id="tabDeck">${ICON.deck}Mazos</button>
       <button type="button" class="tab" id="tabShop">${ICON.shop}Tienda</button>
       <button type="button" class="tab" id="tabWiki">${ICON.wiki}Pokédex</button>
@@ -622,6 +686,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     }
     if (screen === 'fuse') renderFuse();
     if (screen === 'story') renderStory();
+    if (screen === 'hotels') { renderStory(); renderMyHotel(); }
     renderRank();
     if (screen === 'shop') renderShop();
   };
@@ -638,6 +703,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     $('dmPlates').classList.toggle('on', s === 'plates');
     $('dmShop').classList.toggle('on', s === 'shop');
     $('dmStory').classList.toggle('on', s === 'story');
+    $('dmHotelsScreen').classList.toggle('on', s === 'hotels');
+    $('tabHotels').classList.toggle('on', s === 'hotels');
     $('dmFuse').classList.toggle('on', s === 'fuse');
     $('tabShop').classList.toggle('on', s === 'shop');
     $('dmWiki').classList.toggle('on', s === 'wiki');
@@ -657,7 +724,10 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     history.length = 0;
     go(null);
     mode = { kind: 'league' };
-    hooks.play(myDeck(mine), plateDeck.map((id) => plateById.get(id)!), null);
+    // Each league rival plays a style of its own; rookies only in the Beginner league (INVENTED).
+    const styles = AI_STYLES.filter((x) => x.key !== 'rookie' || story.rating < 1300);
+    const st = styles[Math.floor(Math.random() * styles.length)];
+    hooks.play(myDeck(mine), plateDeck.map((id) => plateById.get(id)!), { deck: [], plates: [], name: `IA ${st.name} (${st.text.replace(/\.$/, "").toLowerCase()})`, weights: styleWeights(st.key), random: true });
   };
 
   // ---------- boosters ----------
@@ -879,8 +949,9 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   $('menuDeck').onclick = () => go('pick');
   $('menuPlates').onclick = () => go('plates');
   $('menuFuse').onclick = () => go('fuse');
-  $('menuIsland').onclick = () => { go('story'); $('dmHotelsPanel').scrollIntoView({ block: 'start' }); };
-  $('menuTraining').onclick = () => { go('story'); $('dmTrainPanel').scrollIntoView({ block: 'start' }); };
+  $('menuIsland').onclick = () => go('hotels');
+  $('tabHotels').onclick = () => go('hotels');
+  $('menuTraining').onclick = () => go('story');
   $('plateDone').onclick = () => go('deck');
   $('plateClear').onclick = () => { plateDeck = []; changed(); };
   $('tabLeague').onclick = () => go('home');
@@ -1094,7 +1165,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   };
   let story = loadStory();
   const saveStory = () => write(STORY_KEY, JSON.stringify(story));
-  type Mode = { kind: 'league' } | { kind: 'training'; i: number } | { kind: 'hotel'; h: number; stage: number };
+  type Mode = { kind: 'league' } | { kind: 'training'; i: number } | { kind: 'hotel'; h: number; stage: number } | { kind: 'worker' };
   let mode: Mode = { kind: 'league' };
   const storyStages = () => story0.training.map((st, i) => ({ st, i })).filter((x) => x.st.set === '2.0.0-5.0.9');
   const emptyStats = newStats();
@@ -1168,7 +1239,14 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     history.length = 0;
     go(null);
     hooks.play(st.playerDeck.map((id) => story0.defOf(id)!), workingPlates(st.playerPlates),
-      { deck: st.opponentDeck.map((id) => story0.defOf(id)!), plates: workingPlates(st.opponentPlates), name: st.opponent });
+      { deck: st.opponentDeck.map((id) => story0.defOf(id)!), plates: workingPlates(st.opponentPlates), name: `${st.opponent} (IA Novata)`, weights: styleWeights('rookie') });
+  };
+  const hotelAi = (h: number, stage: number) => {
+    const st = hotelStyle(h, stage), def = AI_STYLES.find((x) => x.key === st.key)!;
+    const weights = styleWeights(st.key);
+    if (st.leader) weights.noise = 2; // leaders hardly make mistakes
+    const who = st.leader ? `${HOTELS[h].leader}, líder de ${HOTELS[h].name}` : `${HOTELS[h].name} ${stage + 1}`;
+    return { name: `${who} (IA ${def.name})`, weights };
   };
   const playHotel = (h: number, stage: number) => {
     const rng = seeded(7000 + h * 100 + stage);
@@ -1182,8 +1260,194 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     history.length = 0;
     go(null);
     hooks.play(myDeck(), plateDeck.map((id) => plateById.get(id)!),
-      { deck: hotelDeck(h, stage, pool, (id) => rarity.get(id) ?? 'Common', seeded), plates: oppPlates, name: stage === HOTELS[h].stages - 1 ? HOTELS[h].leader : `${HOTELS[h].name} ${stage + 1}` });
+      { deck: hotelDeck(h, stage, pool, (id) => rarity.get(id) ?? 'Common', seeded), plates: oppPlates, ...hotelAi(h, stage) });
   };
+  // ---------- the player's hotel and its worker (src/amiibo.ts) ----------
+  const myHotel = (): MyHotel | undefined => (story as StoryState & { myHotel?: MyHotel }).myHotel;
+  const setMyHotel = (h: MyHotel) => { (story as StoryState & { myHotel?: MyHotel }).myHotel = h; };
+  const mhNote = (t: string) => { $('mhNote').textContent = t; };
+  const workerDeckDefs = (ids: string[]) => ids.map((id) => byId.get(id)).filter((d): d is FigureDef => !!d).map((d) => applyProgress(d, gacha.prog?.[d.id]));
+  const syncHelper = () => { const h = myHotel(); hooks.setHelper?.(h ? workerWeights(h.worker) : undefined); };
+  syncHelper();
+  const renderMyHotel = () => {
+    const h = myHotel();
+    $('mhCreate').hidden = !!h;
+    $('mhView').hidden = !h;
+    if (!h) {
+      $('mhTitle').textContent = 'Tu hotel';
+      $('mhCoins').textContent = '';
+      const sel = $<HTMLSelectElement>('mhFig');
+      const keep = sel.value;
+      sel.innerHTML = '';
+      for (const d of all.filter((x) => owns(x.id)).sort((a, b) => a.name.localeCompare(b.name))) {
+        const o = document.createElement('option'); o.value = d.id; o.textContent = d.name; sel.appendChild(o);
+      }
+      if (keep) sel.value = keep;
+      $<HTMLButtonElement>('mhMake').disabled = all.filter((d) => owns(d.id)).length < DECK_SIZE;
+      return;
+    }
+    const w = h.worker, lv = workerLevel(w), d = byId.get(w.figureId);
+    $('mhTitle').textContent = h.name;
+    $('mhCoins').textContent = `${h.coins.toLocaleString('es')} monedas ganadas`;
+    $('mhWorkerFig').innerHTML = '';
+    if (d) $('mhWorkerFig').appendChild(figure(d, 'div'));
+    $('mhStats').innerHTML = '';
+    const line = (t: string, small = false) => { const el = document.createElement(small ? 'small' : 'div'); el.textContent = t; $('mhStats').appendChild(el); };
+    line(`${w.name} · Nivel ${lv}`);
+    line(`Personalidad: ${personality(w.weights)}`);
+    line(`${w.wins} victorias · ${w.losses} derrotas · ${w.lessons} cosas aprendidas de ti`, true);
+    line(lv >= MAX_LEVEL ? 'Nivel máximo' : `EXP ${w.exp % EXP_PER_LEVEL} / ${EXP_PER_LEVEL} para el nivel ${lv + 1}`, true);
+    $<HTMLElement>('mhExpBar').style.width = `${lv >= MAX_LEVEL ? 100 : Math.round(100 * (w.exp % EXP_PER_LEVEL) / EXP_PER_LEVEL)}%`;
+    const tr = $('mhTraits');
+    tr.innerHTML = '';
+    for (const b of branchScores(w.weights)) {
+      const row = document.createElement('div'); row.className = 'trait';
+      const name = document.createElement('span'); name.textContent = b.label;
+      const bar = document.createElement('i'); const fill = document.createElement('b');
+      fill.style.width = `${Math.min(100, Math.round(b.ratio * 20))}%`; bar.appendChild(fill);
+      const v = document.createElement('span'); v.textContent = `×${b.ratio.toFixed(2)}`;
+      row.append(name, bar, v);
+      row.title = `${BRANCHES.find((x) => x.key === b.key)!.tiers.join(' / ')} (×1 = IA de serie; la raya marca ×1)`;
+      tr.appendChild(row);
+    }
+    $<HTMLInputElement>('mhLearn').checked = w.learn;
+    const waiting = guestsWaiting(w, Date.now());
+    $('mhGuests').textContent = waiting ? `Atender visitas (${waiting})` : 'Sin visitas ahora';
+    $<HTMLButtonElement>('mhGuests').disabled = !waiting;
+    $('mhDeckNames').textContent = w.deck.map((id) => byId.get(id)?.name ?? id).join(', ');
+    renderCustom();
+  };
+  // Full customisation of the worker (the user's request, 2026-11-02): name, figure, every weight, mistakes, a style to start from.
+  const TRAITS = Object.keys(TRAIT_ES) as (keyof typeof TRAIT_ES)[];
+  const LOG_MIN = Math.log(W_MIN), LOG_MAX = Math.log(W_MAX);
+  const toSlider = (ratio: number) => Math.round(1000 * (Math.log(ratio) - LOG_MIN) / (LOG_MAX - LOG_MIN));
+  const fromSlider = (v: number) => Math.exp(LOG_MIN + (v / 1000) * (LOG_MAX - LOG_MIN));
+  for (const st of AI_STYLES) { const o = document.createElement('option'); o.value = st.key; o.textContent = st.name; o.title = st.text; $('mhStyle').appendChild(o); }
+  const renderCustom = () => {
+    const h = myHotel(); if (!h) return;
+    const w = h.worker;
+    const active = document.activeElement;
+    if (active !== $('mhWName')) $<HTMLInputElement>('mhWName').value = w.name;
+    if (active !== $('mhHName')) $<HTMLInputElement>('mhHName').value = h.name;
+    const fs = $<HTMLSelectElement>('mhWFig');
+    fs.innerHTML = '';
+    for (const d of all.filter((x) => owns(x.id)).sort((a, b) => a.name.localeCompare(b.name))) { const o = document.createElement('option'); o.value = d.id; o.textContent = d.name; fs.appendChild(o); }
+    fs.value = w.figureId;
+    const box = $('mhSliders');
+    if (!box.childElementCount) {
+      for (const k of TRAITS) {
+        const row = document.createElement('label'); row.className = 'slider';
+        const name = document.createElement('span'); name.textContent = TRAIT_ES[k];
+        const r = document.createElement('input'); r.type = 'range'; r.min = '0'; r.max = '1000'; r.dataset.k = k;
+        const v = document.createElement('span'); v.dataset.v = k;
+        r.oninput = () => {
+          const hh = myHotel(); if (!hh) return;
+          hh.worker.weights[k] = DEFAULT_WEIGHTS[k] * fromSlider(Number(r.value));
+          v.textContent = `×${fromSlider(Number(r.value)).toFixed(2)}`;
+        };
+        r.onchange = () => { saveStory(); syncHelper(); changed(); };
+        row.append(name, r, v);
+        box.appendChild(row);
+      }
+    }
+    for (const k of TRAITS) {
+      const ratio = w.weights[k] / DEFAULT_WEIGHTS[k];
+      const r = box.querySelector<HTMLInputElement>(`input[data-k="${k}"]`)!;
+      if (active !== r) r.value = String(toSlider(ratio));
+      box.querySelector<HTMLElement>(`[data-v="${k}"]`)!.textContent = `×${ratio.toFixed(2)}`;
+    }
+    const auto = w.noiseOverride === undefined || w.noiseOverride === null;
+    $<HTMLInputElement>('mhNoiseAuto').checked = auto;
+    $('mhNoiseWrap').hidden = auto;
+    const nz = auto ? noiseAt(workerLevel(w)) : w.noiseOverride!;
+    $<HTMLInputElement>('mhNoise').value = String(Math.round(nz));
+    $('mhNoiseV').textContent = String(Math.round(nz));
+  };
+  $<HTMLInputElement>('mhWName').onchange = (e) => { const h = myHotel(); if (!h) return; h.worker.name = (e.target as HTMLInputElement).value.trim().slice(0, 20) || h.worker.name; saveStory(); changed(); };
+  $<HTMLInputElement>('mhHName').onchange = (e) => { const h = myHotel(); if (!h) return; h.name = (e.target as HTMLInputElement).value.trim().slice(0, 24) || h.name; saveStory(); changed(); };
+  $<HTMLSelectElement>('mhWFig').onchange = (e) => { const h = myHotel(); if (!h) return; h.worker.figureId = (e.target as HTMLSelectElement).value; saveStory(); changed(); };
+  $<HTMLSelectElement>('mhStyle').onchange = (e) => {
+    const h = myHotel(), key = (e.target as HTMLSelectElement).value; if (!h || !key) return;
+    const sw = styleWeights(key);
+    for (const k of TRAITS) h.worker.weights[k] = sw[k];
+    (e.target as HTMLSelectElement).value = '';
+    saveStory(); syncHelper(); mhNote(`Ahora parte del estilo ${AI_STYLES.find((x) => x.key === key)!.name}.`); changed();
+  };
+  $<HTMLInputElement>('mhNoiseAuto').onchange = (e) => {
+    const h = myHotel(); if (!h) return;
+    h.worker.noiseOverride = (e.target as HTMLInputElement).checked ? null : Math.round(noiseAt(workerLevel(h.worker)));
+    saveStory(); syncHelper(); changed();
+  };
+  $<HTMLInputElement>('mhNoise').oninput = (e) => { const h = myHotel(); if (!h) return; h.worker.noiseOverride = Number((e.target as HTMLInputElement).value); $('mhNoiseV').textContent = String(h.worker.noiseOverride); };
+  $<HTMLInputElement>('mhNoise').onchange = () => { saveStory(); syncHelper(); changed(); };
+  $('mhMake').onclick = () => {
+    const id = $<HTMLSelectElement>('mhFig').value, d = byId.get(id);
+    if (!d) return;
+    const name = ($<HTMLInputElement>('mhName').value.trim() || `Hotel ${d.name}`).slice(0, 24);
+    setMyHotel({ name, coins: 0, worker: newWorker(id, d.name, myDeck().map((x) => x.id), [...plateDeck], Date.now()) });
+    saveStory(); syncHelper(); changed();
+  };
+  $<HTMLInputElement>('mhLearn').onchange = (e) => { const h = myHotel(); if (h) { h.worker.learn = (e.target as HTMLInputElement).checked; saveStory(); changed(); } };
+  $('mhDeck').onclick = () => { const h = myHotel(); if (!h) return; h.worker.deck = myDeck().map((x) => x.id); h.worker.plates = [...plateDeck]; saveStory(); mhNote('Ahora juega con tu mazo y tus plates.'); changed(); };
+  $('mhReset').onclick = () => {
+    const h = myHotel(); if (!h) return;
+    if ($('mhReset').dataset.armed !== '1') { $('mhReset').dataset.armed = '1'; $('mhReset').textContent = '¿Seguro? Pulsa otra vez'; setTimeout(() => { $('mhReset').dataset.armed = ''; $('mhReset').textContent = 'Olvidar lo aprendido'; }, 3000); return; }
+    h.worker.weights = { ...DEFAULT_WEIGHTS }; h.worker.lessons = 0; $('mhReset').dataset.armed = ''; $('mhReset').textContent = 'Olvidar lo aprendido';
+    saveStory(); syncHelper(); mhNote('Ha olvidado lo aprendido (conserva su nivel).'); changed();
+  };
+  $('mhTrain').onclick = () => {
+    const h = myHotel(); if (!h) return;
+    const w = h.worker;
+    // While you play, it looks at what you could do and what you did, and copies you (Learning on).
+    let options: { key: string; f: ReturnType<typeof moveOptions>[number]['f'] }[] = [];
+    let own: ReturnType<typeof moveOptions>[number] | null = null;
+    const watch = {
+      start: (g: Parameters<typeof moveOptions>[0]) => {
+        if (!w.learn) return;
+        const o = moveOptions(g, { ...w.weights, noise: 0 });
+        options = o.map((x) => ({ key: x.key, f: x.f }));
+        own = o.reduce((a, b) => (b.score > a.score ? b : a));
+      },
+      end: (_g: unknown, key: string) => {
+        const chosen = options.find((x) => x.key === key);
+        if (w.learn && chosen && own && own.key !== key && own.score < 1e8 && learnFrom(w, chosen.f, own.f)) saveStory();
+        options = []; own = null;
+      },
+    };
+    mode = { kind: 'worker' };
+    history.length = 0;
+    go(null);
+    hooks.play(myDeck(), plateDeck.map((id) => plateById.get(id)!), {
+      deck: workerDeckDefs(w.deck), plates: w.plates.map((id) => plateById.get(id)).filter((p): p is PlateDef => !!p),
+      name: `${w.name} (Nv ${workerLevel(w)}, ${personality(w.weights)})`, weights: workerWeights(w), watch,
+    });
+  };
+  $('mhGuests').onclick = () => {
+    const h = myHotel(); if (!h || !story0.board) return;
+    const w = h.worker, n = guestsWaiting(w, Date.now());
+    if (!n) return;
+    const rng = Math.random;
+    let won = 0, coins = 0;
+    const lv0 = workerLevel(w);
+    for (let i = 0; i < n; i++) {
+      // INVENTED: guests bring random decks of the game's figures and plates, and play with the normal AI.
+      const guest = Array.from({ length: DECK_SIZE }, () => pool[Math.floor(rng() * pool.length)]);
+      const gp: PlateDef[] = [];
+      for (let t = 0; t < 30 && gp.length < 6 && usablePlates.length; t++) { const p = usablePlates[Math.floor(rng() * usablePlates.length)]; if (gp.reduce((c, x) => c + x.cost, 0) + p.cost <= PLATE_COST_MAX) gp.push(p); }
+      const win = playHeadless(story0.board, workerDeckDefs(w.deck), guest, w.plates.map((id) => plateById.get(id)).filter((p): p is PlateDef => !!p), gp,
+        workerWeights(w), undefined, rng, seeded);
+      if (win) { won++; w.wins++; coins += GUEST_COINS; w.exp += GUEST_EXP.win; } else { w.losses++; w.exp += GUEST_EXP.loss; }
+    }
+    w.lastGuestAt = w.lastGuestAt + n * GUEST_EVERY_MS;
+    if (Date.now() - w.lastGuestAt > MAX_GUESTS * GUEST_EVERY_MS) w.lastGuestAt = Date.now() - MAX_GUESTS * GUEST_EVERY_MS;
+    h.coins += coins;
+    wallet(gacha).coins += coins;
+    saveGacha(); saveStory(); syncHelper();
+    const up = workerLevel(w) > lv0 ? ` ¡${w.name} sube al nivel ${workerLevel(w)}!` : '';
+    mhNote(`${w.name} atendió ${n} visita${n > 1 ? 's' : ''}: ${won} ganada${won === 1 ? '' : 's'}, ${n - won} perdida${n - won === 1 ? '' : 's'}. +${coins} monedas.${up}`);
+    changed();
+  };
+
   /** Give a stage's bonus: gems, and plates, figures or enhancements by name. */
   const giveReward = (text: string): string[] => {
     const r = parseReward(text), got: string[] = [];
@@ -1213,7 +1477,9 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     },
     duelEnded: (won, deckIds, stats) => {
       gacha = loadState(read(GACHA_KEY)); // another tab may have changed it
+      const liveHotel = myHotel(); // the worker learned during the duel: keep this copy
       story = loadStory();
+      if (mode.kind === 'worker' && liveHotel) setMyHotel(liveHotel);
       if (mode.kind === 'training') {
         // Training Center: no experience or boosters (its stages give coins 0, exp 0); the bonus once.
         const st = story0.training[mode.i], rec = (story.training[mode.i] ??= { done: [] });
@@ -1225,6 +1491,16 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         if (won && !rec.bonus && st.reward) { rec.bonus = true; line += ` · Premio: ${giveReward(st.reward).join(', ')}`; }
         saveGacha(); saveStory();
         return line;
+      }
+      if (mode.kind === 'worker') {
+        const wk = myHotel()?.worker;
+        if (!wk) return '';
+        const lv0 = workerLevel(wk);
+        wk.exp += TRAIN_EXP;
+        if (won) wk.losses++; else wk.wins++;
+        saveStory(); syncHelper();
+        const up = workerLevel(wk) > lv0 ? ` · ¡Sube al nivel ${workerLevel(wk)}!` : '';
+        return `${wk.name}: +${TRAIN_EXP} EXP · ${wk.lessons} cosas aprendidas · personalidad ${personality(wk.weights)}${up}`;
       }
       if (mode.kind === 'hotel') {
         const { h, stage } = mode, hs = (story.hotels[h] ??= { cleared: 0, done: {} });
