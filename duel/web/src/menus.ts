@@ -4,6 +4,12 @@ import { $, TYPE_COLOR, spriteSrc } from './shared.ts';
 import { drawWheel } from './match.ts';
 import { WORKING, pendingReason } from '../../src/abilities.ts';
 import { WIKI_CSS, renderWiki } from './wiki.ts';
+import type { Opponent } from './match.ts';
+import { seeded } from '../../src/rng.ts';
+import {
+  HOTELS, HOTEL_CHALLENGES, LEADER_GEMS, LEAGUES, challengeEs, challengeMet, emblems, hotelCoins, hotelDeck, hotelUnlocked,
+  leagueOf, newStats, newStory, parseReward, ratingChange, type DuelStats, type StoryState, type TrainingStage,
+} from '../../src/story.ts';
 import { plateSpec, type PlateDef } from '../../src/plates.ts';
 import {
   BOOSTERS, CASE_SLOTS, EVOLVE_BATTLES, EVOLVE_DUELS, GEMS_LOSS, GEMS_WIN, SHOP_PRICE, evolve, evolveProgress,
@@ -189,6 +195,17 @@ const CSS = `
 .dm .fu-mat b { min-width: 2ch; text-align: center; font-variant-numeric: tabular-nums; }
 .dm .itemchips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .dm .itemchips span { background: #0b3a92; border: 2px solid #4f8cff; border-radius: 999px; padding: 3px 10px; font-weight: 800; font-size: 13px; animation: dm-pop .5s both; }
+.dm .rank { font-weight: 900; color: #fff; background: #0b3a92cc; border: 2px solid #fff6; border-radius: 999px; padding: 4px 16px; text-shadow: 0 2px 0 #0007; }
+.dm .stage { display: flex; flex-direction: column; gap: 6px; background: #0e1830; border-radius: 12px; padding: 10px 12px; font-weight: 800; }
+.dm .stage.locked { opacity: .55; }
+.dm .stage .top { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.dm .stage h3 { margin: 0; font: 900 16px/1.2 var(--dm-font); color: var(--dm-yellow); }
+.dm .stage ul { margin: 0; padding-left: 4px; list-style: none; display: grid; gap: 2px; font-size: 14px; }
+.dm .stage li.ok { color: #7dff9a; }
+.dm .stage li.na { color: var(--dm-mute); }
+.dm .stage small { color: var(--dm-mute); }
+.dm .stage .yellow { padding: 6px 18px; font-size: 16px; border-width: 3px; }
+.dm .emblem { display: inline-block; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff6b0, #f2b400 60%, #8a5d00); vertical-align: middle; box-shadow: 0 0 8px #ffd21f; }
 .dm .price { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 20px; }
 .dm .fig.locked img { filter: brightness(0) opacity(.55); }
 .dm .fig.locked .name { color: #5b6886; }
@@ -227,12 +244,12 @@ const ICON = {
 
 export interface MenuHooks {
   /** Start a new duel with this deck for the player (null: random deck). */
-  play(deck: FigureDef[] | null, plates: PlateDef[]): void;
+  play(deck: FigureDef[] | null, plates: PlateDef[], opp: Opponent | null): void;
   /** A duel is in progress and can be resumed. */
   canContinue(): boolean;
 }
 
-type Screen = 'home' | 'deck' | 'pick' | 'plates' | 'shop' | 'wiki' | 'fuse';
+type Screen = 'home' | 'deck' | 'pick' | 'plates' | 'shop' | 'wiki' | 'fuse' | 'story';
 
 /** Plate deck rules of the early versions (Fandom "Deck", Nintendo Life): up to 6 plates, total cost 6 or less. */
 export const PLATE_SLOTS = 6;
@@ -244,14 +261,15 @@ export interface Menus {
   /** Show the League (home) screen. */
   open(): void;
   /** Reward the end of a duel and count it for the deck's figures; returns a line for the end banner. */
-  duelEnded(won: boolean, deckIds: string[]): string;
+  duelEnded(won: boolean, deckIds: string[], stats: DuelStats): string;
   /** One of the player's figures fought a battle (counts toward evolving). */
   battleFought(id: string): void;
 }
 
 /** League (home), Edit Deck, figure picker and Shop, in the style of the original app. */
 export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: MenuHooks,
-  extras: FigureDef[] = [], evolves: Record<string, string[]> = {}, plates: PlateDef[] = []): Menus {
+  extras: FigureDef[] = [], evolves: Record<string, string[]> = {}, plates: PlateDef[] = [],
+  story0: { training: TrainingStage[]; defOf: (id: string) => FigureDef | null } = { training: [], defOf: () => null }): Menus {
   // `pool`: figures of the game version (boosters give these); `extras`: figures only reached by evolving.
   const style = document.createElement('style');
   style.textContent = CSS + WIKI_CSS;
@@ -323,9 +341,11 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         <h1>Duelo de Figuras</h1>
         <div class="figs" id="dmHomeFigs"></div>
         <p id="dmHomeDeck"></p>
+        <div class="rank" id="dmRank"></div>
         <button type="button" class="yellow big" id="menuPlay">Jugar</button>
         <button type="button" class="ghost" id="menuContinue">Continuar duelo</button>
       </div>
+      <div class="row"><button type="button" class="yellow" id="menuIsland">Isla Carmonte</button><button type="button" class="yellow" id="menuTraining">Training Center</button></div>
       <div class="row" id="dmWelcome"></div>
       <div class="case" id="dmCase"></div>
       <p class="note">Cada duelo te da gemas y, si hay hueco en la vitrina, un booster que se abre cuando pasa su tiempo (o antes con gemas).</p>
@@ -422,6 +442,21 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       </div>
       <div class="row"><button type="button" class="ghost" id="fuReset">Vaciar</button><button type="button" class="yellow" id="fuGo">Fusionar</button></div>
       <p class="note" id="fuNote"></p>
+    </div>
+    <div class="screen" id="dmStory">
+      <div class="pill">Isla Carmonte</div>
+      <div class="panel" id="dmHotelsPanel">
+        <div class="panel-head"><h2>Hoteles</h2><span class="usable" id="dmEmblems"></span></div>
+        <p class="note" style="padding:10px 14px 0">Gana cada fase con tu mazo; la última es contra el líder. Al vencerlo consigues su emblema y se abre el siguiente hotel.
+          Los rivales y premios de los hoteles son inventados (no hay fuentes); los hoteles, líderes y número de fases son los del original.</p>
+        <div class="fu-mats" id="dmHotels"></div>
+      </div>
+      <div class="panel" id="dmTrainPanel">
+        <div class="panel-head"><h2>Training Center</h2></div>
+        <p class="note" style="padding:10px 14px 0">Las 10 fases del original (versiones 2.0.0 a 5.0.9, Bulbapedia): mazos de los dos lados, plates, retos y premio reales.
+          Juegas con el mazo que da cada fase.</p>
+        <div class="fu-mats" id="dmTraining"></div>
+      </div>
     </div>
     <div class="screen" id="dmWiki"><div class="pill">Pokédex</div><div id="dmWikiBody" style="width:100%;display:flex;justify-content:center"></div></div>
     <div class="open" id="dmOpen" role="dialog" aria-modal="true" aria-label="Abrir booster">
@@ -586,6 +621,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       el.textContent = !owns(id) || (lv === 1 && !p?.clv) ? '' : `Nv${lv}${p?.clv ? ` C${p.clv}` : ''}`;
     }
     if (screen === 'fuse') renderFuse();
+    if (screen === 'story') renderStory();
+    renderRank();
     if (screen === 'shop') renderShop();
   };
 
@@ -600,12 +637,13 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     $('dmPick').classList.toggle('on', s === 'pick');
     $('dmPlates').classList.toggle('on', s === 'plates');
     $('dmShop').classList.toggle('on', s === 'shop');
+    $('dmStory').classList.toggle('on', s === 'story');
     $('dmFuse').classList.toggle('on', s === 'fuse');
     $('tabShop').classList.toggle('on', s === 'shop');
     $('dmWiki').classList.toggle('on', s === 'wiki');
     $('tabWiki').classList.toggle('on', s === 'wiki');
     if (s === 'wiki') renderWiki($('dmWikiBody'), { pool, extras, records, evolves, owned: () => gacha.owned, plates, ownedPlates: () => gacha.plates ?? {} });
-    $('tabLeague').classList.toggle('on', s === 'home');
+    $('tabLeague').classList.toggle('on', s === 'home' || s === 'story');
     $('tabDeck').classList.toggle('on', s === 'deck' || s === 'pick' || s === 'plates' || s === 'fuse');
     $('menuContinue').hidden = !hooks.canContinue();
     $('tabBack').hidden = !hooks.canContinue() && history.length === 0;
@@ -618,8 +656,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     for (let i = mine.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [mine[i], mine[j]] = [mine[j], mine[i]]; }
     history.length = 0;
     go(null);
-    const chosen = deck.length === DECK_SIZE ? deck.map((id) => byId.get(id)!) : mine.slice(0, DECK_SIZE);
-    hooks.play(chosen.map((d) => applyProgress(d, gacha.prog?.[d.id])), plateDeck.map((id) => plateById.get(id)!));
+    mode = { kind: 'league' };
+    hooks.play(myDeck(mine), plateDeck.map((id) => plateById.get(id)!), null);
   };
 
   // ---------- boosters ----------
@@ -841,6 +879,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   $('menuDeck').onclick = () => go('pick');
   $('menuPlates').onclick = () => go('plates');
   $('menuFuse').onclick = () => go('fuse');
+  $('menuIsland').onclick = () => { go('story'); $('dmHotelsPanel').scrollIntoView({ block: 'start' }); };
+  $('menuTraining').onclick = () => { go('story'); $('dmTrainPanel').scrollIntoView({ block: 'start' }); };
   $('plateDone').onclick = () => go('deck');
   $('plateClear').onclick = () => { plateDeck = []; changed(); };
   $('tabLeague').onclick = () => go('home');
@@ -1046,6 +1086,124 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     changed();
   };
 
+  // ---------- single-player modes (src/story.ts) ----------
+  const STORY_KEY = 'duel.story';
+  const loadStory = (): StoryState => {
+    try { const v = JSON.parse(read(STORY_KEY) ?? 'null'); if (v && typeof v.rating === 'number') return { ...newStory(), ...v }; } catch { /* new */ }
+    return newStory();
+  };
+  let story = loadStory();
+  const saveStory = () => write(STORY_KEY, JSON.stringify(story));
+  type Mode = { kind: 'league' } | { kind: 'training'; i: number } | { kind: 'hotel'; h: number; stage: number };
+  let mode: Mode = { kind: 'league' };
+  const storyStages = () => story0.training.map((st, i) => ({ st, i })).filter((x) => x.st.set === '2.0.0-5.0.9');
+  const emptyStats = newStats();
+  const plateByName = new Map(plates.map((p) => [p.name, p]));
+  const workingPlates = (names: string[]) => names.map((n) => plateByName.get(n)).filter((p): p is PlateDef => !!p && plateSpec(p).status === 'ok');
+  const myDeck = (mine: FigureDef[] = all.filter((d) => owns(d.id)).sort(() => Math.random() - 0.5)) =>
+    (deck.length === DECK_SIZE ? deck.map((id) => byId.get(id)!) : mine.slice(0, DECK_SIZE)).map((d) => applyProgress(d, gacha.prog?.[d.id]));
+  const renderRank = () => {
+    const l = leagueOf(story.rating), i = LEAGUES.findIndex(([n]) => n === l), next = LEAGUES[i + 1];
+    $('dmRank').textContent = `Liga ${l} · ${story.rating} puntos${next ? ` (${next[0]} desde ${next[1]})` : ''}`;
+    $('dmEmblems').innerHTML = `${'<i class="emblem"></i>'.repeat(emblems(story))} ${emblems(story)}/${HOTELS.length} emblemas`;
+  };
+  const challengeList = (texts: string[], done: boolean[] = []) => {
+    const ul = document.createElement('ul');
+    texts.forEach((t, k) => {
+      const li = document.createElement('li');
+      const checked = challengeMet(t, emptyStats, false) !== null;
+      li.className = done[k] ? 'ok' : checked ? '' : 'na';
+      li.textContent = `${done[k] ? '✓' : '○'} ${challengeEs(t)}${checked ? '' : ' (no se comprueba)'}`;
+      ul.appendChild(li);
+    });
+    return ul;
+  };
+  const names = (ids: (FigureDef | null)[]) => ids.map((d) => d?.name ?? '?').join(', ');
+  const renderStory = () => {
+    const ht = $('dmHotels');
+    ht.innerHTML = '';
+    HOTELS.forEach((hotel, h) => {
+      const st = story.hotels[h] ?? { cleared: 0, done: {} };
+      const open = hotelUnlocked(story, h), done = st.cleared >= hotel.stages;
+      const stage = Math.min(st.cleared, hotel.stages - 1), leader = stage === hotel.stages - 1;
+      const el = document.createElement('div');
+      el.className = 'stage' + (open ? '' : ' locked');
+      const top = document.createElement('div'); top.className = 'top';
+      const h3 = document.createElement('h3');
+      h3.innerHTML = done ? '<i class="emblem"></i> ' : '';
+      h3.append(`${hotel.name} · líder ${hotel.leader}`);
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'yellow';
+      b.textContent = !open ? 'Cerrado' : done ? `Revancha: ${hotel.leader}` : leader ? `Fase ${stage + 1}: ${hotel.leader}` : `Fase ${stage + 1}`;
+      b.disabled = !open || all.filter((d) => owns(d.id)).length < DECK_SIZE;
+      b.onclick = () => playHotel(h, stage);
+      top.append(h3, b);
+      const sm = document.createElement('small');
+      sm.textContent = !open ? `Se abre al completar ${HOTELS[h - 1].name}.` : `${Math.min(st.cleared, hotel.stages)}/${hotel.stages} fases · premio inventado: ${hotelCoins(h)} monedas por fase nueva${leader || done ? `, ${LEADER_GEMS} gemas y el emblema por el líder` : ''}`;
+      el.append(top, sm);
+      if (open) el.appendChild(challengeList(HOTEL_CHALLENGES, st.done[stage]));
+      ht.appendChild(el);
+    });
+    const tr = $('dmTraining');
+    tr.innerHTML = '';
+    storyStages().forEach(({ st, i }, n) => {
+      const rec = story.training[i];
+      const el = document.createElement('div'); el.className = 'stage';
+      const top = document.createElement('div'); top.className = 'top';
+      const h3 = document.createElement('h3'); h3.textContent = `${n + 1}. ${st.title}`;
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'yellow'; b.textContent = 'Jugar';
+      b.onclick = () => playTraining(i);
+      top.append(h3, b);
+      const info = document.createElement('small');
+      const missing = st.opponentPlates.concat(st.playerPlates).filter((p) => !workingPlates([p]).length);
+      info.textContent = `Rival (${st.opponent}): ${names(st.opponentDeck.map(story0.defOf))}${st.opponentPlates.length ? ` · plates ${st.opponentPlates.join(', ')}` : ''}. `
+        + `Tu mazo: ${names(st.playerDeck.map(story0.defOf))} · plates ${st.playerPlates.join(', ')}. Premio: ${st.reward || 'ninguno'}${rec?.bonus ? ' (conseguido)' : ''}.`
+        + (missing.length ? ` Sin efecto aquí: ${[...new Set(missing)].join(', ')}.` : '');
+      el.append(top, info, challengeList(st.challenges, rec?.done));
+      tr.appendChild(el);
+    });
+  };
+  const playTraining = (i: number) => {
+    const st = story0.training[i];
+    mode = { kind: 'training', i };
+    history.length = 0;
+    go(null);
+    hooks.play(st.playerDeck.map((id) => story0.defOf(id)!), workingPlates(st.playerPlates),
+      { deck: st.opponentDeck.map((id) => story0.defOf(id)!), plates: workingPlates(st.opponentPlates), name: st.opponent });
+  };
+  const playHotel = (h: number, stage: number) => {
+    const rng = seeded(7000 + h * 100 + stage);
+    const oppPlates: PlateDef[] = [];
+    // INVENTED: hotel rivals take working plates up to cost 6 (later hotels a little more often).
+    for (let t = 0; t < 30 && oppPlates.length < Math.min(6, 1 + h); t++) {
+      const p = usablePlates[Math.floor(rng() * usablePlates.length)];
+      if (p && oppPlates.reduce((c, x) => c + x.cost, 0) + p.cost <= PLATE_COST_MAX) oppPlates.push(p);
+    }
+    mode = { kind: 'hotel', h, stage };
+    history.length = 0;
+    go(null);
+    hooks.play(myDeck(), plateDeck.map((id) => plateById.get(id)!),
+      { deck: hotelDeck(h, stage, pool, (id) => rarity.get(id) ?? 'Common', seeded), plates: oppPlates, name: stage === HOTELS[h].stages - 1 ? HOTELS[h].leader : `${HOTELS[h].name} ${stage + 1}` });
+  };
+  /** Give a stage's bonus: gems, and plates, figures or enhancements by name. */
+  const giveReward = (text: string): string[] => {
+    const r = parseReward(text), got: string[] = [];
+    if (r.gems) { gacha.gems += r.gems; got.push(`${r.gems} gemas`); }
+    for (const n of r.names) {
+      const m = /^(Rare Metal|Cube|Ingot) \[(C|UC|R|EX)\](?:\s*×\s*(\d+))?$/.exec(n);
+      if (m) {
+        const k = ({ 'Rare Metal': 'metal', Cube: 'cube', Ingot: 'ingot' } as const)[m[1] as 'Cube'];
+        const rr = ({ C: 'Common', UC: 'Uncommon', R: 'Rare', EX: 'EX' } as const)[m[2] as 'C'];
+        wallet(gacha).items[k][rr] += Number(m[3] ?? 1); got.push(n); continue;
+      }
+      const pl = plateByName.get(n);
+      if (pl) { gacha.plates ??= {}; gacha.plates[pl.id] = (gacha.plates[pl.id] ?? 0) + 1; got.push(`plate ${n}`); continue; }
+      const f = all.find((d) => d.name === n);
+      if (f) { gacha.owned[f.id] = (gacha.owned[f.id] ?? 0) + 1; got.push(n); continue; }
+      got.push(`${n} (no está en este juego)`);
+    }
+    return got;
+  };
+
   return {
     open: () => { history.length = 0; armed = -1; go('home', false); },
     battleFought: (id) => {
@@ -1053,8 +1211,40 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       recordBattle(gacha, id);
       saveGacha();
     },
-    duelEnded: (won, deckIds) => {
+    duelEnded: (won, deckIds, stats) => {
       gacha = loadState(read(GACHA_KEY)); // another tab may have changed it
+      story = loadStory();
+      if (mode.kind === 'training') {
+        // Training Center: no experience or boosters (its stages give coins 0, exp 0); the bonus once.
+        const st = story0.training[mode.i], rec = (story.training[mode.i] ??= { done: [] });
+        const met = st.challenges.map((t, k) => !!rec.done[k] || challengeMet(t, stats, won) === true);
+        const newly = met.filter((x, k) => x && !rec.done[k]).length;
+        rec.done = met;
+        let line = `Retos: ${met.filter(Boolean).length}/${st.challenges.length}${newly ? ` (+${newly} nuevos)` : ''}`;
+        // ASSUMED: the bonus comes with the first win (the sources do not say what unlocks it).
+        if (won && !rec.bonus && st.reward) { rec.bonus = true; line += ` · Premio: ${giveReward(st.reward).join(', ')}`; }
+        saveGacha(); saveStory();
+        return line;
+      }
+      if (mode.kind === 'hotel') {
+        const { h, stage } = mode, hs = (story.hotels[h] ??= { cleared: 0, done: {} });
+        const met = HOTEL_CHALLENGES.map((t, k) => !!hs.done[stage]?.[k] || challengeMet(t, stats, won) === true);
+        hs.done[stage] = met;
+        const e = duelExp(gacha, deckIds.map((id) => byId.get(id)).filter((d): d is FigureDef => !!d), won, rarOf);
+        let line = `Retos: ${met.filter(Boolean).length}/3 · +${e} EXP a tu mazo`;
+        if (won && hs.cleared === stage && stage < HOTELS[h].stages) {
+          hs.cleared++;
+          wallet(gacha).coins += hotelCoins(h);
+          line += ` · +${hotelCoins(h)} monedas`;
+          if (hs.cleared === HOTELS[h].stages) { gacha.gems += LEADER_GEMS; line += ` · ¡Emblema de ${HOTELS[h].name}! +${LEADER_GEMS} gemas`; }
+        }
+        saveGacha(); saveStory();
+        return line;
+      }
+      const delta = ratingChange(story.rating, won), leagueBefore = leagueOf(story.rating);
+      story.rating = Math.max(0, story.rating + delta);
+      saveStory();
+      const promo = leagueOf(story.rating) !== leagueBefore ? ` · ¡Liga ${leagueOf(story.rating)}!` : '';
       recordDuel(gacha, deckIds);
       const b = rewardDuel(gacha, won, Date.now(), Math.random);
       const before = new Map(deckIds.map((id) => [id, levelOf(gacha.prog?.[id], rarOf(id))]));
@@ -1064,7 +1254,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       const g = won ? GEMS_WIN : GEMS_LOSS;
       const lvl = ups.length ? ` · ¡Sube de nivel: ${ups.map((id) => byId.get(id)?.name ?? id).join(', ')}!` : '';
       return (b ? `+${g} gemas · ${boxLabel(b.kind)} (${BOOSTERS[b.kind].hours} h) en la vitrina`
-        : `+${g} gemas · la vitrina está llena: abre algún booster`) + ` · +${e} EXP a tu mazo${lvl}`;
+        : `+${g} gemas · la vitrina está llena: abre algún booster`) + ` · +${e} EXP a tu mazo${lvl} · ${delta >= 0 ? '+' : ''}${delta} puntos de liga${promo}`;
     },
   };
 }

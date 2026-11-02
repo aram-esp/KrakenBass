@@ -29,6 +29,6 @@ sprites = {p.stem: 'data:image/png;base64,' + base64.b64encode(p.read_bytes()).d
            for p in sorted(Path('assets/sprites').glob('*.png')) if p.stem in ids}
 sprites_json = json.dumps(sprites, separators=(',', ':'))
 plates_json = json.dumps(json.load(open('data/plates.json')), separators=(',', ':'), ensure_ascii=False)
-out = t.replace('__BOARD__', esc(board)).replace('__FIGURES__', esc(figs)).replace('__PLATES__', esc(plates_json)).replace('__SPRITES__', esc(sprites_json)).replace('__EVOLUTIONS__', esc(json.dumps({k: v for k, v in json.load(open('data/evolutions.json')).items() if k in ('evolves', 'invented')}, separators=(',', ':')))).replace('<script>__APP__</script>', '<script>' + esc(app) + '</script>')
+out = t.replace('__BOARD__', esc(board)).replace('__FIGURES__', esc(figs)).replace('__PLATES__', esc(plates_json)).replace('__TRAINING__', esc(json.dumps(json.load(open('data/training.json')), separators=(',', ':'), ensure_ascii=False))).replace('__SPRITES__', esc(sprites_json)).replace('__EVOLUTIONS__', esc(json.dumps({k: v for k, v in json.load(open('data/evolutions.json')).items() if k in ('evolves', 'invented')}, separators=(',', ':')))).replace('<script>__APP__</script>', '<script>' + esc(app) + '</script>')
 open('publish/index.html', 'w').write(out)
 print(f'publish/index.html {len(out) // 1024} KB, {len(sprites)} sprites')

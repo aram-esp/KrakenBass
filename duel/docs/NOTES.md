@@ -107,7 +107,7 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 54 passing.
+- Tests: `npm test` -> 57 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.
@@ -147,6 +147,16 @@ timers, forfeit, choosing the battle target (the engine takes the first adjacent
    Still to do from the original: in-duel evolution after winning a battle (only Metamorphosis does it now),
    story mode (Training Center stages and decks are in `research/raw/pages_wikitext.json` "Training Center (Duel)"),
    league ranks (Bulbapedia "League Match": Beginner 0-1299 ... Legend 3000+), Mega Evolution, Z-Moves.
+
+7. Single-player modes (2026-11-02, phase 3): `src/story.ts`, `data/training.json` (`tools/build_training.py` from the
+   Bulbapedia wikitext; library numbers mapped to record ids through "(Duel N)" titles). Training Center = the 10
+   stages of versions 2.0.0-5.0.9 with real decks, plates, challenges and bonus (ASSUMED: bonus on first win; wheels at
+   5.0.9 or the figure's first version). Hotels: real names/leaders/stage counts (Fandom "Quests"); decks, plates,
+   challenges and rewards INVENTED (`hotelDeck`, `HOTEL_CHALLENGES`, `hotelCoins`, `LEADER_GEMS`); no energy. League:
+   real league thresholds (Bulbapedia "League Match"); rating start 1000 and ±16 per duel INVENTED. Match takes an
+   `Opponent` (deck + plates) and collects `DuelStats` (Game.onSurround hook added for "surround" challenges).
+8. Pending, asked by the user (2026-11-02): a better AI, and an "amiibo"-style AI (like Super Smash Bros. amiibo: a
+   figure AI that learns from how the player plays and can be trained / fought against).
 
 ## 4. Run, test, build, publish
 ```bash

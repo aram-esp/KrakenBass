@@ -1,0 +1,801 @@
+[
+ {
+  "set": "tutorial",
+  "title": "Tutorial",
+  "opponent": "Luca",
+  "challenges": [],
+  "opponentDeck": [
+   "123",
+   "39",
+   "102",
+   "93",
+   "4",
+   "123"
+  ],
+  "opponentPlates": [],
+  "playerDeck": [
+   "64",
+   "104",
+   "512",
+   "630",
+   "52",
+   "39"
+  ],
+  "playerPlates": [
+   "Meadow Power"
+  ],
+  "reward": ""
+ },
+ {
+  "set": "5.0.10",
+  "title": "Aim for the goal, not just battles!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Win by moving a Pokémon to the goal point. (Not a Wait Victory)",
+   "Don't initiate any battles.",
+   "Move a Pokémon onto the opponent's goal point in 20 or fewer turns."
+  ],
+  "opponentDeck": [
+   "87",
+   "23",
+   "23",
+   "72",
+   "28",
+   "28"
+  ],
+  "opponentPlates": [],
+  "playerDeck": [
+   "385",
+   "389",
+   "384",
+   "52",
+   "52",
+   "52"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch"
+  ],
+  "reward": "Gems ×10, Rare Metal [R]"
+ },
+ {
+  "set": "5.0.10",
+  "title": "Blue Attacks beat all!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Put one of your Pokémon on your own goal point.",
+   "Use X Attack.",
+   "Use Double Chance."
+  ],
+  "opponentDeck": [
+   "34",
+   "34",
+   "39",
+   "28",
+   "28",
+   "28"
+  ],
+  "opponentPlates": [
+   "X Attack"
+  ],
+  "playerDeck": [
+   "512",
+   "513",
+   "514",
+   "515",
+   "519",
+   "518"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch"
+  ],
+  "reward": "Eevee (57), Ingot [R]"
+ },
+ {
+  "set": "5.0.10",
+  "title": "Purple Attacks beat White!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Put one of your Pokémon on your own goal point.",
+   "Put one of your Pokémon on one of your opponent's entry points.",
+   "Use your Figures' blue Attacks 1 times."
+  ],
+  "opponentDeck": [
+   "6",
+   "6",
+   "90",
+   "76",
+   "28",
+   "28"
+  ],
+  "opponentPlates": [
+   "Double Chance"
+  ],
+  "playerDeck": [
+   "70",
+   "56",
+   "40",
+   "399",
+   "365",
+   "39"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch"
+  ],
+  "reward": "Rare Metal [EX], Pokémon Switch, Cube [UC] ×3"
+ },
+ {
+  "set": "5.0.10",
+  "title": "Watch out for Pokémon with Abilities!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Poison an opponent's Figures 1 times.",
+   "Use X Attack.",
+   "Knock out 3 opposing Figures in battle."
+  ],
+  "opponentDeck": [
+   "62",
+   "7",
+   "7",
+   "89",
+   "34",
+   "34"
+  ],
+  "opponentPlates": [
+   "X Attack",
+   "Double Chance"
+  ],
+  "playerDeck": [
+   "401",
+   "225",
+   "225",
+   "6",
+   "251",
+   "7"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Magikarp (198), Ingot [EX], Cube [R]"
+ },
+ {
+  "set": "5.0.10",
+  "title": "Master them! Special Conditions and Surrounding!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Surround a Pokémon 1 times.",
+   "Put one of your Pokémon on one of your opponent's entry points.",
+   "Use Full Heal."
+  ],
+  "opponentDeck": [
+   "94",
+   "65",
+   "65",
+   "78",
+   "78",
+   "10"
+  ],
+  "opponentPlates": [
+   "X Attack",
+   "Double Chance",
+   "Recycle"
+  ],
+  "playerDeck": [
+   "296",
+   "102",
+   "280",
+   "250",
+   "101",
+   "7"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Scoop Up, Cube [UC] × 3"
+ },
+ {
+  "set": "5.0.10",
+  "title": "Moving and Being Moved by Attacks!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Surround a Pokémon 1 times.",
+   "Move all Pokémon off the bench.",
+   "Block both of your opponent's entry points with Figures."
+  ],
+  "opponentDeck": [
+   "84",
+   "84",
+   "59",
+   "83",
+   "33",
+   "33"
+  ],
+  "opponentPlates": [
+   "Pokémon Switch",
+   "Pokémon Switch"
+  ],
+  "playerDeck": [
+   "124",
+   "629",
+   "17",
+   "110",
+   "142",
+   "146"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Gastly (153), Cube [R]"
+ },
+ {
+  "set": "5.0.10",
+  "title": "Gold Attacks beat Purple Attacks!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Put an opponent's Figures to sleep 1 times.",
+   "Use Full Heal.",
+   "Knock out 2 opposing Figures in battle."
+  ],
+  "opponentDeck": [
+   "41",
+   "48",
+   "48",
+   "64",
+   "102",
+   "116"
+  ],
+  "opponentPlates": [
+   "Full Heal",
+   "X Sp. Atk"
+  ],
+  "playerDeck": [
+   "104",
+   "269",
+   "643",
+   "343",
+   "117",
+   "518"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Rare Metal [EX], Ingot [EX]"
+ },
+ {
+  "set": "5.0.10",
+  "title": "Make Good Use of Plates!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Win after your own Figures use gold Attacks 1 times.",
+   "Use Double Chance.",
+   "Use Pokémon Switch."
+  ],
+  "opponentDeck": [
+   "273",
+   "128",
+   "17",
+   "40",
+   "28",
+   "28"
+  ],
+  "opponentPlates": [
+   "Swap Spot",
+   "Goal Block",
+   "X Defend"
+  ],
+  "playerDeck": [
+   "286",
+   "39",
+   "282",
+   "17",
+   "117",
+   "630"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Double Chance, Cube [R]"
+ },
+ {
+  "set": "5.0.10",
+  "title": "Recover by touching! Asleep & Frozen",
+  "opponent": "Instructor",
+  "challenges": [
+   "Use Double Chance.",
+   "Use Pokémon Switch.",
+   "Put one of your Pokémon on one of your opponent's entry points."
+  ],
+  "opponentDeck": [
+   "519",
+   "135",
+   "154",
+   "102",
+   "5",
+   "26"
+  ],
+  "opponentPlates": [
+   "Long Throw",
+   "Hurdle Jump"
+  ],
+  "playerDeck": [
+   "274",
+   "362",
+   "519",
+   "286",
+   "344",
+   "350"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Hurdle Jump, Cube [UC] × 3"
+ },
+ {
+  "set": "5.0.10",
+  "title": "Lose the Battle, Win the Duel",
+  "opponent": "Instructor",
+  "challenges": [
+   "Use X Attack.",
+   "Surround a Pokémon 1 times.",
+   "Put one of your Pokémon on one of your opponent's entry points."
+  ],
+  "opponentDeck": [
+   "110",
+   "237",
+   "630",
+   "28",
+   "28",
+   "28"
+  ],
+  "opponentPlates": [
+   "Max Revive"
+  ],
+  "playerDeck": [
+   "269",
+   "123",
+   "509",
+   "354",
+   "271",
+   "274"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Gyarados (163), Rare Metal [UX], Ingot [UX]"
+ },
+ {
+  "set": "2.0.0-5.0.9",
+  "title": "Aim for the goal, not just battles!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Win by moving a Pokémon to the goal point. (Not a Wait Victory)",
+   "Don't initiate any battles.",
+   "Move a Pokémon onto the opponent's goal point in 20 or fewer turns."
+  ],
+  "opponentDeck": [
+   "87",
+   "23",
+   "23",
+   "72",
+   "28",
+   "28"
+  ],
+  "opponentPlates": [],
+  "playerDeck": [
+   "87",
+   "95",
+   "29",
+   "28",
+   "28",
+   "28"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch"
+  ],
+  "reward": "Gems × 10"
+ },
+ {
+  "set": "2.0.0-5.0.9",
+  "title": "Blue Attacks beat all!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Put one of your Pokémon on your own goal point.",
+   "Put one of your Pokémon on one of your opponent's entry points.",
+   "Use your Figures' blue Attacks 1 times."
+  ],
+  "opponentDeck": [
+   "34",
+   "34",
+   "39",
+   "28",
+   "28",
+   "28"
+  ],
+  "opponentPlates": [
+   "X Attack"
+  ],
+  "playerDeck": [
+   "87",
+   "95",
+   "29",
+   "28",
+   "28",
+   "28"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch"
+  ],
+  "reward": "X Attack"
+ },
+ {
+  "set": "2.0.0-5.0.9",
+  "title": "Purple Attacks beat White!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Put one of your Pokémon on your own goal point.",
+   "Put one of your Pokémon on one of your opponent's entry points.",
+   "Use your Figures' blue Attacks 1 times."
+  ],
+  "opponentDeck": [
+   "6",
+   "6",
+   "90",
+   "76",
+   "28",
+   "28"
+  ],
+  "opponentPlates": [
+   "Double Chance"
+  ],
+  "playerDeck": [
+   "87",
+   "95",
+   "29",
+   "28",
+   "28",
+   "28"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch"
+  ],
+  "reward": "Pokémon Switch"
+ },
+ {
+  "set": "2.0.0-5.0.9",
+  "title": "Watch out for Pokémon with Abilities!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Poison an opponent's Figures 1 times.",
+   "Use X Attack.",
+   "Knock out 3 opposing Figures in battle."
+  ],
+  "opponentDeck": [
+   "62",
+   "7",
+   "7",
+   "89",
+   "34",
+   "34"
+  ],
+  "opponentPlates": [
+   "X Attack",
+   "Double Chance"
+  ],
+  "playerDeck": [
+   "6",
+   "39",
+   "34",
+   "73",
+   "89",
+   "7"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Bayleef"
+ },
+ {
+  "set": "2.0.0-5.0.9",
+  "title": "Master them! Special Conditions and Surrounding!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Surround a Pokémon 1 times.",
+   "Put one of your Pokémon on one of your opponent's entry points.",
+   "Use Full Heal."
+  ],
+  "opponentDeck": [
+   "94",
+   "65",
+   "65",
+   "78",
+   "78",
+   "10"
+  ],
+  "opponentPlates": [
+   "X Attack",
+   "Double Chance",
+   "Recycle"
+  ],
+  "playerDeck": [
+   "6",
+   "39",
+   "34",
+   "73",
+   "89",
+   "7"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Scoop Up"
+ },
+ {
+  "set": "2.0.0-5.0.9",
+  "title": "Moving and Being Moved by Attacks!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Surround a Pokémon 1 times.",
+   "Move all Pokémon off the bench.",
+   "Block both of your opponent's entry points with Figures."
+  ],
+  "opponentDeck": [
+   "84",
+   "84",
+   "59",
+   "83",
+   "33",
+   "33"
+  ],
+  "opponentPlates": [
+   "Pokémon Switch",
+   "Pokémon Switch"
+  ],
+  "playerDeck": [
+   "6",
+   "39",
+   "34",
+   "73",
+   "89",
+   "7"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "X Attack",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Emolga"
+ },
+ {
+  "set": "2.0.0-5.0.9",
+  "title": "Gold Attacks beat Purple Attacks!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Put an opponent's Figures to sleep 1 times.",
+   "Use Full Heal.",
+   "Knock out 2 opposing Figures in battle."
+  ],
+  "opponentDeck": [
+   "41",
+   "48",
+   "48",
+   "64",
+   "102",
+   "116"
+  ],
+  "opponentPlates": [
+   "Full Heal",
+   "X Sp. Atk"
+  ],
+  "playerDeck": [
+   "104",
+   "123",
+   "102",
+   "517",
+   "117",
+   "630"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Poliwag"
+ },
+ {
+  "set": "2.0.0-5.0.9",
+  "title": "Make Good Use of Plates!",
+  "opponent": "Instructor",
+  "challenges": [
+   "Win after your own Figures use gold Attacks 1 times.",
+   "Use Double Chance.",
+   "Use Pokémon Switch."
+  ],
+  "opponentDeck": [
+   "273",
+   "128",
+   "17",
+   "40",
+   "28",
+   "28"
+  ],
+  "opponentPlates": [
+   "Swap Spot",
+   "Goal Block",
+   "X Defend"
+  ],
+  "playerDeck": [
+   "104",
+   "123",
+   "102",
+   "517",
+   "117",
+   "630"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Double Chance"
+ },
+ {
+  "set": "2.0.0-5.0.9",
+  "title": "Recover by touching! Asleep & Frozen",
+  "opponent": "Instructor",
+  "challenges": [
+   "Use Double Chance.",
+   "Use Pokémon Switch.",
+   "Put one of your Pokémon on one of your opponent's entry points."
+  ],
+  "opponentDeck": [
+   "519",
+   "135",
+   "246",
+   "52",
+   "28",
+   "28"
+  ],
+  "opponentPlates": [
+   "Long Throw",
+   "Hurdle Jump"
+  ],
+  "playerDeck": [
+   "104",
+   "123",
+   "102",
+   "517",
+   "117",
+   "630"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Hurdle Jump"
+ },
+ {
+  "set": "2.0.0-5.0.9",
+  "title": "Lose the Battle, Win the Duel",
+  "opponent": "Instructor",
+  "challenges": [
+   "Use X Attack.",
+   "Surround a Pokémon 1 times.",
+   "Put one of your Pokémon on one of your opponent's entry points."
+  ],
+  "opponentDeck": [
+   "110",
+   "237",
+   "630",
+   "28",
+   "28",
+   "28"
+  ],
+  "opponentPlates": [
+   "Max Revive"
+  ],
+  "playerDeck": [
+   "104",
+   "123",
+   "102",
+   "517",
+   "117",
+   "630"
+  ],
+  "playerPlates": [
+   "X Attack",
+   "Double Chance",
+   "Double Chance",
+   "Pokémon Switch",
+   "Full Heal",
+   "Scoop Up"
+  ],
+  "reward": "Gems × 10"
+ }
+]

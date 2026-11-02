@@ -37,6 +37,8 @@ export class Game {
    * Called after every spin of a battle, e.g. so a UI can show the wheels. `tie`: nobody won this spin and, with
    * rules.decisive, both figures spin again (another call follows).
    */
+  /** A figure is surrounded and knocked out (for challenges). */
+  onSurround?: (f: Figure) => void;
   onBattle?: (mover: Figure, other: Figure, result: BattleResult, info: { tie: boolean }) => void;
   /** Called just before a battle changes anything, e.g. so a UI can draw the board as it stands. */
   onBeforeBattle?: () => void;
@@ -643,7 +645,7 @@ export class Game {
     for (const f of this.figures) {
       if (f.status !== 'board') continue;
       const nbs = this.board.neighbors(f.at!);
-      if (nbs.length && nbs.every((n) => { const o = this.figureAt(n); return !!o && o.owner === 1 - f.owner && !this.dozing(o); })) this.sendToPc(f);
+      if (nbs.length && nbs.every((n) => { const o = this.figureAt(n); return !!o && o.owner === 1 - f.owner && !this.dozing(o); })) { this.onSurround?.(f); this.sendToPc(f); }
     }
   }
 

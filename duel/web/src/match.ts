@@ -1,4 +1,5 @@
 import { Game } from '../../src/game.ts';
+import { newStats, noteBattle, observe, type DuelStats } from '../../src/story.ts';
 import { aiTurn } from '../../src/ai.ts';
 import { seeded } from '../../src/rng.ts';
 import type { BattleResult } from '../../src/battle.ts';
@@ -8,6 +9,9 @@ import { plateSpec, plateTargets, type PlateDef } from '../../src/plates.ts';
 import { $, COND_SHORT, MOVE_COLOR, TYPE_COLOR, type Layout, type View } from './shared.ts';
 
 const HUMAN: PlayerId = 0;
+
+/** A set opponent: its deck and plates. */
+export interface Opponent { deck: FigureDef[]; plates: PlateDef[]; name?: string }
 
 export class Match {
   game!: Game;
@@ -28,7 +32,11 @@ export class Match {
   /** Called by the "Menú" buttons. */
   onMenu: () => void = () => {};
   /** Called once when a duel ends (won = the player won); may return a line for the end banner. */
-  onGameEnd: (won: boolean, deckIds: string[]) => string | void = () => {};
+  onGameEnd: (won: boolean, deckIds: string[], stats: DuelStats) => string | void = () => {};
+  /** What happened this duel (Training Center and hotel challenges). */
+  stats: DuelStats = newStats();
+  /** A set opponent (Training Center, hotels); null: a random deck (League). */
+  opp: Opponent | null = null;
   /** Called when one of the player's figures has fought a battle. */
   onBattleFought: (id: string) => void = () => {};
   private reported = false;
@@ -37,9 +45,11 @@ export class Match {
   platePool: PlateDef[] = [];
   humanPlates: PlateDef[] = [];
 
-  start(humanDeck: FigureDef[] | null = this.humanDeck, plates: PlateDef[] = this.humanPlates) {
+  start(humanDeck: FigureDef[] | null = this.humanDeck, plates: PlateDef[] = this.humanPlates, opp: Opponent | null = this.opp) {
     this.humanDeck = humanDeck;
     this.humanPlates = plates;
+    this.opp = opp;
+    this.stats = newStats();
     const rng = seeded(this.seedBase++);
     const deck = () => Array.from({ length: 6 }, () => this.pool[Math.floor(rng() * this.pool.length)]);
     const first: PlayerId = rng() < 0.5 ? 0 : 1;
@@ -49,8 +59,10 @@ export class Match {
       const p = this.platePool[Math.floor(rng() * this.platePool.length)];
       if (aiPlates.reduce((c, x) => c + x.cost, 0) + p.cost <= 6) aiPlates.push(p);
     }
-    this.game = new Game(this.board, [humanDeck ?? deck(), deck()], seeded(this.seedBase++), houseRules, first, [plates, aiPlates]);
+    this.game = new Game(this.board, [humanDeck ?? deck(), opp?.deck ?? deck()], seeded(this.seedBase++), houseRules, first, [plates, opp?.plates ?? aiPlates]);
+    this.game.onSurround = (f) => { if (f.owner !== HUMAN) this.stats.surrounds++; };
     this.game.onBattle = (m, o, r, info) => {
+      if (!info.tie) noteBattle(this.stats, m, o, r, HUMAN);
       if (!info.tie) for (const f of [m, o]) if (f.owner === HUMAN) this.onBattleFought(f.def.id);
       this.showBattle(m, o, r, info);
     };
@@ -73,6 +85,7 @@ export class Match {
     $('wheels').classList.remove('show');
     for (const v of this.views) { v.clearFigures(); for (const f of this.game.figures) v.addFigure(f); }
     this.log(`Empieza ${first === HUMAN ? 'el jugador (azul)' : 'la IA (rojo)'}. Quien empieza tiene MP-1 en su primer turno.`);
+    if (opp?.name) this.log(`Rival: ${opp.name}.`);
     (window as unknown as { __duel: unknown }).__duel = { game: this.game, match: this, views: this.views };
     $('end').onclick = () => { if (this.canAct()) { this.game.endTurn(); this.afterHuman(); } };
     // The original's AI button: the AI plays this turn for you.
@@ -304,10 +317,11 @@ export class Match {
       ? (g.canAttack(sel) && g.adjacentEnemies(sel).length ? 'Verde = mover. Pulsa un enemigo adyacente para combatir (termina el turno).' : 'Verde = destinos posibles.') + specialHint
       : 'Elige una figura (en el tablero o en el banquillo).';
 
+    observe(this.stats, g, HUMAN);
     if (g.winner !== null) {
       if (!this.reported) {
         this.reported = true;
-        const line = this.onGameEnd(g.winner === HUMAN, g.figures.filter((f) => f.owner === HUMAN).map((f) => f.def.id));
+        const line = this.onGameEnd(g.winner === HUMAN, g.figures.filter((f) => f.owner === HUMAN).map((f) => f.def.id), this.stats);
         $('bannerText').textContent = g.winner === 'none' ? 'Límite de turnos: pierden ambos' : g.winner === HUMAN ? '¡Victoria!' : 'Derrota';
         if (line) {
           const sub = document.createElement('div');

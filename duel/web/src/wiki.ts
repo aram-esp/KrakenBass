@@ -80,6 +80,7 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
     ['boosters', 'Boosters', boosters],
     ['evolucion', 'Evolución', evolution],
     ['mejora', 'Niveles y fusión', upgrade],
+    ['modos', 'Modos de juego', modes],
   ];
   root.innerHTML = `<div class="wiki"><div class="sections" id="wikiNav"></div><div id="wikiBody"></div></div>`;
   const nav = root.querySelector<HTMLElement>('#wikiNav')!, body = root.querySelector<HTMLElement>('#wikiBody')!;
@@ -311,5 +312,21 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
       <span class="tag inv">Supuesto</span> El orden C, UC, R, EX de los precios de plates; las figuras repetidas se venden a nivel 1.</p>
       <p>Fuentes: Serebii (Mechanics), Bulbapedia (Enhancement, Shop, Time Booster) y la wiki de Fandom (Items, Figures).
       La IA juega con sus figuras sin mejorar.</p>`;
+  }
+
+  function modes(): string {
+    return `<h3>Liga</h3>
+      <p>El botón Jugar. Ligas por puntos como en el original: Beginner (0–1299), Trainer (1300), Leader (1500), Elite (1700),
+      Champion (1900), Great (2100), Ultra (2400), Master (2700) y Legend (3000+). Los boosters por tiempo salen de estos duelos.
+      <span class="tag inv">Inventado</span> Empiezas con 1000 puntos y cada duelo da o quita 16 (Elo contra una IA de tu nivel).</p>
+      <h3>Training Center</h3>
+      <p>Las 10 fases del original (versiones 2.0.0–5.0.9, Bulbapedia) con el mazo y las plates de los dos lados, tres retos y un premio.
+      Los retos cumplidos se guardan. <span class="tag inv">Supuesto</span> El premio se da la primera vez que ganas; las ruletas son las de la 5.0.9
+      (o las primeras de la figura si salió después). Las plates que aún no funcionan aquí se quitan del mazo.</p>
+      <h3>Isla Carmonte</h3>
+      <p>Los 6 hoteles del original con su líder y su número de fases: Ulex (Yuji, 12), Chateau de Rosa (Nadya, 15), Atlantis (Joe, 18),
+      Olivia Palace (Brenda, 20), The Volcano (Don Roger, 25) y Elysium (NO7, 30). Completar uno da su emblema y abre el siguiente.
+      <span class="tag inv">Inventado</span> Los mazos rivales (más raros cuanto más avanzas), sus plates, los retos y los premios
+      (monedas por fase y gemas por el líder). No hay energía.</p>`;
   }
 }
