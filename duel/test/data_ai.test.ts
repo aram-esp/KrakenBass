@@ -157,3 +157,26 @@ test('AI uses ability moves: wakes a sleeping ally, Cut Off when its goal is thr
   aiTurn(off, seeded(2));
   assert.ok(notes.some((t) => t.startsWith('Run Off')), notes.join(' | '));
 });
+
+test('smart AI blocks its goal when an enemy can reach it next turn, and takes a winning move', async () => {
+  const { houseRules } = await import('../src/rules.config.ts');
+  const { aiTurn } = await import('../src/ai.ts');
+  const miss: FigureDef = { id: 'm', name: 'm', mp: 1, wheel: [{ move: { name: 'Miss', color: 'red', damage: 0 }, weight: 1 }] };
+  const strong: FigureDef = { id: 's', name: 's', mp: 2, wheel: [{ move: { name: 'T', color: 'white', damage: 100 }, weight: 1 }] };
+  const g = new Game(board, [[miss, miss], [strong]], seeded(1), houseRules, 0);
+  (g as unknown as { turn: number }).turn = 3; // no first-turn MP penalty
+  const put = (uid: string, n: string) => { const x = g.figures.find((y) => y.uid === uid)!; x.status = 'board'; x.at = n; };
+  const goal = board.goals[0];
+  const [a, b] = g.board.neighbors(goal);
+  put('1:0', b); // the enemy is next to our goal
+  put('0:0', a); // we are next to it too
+  aiTurn(g, seeded(3));
+  assert.equal(g.figures[0].at, goal, 'stands on its own goal');
+  assert.equal(g.winner, null);
+
+  const w = new Game(board, [[strong], [miss]], seeded(1), houseRules, 0);
+  (w as unknown as { turn: number }).turn = 3;
+  const x = w.figures[0]; x.status = 'board'; x.at = w.board.neighbors(board.goals[1])[0];
+  aiTurn(w, seeded(3));
+  assert.equal(w.winner, 0, 'walks into the goal');
+});
