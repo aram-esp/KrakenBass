@@ -332,11 +332,20 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
       <p><span class="tag inv">Inventado</span> En Hoteles creas tu hotel y eliges a su trabajador, una de tus figuras con IA propia, como los amiibo de Smash:
       la IA normal del juego más sus propios pesos. Cuando entrenas con él mira qué podías hacer y qué hiciste, y copia tu estilo (si «Aprender» está activado).
       Sube de nivel hasta 50: a más nivel, menos errores. Su personalidad sale de sus pesos, con ramas y umbrales como en Smash Ultimate.
-      Cada 30 minutos llega una visita (hasta 8): al atenderlas juega contra ellas solo y cada victoria da monedas. Con hotel, el botón IA del duelo juega como él.
-      En «Personalizar» le cambias el nombre, la figura y cada rasgo a mano, los errores, o lo haces partir de un estilo. Más en docs/amiibo.md.</p>
-      <h3>Estilos de las IA rivales</h3>
-      <p><span class="tag inv">Inventado</span> Los rivales no juegan todos igual: Equilibrada, Defensiva, Agresiva, Cazadora (busca combates),
-      Táctica (rodea) y Novata (comete errores). En Liga te toca uno al azar (la Novata solo en Beginner), el Training Center es Novata,
-      y en los hoteles cada fase tiene su estilo y cada líder el suyo, casi sin errores.</p>`;
+      Cada 30 minutos llega una visita (hasta 8): al atenderlas juega contra ellas solo y cada victoria da monedas.
+      En «Personalizar» le cambias el nombre, la figura, el nombre del hotel o lo haces partir de un estilo. Más en docs/amiibo.md.</p>
+      <h3>Estilos y niveles de las IA rivales</h3>
+      <p><span class="tag inv">Inventado</span> Los rivales no juegan todos igual: Equilibrada, Defensiva, Agresiva, Cazadora (busca combates)
+      y Táctica (rodea). Además tienen nivel del 1 al 50: a nivel bajo cometen muchos errores y a veces no ven venir el peligro; a nivel 50 juegan
+      lo mejor que saben. El tutorial es nivel 1, el Training Center va del 1 al 10, los hoteles de Ulex (1–9) a Elysium (41–49) y en Liga el
+      nivel depende de los puntos del rival (unos 3 al empezar, 50 a partir de 3000).</p>
+      <h3>Ranking</h3>
+      <p><span class="tag inv">Inventado</span> En Liga ves el ranking: 60 entrenadores de mentira (sin conexión) y tú. Tus rivales de Liga son
+      entrenadores con puntos parecidos a los tuyos; lo que tú ganas lo pierden ellos, y después de cada duelo tuyo también juegan entre ellos.</p>
+      <h3>Tutorial</h3>
+      <p>El duelo de práctica del original contra Luca, con sus mazos (Bulbapedia), y consejos que salen cuando toca. La primera vez da un booster de bienvenida
+      <span class="tag inv">inventado</span>.</p>
+      <h3>Trabajador en tus duelos</h3>
+      <p>En Mazos → Trabajador puedes llevar a tu trabajador a los duelos normales: el botón IA juega tu turno como él, con su nivel y lo que ha aprendido.</p>`;
   }
 }

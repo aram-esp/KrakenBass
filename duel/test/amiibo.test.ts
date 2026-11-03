@@ -48,8 +48,8 @@ test('AI styles differ, hotel stages get styles, the worker can be set by hand',
   assert.equal(hotelStyle(0, 0).key, 'rookie');
   assert.equal(hotelStyle(2, HOTELS[2].stages - 1).leader, true);
   const w = newWorker('52', 'Pika', [], [], 0);
-  w.noiseOverride = 0;
-  assert.equal(workerWeights(w).noise, 0);
-  w.noiseOverride = null;
-  assert.equal(workerWeights(w).noise, noiseAt(1));
+  const low = workerWeights(w);
+  w.exp = 1e9;
+  const high = workerWeights(w);
+  assert.ok(low.noise > high.noise && low.danger < high.danger, 'a low-level worker makes more mistakes');
 });

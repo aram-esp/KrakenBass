@@ -5,16 +5,17 @@ import { drawWheel } from './match.ts';
 import { WORKING, pendingReason } from '../../src/abilities.ts';
 import { WIKI_CSS, renderWiki } from './wiki.ts';
 import type { Opponent } from './match.ts';
-import { AI_STYLES, DEFAULT_WEIGHTS, moveOptions, styleWeights, type AiWeights } from '../../src/ai.ts';
+import { Coach } from './tutorial.ts';
+import { AI_STYLES, DEFAULT_WEIGHTS, levelWeights, moveOptions, styleWeights, type AiWeights } from '../../src/ai.ts';
 import {
   BRANCHES, GUEST_COINS, GUEST_EVERY_MS, GUEST_EXP, MAX_GUESTS, TRAIN_EXP, EXP_PER_LEVEL, MAX_LEVEL, branchScores, guestsWaiting, learnFrom,
-  levelOf as workerLevel, newWorker, noiseAt, personality, playHeadless, workerWeights, TRAIT_ES, W_MAX, W_MIN, type MyHotel,
+  levelOf as workerLevel, newWorker, personality, playHeadless, workerWeights, TRAIT_ES, type MyHotel,
 } from '../../src/amiibo.ts';
 import type { BoardDef } from '../../src/types.ts';
 import { seeded } from '../../src/rng.ts';
 import {
   HOTELS, HOTEL_CHALLENGES, LEADER_GEMS, LEAGUES, challengeEs, challengeMet, emblems, hotelCoins, hotelDeck, hotelUnlocked,
-  hotelStyle, leagueOf, newStats, newStory, parseReward, ratingChange, type DuelStats, type StoryState, type TrainingStage,
+  aiLevelFor, driftLadder, hotelLevel, hotelStyle, leagueOf, newLadder, newStats, pickRival, type Trainer, newStory, parseReward, ratingChange, type DuelStats, type StoryState, type TrainingStage,
 } from '../../src/story.ts';
 import { plateSpec, type PlateDef } from '../../src/plates.ts';
 import {
@@ -223,6 +224,13 @@ const CSS = `
 .dm details.custom summary { cursor: pointer; font-weight: 900; color: var(--dm-yellow); }
 .dm .slider { display: grid; grid-template-columns: minmax(120px, 1.2fr) 1fr 48px; gap: 8px; align-items: center; font-weight: 800; font-size: 13px; }
 .dm .slider input { width: 100%; accent-color: #ffd21f; }
+.dm .ranking { list-style: none; margin: 0; padding: 8px 12px 12px; display: grid; gap: 3px; }
+.dm .ranking li { display: grid; grid-template-columns: 3.2em 1fr auto 4.2em; gap: 8px; align-items: center; background: #0e1830; border-radius: 8px; padding: 5px 10px; font-weight: 800; font-size: 14px; }
+.dm .ranking li.me { background: #1f4fb5; outline: 2px solid #ffd21f; }
+.dm .ranking li.gap { background: none; justify-content: center; grid-template-columns: 1fr; color: var(--dm-mute); padding: 0; }
+.dm .ranking .pos { color: var(--dm-yellow); font-variant-numeric: tabular-nums; }
+.dm .ranking .lg { color: var(--dm-mute); font-size: 12px; }
+.dm .ranking .pts { text-align: right; font-variant-numeric: tabular-nums; }
 .dm .emblem { display: inline-block; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff6b0, #f2b400 60%, #8a5d00); vertical-align: middle; box-shadow: 0 0 8px #ffd21f; }
 .dm .price { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 20px; }
 .dm .fig.locked img { filter: brightness(0) opacity(.55); }
@@ -264,8 +272,8 @@ const ICON = {
 export interface MenuHooks {
   /** Start a new duel with this deck for the player (null: random deck). */
   play(deck: FigureDef[] | null, plates: PlateDef[], opp: Opponent | null): void;
-  /** Weights for the duel's AI button (the hotel worker plays for the player). */
-  setHelper?(w: AiWeights | undefined): void;
+  /** Weights for the duel's AI button (the equipped worker plays for the player), and its name. */
+  setHelper?(w: AiWeights | undefined, name?: string): void;
   /** A duel is in progress and can be resumed. */
   canContinue(): boolean;
 }
@@ -366,7 +374,13 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         <button type="button" class="yellow big" id="menuPlay">Jugar</button>
         <button type="button" class="ghost" id="menuContinue">Continuar duelo</button>
       </div>
+      <div class="row" id="dmTutorialAsk"><p class="note" style="width:100%">¿Primera vez? Aprende a jugar en un duelo guiado.</p><button type="button" class="yellow big" id="menuTutorial">Tutorial</button></div>
       <div class="row"><button type="button" class="yellow" id="menuIsland">Hoteles</button><button type="button" class="yellow" id="menuTraining">Training Center</button></div>
+      <div class="panel" id="dmRankPanel">
+        <div class="panel-head"><h2>Ranking</h2><span class="usable" id="dmRankPos"></span></div>
+        <p class="note" style="padding:8px 14px 0">Sin conexión: los demás entrenadores son de mentira y también juegan entre ellos. Tus rivales de Liga salen de aquí.</p>
+        <ol class="ranking" id="dmRanking"></ol>
+      </div>
       <div class="row" id="dmWelcome"></div>
       <div class="case" id="dmCase"></div>
       <p class="note">Cada duelo te da gemas y, si hay hueco en la vitrina, un booster que se abre cuando pasa su tiempo (o antes con gemas).</p>
@@ -389,6 +403,14 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         <div class="panel-head"><h2>Mejorar figuras</h2></div>
         <p class="note" style="padding:10px 14px">Sube de nivel (hasta 5, y hasta 10 con Carmonite) y de Chain Level fusionando figuras, Rare Metals y Cubos.</p>
         <div class="row" style="padding-bottom:14px"><button type="button" class="yellow" id="menuFuse">Fusión</button></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Trabajador</h2><span class="usable" id="dmWorkerState"></span></div>
+        <div class="fu-top">
+          <div id="dmWorkerFig"></div>
+          <label class="fu-sel">Llevar al duelo <select id="dmWorkerPick"></select></label>
+          <p class="note" id="dmWorkerNote"></p>
+        </div>
       </div>
       <div class="panel">
         <div class="panel-head"><h2>Evolución</h2></div>
@@ -495,14 +517,11 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
               <label class="fu-sel">Figura <select id="mhWFig"></select></label>
               <label class="fu-sel">Nombre del hotel <input id="mhHName" maxlength="24"></label>
               <label class="fu-sel">Empezar desde un estilo <select id="mhStyle"><option value="">—</option></select></label>
-              <div class="traits" id="mhSliders"></div>
-              <label class="fu-sel"><input type="checkbox" id="mhNoiseAuto"> Errores según su nivel</label>
-              <label class="fu-sel" id="mhNoiseWrap">Errores <input type="range" id="mhNoise" min="0" max="300" step="1"> <span id="mhNoiseV"></span></label>
-              <p class="note">Cada control va de ×${W_MIN} a ×${W_MAX} del valor de la IA de serie (en el centro, ×1). Si «Aprender» está activado, entrenar con él los seguirá moviendo.</p>
+              <p class="note">El estilo cambia su forma de jugar de golpe; luego sigue aprendiendo de ti si «Aprender» está activado.</p>
             </div>
           </details>
           <p class="note" id="mhNote"></p>
-          <p class="note">Mazo del trabajador: <span id="mhDeckNames"></span>. Con hotel, el botón IA del duelo juega como tu trabajador.</p>
+          <p class="note">Mazo del trabajador: <span id="mhDeckNames"></span>. Para que el botón IA de tus duelos juegue como él, ponlo en Mazos → Trabajador.</p>
         </div>
       </div>
       <div class="panel" id="dmHotelsPanel">
@@ -514,6 +533,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     </div>
     <div class="screen" id="dmStory">
       <div class="pill">Training Center</div>
+      <div class="row"><button type="button" class="yellow" id="menuTutorial2">Tutorial guiado</button></div>
       <div class="panel" id="dmTrainPanel">
         <div class="panel-head"><h2>Training Center</h2></div>
         <p class="note" style="padding:10px 14px 0">Las 10 fases del original (versiones 2.0.0 a 5.0.9, Bulbapedia): mazos de los dos lados, plates, retos y premio reales.
@@ -688,6 +708,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     if (screen === 'story') renderStory();
     if (screen === 'hotels') { renderStory(); renderMyHotel(); }
     renderRank();
+    renderWorkerSlot();
+    $('dmTutorialAsk').hidden = !!(story as StoryState & { tutorialDone?: boolean }).tutorialDone;
     if (screen === 'shop') renderShop();
   };
 
@@ -723,11 +745,13 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     for (let i = mine.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [mine[i], mine[j]] = [mine[j], mine[i]]; }
     history.length = 0;
     go(null);
-    mode = { kind: 'league' };
-    // Each league rival plays a style of its own; rookies only in the Beginner league (INVENTED).
-    const styles = AI_STYLES.filter((x) => x.key !== 'rookie' || story.rating < 1300);
-    const st = styles[Math.floor(Math.random() * styles.length)];
-    hooks.play(myDeck(mine), plateDeck.map((id) => plateById.get(id)!), { deck: [], plates: [], name: `IA ${st.name} (${st.text.replace(/\.$/, "").toLowerCase()})`, weights: styleWeights(st.key), random: true });
+    // League rivals come from the offline ranking: someone near your points, with their style and a level by their points.
+    const ladder = getLadder();
+    const ri = pickRival(ladder, story.rating, Math.random), t = ladder[ri];
+    const st = AI_STYLES.find((x) => x.key === t.style) ?? AI_STYLES[0], lv = aiLevelFor(t.rating);
+    mode = { kind: 'league', rival: ri };
+    hooks.play(myDeck(mine), plateDeck.map((id) => plateById.get(id)!),
+      { deck: [], plates: [], name: `${t.name}, ${t.rating} puntos (IA ${st.name}, Nv ${lv})`, weights: levelWeights(styleWeights(st.key), lv), random: true });
   };
 
   // ---------- boosters ----------
@@ -1165,7 +1189,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   };
   let story = loadStory();
   const saveStory = () => write(STORY_KEY, JSON.stringify(story));
-  type Mode = { kind: 'league' } | { kind: 'training'; i: number } | { kind: 'hotel'; h: number; stage: number } | { kind: 'worker' };
+  type Mode = { kind: 'league'; rival?: number } | { kind: 'training'; i: number } | { kind: 'hotel'; h: number; stage: number } | { kind: 'worker' } | { kind: 'tutorial' };
   let mode: Mode = { kind: 'league' };
   const storyStages = () => story0.training.map((st, i) => ({ st, i })).filter((x) => x.st.set === '2.0.0-5.0.9');
   const emptyStats = newStats();
@@ -1173,7 +1197,34 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   const workingPlates = (names: string[]) => names.map((n) => plateByName.get(n)).filter((p): p is PlateDef => !!p && plateSpec(p).status === 'ok');
   const myDeck = (mine: FigureDef[] = all.filter((d) => owns(d.id)).sort(() => Math.random() - 0.5)) =>
     (deck.length === DECK_SIZE ? deck.map((id) => byId.get(id)!) : mine.slice(0, DECK_SIZE)).map((d) => applyProgress(d, gacha.prog?.[d.id]));
+  const getLadder = (): Trainer[] => {
+    const st = story as StoryState & { ladder?: Trainer[] };
+    if (!st.ladder?.length) { st.ladder = newLadder(seeded(Math.floor(Math.random() * 1e9))); saveStory(); }
+    return st.ladder;
+  };
+  /** Training Center stages: AI level 1 to 10 by stage (INVENTED). */
+  const trainLevel = (i: number) => 1 + storyStages().findIndex((x) => x.i === i);
+  const renderRanking = () => {
+    const rows = [...getLadder().map((t) => ({ name: t.name, rating: t.rating, me: false })), { name: 'Tú', rating: story.rating, me: true }]
+      .sort((a, b) => b.rating - a.rating);
+    const me = rows.findIndex((r) => r.me);
+    $('dmRankPos').textContent = `Puesto ${me + 1} de ${rows.length}`;
+    const show = new Set<number>([...Array(5).keys(), ...[-2, -1, 0, 1, 2].map((d) => me + d)].filter((i) => i >= 0 && i < rows.length));
+    const ol = $('dmRanking');
+    ol.innerHTML = '';
+    let last = -1;
+    for (const i of [...show].sort((a, b) => a - b)) {
+      if (i > last + 1) { const gap = document.createElement('li'); gap.className = 'gap'; gap.textContent = '···'; ol.appendChild(gap); }
+      last = i;
+      const r = rows[i], li = document.createElement('li');
+      li.className = r.me ? 'me' : '';
+      const cells = [`${i + 1}.`, r.name, leagueOf(r.rating), String(r.rating)];
+      ['pos', 'nm', 'lg', 'pts'].forEach((c, k) => { const sp = document.createElement('span'); sp.className = c; sp.textContent = cells[k]; li.appendChild(sp); });
+      ol.appendChild(li);
+    }
+  };
   const renderRank = () => {
+    renderRanking();
     const l = leagueOf(story.rating), i = LEAGUES.findIndex(([n]) => n === l), next = LEAGUES[i + 1];
     $('dmRank').textContent = `Liga ${l} · ${story.rating} puntos${next ? ` (${next[0]} desde ${next[1]})` : ''}`;
     $('dmEmblems').innerHTML = `${'<i class="emblem"></i>'.repeat(emblems(story))} ${emblems(story)}/${HOTELS.length} emblemas`;
@@ -1233,20 +1284,33 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
       tr.appendChild(el);
     });
   };
+  /** The original's tutorial duel (against Luca, with its decks) with tips (web/src/tutorial.ts). */
+  const playTutorial = () => {
+    const st = story0.training.find((x) => x.set === 'tutorial');
+    if (!st) return;
+    const pl = workingPlates(st.playerPlates);
+    mode = { kind: 'tutorial' };
+    history.length = 0;
+    go(null);
+    hooks.play(st.playerDeck.map((id) => story0.defOf(id)!), pl,
+      { deck: st.opponentDeck.map((id) => story0.defOf(id)!), plates: [], name: `${st.opponent} (IA Nv 1)`, weights: levelWeights(DEFAULT_WEIGHTS, 1), coach: new Coach(pl[0]?.name ?? null) });
+  };
+  $('menuTutorial').onclick = playTutorial;
+  $('menuTutorial2').onclick = playTutorial;
   const playTraining = (i: number) => {
     const st = story0.training[i];
     mode = { kind: 'training', i };
     history.length = 0;
     go(null);
     hooks.play(st.playerDeck.map((id) => story0.defOf(id)!), workingPlates(st.playerPlates),
-      { deck: st.opponentDeck.map((id) => story0.defOf(id)!), plates: workingPlates(st.opponentPlates), name: `${st.opponent} (IA Novata)`, weights: styleWeights('rookie') });
+      { deck: st.opponentDeck.map((id) => story0.defOf(id)!), plates: workingPlates(st.opponentPlates), name: `${st.opponent} (IA Nv ${trainLevel(i)})`, weights: levelWeights(DEFAULT_WEIGHTS, trainLevel(i)) });
   };
   const hotelAi = (h: number, stage: number) => {
     const st = hotelStyle(h, stage), def = AI_STYLES.find((x) => x.key === st.key)!;
-    const weights = styleWeights(st.key);
-    if (st.leader) weights.noise = 2; // leaders hardly make mistakes
+    const lv = hotelLevel(h, stage);
+    const weights = levelWeights(styleWeights(st.key), lv);
     const who = st.leader ? `${HOTELS[h].leader}, líder de ${HOTELS[h].name}` : `${HOTELS[h].name} ${stage + 1}`;
-    return { name: `${who} (IA ${def.name})`, weights };
+    return { name: `${who} (IA ${def.name}, Nv ${lv})`, weights };
   };
   const playHotel = (h: number, stage: number) => {
     const rng = seeded(7000 + h * 100 + stage);
@@ -1267,7 +1331,28 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   const setMyHotel = (h: MyHotel) => { (story as StoryState & { myHotel?: MyHotel }).myHotel = h; };
   const mhNote = (t: string) => { $('mhNote').textContent = t; };
   const workerDeckDefs = (ids: string[]) => ids.map((id) => byId.get(id)).filter((d): d is FigureDef => !!d).map((d) => applyProgress(d, gacha.prog?.[d.id]));
-  const syncHelper = () => { const h = myHotel(); hooks.setHelper?.(h ? workerWeights(h.worker) : undefined); };
+  // The worker slot in Mazos (the user's request, 2026-11-03): the equipped worker plays the duel's AI button.
+  const equipped = () => { const h = myHotel(); return h && (story as StoryState & { workerSlot?: boolean }).workerSlot ? h.worker : undefined; };
+  const syncHelper = () => { const w = equipped(); hooks.setHelper?.(w ? workerWeights(w) : undefined, w?.name); };
+  const renderWorkerSlot = () => {
+    const h = myHotel(), w = equipped(), pick = $<HTMLSelectElement>('dmWorkerPick');
+    pick.innerHTML = '';
+    const opt = (v: string, t: string) => { const o = document.createElement('option'); o.value = v; o.textContent = t; pick.appendChild(o); };
+    opt('', 'Ninguno (IA de serie)');
+    if (h) opt('hotel', `${h.worker.name} (Nv ${workerLevel(h.worker)}, ${personality(h.worker.weights)})`);
+    pick.value = w ? 'hotel' : '';
+    pick.disabled = !h;
+    $('dmWorkerFig').innerHTML = '';
+    const d = w && byId.get(w.figureId);
+    if (d) $('dmWorkerFig').appendChild(figure(d, 'div'));
+    $('dmWorkerState').textContent = w ? 'Equipado' : 'Vacío';
+    $('dmWorkerNote').textContent = !h ? 'Crea tu hotel en la pestaña Hoteles para tener un trabajador.'
+      : w ? `En tus duelos, el botón IA juega tu turno como ${w.name}, con lo que ha aprendido de ti.` : 'Sin trabajador, el botón IA usa la IA de serie.';
+  };
+  $<HTMLSelectElement>('dmWorkerPick').onchange = (e) => {
+    (story as StoryState & { workerSlot?: boolean }).workerSlot = (e.target as HTMLSelectElement).value === 'hotel';
+    saveStory(); syncHelper(); changed();
+  };
   syncHelper();
   const renderMyHotel = () => {
     const h = myHotel();
@@ -1319,9 +1404,6 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   };
   // Full customisation of the worker (the user's request, 2026-11-02): name, figure, every weight, mistakes, a style to start from.
   const TRAITS = Object.keys(TRAIT_ES) as (keyof typeof TRAIT_ES)[];
-  const LOG_MIN = Math.log(W_MIN), LOG_MAX = Math.log(W_MAX);
-  const toSlider = (ratio: number) => Math.round(1000 * (Math.log(ratio) - LOG_MIN) / (LOG_MAX - LOG_MIN));
-  const fromSlider = (v: number) => Math.exp(LOG_MIN + (v / 1000) * (LOG_MAX - LOG_MIN));
   for (const st of AI_STYLES) { const o = document.createElement('option'); o.value = st.key; o.textContent = st.name; o.title = st.text; $('mhStyle').appendChild(o); }
   const renderCustom = () => {
     const h = myHotel(); if (!h) return;
@@ -1333,35 +1415,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     fs.innerHTML = '';
     for (const d of all.filter((x) => owns(x.id)).sort((a, b) => a.name.localeCompare(b.name))) { const o = document.createElement('option'); o.value = d.id; o.textContent = d.name; fs.appendChild(o); }
     fs.value = w.figureId;
-    const box = $('mhSliders');
-    if (!box.childElementCount) {
-      for (const k of TRAITS) {
-        const row = document.createElement('label'); row.className = 'slider';
-        const name = document.createElement('span'); name.textContent = TRAIT_ES[k];
-        const r = document.createElement('input'); r.type = 'range'; r.min = '0'; r.max = '1000'; r.dataset.k = k;
-        const v = document.createElement('span'); v.dataset.v = k;
-        r.oninput = () => {
-          const hh = myHotel(); if (!hh) return;
-          hh.worker.weights[k] = DEFAULT_WEIGHTS[k] * fromSlider(Number(r.value));
-          v.textContent = `×${fromSlider(Number(r.value)).toFixed(2)}`;
-        };
-        r.onchange = () => { saveStory(); syncHelper(); changed(); };
-        row.append(name, r, v);
-        box.appendChild(row);
-      }
-    }
-    for (const k of TRAITS) {
-      const ratio = w.weights[k] / DEFAULT_WEIGHTS[k];
-      const r = box.querySelector<HTMLInputElement>(`input[data-k="${k}"]`)!;
-      if (active !== r) r.value = String(toSlider(ratio));
-      box.querySelector<HTMLElement>(`[data-v="${k}"]`)!.textContent = `×${ratio.toFixed(2)}`;
-    }
-    const auto = w.noiseOverride === undefined || w.noiseOverride === null;
-    $<HTMLInputElement>('mhNoiseAuto').checked = auto;
-    $('mhNoiseWrap').hidden = auto;
-    const nz = auto ? noiseAt(workerLevel(w)) : w.noiseOverride!;
-    $<HTMLInputElement>('mhNoise').value = String(Math.round(nz));
-    $('mhNoiseV').textContent = String(Math.round(nz));
+    // Mistakes are set by level again (the hand setting was removed, 2026-11-03).
+    if (w.noiseOverride != null) { w.noiseOverride = null; saveStory(); syncHelper(); }
   };
   $<HTMLInputElement>('mhWName').onchange = (e) => { const h = myHotel(); if (!h) return; h.worker.name = (e.target as HTMLInputElement).value.trim().slice(0, 20) || h.worker.name; saveStory(); changed(); };
   $<HTMLInputElement>('mhHName').onchange = (e) => { const h = myHotel(); if (!h) return; h.name = (e.target as HTMLInputElement).value.trim().slice(0, 24) || h.name; saveStory(); changed(); };
@@ -1373,13 +1428,6 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     (e.target as HTMLSelectElement).value = '';
     saveStory(); syncHelper(); mhNote(`Ahora parte del estilo ${AI_STYLES.find((x) => x.key === key)!.name}.`); changed();
   };
-  $<HTMLInputElement>('mhNoiseAuto').onchange = (e) => {
-    const h = myHotel(); if (!h) return;
-    h.worker.noiseOverride = (e.target as HTMLInputElement).checked ? null : Math.round(noiseAt(workerLevel(h.worker)));
-    saveStory(); syncHelper(); changed();
-  };
-  $<HTMLInputElement>('mhNoise').oninput = (e) => { const h = myHotel(); if (!h) return; h.worker.noiseOverride = Number((e.target as HTMLInputElement).value); $('mhNoiseV').textContent = String(h.worker.noiseOverride); };
-  $<HTMLInputElement>('mhNoise').onchange = () => { saveStory(); syncHelper(); changed(); };
   $('mhMake').onclick = () => {
     const id = $<HTMLSelectElement>('mhFig').value, d = byId.get(id);
     if (!d) return;
@@ -1492,6 +1540,14 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         saveGacha(); saveStory();
         return line;
       }
+      if (mode.kind === 'tutorial') {
+        const first = !(story as StoryState & { tutorialDone?: boolean }).tutorialDone;
+        (story as StoryState & { tutorialDone?: boolean }).tutorialDone = true;
+        // INVENTED reward for finishing it the first time: a welcome booster.
+        if (first) gacha.ready.push({ kind: 'welcome', readyAt: 0 });
+        saveGacha(); saveStory();
+        return `${won ? '¡Tutorial superado!' : 'Tutorial terminado.'}${first ? ' Premio: un booster de bienvenida en Liga.' : ''} Ya sabes lo básico: prueba la Liga o el Training Center.`;
+      }
       if (mode.kind === 'worker') {
         const wk = myHotel()?.worker;
         if (!wk) return '';
@@ -1517,8 +1573,11 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
         saveGacha(); saveStory();
         return line;
       }
-      const delta = ratingChange(story.rating, won), leagueBefore = leagueOf(story.rating);
+      const ladder = getLadder(), rival: Trainer | undefined = mode.kind === 'league' && mode.rival !== undefined ? ladder[mode.rival] : undefined;
+      const delta = ratingChange(story.rating, won, rival?.rating ?? story.rating), leagueBefore = leagueOf(story.rating);
       story.rating = Math.max(0, story.rating + delta);
+      if (rival) rival.rating = Math.max(0, rival.rating - delta);
+      driftLadder(ladder, Math.random);
       saveStory();
       const promo = leagueOf(story.rating) !== leagueBefore ? ` · ¡Liga ${leagueOf(story.rating)}!` : '';
       recordDuel(gacha, deckIds);

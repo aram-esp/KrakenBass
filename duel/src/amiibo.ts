@@ -8,7 +8,7 @@
  * only the idea (base AI + learned data, imitation, level 1-50, learning on/off, personality from attributes) comes from
  * the Smash sources in docs/amiibo.md.
  */
-import { DEFAULT_WEIGHTS, aiTurn, type AiWeights, type Features } from './ai.ts';
+import { DEFAULT_WEIGHTS, aiTurn, levelWeights, type AiWeights, type Features } from './ai.ts';
 import { Game } from './game.ts';
 import type { PlateDef } from './plates.ts';
 import { houseRules } from './rules.config.ts';
@@ -29,7 +29,7 @@ export interface Worker {
   losses: number;
   /** Times it copied a choice of the player. */
   lessons: number;
-  /** Mistakes set by hand (the AI's noise); null/undefined: by level. */
+  /** Mistakes set by hand: no longer used (the setting was removed on 2026-11-03); kept so old saves load. */
   noiseOverride?: number | null;
   /** When the last guest was attended (ms). */
   lastGuestAt: number;
@@ -51,9 +51,10 @@ export const LEARN_RATE = 0.12;
 export const W_MIN = 0.2, W_MAX = 5;
 
 export const levelOf = (w: Worker) => Math.min(MAX_LEVEL, 1 + Math.floor(w.exp / EXP_PER_LEVEL));
-/** INVENTED: random noise on its choices, from 60 at level 1 to 2 at level 50 (fewer mistakes as it levels up). */
+/** INVENTED: random noise on its choices, from 60 at level 1 to 2 at level 50 (kept for reference; workerWeights uses levelWeights). */
 export const noiseAt = (level: number) => 60 - (58 * (level - 1)) / (MAX_LEVEL - 1);
-export const workerWeights = (w: Worker): AiWeights => ({ ...w.weights, noise: w.noiseOverride ?? noiseAt(levelOf(w)) });
+/** Its AI: its learned weights at its level (the same scale as the rivals' levels, src/ai.ts levelWeights). */
+export const workerWeights = (w: Worker): AiWeights => levelWeights({ ...w.weights, noise: 2 }, levelOf(w));
 /** Trait names for the customisation screen. */
 export const TRAIT_ES: Record<Exclude<keyof AiWeights, 'noise'>, string> = {
   danger: 'Tapar un peligro inmediato', danger2: 'Prever peligro a 2 turnos', threat: 'Amenazar la portería rival', progress: 'Adelantar a su figura más avanzada',

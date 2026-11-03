@@ -416,3 +416,18 @@ export function styleWeights(key: string): AiWeights {
   w.noise = s.noise;
   return w;
 }
+
+/**
+ * A rival's level (1-50), INVENTED (2026-11-03): low levels make many mistakes and often do not see a threat coming;
+ * level 50 plays the weights as they are. Used so the first rivals are easy and they get harder as you climb.
+ */
+export function levelWeights(base: AiWeights, level: number): AiWeights {
+  const t = Math.max(0, Math.min(1, (level - 1) / 49));
+  return {
+    ...base,
+    danger: base.danger * (0.03 + 0.97 * t ** 0.8),
+    danger2: base.danger2 * (0.3 + 0.7 * t),
+    koValue: base.koValue * (0.5 + 0.5 * t),
+    noise: Math.max(base.noise, 250 * (1 - t) ** 1.5),
+  };
+}

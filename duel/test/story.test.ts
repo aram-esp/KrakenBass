@@ -44,3 +44,19 @@ test('rewards, hotels, leagues', () => {
   assert.equal(leagueOf(3200), 'Legend');
   assert.ok(ratingChange(1000, true) > 0 && ratingChange(1000, false) < 0);
 });
+
+test('offline ranking: rivals near your points, the others play too, AI levels grow with points', async () => {
+  const { newLadder, pickRival, driftLadder, aiLevelFor, hotelLevel, LADDER_SIZE } = await import('../src/story.ts');
+  const ladder = newLadder(seeded(3));
+  assert.equal(ladder.length, LADDER_SIZE);
+  assert.equal(new Set(ladder.map((t) => t.name)).size, LADDER_SIZE);
+  assert.ok(ladder.filter((t) => t.rating < 1300).length > ladder.length / 3, 'most start low');
+  const i = pickRival(ladder, 1000, seeded(1));
+  const closer = ladder.filter((t) => Math.abs(t.rating - 1000) < Math.abs(ladder[i].rating - 1000)).length;
+  assert.ok(closer < 6);
+  const total = ladder.reduce((t, x) => t + x.rating, 0);
+  driftLadder(ladder, seeded(2), 50);
+  assert.ok(Math.abs(ladder.reduce((t, x) => t + x.rating, 0) - total) < 60, 'points move between trainers');
+  assert.ok(aiLevelFor(1000) <= 4 && aiLevelFor(3000) === 50);
+  assert.ok(hotelLevel(0, 0) === 1 && hotelLevel(5, 29) >= 45);
+});

@@ -33,7 +33,7 @@ async function main() {
   const match = new Match([v2, v3], board, pool);
   const menus = setupMenus(pool, allRecords, {
     play: (deck, plateDeck, opp) => match.start(deck, plateDeck, opp),
-    setHelper: (w) => { match.helperWeights = w; },
+    setHelper: (w, name) => { match.helperWeights = w; $('aiBtn').textContent = name ? `IA ${name}` : 'IA'; $('aiBtn').title = name ? `${name} juega tu turno` : 'La IA juega tu turno'; },
     canContinue: () => !!match.game && match.game.winner === null,
   }, extras, evolves, plates, {
     training,

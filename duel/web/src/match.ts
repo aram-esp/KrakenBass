@@ -1,6 +1,7 @@
 import { Game } from '../../src/game.ts';
 import { newStats, noteBattle, observe, type DuelStats } from '../../src/story.ts';
 import { aiTurn, type AiWeights } from '../../src/ai.ts';
+import type { Coach } from './tutorial.ts';
 import { seeded } from '../../src/rng.ts';
 import type { BattleResult } from '../../src/battle.ts';
 import type { Figure, FigureDef, Move, NodeId, PlayerId } from '../../src/types.ts';
@@ -19,6 +20,8 @@ export interface Opponent {
   random?: boolean;
   /** Its AI's weights (a style, or the hotel worker); default: the normal AI. */
   weights?: AiWeights;
+  /** Tips for the guided tutorial. */
+  coach?: Coach;
   /** Watches the player's turns: `start` before the player acts, `end` with the move the player made ("stay": none). */
   watch?: { start(g: Game): void; end(g: Game, key: string): void };
 }
@@ -81,9 +84,11 @@ export class Match {
     this.game.onMove = (uid, to, kind) => {
       if (this.game.current === HUMAN && this.watchKey === null) this.watchKey = kind ? `${kind}:${uid}>${to}` : `${uid}>${to}`;
     };
-    this.watchTurn = 0; this.watchOpen = false;
+    this.watchTurn = 0; this.watchOpen = false; this.coachOpen = false;
+    $('coach').classList.remove('show');
     this.game.onBattle = (m, o, r, info) => {
       if (!info.tie) noteBattle(this.stats, m, o, r, HUMAN);
+      if (!info.tie) { this.opp?.coach?.note('battle'); if (r.ko.length) this.opp?.coach?.note('ko'); }
       if (!info.tie) for (const f of [m, o]) if (f.owner === HUMAN) this.onBattleFought(f.def.id);
       this.showBattle(m, o, r, info);
     };
@@ -141,7 +146,21 @@ export class Match {
     if (this.game.current !== HUMAN) this.runAi();
   }
 
-  canAct() { return !this.busy && !this.disksShowing() && !this.bannerShowing() && this.game.winner === null && this.game.current === HUMAN; }
+  canAct() { return !this.busy && !this.disksShowing() && !this.bannerShowing() && !this.coachOpen && this.game.winner === null && this.game.current === HUMAN; }
+
+  /** Tutorial tip on screen: the duel waits until the player closes it. */
+  private coachOpen = false;
+  private showCoach() {
+    const c = this.opp?.coach;
+    if (!c || this.coachOpen || this.disksShowing() || this.bannerShowing() || this.game.winner !== null) return;
+    const text = c.next(this.game);
+    if (!text) return;
+    this.coachOpen = true;
+    $('coachText').textContent = text;
+    $('coach').classList.add('show');
+    $('coachOk').focus();
+    $('coachOk').onclick = () => { $('coach').classList.remove('show'); this.coachOpen = false; this.refresh(); };
+  }
 
   /** Tell the opponent's watcher (the hotel worker learning) when the player's turn starts and what they did in it. */
   private watch() {
@@ -269,7 +288,7 @@ export class Match {
     const step = () => {
       if (this.disksShowing()) { setTimeout(step, 150); return; }
       if (this.game.winner !== null || this.game.current === HUMAN) { this.busy = false; this.refresh(); return; }
-      if (this.bannerShowing()) { setTimeout(step, 150); return; }
+      if (this.bannerShowing() || this.coachOpen) { setTimeout(step, 150); return; }
       // The AI "thinks" a moment before each action (that time runs on its clock).
       if (!thought) { thought = true; setTimeout(step, AI_STEP_MS); return; }
       thought = false;
@@ -326,6 +345,7 @@ export class Match {
     this.showClocks();
     this.turnBanner();
     this.watch();
+    this.showCoach();
     $<HTMLButtonElement>('aiBtn').disabled = !this.canAct();
     $('status').textContent = g.winner !== null ? 'Duelo terminado' : `Turno ${g.turn}/${300} · juega ${g.current === HUMAN ? 'el jugador' : 'la IA'}`;
 

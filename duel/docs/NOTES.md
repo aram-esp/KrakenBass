@@ -107,7 +107,7 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 62 passing.
+- Tests: `npm test` -> 63 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.
@@ -171,6 +171,14 @@ timers, forfeit, choosing the battle target (the engine takes the first adjacent
    Center: Novata; hotels: `hotelStyle` (Ulex 1-4 Novata, leaders fixed style with noise 2). The worker is fully
    customisable (name, figure, hotel name, every weight ×0.2-×5 on a log slider, mistakes by hand or by level, start
    from a style).
+   2026-11-03 (user's requests): worker sliders removed (name, figure, hotel name and a starting style remain);
+   guided tutorial (`web/src/tutorial.ts` Coach; the original's tutorial duel vs Luca from data/training.json, tips once
+   each, the duel waits for "Entendido"; first finish gives a welcome booster, INVENTED); AI levels 1-50
+   (`levelWeights` in src/ai.ts: lower levels see threats less and make more mistakes; level 1 ≈ the old basic AI,
+   100/200 vs it, level 50 180/200); levels: tutorial 1, Training Center 1-10, hotels `hotelLevel`, league
+   `aiLevelFor(rival points)`; offline ranking (`newLadder`, `pickRival`, `driftLadder` in src/story.ts: 60 invented
+   trainers, league rivals taken near your points, Elo against their points); worker slot in Mazos: the equipped
+   worker plays the duel's AI button (`setHelper`), worker AI = `levelWeights(learned weights, its level)`.
    Earlier design notes: an "amiibo"-style trainable AI (user's request). Research and design in `docs/amiibo.md`: a per-figure
    `AiWeights` set that imitates the player's choices, level 1-50 lowering `noise`, learning on/off, a personality read
    from the weights.

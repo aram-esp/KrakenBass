@@ -74,6 +74,15 @@ button:focus-visible, .chip:focus-visible { outline: 2px solid #fff; outline-off
 #wheelsTitle { flex-basis: 100%; text-align: center; font-size: 20px; font-weight: 900; }
 #wheels canvas { width: min(220px, 38vw); height: min(220px, 38vw); } #wheels figcaption { margin-top: 6px; font-weight: 800; }
 #wheels .fate { margin-top: 2px; font-weight: 900; } #wheels .fate.hit { color: #ff7a80; } #wheels .fate.stop { color: var(--go); } #wheels .fate.none { color: var(--mute); }
+#coach { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); width: min(560px, calc(100% - 24px)); display: none; z-index: 6;
+  background: #fffdf2; color: #1d2433; border: 4px solid #ffd21f; border-radius: 16px; padding: 12px 14px; box-shadow: 0 8px 24px #0009;
+  font: 700 15px/1.4 var(--font); }
+#coach.show { display: block; animation: coach-in .35s ease-out both; }
+#coach p { margin: 0 0 10px; }
+#coach p::before { content: "Tutorial"; display: block; font-weight: 900; color: #0b3a92; margin-bottom: 4px; }
+#coach button { float: right; font: 900 15px var(--font); background: #ffd21f; color: #3a2a00; border: 0; border-radius: 10px; padding: 7px 18px; cursor: pointer; }
+#coach::after { content: ""; display: block; clear: both; }
+@keyframes coach-in { from { opacity: 0; transform: translate(-50%, -8px); } }
 #turnBanner { position: absolute; left: 0; right: 0; top: 38%; display: none; justify-content: center; pointer-events: none; }
 #turnBanner.show { display: flex; animation: tb-in 1.3s ease-in-out both; }
 #turnBanner b { font: 900 clamp(26px, 6vw, 46px)/1 var(--font); padding: 12px 60px; letter-spacing: .04em; color: #fff;
@@ -121,6 +130,7 @@ export function buildHud(): void {
     <div id="wheels"><figure><canvas width="440" height="440" id="w0"></canvas><figcaption id="c0"></figcaption></figure><figure><canvas width="440" height="440" id="w1"></canvas><figcaption id="c1"></figcaption></figure></div>
     <div id="platePanel" aria-label="Tus plates"></div>
     <div id="turnBanner" aria-hidden="true"><b id="turnBannerText"></b></div>
+    <div id="coach" role="dialog" aria-live="polite" aria-label="Tutorial"><p id="coachText"></p><button type="button" id="coachOk">Entendido</button></div>
     <div id="banner"><div id="bannerText"></div><button id="again" type="button">Otra partida</button><button id="toMenu" type="button">Menú</button></div>
   </div>
   <div id="dock" class="gut">

@@ -211,3 +211,52 @@ export function hotelStyle(h: number, stage: number): { key: string; leader: boo
   const keys = ['balanced', 'defensive', 'aggressive', 'hunter', 'tactician'];
   return { key: keys[(h * 7 + stage * 3) % keys.length], leader: false };
 }
+
+// ---------- Offline ranking (INVENTED, 2026-11-03) ----------
+/** A trainer of the offline ranking: league rivals are taken from here, and their points move like yours. */
+export interface Trainer { name: string; rating: number; style: string }
+
+const FIRST = ['Álex', 'Noa', 'Kai', 'Lúa', 'Iker', 'Vera', 'Mateo', 'Nora', 'Leo', 'Olivia', 'Hugo', 'Mía', 'Dani', 'Irene', 'Bruno', 'Alba',
+  'Teo', 'Carla', 'Marco', 'Sofía', 'Gael', 'Lola', 'Pau', 'Elsa', 'Unai', 'Ariadna', 'Rui', 'Celia', 'Enzo', 'Julia'];
+const NICK = ['Rayo', 'Bruma', 'Cometa', 'Escarcha', 'Trueno', 'Brasa', 'Marea', 'Roca', 'Sombra', 'Viento', 'Chispa', 'Nube', 'Brote', 'Acero', 'Eco'];
+export const LADDER_SIZE = 60;
+
+/** A new ranking: 60 trainers, most of them in the low leagues. */
+export function newLadder(rng: () => number): Trainer[] {
+  const styles = ['balanced', 'defensive', 'aggressive', 'hunter', 'tactician'];
+  const used = new Set<string>();
+  const out: Trainer[] = [];
+  while (out.length < LADDER_SIZE) {
+    const name = `${FIRST[Math.floor(rng() * FIRST.length)]} ${NICK[Math.floor(rng() * NICK.length)]}`;
+    if (used.has(name)) continue;
+    used.add(name);
+    const rating = Math.round(600 + 2600 * rng() ** 2.2); // skewed toward the low leagues
+    out.push({ name, rating, style: styles[Math.floor(rng() * styles.length)] });
+  }
+  return out;
+}
+
+/** A rival for a league duel: one of the 6 trainers closest to your points. */
+export function pickRival(ladder: Trainer[], rating: number, rng: () => number): number {
+  const near = ladder.map((t, i) => ({ i, d: Math.abs(t.rating - rating) })).sort((a, b) => a.d - b.d).slice(0, 6);
+  return near[Math.floor(rng() * near.length)].i;
+}
+
+/** The rest of the ranking plays too: a few duels among the trainers after each of yours. */
+export function driftLadder(ladder: Trainer[], rng: () => number, duels = 6): void {
+  for (let k = 0; k < duels; k++) {
+    const a = ladder[Math.floor(rng() * ladder.length)];
+    const near = ladder.filter((t) => t !== a && Math.abs(t.rating - a.rating) < 250);
+    const b = near[Math.floor(rng() * near.length)];
+    if (!b) continue;
+    const d = ratingChange(a.rating, rng() < 1 / (1 + 10 ** ((b.rating - a.rating) / 400)), b.rating);
+    a.rating = Math.max(0, a.rating + d);
+    b.rating = Math.max(0, b.rating - d);
+  }
+}
+
+/** AI level (1-50) of a rival by its points: about 3 at the start (1000), 50 from 3000. */
+export const aiLevelFor = (rating: number) => Math.max(1, Math.min(50, Math.round((rating - 900) / 42) + 1));
+/** AI level of a hotel stage: Ulex 1-9 ... Elysium 41-49, leaders +3. */
+export const hotelLevel = (h: number, stage: number) =>
+  Math.min(50, 1 + h * 8 + Math.floor((stage / HOTELS[h].stages) * 8) + (stage === HOTELS[h].stages - 1 ? 3 : 0));
