@@ -31,6 +31,8 @@ export interface Worker {
   lessons: number;
   /** Mistakes set by hand: no longer used (the setting was removed on 2026-11-03); kept so old saves load. */
   noiseOverride?: number | null;
+  /** When it last ate a berry (ms). */
+  lastBerryAt?: number;
   /** When the last guest was attended (ms). */
   lastGuestAt: number;
 }
@@ -122,4 +124,44 @@ export function playHeadless(board: BoardDef, workerDeck: FigureDef[], guestDeck
   const g = new Game(board, [workerDeck, guestDeck], seed(Math.floor(rng() * 1e9)), houseRules, (rng() < 0.5 ? 0 : 1) as PlayerId, [workerPlates, guestPlates]);
   for (let n = 0; g.winner === null && n < 3000; n++) aiTurn(g, rng, g.current === 0 ? weights : guest);
   return g.winner === 0;
+}
+
+/**
+ * Berries (the only customisation, the user's request of 2026-11-03): one every 24 hours, each nudges one trait branch
+ * of its personality up a little. The berry names are the Spanish names of real Pokémon berries; what each one does
+ * here is INVENTED.
+ */
+export const BERRY_EVERY_MS = 24 * 60 * 60 * 1000;
+export const BERRY_STEP = 1.12;
+export const BERRIES: { key: string; name: string; branch: string; text: string }[] = [
+  { key: 'aranja', name: 'Baya Aranja', branch: 'def', text: 'más defensa' },
+  { key: 'zreza', name: 'Baya Zreza', branch: 'ofn', text: 'más ataque' },
+  { key: 'safre', name: 'Baya Safre', branch: 'rsk', text: 'más ganas de combatir' },
+  { key: 'perasi', name: 'Baya Perasi', branch: 'gen', text: 'más ganas de rodear' },
+  { key: 'caquic', name: 'Baya Caquic', branch: 'cau', text: 'más prudencia' },
+  { key: 'meloc', name: 'Baya Meloc', branch: 'dyn', text: 'más despliegue' },
+];
+export const berryWait = (w: Worker, now: number) => (w.lastBerryAt === undefined ? 0 : Math.max(0, w.lastBerryAt + BERRY_EVERY_MS - now));
+
+/** Give a berry: null, or why not. */
+export function giveBerry(w: Worker, key: string, now: number): string | null {
+  const b = BERRIES.find((x) => x.key === key);
+  if (!b) return 'Esa baya no existe.';
+  if (berryWait(w, now) > 0) return 'Ya ha comido hoy.';
+  for (const k of BRANCHES.find((x) => x.key === b.branch)!.weights) {
+    w.weights[k] = Math.min(DEFAULT_WEIGHTS[k] * W_MAX, w.weights[k] * BERRY_STEP);
+  }
+  w.lastBerryAt = now;
+  return null;
+}
+
+/** Lessons kept during a duel where the worker came along; they are learned only if the player says so at the end. */
+export interface Lesson { chosen: Features; own: Features }
+export function learnLessons(w: Worker, lessons: Lesson[]): number {
+  const was = w.learn;
+  w.learn = true;
+  let n = 0;
+  for (const l of lessons) if (learnFrom(w, l.chosen, l.own)) n++;
+  w.learn = was;
+  return n;
 }

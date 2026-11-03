@@ -33,6 +33,7 @@ async function main() {
   const match = new Match([v2, v3], board, pool);
   const menus = setupMenus(pool, allRecords, {
     play: (deck, plateDeck, opp) => match.start(deck, plateDeck, opp),
+    setCompanion: (w) => { match.companion = w; },
     setHelper: (w, name) => { match.helperWeights = w; $('aiBtn').textContent = name ? `IA ${name}` : 'IA'; $('aiBtn').title = name ? `${name} juega tu turno` : 'La IA juega tu turno'; },
     canContinue: () => !!match.game && match.game.winner === null,
   }, extras, evolves, plates, {
@@ -46,7 +47,13 @@ async function main() {
   match.onMenu = menus.open;
   const allDefs = new Map([...pool, ...extras].map((d) => [d.id, d]));
   match.evolveInDuel = (d) => { const t = (evolves[d.id] ?? []).find((x) => allDefs.has(x)); return t ? allDefs.get(t)! : null; };
-  match.onGameEnd = (won, deckIds, stats) => menus.duelEnded(won, deckIds, stats);
+  match.onGameEnd = (won, deckIds, stats) => {
+    const line = menus.duelEnded(won, deckIds, stats), ask = menus.companionAsk();
+    if (!ask) return line;
+    // Nothing to learn: just say so under the result.
+    if (ask.info) return `${line}${line ? ' · ' : ''}${ask.q}`;
+    return { line, ask };
+  };
   match.onBattleFought = (id) => menus.battleFought(id);
 
   let mode: '2d' | '3d' = '2d';

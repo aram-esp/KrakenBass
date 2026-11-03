@@ -333,7 +333,7 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
       la IA normal del juego más sus propios pesos. Cuando entrenas con él mira qué podías hacer y qué hiciste, y copia tu estilo (si «Aprender» está activado).
       Sube de nivel hasta 50: a más nivel, menos errores. Su personalidad sale de sus pesos, con ramas y umbrales como en Smash Ultimate.
       Cada 30 minutos llega una visita (hasta 8): al atenderlas juega contra ellas solo y cada victoria da monedas.
-      En «Personalizar» le cambias el nombre, la figura, el nombre del hotel o lo haces partir de un estilo. Más en docs/amiibo.md.</p>
+      En «Personalizar» le das una baya al día (Aranja, Zreza, Safre, Perasi, Caquic o Meloc): cada una cambia un poco su personalidad hacia un lado. Más en docs/amiibo.md.</p>
       <h3>Estilos y niveles de las IA rivales</h3>
       <p><span class="tag inv">Inventado</span> Los rivales no juegan todos igual: Equilibrada, Defensiva, Agresiva, Cazadora (busca combates)
       y Táctica (rodea). Además tienen nivel del 1 al 50: a nivel bajo cometen muchos errores y a veces no ven venir el peligro; a nivel 50 juegan
@@ -346,6 +346,6 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
       <p>El duelo de práctica del original contra Luca, con sus mazos (Bulbapedia), y consejos que salen cuando toca. La primera vez da un booster de bienvenida
       <span class="tag inv">inventado</span>.</p>
       <h3>Trabajador en tus duelos</h3>
-      <p>En Mazos → Trabajador puedes llevar a tu trabajador a los duelos normales: el botón IA juega tu turno como él, con su nivel y lo que ha aprendido.</p>`;
+      <p>En Mazos → Trabajador puedes llevar a tu trabajador a los duelos normales: el botón IA juega tu turno como él, con su nivel y lo que ha aprendido. Mientras te acompaña mira tus jugadas, y al acabar el duelo te pregunta si quieres que aprenda de ese combate.</p>`;
   }
 }

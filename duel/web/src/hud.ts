@@ -74,6 +74,9 @@ button:focus-visible, .chip:focus-visible { outline: 2px solid #fff; outline-off
 #wheelsTitle { flex-basis: 100%; text-align: center; font-size: 20px; font-weight: 900; }
 #wheels canvas { width: min(220px, 38vw); height: min(220px, 38vw); } #wheels figcaption { margin-top: 6px; font-weight: 800; }
 #wheels .fate { margin-top: 2px; font-weight: 900; } #wheels .fate.hit { color: #ff7a80; } #wheels .fate.stop { color: var(--go); } #wheels .fate.none { color: var(--mute); }
+.endAsk { margin-top: 12px; font-size: 16px; color: #fff; }
+.endAsk p { margin: 0 0 8px; }
+.endAsk button { font: 900 16px var(--font); background: #ffd21f; color: #3a2a00; border: 0; border-radius: 10px; padding: 7px 22px; margin: 0 6px; cursor: pointer; }
 #coach { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); width: min(560px, calc(100% - 24px)); display: none; z-index: 6;
   background: #fffdf2; color: #1d2433; border: 4px solid #ffd21f; border-radius: 16px; padding: 12px 14px; box-shadow: 0 8px 24px #0009;
   font: 700 15px/1.4 var(--font); }

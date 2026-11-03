@@ -23,8 +23,13 @@ export interface Opponent {
   /** Tips for the guided tutorial. */
   coach?: Coach;
   /** Watches the player's turns: `start` before the player acts, `end` with the move the player made ("stay": none). */
-  watch?: { start(g: Game): void; end(g: Game, key: string): void };
+  watch?: Watcher;
 }
+
+/** Looks at the player's turns: `start` before the player acts, `end` with the move the player made ("stay": none). */
+export interface Watcher { start(g: Game): void; end(g: Game, key: string): void }
+/** End of duel: a line, and maybe a yes/no question (answers return the text that replaces it). */
+export interface EndInfo { line: string; ask?: { q: string; yes(): string; no(): string } }
 
 export class Match {
   game!: Game;
@@ -45,7 +50,9 @@ export class Match {
   /** Called by the "Menú" buttons. */
   onMenu: () => void = () => {};
   /** Called once when a duel ends (won = the player won); may return a line for the end banner. */
-  onGameEnd: (won: boolean, deckIds: string[], stats: DuelStats) => string | void = () => {};
+  onGameEnd: (won: boolean, deckIds: string[], stats: DuelStats) => string | EndInfo | void = () => {};
+  /** The worker that came along (Mazos slot): it watches the player's turns like a training opponent does. */
+  companion?: Watcher;
   /** What happened this duel (Training Center and hotel challenges). */
   stats: DuelStats = newStats();
   /** A set opponent (Training Center, hotels); null: a random deck (League). */
@@ -164,15 +171,15 @@ export class Match {
 
   /** Tell the opponent's watcher (the hotel worker learning) when the player's turn starts and what they did in it. */
   private watch() {
-    const g = this.game, w = this.opp?.watch;
-    if (!w) return;
+    const g = this.game, ws = [this.opp?.watch, this.companion].filter((x): x is Watcher => !!x);
+    if (!ws.length) return;
     if (this.watchOpen && (g.current !== HUMAN || g.winner !== null || g.turn !== this.watchTurn)) {
       this.watchOpen = false;
-      if (!this.watchSkip) w.end(g, this.watchKey ?? 'stay');
+      if (!this.watchSkip) for (const w of ws) w.end(g, this.watchKey ?? 'stay');
     }
     if (!this.watchOpen && g.winner === null && g.current === HUMAN && g.turn !== this.watchTurn) {
       this.watchTurn = g.turn; this.watchKey = null; this.watchSkip = false; this.watchOpen = true;
-      w.start(g);
+      for (const w of ws) w.start(g);
     }
   }
 
@@ -377,13 +384,25 @@ export class Match {
     if (g.winner !== null) {
       if (!this.reported) {
         this.reported = true;
-        const line = this.onGameEnd(g.winner === HUMAN, g.figures.filter((f) => f.owner === HUMAN).map((f) => f.def.id), this.stats);
+        const res = this.onGameEnd(g.winner === HUMAN, g.figures.filter((f) => f.owner === HUMAN).map((f) => f.def.id), this.stats);
+        const info: EndInfo | null = !res ? null : typeof res === 'string' ? { line: res } : res;
         $('bannerText').textContent = g.winner === 'none' ? 'Límite de turnos: pierden ambos' : g.winner === HUMAN ? '¡Victoria!' : 'Derrota';
-        if (line) {
+        if (info?.line) {
           const sub = document.createElement('div');
           sub.style.cssText = 'font-size:16px;margin-top:8px;color:#ffd21f';
-          sub.textContent = line;
+          sub.textContent = info.line;
           $('bannerText').appendChild(sub);
+        }
+        if (info?.ask) {
+          const ask = info.ask, box = document.createElement('div');
+          box.className = 'endAsk';
+          const q = document.createElement('p'); q.textContent = ask.q;
+          const yes = document.createElement('button'); yes.type = 'button'; yes.textContent = 'Sí';
+          const no = document.createElement('button'); no.type = 'button'; no.textContent = 'No';
+          const answer = (f: () => string) => () => { box.textContent = f(); };
+          yes.onclick = answer(ask.yes); no.onclick = answer(ask.no);
+          box.append(q, yes, no);
+          $('bannerText').appendChild(box);
         }
       }
       $('banner').classList.add('show');

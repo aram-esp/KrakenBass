@@ -107,7 +107,7 @@ Done (all committed and pushed on branch `claude/keen-albattani-dr7nco`):
 - Top-down 2D client (`web/src/view2d.ts`, "Vista 2D" button), Data Disk overlay.
 - Published private page: https://claude.ai/artifact/Vzjn9KMkhTU6uZTTv96tPf (single-file build, `publish/`). Version 2
   (2026-10-30): 2.5D + 2D views with the BW sprites embedded as data: URIs (`#data-sprites`, ~1.5 MB page).
-- Tests: `npm test` -> 63 passing.
+- Tests: `npm test` -> 64 passing.
 - 2D sprites: PokeAPI *black-white* sprites (96x96) for all 567 figure entries, in `assets/sprites/<figure id>.png`
   (committed). Source downloads in `assets/pokeapi/` (see section 7). Branch `claude/wonderful-meitner-iwcl2k` merged
   this branch in on 2026-10-30 and carries all of this.
@@ -179,6 +179,9 @@ timers, forfeit, choosing the battle target (the engine takes the first adjacent
    `aiLevelFor(rival points)`; offline ranking (`newLadder`, `pickRival`, `driftLadder` in src/story.ts: 60 invented
    trainers, league rivals taken near your points, Elo against their points); worker slot in Mazos: the equipped
    worker plays the duel's AI button (`setHelper`), worker AI = `levelWeights(learned weights, its level)`.
+   Later on 2026-11-03: «Personalizar» is only a berry a day (`BERRIES`, `giveBerry`: ×1.12 on one branch's weights;
+   names of real berries, effects INVENTED); the companion worker (Mazos slot) watches every duel (Match `companion`
+   watcher) and keeps lessons; at the end the banner asks Sí/No (`EndInfo.ask`) and only Sí learns them (`learnLessons`).
    Earlier design notes: an "amiibo"-style trainable AI (user's request). Research and design in `docs/amiibo.md`: a per-figure
    `AiWeights` set that imitates the player's choices, level 1-50 lowering `noise`, learning on/off, a personality read
    from the weights.

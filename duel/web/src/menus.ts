@@ -6,10 +6,11 @@ import { WORKING, pendingReason } from '../../src/abilities.ts';
 import { WIKI_CSS, renderWiki } from './wiki.ts';
 import type { Opponent } from './match.ts';
 import { Coach } from './tutorial.ts';
+import type { Watcher } from './match.ts';
 import { AI_STYLES, DEFAULT_WEIGHTS, levelWeights, moveOptions, styleWeights, type AiWeights } from '../../src/ai.ts';
 import {
   BRANCHES, GUEST_COINS, GUEST_EVERY_MS, GUEST_EXP, MAX_GUESTS, TRAIN_EXP, EXP_PER_LEVEL, MAX_LEVEL, branchScores, guestsWaiting, learnFrom,
-  levelOf as workerLevel, newWorker, personality, playHeadless, workerWeights, TRAIT_ES, type MyHotel,
+  BERRIES, berryWait, giveBerry, learnLessons, levelOf as workerLevel, newWorker, personality, playHeadless, workerWeights, type Lesson, type MyHotel,
 } from '../../src/amiibo.ts';
 import type { BoardDef } from '../../src/types.ts';
 import { seeded } from '../../src/rng.ts';
@@ -231,6 +232,10 @@ const CSS = `
 .dm .ranking .pos { color: var(--dm-yellow); font-variant-numeric: tabular-nums; }
 .dm .ranking .lg { color: var(--dm-mute); font-size: 12px; }
 .dm .ranking .pts { text-align: right; font-variant-numeric: tabular-nums; }
+.dm .ghost:disabled { opacity: .45; cursor: default; }
+.dm .berries { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; width: 100%; }
+.dm .berries .ghost { display: flex; flex-direction: column; gap: 2px; padding: 8px; }
+.dm .berries small { color: var(--dm-mute); font-weight: 700; }
 .dm .emblem { display: inline-block; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff6b0, #f2b400 60%, #8a5d00); vertical-align: middle; box-shadow: 0 0 8px #ffd21f; }
 .dm .price { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 20px; }
 .dm .fig.locked img { filter: brightness(0) opacity(.55); }
@@ -272,6 +277,8 @@ const ICON = {
 export interface MenuHooks {
   /** Start a new duel with this deck for the player (null: random deck). */
   play(deck: FigureDef[] | null, plates: PlateDef[], opp: Opponent | null): void;
+  /** The worker that comes along to this duel and watches the player (or none). */
+  setCompanion?(w: Watcher | undefined): void;
   /** Weights for the duel's AI button (the equipped worker plays for the player), and its name. */
   setHelper?(w: AiWeights | undefined, name?: string): void;
   /** A duel is in progress and can be resumed. */
@@ -291,6 +298,8 @@ export interface Menus {
   open(): void;
   /** Reward the end of a duel and count it for the deck's figures; returns a line for the end banner. */
   duelEnded(won: boolean, deckIds: string[], stats: DuelStats): string;
+  /** After duelEnded: the question for the worker that came along, if any. */
+  companionAsk(): { q: string; yes(): string; no(): string; info?: boolean } | undefined;
   /** One of the player's figures fought a battle (counts toward evolving). */
   battleFought(id: string): void;
 }
@@ -501,7 +510,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
           <div class="fu-main"><div id="mhWorkerFig"></div><div class="fu-stats" id="mhStats"></div></div>
           <div class="fu-bar" aria-hidden="true"><i id="mhExpBar"></i></div>
           <div class="traits" id="mhTraits"></div>
-          <label class="fu-sel"><input type="checkbox" id="mhLearn"> Aprender de mis jugadas</label>
+          <label class="fu-sel"><input type="checkbox" id="mhLearn"> Aprender cuando entreno con él</label>
           <div class="row">
             <button type="button" class="yellow" id="mhTrain">Entrenar</button>
             <button type="button" class="yellow" id="mhGuests">Atender visitas</button>
@@ -513,11 +522,8 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
           <details class="custom" id="mhCustom">
             <summary>Personalizar a tu trabajador</summary>
             <div class="fu-top">
-              <label class="fu-sel">Nombre <input id="mhWName" maxlength="20"></label>
-              <label class="fu-sel">Figura <select id="mhWFig"></select></label>
-              <label class="fu-sel">Nombre del hotel <input id="mhHName" maxlength="24"></label>
-              <label class="fu-sel">Empezar desde un estilo <select id="mhStyle"><option value="">—</option></select></label>
-              <p class="note">El estilo cambia su forma de jugar de golpe; luego sigue aprendiendo de ti si «Aprender» está activado.</p>
+              <p class="note" id="mhBerryNote"></p>
+              <div class="berries" id="mhBerries"></div>
             </div>
           </details>
           <p class="note" id="mhNote"></p>
@@ -750,7 +756,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     const ri = pickRival(ladder, story.rating, Math.random), t = ladder[ri];
     const st = AI_STYLES.find((x) => x.key === t.style) ?? AI_STYLES[0], lv = aiLevelFor(t.rating);
     mode = { kind: 'league', rival: ri };
-    hooks.play(myDeck(mine), plateDeck.map((id) => plateById.get(id)!),
+    playDuel(myDeck(mine), plateDeck.map((id) => plateById.get(id)!),
       { deck: [], plates: [], name: `${t.name}, ${t.rating} puntos (IA ${st.name}, Nv ${lv})`, weights: levelWeights(styleWeights(st.key), lv), random: true });
   };
 
@@ -1292,7 +1298,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     mode = { kind: 'tutorial' };
     history.length = 0;
     go(null);
-    hooks.play(st.playerDeck.map((id) => story0.defOf(id)!), pl,
+    playDuel(st.playerDeck.map((id) => story0.defOf(id)!), pl,
       { deck: st.opponentDeck.map((id) => story0.defOf(id)!), plates: [], name: `${st.opponent} (IA Nv 1)`, weights: levelWeights(DEFAULT_WEIGHTS, 1), coach: new Coach(pl[0]?.name ?? null) });
   };
   $('menuTutorial').onclick = playTutorial;
@@ -1302,7 +1308,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     mode = { kind: 'training', i };
     history.length = 0;
     go(null);
-    hooks.play(st.playerDeck.map((id) => story0.defOf(id)!), workingPlates(st.playerPlates),
+    playDuel(st.playerDeck.map((id) => story0.defOf(id)!), workingPlates(st.playerPlates),
       { deck: st.opponentDeck.map((id) => story0.defOf(id)!), plates: workingPlates(st.opponentPlates), name: `${st.opponent} (IA Nv ${trainLevel(i)})`, weights: levelWeights(DEFAULT_WEIGHTS, trainLevel(i)) });
   };
   const hotelAi = (h: number, stage: number) => {
@@ -1323,7 +1329,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     mode = { kind: 'hotel', h, stage };
     history.length = 0;
     go(null);
-    hooks.play(myDeck(), plateDeck.map((id) => plateById.get(id)!),
+    playDuel(myDeck(), plateDeck.map((id) => plateById.get(id)!),
       { deck: hotelDeck(h, stage, pool, (id) => rarity.get(id) ?? 'Common', seeded), plates: oppPlates, ...hotelAi(h, stage) });
   };
   // ---------- the player's hotel and its worker (src/amiibo.ts) ----------
@@ -1334,6 +1340,51 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
   // The worker slot in Mazos (the user's request, 2026-11-03): the equipped worker plays the duel's AI button.
   const equipped = () => { const h = myHotel(); return h && (story as StoryState & { workerSlot?: boolean }).workerSlot ? h.worker : undefined; };
   const syncHelper = () => { const w = equipped(); hooks.setHelper?.(w ? workerWeights(w) : undefined, w?.name); };
+  // The worker that came along keeps what it saw as lessons; at the end the player decides whether it learns them.
+  let companionLessons: Lesson[] | null = null;
+  const makeCompanion = (): Watcher | undefined => {
+    const w = equipped();
+    if (!w) { companionLessons = null; return undefined; }
+    const lessons: Lesson[] = [];
+    companionLessons = lessons;
+    let options: { key: string; f: Lesson['own'] }[] = [];
+    let own: { key: string; f: Lesson['own']; score: number } | null = null;
+    return {
+      start: (g) => {
+        const o = moveOptions(g, { ...w.weights, noise: 0 });
+        options = o.map((x) => ({ key: x.key, f: x.f }));
+        own = o.reduce((a, b) => (b.score > a.score ? b : a));
+      },
+      end: (_g, key) => {
+        const chosen = options.find((x) => x.key === key);
+        if (chosen && own && own.key !== key && own.score < 1e8) lessons.push({ chosen: chosen.f, own: own.f });
+        options = []; own = null;
+      },
+    };
+  };
+  const playDuel = (deck: FigureDef[] | null, plates: PlateDef[], opp: Opponent | null) => {
+    hooks.setCompanion?.(mode.kind === 'worker' ? (companionLessons = null, undefined) : makeCompanion());
+    hooks.play(deck, plates, opp);
+  };
+  const companionAsk = () => {
+    const lessons = companionLessons, w0 = equipped();
+    companionLessons = null;
+    if (!lessons || !w0) return undefined;
+    if (!lessons.length) return { q: `${w0.name} te acompañó, pero no hay nada nuevo que aprender de este combate.`, yes: () => '', no: () => '', info: true };
+    return {
+      q: `¿Quieres que ${w0.name} aprenda de este combate? (${lessons.length} jugadas tuyas distintas de lo que él haría)`,
+      yes: () => {
+        story = loadStory();
+        const w = myHotel()?.worker;
+        if (!w) return '';
+        const before = personality(w.weights), n = learnLessons(w, lessons);
+        saveStory(); syncHelper();
+        const after = personality(w.weights);
+        return `${w.name} ha aprendido ${n} cosas de ti.${after !== before ? ` Ahora es ${after}.` : ''}`;
+      },
+      no: () => `${w0.name} no aprende nada de este combate.`,
+    };
+  };
   const renderWorkerSlot = () => {
     const h = myHotel(), w = equipped(), pick = $<HTMLSelectElement>('dmWorkerPick');
     pick.innerHTML = '';
@@ -1403,30 +1454,33 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     renderCustom();
   };
   // Full customisation of the worker (the user's request, 2026-11-02): name, figure, every weight, mistakes, a style to start from.
-  const TRAITS = Object.keys(TRAIT_ES) as (keyof typeof TRAIT_ES)[];
-  for (const st of AI_STYLES) { const o = document.createElement('option'); o.value = st.key; o.textContent = st.name; o.title = st.text; $('mhStyle').appendChild(o); }
+  // Personalising is only this (the user's request, 2026-11-03): one berry every 24 hours nudges its personality a little.
   const renderCustom = () => {
     const h = myHotel(); if (!h) return;
-    const w = h.worker;
-    const active = document.activeElement;
-    if (active !== $('mhWName')) $<HTMLInputElement>('mhWName').value = w.name;
-    if (active !== $('mhHName')) $<HTMLInputElement>('mhHName').value = h.name;
-    const fs = $<HTMLSelectElement>('mhWFig');
-    fs.innerHTML = '';
-    for (const d of all.filter((x) => owns(x.id)).sort((a, b) => a.name.localeCompare(b.name))) { const o = document.createElement('option'); o.value = d.id; o.textContent = d.name; fs.appendChild(o); }
-    fs.value = w.figureId;
-    // Mistakes are set by level again (the hand setting was removed, 2026-11-03).
-    if (w.noiseOverride != null) { w.noiseOverride = null; saveStory(); syncHelper(); }
-  };
-  $<HTMLInputElement>('mhWName').onchange = (e) => { const h = myHotel(); if (!h) return; h.worker.name = (e.target as HTMLInputElement).value.trim().slice(0, 20) || h.worker.name; saveStory(); changed(); };
-  $<HTMLInputElement>('mhHName').onchange = (e) => { const h = myHotel(); if (!h) return; h.name = (e.target as HTMLInputElement).value.trim().slice(0, 24) || h.name; saveStory(); changed(); };
-  $<HTMLSelectElement>('mhWFig').onchange = (e) => { const h = myHotel(); if (!h) return; h.worker.figureId = (e.target as HTMLSelectElement).value; saveStory(); changed(); };
-  $<HTMLSelectElement>('mhStyle').onchange = (e) => {
-    const h = myHotel(), key = (e.target as HTMLSelectElement).value; if (!h || !key) return;
-    const sw = styleWeights(key);
-    for (const k of TRAITS) h.worker.weights[k] = sw[k];
-    (e.target as HTMLSelectElement).value = '';
-    saveStory(); syncHelper(); mhNote(`Ahora parte del estilo ${AI_STYLES.find((x) => x.key === key)!.name}.`); changed();
+    const w = h.worker, wait = berryWait(w, Date.now());
+    const mins = Math.ceil(wait / 60_000), hrs = Math.floor(mins / 60), min = mins % 60;
+    $('mhBerryNote').textContent = wait ? `Ya ha comido hoy. Podrás darle otra baya en ${hrs ? `${hrs} h ` : ''}${min} min.`
+      : 'Dale una baya al día: cambia un poco su personalidad hacia lo que diga la baya.';
+    const box = $('mhBerries');
+    box.innerHTML = '';
+    for (const b of BERRIES) {
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'ghost'; btn.disabled = wait > 0;
+      btn.innerHTML = '<b></b><small></small>';
+      btn.querySelector('b')!.textContent = b.name;
+      btn.querySelector('small')!.textContent = b.text;
+      btn.onclick = () => {
+        const hh = myHotel(); if (!hh) return;
+        const before = personality(hh.worker.weights);
+        const err = giveBerry(hh.worker, b.key, Date.now());
+        if (err) { mhNote(err); return; }
+        saveStory(); syncHelper();
+        const after = personality(hh.worker.weights);
+        mhNote(`${hh.worker.name} se ha comido la ${b.name}.${after !== before ? ` Ahora es ${after}.` : ' Su personalidad cambia poco a poco.'}`);
+        changed();
+      };
+      box.appendChild(btn);
+    }
   };
   $('mhMake').onclick = () => {
     const id = $<HTMLSelectElement>('mhFig').value, d = byId.get(id);
@@ -1465,7 +1519,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
     mode = { kind: 'worker' };
     history.length = 0;
     go(null);
-    hooks.play(myDeck(), plateDeck.map((id) => plateById.get(id)!), {
+    playDuel(myDeck(), plateDeck.map((id) => plateById.get(id)!), {
       deck: workerDeckDefs(w.deck), plates: w.plates.map((id) => plateById.get(id)).filter((p): p is PlateDef => !!p),
       name: `${w.name} (Nv ${workerLevel(w)}, ${personality(w.weights)})`, weights: workerWeights(w), watch,
     });
@@ -1518,6 +1572,7 @@ export function setupMenus(pool: FigureDef[], records: FigureRecord[], hooks: Me
 
   return {
     open: () => { history.length = 0; armed = -1; go('home', false); },
+    companionAsk,
     battleFought: (id) => {
       gacha = loadState(read(GACHA_KEY));
       recordBattle(gacha, id);

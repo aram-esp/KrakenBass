@@ -53,3 +53,18 @@ test('AI styles differ, hotel stages get styles, the worker can be set by hand',
   const high = workerWeights(w);
   assert.ok(low.noise > high.noise && low.danger < high.danger, 'a low-level worker makes more mistakes');
 });
+
+test('berries: one a day, each nudges its branch; lessons from a duel are learned only when asked', async () => {
+  const { giveBerry, berryWait, BERRY_EVERY_MS, learnLessons, branchScores } = await import('../src/amiibo.ts');
+  const w = newWorker('52', 'Pika', [], [], 0);
+  const def0 = branchScores(w.weights).find((b) => b.key === 'def')!.ratio;
+  assert.equal(giveBerry(w, 'aranja', 1000), null);
+  assert.ok(branchScores(w.weights).find((b) => b.key === 'def')!.ratio > def0);
+  assert.match(giveBerry(w, 'zreza', 2000)!, /hoy/);
+  assert.ok(berryWait(w, 2000) > 0);
+  assert.equal(giveBerry(w, 'zreza', 1000 + BERRY_EVERY_MS), null);
+  w.learn = false;
+  const n = learnLessons(w, [{ chosen: feat({ guardGoal: 1 }), own: feat({}) }]);
+  assert.equal(n, 1, 'lessons are learned even with training-learning off (the player said yes)');
+  assert.equal(w.learn, false);
+});
