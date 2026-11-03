@@ -200,6 +200,12 @@ npx esbuild web/src/main.ts --bundle --minify --format=iife --outfile=publish/ap
 a `<title>`, inline script/data, dark single theme, phone-width layout. Republish with the Artifact tool using the same
 file path to keep the URL.
 
+Firebase Hosting (user's request, 2026-11-03): `hosting/` holds firebase.json, upload scripts (Windows .bat, Mac/Linux
+.command, both run `npx firebase-tools login`, `projects:list`, `deploy --only hosting --project <id>`) and LEEME.txt.
+`python3 tools/make_hosting.py` (after publish/build.py) writes hosting/duelo-firebase.zip (gitignored) with
+public/index.html. Checked with the hosting emulator (firebase-tools 15.34.2): the page loads. Not deployed: it needs
+the user's Google account.
+
 ## 5. Repo map
 - `src/` engine: `types.ts`, `rules.config.ts` (colour table, turn limit, MP penalty, P.C. size), `board.ts`, `battle.ts`,
   `game.ts`, `rng.ts`, `data.ts` (figures.json -> engine figure), `ai.ts`.
