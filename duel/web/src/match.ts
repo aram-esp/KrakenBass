@@ -122,6 +122,13 @@ export class Match {
     (window as unknown as { __duel: unknown }).__duel = { game: this.game, match: this, views: this.views };
     $('end').onclick = () => { if (this.canAct()) { this.game.endTurn(); this.afterHuman(); } };
     // The original's AI button: the AI plays this turn for you.
+    $('autoBtn').onclick = () => {
+      this.auto = !this.auto;
+      try { localStorage.setItem('duel.auto', this.auto ? '1' : '0'); } catch { /* per visit only */ }
+      this.showAuto();
+      this.refresh();
+    };
+    this.showAuto();
     $('aiBtn').onclick = () => { if (this.canAct()) { this.selected = null; this.watchSkip = true; aiTurn(this.game, seeded(this.seedBase++), this.helperWeights); this.afterHuman(); } };
     // Forfeit: a second press within 3 s confirms.
     const ff = $<HTMLButtonElement>('forfeit');
@@ -284,6 +291,27 @@ export class Match {
     this.refresh();
   }
 
+  /** Auto: the AI (or the worker that came along) plays every one of the player's turns, until it is turned off. */
+  auto = (() => { try { return localStorage.getItem('duel.auto') === '1'; } catch { return false; } })();
+  private autoPending = false;
+  private autoTurn() {
+    if (!this.auto || this.autoPending || !this.canAct()) return;
+    this.autoPending = true;
+    setTimeout(() => {
+      this.autoPending = false;
+      if (!this.auto || !this.canAct()) return;
+      this.selected = null;
+      this.watchSkip = true; // the worker does not learn from turns the AI played
+      aiTurn(this.game, seeded(this.seedBase++), this.helperWeights);
+      this.afterHuman();
+    }, AI_STEP_MS);
+  }
+  private showAuto() {
+    const b = $('autoBtn');
+    b.textContent = this.auto ? 'Auto: sí' : 'Auto: no';
+    b.setAttribute('aria-pressed', String(this.auto));
+  }
+
   afterHuman() {
     this.selected = null;
     this.refresh();
@@ -353,6 +381,7 @@ export class Match {
     this.turnBanner();
     this.watch();
     this.showCoach();
+    this.autoTurn();
     $<HTMLButtonElement>('aiBtn').disabled = !this.canAct();
     $('status').textContent = g.winner !== null ? 'Duelo terminado' : `Turno ${g.turn}/${300} · juega ${g.current === HUMAN ? 'el jugador' : 'la IA'}`;
 

@@ -346,6 +346,9 @@ export function renderWiki(root: HTMLElement, d: WikiData): void {
       <p>El duelo de práctica del original contra Luca, con sus mazos (Bulbapedia), y consejos que salen cuando toca. La primera vez da un booster de bienvenida
       <span class="tag inv">inventado</span>.</p>
       <h3>Trabajador en tus duelos</h3>
+      <h3>Auto</h3>
+      <p>En el duelo, el botón «Auto» hace que la IA juegue todos tus turnos sola (o tu trabajador, si lo llevas) hasta que lo vuelvas a quitar.
+      Tu trabajador no aprende de los turnos que juega la IA.</p>
       <p>En Mazos → Trabajador puedes llevar a tu trabajador a los duelos normales: el botón IA juega tu turno como él, con su nivel y lo que ha aprendido. Mientras te acompaña mira tus jugadas, y al acabar el duelo te pregunta si quieres que aprenda de ese combate.</p>`;
   }
 }

@@ -200,6 +200,10 @@ npx esbuild web/src/main.ts --bundle --minify --format=iife --outfile=publish/ap
 a `<title>`, inline script/data, dark single theme, phone-width layout. Republish with the Artifact tool using the same
 file path to keep the URL.
 
+Auto (user's request, 2026-11-03): "Auto" button in the duel bar (Match.auto, remembered in localStorage duel.auto):
+the AI plays each of the player's turns with the helper weights (the equipped worker, if any) after AI_STEP_MS; those
+turns are not lessons for the worker.
+
 Firebase Hosting (user's request, 2026-11-03): `hosting/` holds firebase.json, upload scripts (Windows .bat, Mac/Linux
 .command, both run `npx firebase-tools login`, `projects:list`, `deploy --only hosting --project <id>`) and LEEME.txt.
 `python3 tools/make_hosting.py` (after publish/build.py) writes hosting/duelo-firebase.zip (gitignored) with

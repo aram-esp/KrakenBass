@@ -63,6 +63,7 @@ body { margin: 0; background: var(--bg); color: var(--ink); font: 700 14px/1.35 
 #bar { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; padding-block: 6px; background: #0b0f1a; }
 #bar button { background: linear-gradient(180deg, #24365e, #142342); color: #fff; border: 2px solid #4a6aa8; border-radius: 8px; padding: 6px 12px;
   font: 900 14px/1.1 var(--font); cursor: pointer; }
+#bar #autoBtn[aria-pressed="true"] { background: linear-gradient(180deg, #ffe066, #f2b400); color: #3a2a00; border-color: #fff2a8; }
 #bar button:hover:not(:disabled) { border-color: #8fb2ff; } #bar button:disabled { opacity: .45; cursor: default; }
 #forfeit.armed { background: #8e1720; border-color: #ff8a90; }
 #hint { color: var(--mute); min-width: 0; flex: 1 1 200px; font-size: 13px; }
@@ -144,6 +145,7 @@ export function buildHud(): void {
   <div id="bar" class="gut">
     <button id="forfeit" type="button">Rendirse</button>
     <span id="hint"></span>
+    <button id="autoBtn" type="button" aria-pressed="false" title="La IA juega todos tus turnos">Auto: no</button>
     <button id="end" type="button">Terminar turno</button>
     <button id="logBtn" type="button">Registro</button>
     <button id="viewToggle" type="button">Vista 2D</button>
