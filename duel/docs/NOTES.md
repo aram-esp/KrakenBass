@@ -206,6 +206,10 @@ Firebase Hosting (user's request, 2026-11-03): `hosting/` holds firebase.json, u
 public/index.html. Checked with the hosting emulator (firebase-tools 15.34.2): the page loads. Not deployed: it needs
 the user's Google account.
 
+GitHub Pages (user's OK, 2026-11-03): branch `gh-pages` holds only index.html (copy of duel/publish/index.html) and
+.nojekyll; live at https://aram-esp.github.io/KrakenBass/ (enabled by GitHub on the first push). To update: copy the new
+publish/index.html into a worktree of gh-pages, commit, push.
+
 ## 5. Repo map
 - `src/` engine: `types.ts`, `rules.config.ts` (colour table, turn limit, MP penalty, P.C. size), `board.ts`, `battle.ts`,
   `game.ts`, `rng.ts`, `data.ts` (figures.json -> engine figure), `ai.ts`.
